@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&family=Ma+Shan+Zheng&family=Long+Cang&family=Noto+Serif+SC:wght@400;700&display=swap');
+
+.noto-naskh-arabic-bold {
+    font-family: "Noto Naskh Arabic", serif;
+    font-weight: 700;
+}
+.cinzel-decorative-regular {
+    font-family: "Cinzel Decorative", serif;
+}
+.eczar-font {
+    font-family: "Eczar", serif;
+}
+.zhi-mang-xing-regular {
+    font-family: "Zhi Mang Xing", cursive;
+}
+.noto-serif-sc-regular {
+    font-family: "Noto Serif SC", serif;
+}
+.yuji-syuku-regular {
+  font-family: "Yuji Syuku", serif;
+  font-weight: 400;
+  font-style: normal;
+}

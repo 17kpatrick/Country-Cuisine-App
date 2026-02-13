@@ -1,0 +1,49 @@
+const PreviewCard = ({ feature, db }) => {
+    if (!feature) return null;
+    
+    const p = feature.properties;
+    
+    // Prioritize state name (st_nm) if present, otherwise fallback to standard country logic
+    // This ensures we don't accidentally look up "IND" when hovering over a state
+    const isState = !!(p.st_nm || p.ST_NM || p.NAME_1 || p.name_1);
+    
+    const countryCode = isState ? null : ((p.ISO_A3 && p.ISO_A3 !== '-99' ? p.ISO_A3 : p.ADM0_A3) || feature.id);
+    let countryName = (p.st_nm || p.ST_NM || p.NAME_1 || p.name_1 || p.NAME || p.ADMIN || p.name || '').trim();
+    
+    // Fix common GeoJSON name mismatches for India
+    if (countryName === 'Orissa') countryName = 'Odisha';
+    if (countryName === 'Uttaranchal') countryName = 'Uttarakhand';
+    if (countryName === 'Pondicherry') countryName = 'Puducherry';
+    if (countryName.includes('Andaman')) countryName = 'Andaman and Nicobar Islands';
+    if (countryName.includes('Dadra') || countryName.includes('Daman')) countryName = 'Dadra and Nagar Haveli and Daman and Diu';
+    if (countryName === 'Jammu & Kashmir') countryName = 'Jammu and Kashmir';
+    
+    // Get data or fallback
+    let culinaryData = db[countryCode] || db[countryName];
+    if (!culinaryData) culinaryData = getGenericRecipe(countryName);
+    
+    const imageUrl = getDishImage(culinaryData.dish);
+    const theme = getCountryTheme(countryCode);
+    
+    // Try to get flag from feature properties if available, or fallback
+    const iso2 = (countryName === 'Taiwan' || p.ISO_A3 === 'TWN') ? 'TW' : (p.ISO_A2 && p.ISO_A2 !== '-99' ? p.ISO_A2 : p.ISO_A2_EH);
+    const flagUrl = iso2 ? `https://flagcdn.com/w80/${iso2.toLowerCase()}.png` : null;
+
+    return (
+        <div className="absolute bottom-8 left-8 z-[1000] w-80 bg-gray-900/80 text-gray-100 rounded-3xl shadow-2xl overflow-hidden border border-white/10 backdrop-blur-2xl animate-in fade-in slide-in-from-bottom-4 duration-300 pointer-events-none">
+            <div className="h-40 relative">
+                <img src={imageUrl} alt={culinaryData.dish} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
+                <div className="absolute bottom-4 left-4 right-4">
+                    <div className="flex items-center gap-2 mb-1">
+                        {flagUrl && <img src={flagUrl} className="h-3 w-auto rounded-sm shadow-sm" alt="" style={{ borderColor: theme.primary, borderWidth: '0 0 2px 0' }} />}
+                        <p className="text-xs font-bold uppercase tracking-widest text-gray-100 drop-shadow-md">{countryName}</p>
+                    </div>
+                    <h3 className="text-xl font-serif font-bold leading-tight shadow-black drop-shadow-md">{culinaryData.dish}</h3>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+window.PreviewCard = PreviewCard;

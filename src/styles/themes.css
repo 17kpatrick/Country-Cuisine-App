@@ -1,0 +1,93 @@
+/* --- MAP THEMES --- */
+
+/* Transition for smooth theme switching */
+.leaflet-tile-pane {
+    transition: filter 1.5s ease;
+}
+
+/* Japan Ink / Total War Style */
+.japan-ink {
+    background-color: #f0e6d2 !important; /* Parchment background color */
+}
+.japan-ink .leaflet-tile-pane {
+    /* Invert dark tiles to make them light, add sepia for paper look, boost contrast for ink look */
+    filter: grayscale(100%) invert(100%) sepia(40%) contrast(130%) brightness(110%);
+}
+.japan-ink::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZjBlNmQyIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+'); /* Subtle grain */
+    pointer-events: none;
+    z-index: 400; /* Above tiles */
+    opacity: 0.5;
+}
+
+/* Algeria Sahara Theme */
+.algeria-sahara {
+    background-color: #a5855a !important; /* Deep sand color */
+}
+.algeria-sahara .leaflet-tile-pane {
+    /* Make it look like a warm, sun-drenched map */
+    filter: sepia(60%) contrast(120%) brightness(95%) saturate(120%);
+}
+.algeria-sahara::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* More pronounced grain for a "sandy" feel */
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzIiBoZWlnaHQ9IjMiPgo8cmVjdCB3aWR0aD0iMyIgaGVpZ2h0PSIzIiBmaWxsPSIjYTY4NTU5Ii8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=');
+    pointer-events: none;
+    z-index: 400;
+    opacity: 0.7;
+    mix-blend-mode: multiply;
+}
+
+/* India Dark Diya Theme */
+.india-dark-diya {
+    background-color: #050505 !important; /* Deep Void */
+    /* Default mouse position (center) */
+    --mouse-x: 50vw;
+    --mouse-y: 50vh;
+}
+.india-dark-diya .leaflet-tile-pane {
+    /* Darken the map significantly, almost black, so only the light reveals it */
+    filter: grayscale(100%) brightness(15%) contrast(130%);
+    transition: filter 0.5s ease;
+}
+/* The Diya Light Overlay */
+.india-dark-diya::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 450; /* Above map, below UI */
+    /* Radial gradient tracking mouse */
+    background: radial-gradient(
+        circle 300px at var(--mouse-x) var(--mouse-y), 
+        rgba(255, 160, 50, 0.25) 0%, 
+        rgba(255, 100, 0, 0.1) 30%, 
+        transparent 70%
+    );
+    /* Color Dodge makes the dark map pixels glow when the gradient hits them */
+    mix-blend-mode: color-dodge;
+    pointer-events: none;
+}
+
+/* China Imperial Theme */
+.china-imperial {
+    background-color: #3a0000 !important; /* Burning red background */
+}
+.china-imperial .leaflet-tile-pane {
+    /* "Total War" style: Crushed blacks, burning reds, gold highlights */
+    filter: sepia(100%) hue-rotate(-45deg) saturate(400%) contrast(150%) brightness(60%);
+}
+.china-imperial::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255, 50, 0, 0.1) 20%, #000000 90%); /* Burning vignette */
+    pointer-events: none;
+    z-index: 400;
+    mix-blend-mode: overlay;
+}
