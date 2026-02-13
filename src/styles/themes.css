@@ -1,93 +1,389 @@
-/* --- MAP THEMES --- */
+/* styles.css */
 
-/* Transition for smooth theme switching */
+/* Fonts (keep it minimal + modern) */
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Noto+Serif:wght@400;600&display=swap");
+
+/* -----------------------------
+   GLOBAL / HELPERS
+------------------------------ */
+.custom-flaire-element {
+  pointer-events: none !important;
+}
+
+.flair-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.flair-poem {
+  animation: fade-poem 18s ease-in-out infinite;
+}
+@keyframes fade-poem {
+  0%, 100% { opacity: 0; }
+  18%, 82% { opacity: 0.75; }
+}
+
+/* Leaflet tile transitions */
 .leaflet-tile-pane {
-    transition: filter 1.5s ease;
+  transition: filter 1.5s ease, opacity 1.2s ease;
 }
 
-/* Japan Ink / Total War Style */
-.japan-ink {
-    background-color: #f0e6d2 !important; /* Parchment background color */
-}
-.japan-ink .leaflet-tile-pane {
-    /* Invert dark tiles to make them light, add sepia for paper look, boost contrast for ink look */
-    filter: grayscale(100%) invert(100%) sepia(40%) contrast(130%) brightness(110%);
-}
-.japan-ink::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZjBlNmQyIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+'); /* Subtle grain */
-    pointer-events: none;
-    z-index: 400; /* Above tiles */
-    opacity: 0.5;
+/* -----------------------------
+   EFFECTS CONTAINER
+------------------------------ */
+.effects-container,
+.sakura-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 800; /* Above map, below UI */
+  overflow: visible;
 }
 
-/* Algeria Sahara Theme */
-.algeria-sahara {
-    background-color: #a5855a !important; /* Deep sand color */
-}
-.algeria-sahara .leaflet-tile-pane {
-    /* Make it look like a warm, sun-drenched map */
-    filter: sepia(60%) contrast(120%) brightness(95%) saturate(120%);
-}
-.algeria-sahara::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    /* More pronounced grain for a "sandy" feel */
-    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzIiBoZWlnaHQ9IjMiPgo8cmVjdCB3aWR0aD0iMyIgaGVpZ2h0PSIzIiBmaWxsPSIjYTY4NTU5Ii8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=');
-    pointer-events: none;
-    z-index: 400;
-    opacity: 0.7;
-    mix-blend-mode: multiply;
+/* -----------------------------
+   FIX: Sakura petal CSS bug (you had `position: block;`)
+------------------------------ */
+.sakura-wrapper {
+  position: absolute;
+  z-index: 800;
+  pointer-events: none;
+  animation: sakuraWind linear infinite;
+  opacity: 0;
+  will-change: transform, left, top;
 }
 
-/* India Dark Diya Theme */
-.india-dark-diya {
-    background-color: #050505 !important; /* Deep Void */
-    /* Default mouse position (center) */
-    --mouse-x: 50vw;
-    --mouse-y: 50vh;
+.sakura-petal {
+  position: absolute;
+  display: block;
+  background: linear-gradient(120deg, #ffc0cb 0%, #ffb7c5 100%);
+  border-radius: 100% 0 100% 0;
+  animation: sakuraTumble 3s ease-in-out infinite alternate;
+  opacity: 1;
+  backdrop-filter: blur(1px);
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
 }
-.india-dark-diya .leaflet-tile-pane {
-    /* Darken the map significantly, almost black, so only the light reveals it */
-    filter: grayscale(100%) brightness(15%) contrast(130%);
-    transition: filter 0.5s ease;
+
+@keyframes sakuraWind {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: 0.9; }
+  100% { transform: translate(100vw, 100vh); opacity: 0; }
 }
-/* The Diya Light Overlay */
-.india-dark-diya::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 450; /* Above map, below UI */
-    /* Radial gradient tracking mouse */
-    background: radial-gradient(
-        circle 300px at var(--mouse-x) var(--mouse-y), 
-        rgba(255, 160, 50, 0.25) 0%, 
-        rgba(255, 100, 0, 0.1) 30%, 
-        transparent 70%
-    );
-    /* Color Dodge makes the dark map pixels glow when the gradient hits them */
-    mix-blend-mode: color-dodge;
-    pointer-events: none;
+
+@keyframes sakuraTumble {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(0.8); }
+  100% { transform: rotate(360deg) scale(1); }
 }
+
+/* -----------------------------
+   INDIA cursor smoke (your existing)
+------------------------------ */
+.cursor-smoke {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(230, 245, 255, 0.8) 0%,
+    rgba(200, 230, 255, 0.2) 60%,
+    transparent 80%
+  );
+  pointer-events: none;
+  z-index: 1000;
+  filter: blur(2px);
+  mix-blend-mode: screen;
+  animation: incenseRise var(--duration) linear forwards;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+@keyframes incenseRise {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  5% { opacity: 0.9; }
+  30% { transform: translate(-50%, -80px) scale(1); opacity: 0.8; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--drift)), -350px) scale(5); }
+}
+
+/* -----------------------------
+   Lanterns (your existing, kept)
+------------------------------ */
+.lantern {
+  position: absolute;
+  border-radius: 12px 12px 8px 8px;
+  background: radial-gradient(circle at 50% 60%,
+    rgba(255, 255, 240, 0.9) 0%,
+    rgba(255, 160, 20, 0.6) 45%,
+    rgba(200, 50, 0, 0.4) 100%
+  );
+  box-shadow: 0 0 25px 5px rgba(255, 120, 0, 0.25);
+  mix-blend-mode: screen;
+  animation-name: lanternRise;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.lantern::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 20%;
+  width: 60%;
+  height: 2px;
+  background: rgba(80, 30, 10, 0.4);
+  border-radius: 2px;
+}
+
+@keyframes lanternRise {
+  0% { transform: translateY(110vh) scale(0.6) rotate(2deg); opacity: 0; }
+  20% { opacity: 0.6; }
+  50% { transform: translateY(50vh) translateX(40px) scale(0.8) rotate(-2deg); }
+  100% { transform: translateY(-20vh) translateX(-20px) scale(0.5) rotate(2deg); opacity: 0; }
+}
+
+/* -----------------------------
+   Shared star pulse
+------------------------------ */
+.star-pulse {
+  animation: star-glow 4s infinite alternate ease-in-out;
+}
+@keyframes star-glow {
+  from { opacity: 0.3; transform: scale(0.9); }
+  to { opacity: 0.85; transform: scale(1.15); }
+}
+
+/* -----------------------------
+   BRAZIL — CINEMATIC JUNGLE (Balanced)
+------------------------------ */
+.brazil-cinematic {
+  background-color: #0d1f12 !important; /* Dark but visible jungle green */
+}
+
+/* Transform tiles into atmospheric rainforest - darker but visible */
+.brazil-cinematic .leaflet-tile-pane {
+  filter:
+    grayscale(100%)
+    sepia(100%)
+    hue-rotate(72deg)
+    saturate(240%)
+    brightness(0.55)
+    contrast(1.7);
+  transition: filter 1.5s ease;
+}
+
+/* Moderate vignette - atmospheric but not overwhelming */
+.brazil-cinematic::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 450;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(10, 20, 12, 0.1) 0%,
+    rgba(8, 18, 10, 0.5) 60%,
+    rgba(5, 12, 7, 0.8) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Light atmospheric overlay */
+.brazil-cinematic::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 451;
+  background: rgba(8, 20, 12, 0.35);
+  mix-blend-mode: multiply;
+}
+
+/* Title: Majestic Gold (No tacky animation) */
+.brazil-title {
+  font-family: "Sora", sans-serif;
+  text-transform: uppercase;
+  background: linear-gradient(to bottom, #FFD700 10%, #B8860B 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.9));
+  font-weight: 900;
+  letter-spacing: 10px;
+}
+
+/* Landmarks: Glowing Silhouettes (Japan Style) */
+.landmark-glow {
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+  animation: landmarkPulse 4s ease-in-out infinite alternate;
+}
+@keyframes landmarkPulse {
+  from { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4)); transform: scale(1); }
+  to { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); transform: scale(1.02); }
+}
+
+/* Amazon river shimmer (Leaflet SVG path gets className) */
+.amazon-river {
+  /* Solid, organic pulse instead of dashed lines */
+  stroke-dasharray: none;
+  animation: riverPulse 4s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 5px rgba(200, 230, 255, 0.5));
+}
+@keyframes riverPulse {
+  from { opacity: 0.6; stroke-width: 3; }
+  to { opacity: 0.9; stroke-width: 4; }
+}
+
+/* Floating Music Notes */
+@keyframes floatNotes {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+  50% { transform: translateY(-10px) rotate(5deg); opacity: 1; }
+}
+
+/* Flag Waving Effect */
+@keyframes flagWave {
+  0% { transform: skewY(0deg) scale(1); }
+  25% { transform: skewY(1deg) scale(1.01); }
+  50% { transform: skewY(0deg) scale(1); }
+  75% { transform: skewY(-1deg) scale(1.01); }
+  100% { transform: skewY(0deg) scale(1); }
+}
+
+/* -----------------------------
+   BRAZIL — EFFECTS (mist + fireflies + macaws)
+------------------------------ */
+
+/* Mist puffs */
+.mist-puff {
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 820;
+  opacity: 0;
+
+  background: radial-gradient(circle,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.2) 40%,
+    rgba(0,0,0,0) 75%
+  );
+
+  filter: blur(20px);
+  mix-blend-mode: screen;
+  animation: mistDrift var(--duration) ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes mistDrift {
+  0%   { transform: translate(var(--dx1), var(--dy1)) scale(var(--s1)); opacity: 0; }
+  20%  { opacity: 0.5; }
+  55%  { transform: translate(var(--dx2), var(--dy2)) scale(var(--s2)); opacity: 0.3; }
+  100% { transform: translate(var(--dx3), var(--dy3)) scale(var(--s3)); opacity: 0; }
+}
+
+/* Fireflies: twinkle + drift */
+.firefly-spark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 830;
+
+    background: #ffbf00; /* Warm Amber/Gold */
+  box-shadow:
+        0 0 6px 2px rgba(255, 191, 0, 0.6),
+        0 0 12px 4px rgba(255, 140, 0, 0.2);
+
+  opacity: 0;
+  animation:
+    fireflyDrift var(--duration) ease-in-out infinite,
+    fireflyTwinkle 2.8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes fireflyTwinkle {
+  0%, 100% { opacity: 0.05; transform: scale(0.85); }
+  35% { opacity: 0.85; transform: scale(1.15); }
+  60% { opacity: 0.25; transform: scale(0.95); }
+}
+
+@keyframes fireflyDrift {
+  0%   { transform: translate(0, 0); }
+  50%  { transform: translate(var(--dx), var(--dy)); }
+  100% { transform: translate(calc(var(--dx) * -0.7), calc(var(--dy) * 1.1)); }
+}
+
+/* Macaws: less “dot with wings”, more “stylized glyph” */
+.macaw-bird {
+  position: absolute;
+  width: 30px;
+  height: 18px;
+  pointer-events: none;
+  z-index: 850;
+
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 70% 45%, rgba(255,255,255,0.7) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 86% 58%, rgba(255, 176, 0, 0.95) 0 4px, transparent 5px),
+    linear-gradient(90deg, rgba(0,191,255,0.95), rgba(0,214,140,0.90));
+
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.25));
+  animation: macawFly linear infinite;
+  will-change: transform, opacity;
+}
+
+.macaw-bird::before,
+.macaw-bird::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  width: 30px;
+  height: 12px;
+  border-radius: 999px;
+
+  background: linear-gradient(90deg, rgba(255,215,0,0.9), rgba(0,191,255,0.75));
+  opacity: 0.95;
+
+  /* wing shape */
+  clip-path: polygon(0% 50%, 20% 10%, 60% 0%, 100% 35%, 60% 65%, 20% 85%);
+
+  animation: macawWing 0.22s infinite alternate ease-in-out;
+}
+
+.macaw-bird::before { left: -20px; transform-origin: right center; }
+.macaw-bird::after  { right: -20px; transform-origin: left center; }
+
+@keyframes macawFly {
+  0%   { transform: translate(-12vw, 110vh) scale(0.65) rotate(-35deg); opacity: 0; }
+  8%   { opacity: 1; }
+  100% { transform: translate(112vw, -12vh) scale(1.25) rotate(-35deg); opacity: 1; }
+}
+
+@keyframes macawWing {
+  from { transform: rotate(22deg) scaleX(0.95); }
+  to   { transform: rotate(-22deg) scaleX(1.05); }
+}
+
+/* -----------------------------
+   YOUR EXISTING THEMES (kept)
+   - china-imperial unchanged
+   - japan-ink etc can stay in this file if you already had them
+------------------------------ */
 
 /* China Imperial Theme */
-.china-imperial {
-    background-color: #3a0000 !important; /* Burning red background */
-}
+.china-imperial { background-color: #3a0000 !important; }
 .china-imperial .leaflet-tile-pane {
-    /* "Total War" style: Crushed blacks, burning reds, gold highlights */
-    filter: sepia(100%) hue-rotate(-45deg) saturate(400%) contrast(150%) brightness(60%);
+  filter: sepia(100%) hue-rotate(-45deg) saturate(400%) contrast(150%) brightness(60%);
 }
 .china-imperial::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(255, 50, 0, 0.1) 20%, #000000 90%); /* Burning vignette */
-    pointer-events: none;
-    z-index: 400;
-    mix-blend-mode: overlay;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 50, 0, 0.1) 20%, #000 90%);
+  pointer-events: none;
+  z-index: 400;
+  mix-blend-mode: overlay;
 }

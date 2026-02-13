@@ -13,20 +13,28 @@ const getIso2 = (feature) => {
 };
 
 const INDIAN_STATES = [
-    'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 
-    'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 
-    'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 
-    'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 
-    'Uttarakhand', 'West Bengal', 'Andaman and Nicobar Islands', 'Chandigarh', 
-    'Dadra and Nagar Haveli and Daman and Diu', 'Delhi', 'Jammu and Kashmir', 'Ladakh', 
+    'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat',
+    'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh',
+    'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab',
+    'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh',
+    'Uttarakhand', 'West Bengal', 'Andaman and Nicobar Islands', 'Chandigarh',
+    'Dadra and Nagar Haveli and Daman and Diu', 'Delhi', 'Jammu and Kashmir', 'Ladakh',
     'Lakshadweep', 'Puducherry'
 ];
 
 const CHINESE_PROVINCES = [
-    'Anhui', 'Beijing', 'Chongqing', 'Fujian', 'Gansu', 'Guangdong', 'Guangxi', 'Guizhou', 
-    'Hainan', 'Hebei', 'Heilongjiang', 'Henan', 'Hubei', 'Hunan', 'Inner Mongolia', 'Jiangsu', 
-    'Jiangxi', 'Jilin', 'Liaoning', 'Ningxia', 'Qinghai', 'Shaanxi', 'Shandong', 'Shanghai', 
+    'Anhui', 'Beijing', 'Chongqing', 'Fujian', 'Gansu', 'Guangdong', 'Guangxi', 'Guizhou',
+    'Hainan', 'Hebei', 'Heilongjiang', 'Henan', 'Hubei', 'Hunan', 'Inner Mongolia', 'Jiangsu',
+    'Jiangxi', 'Jilin', 'Liaoning', 'Ningxia', 'Qinghai', 'Shaanxi', 'Shandong', 'Shanghai',
     'Shanxi', 'Sichuan', 'Tianjin', 'Tibet', 'Xinjiang', 'Yunnan', 'Zhejiang', 'Taiwan'
+];
+
+const BRAZIL_STATES = [
+    'Acre', 'Alagoas', 'Amapá', 'Amazonas', 'Bahia', 'Ceará', 'Distrito Federal',
+    'Espírito Santo', 'Goiás', 'Maranhão', 'Mato Grosso', 'Mato Grosso do Sul',
+    'Minas Gerais', 'Pará', 'Paraíba', 'Paraná', 'Pernambuco', 'Piauí', 'Rio de Janeiro',
+    'Rio Grande do Norte', 'Rio Grande do Sul', 'Rondônia', 'Roraima', 'Santa Catarina',
+    'São Paulo', 'Sergipe', 'Tocantins'
 ];
 
 const CHINA_NAME_MAPPING = {
@@ -66,9 +74,38 @@ const CHINA_NAME_MAPPING = {
     "台湾": "Taiwan", "台湾省": "Taiwan"
 };
 
+const TILE_STYLES = {
+    dark: {
+        url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+        options: {
+            attribution: '&copy; OpenStreetMap &copy; CARTO',
+            subdomains: 'abcd',
+            maxZoom: 20
+        }
+    },
+    voyager: {
+        url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+        options: {
+            attribution: '&copy; OpenStreetMap &copy; CARTO',
+            subdomains: 'abcd',
+            maxZoom: 20
+        }
+    },
+    satellite: {
+        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        options: {
+            attribution: 'Tiles &copy; Esri',
+            maxZoom: 19
+        }
+    }
+};
+
 const App = () => {
     const mapContainerRef = useRef(null);
     const mapInstanceRef = useRef(null);
+    const tileLayerRef = useRef(null);
+    const activeTileStyleRef = useRef('dark');
+
     const geoJsonLayerRef = useRef(null);
     const subRegionLayerRef = useRef(null);
     const highlightedLayerRef = useRef(null);
@@ -81,13 +118,21 @@ const App = () => {
     const mousePosRef = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
     const globalSubHighlightLayerRef = useRef(null);
     const regionCacheRef = useRef({});
-    
+
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [hoveredFeature, setHoveredFeature] = useState(null);
     const [culinaryDB, setCulinaryDB] = useState({});
     const [isMapLoading, setIsMapLoading] = useState(true);
     const [isDrillDownMode, setIsDrillDownMode] = useState(false);
     const [highlightedKeys, setHighlightedKeys] = useState(null);
+    const [searchIngredients, setSearchIngredients] = useState([]);
+    const [shoppingList, setShoppingList] = useState([]);
+    const [isCartOpen, setIsCartOpen] = useState(false);
+    const [toast, setToast] = useState(null);
+    const [activeSearchMode, setActiveSearchMode] = useState(null); // 'recipe' | 'stockpile' | null
+
+    // Safe reference to StockpileManager in case it hasn't loaded yet
+    const StockpileManager = window.StockpileManager || (() => null);
 
     useEffect(() => {
         highlightedKeysRef.current = highlightedKeys;
@@ -96,6 +141,58 @@ const App = () => {
     useEffect(() => {
         selectedCountryRef.current = selectedCountry;
     }, [selectedCountry]);
+
+    // Load shopping list from local storage
+    useEffect(() => {
+        const savedCart = localStorage.getItem('shoppingList');
+        if (savedCart) {
+            setShoppingList(JSON.parse(savedCart));
+        }
+    }, []);
+
+    // Save shopping list to local storage
+    useEffect(() => {
+        localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+    }, [shoppingList]);
+
+    const addToShoppingList = (items) => {
+        const newItems = items.filter(item => !shoppingList.includes(item));
+        if (newItems.length > 0) {
+            setShoppingList([...shoppingList, ...newItems]);
+        }
+    };
+
+    const removeFromShoppingList = (item) => {
+        setShoppingList(shoppingList.filter(i => i !== item));
+    };
+
+    const clearShoppingList = () => setShoppingList([]);
+
+    const handleGlobalClear = () => {
+        setHighlightedKeys(null);
+        setActiveSearchMode(null);
+    };
+
+    const showToast = (message, type = 'success') => {
+        setToast({ message, type });
+        setTimeout(() => setToast(null), 3000);
+    };
+
+    const applyTileStyle = (styleKey) => {
+        if (!mapInstanceRef.current) return;
+
+        const key = TILE_STYLES[styleKey] ? styleKey : 'dark';
+        if (tileLayerRef.current && activeTileStyleRef.current === key) return;
+
+        if (tileLayerRef.current) {
+            mapInstanceRef.current.removeLayer(tileLayerRef.current);
+            tileLayerRef.current = null;
+        }
+
+        const cfg = TILE_STYLES[key];
+        tileLayerRef.current = L.tileLayer(cfg.url, cfg.options).addTo(mapInstanceRef.current);
+        activeTileStyleRef.current = key;
+    };
 
     const getNormalizedName = (feature) => {
         const p = feature.properties;
@@ -123,56 +220,55 @@ const App = () => {
         }
     };
 
-// --- CONTINUOUS SMOKE LOOP (SEAMLESS FILAMENT) ---
+    // --- CONTINUOUS SMOKE LOOP (SEAMLESS FILAMENT) ---
     useEffect(() => {
-            let animationFrameId;
-            let lastTime = 0;
+        let animationFrameId;
+        let lastTime = 0;
 
-            const loop = (time) => {
-                if (activeMapThemeRef.current === 'india-dark-diya') {
-                    
-                    // Spawn Rate: 12ms (Slightly spaced to balance the longer life)
-                    if (time - lastTime > 12) { 
-                        lastTime = time;
-                        if (effectsContainerRef.current) {
-                            const el = document.createElement('div');
-                            el.className = 'cursor-smoke';
-                            
-                            // 1. POSITION
-                            el.style.left = `${mousePosRef.current.x}px`;
-                            el.style.top = `${mousePosRef.current.y - 15}px`; 
-                            
-                            // 2. PHYSICS (Very Slow Waft)
-                            const now = Date.now() / 1000;
-                            
-                            // Slow, hypnotic sway
-                            const sway = Math.sin(now * 0.3) * 30; 
-                            // Gentle jitter
-                            const jitter = Math.cos(now * 1.5) * 5;
-                            
-                            el.style.setProperty('--drift', `${sway + jitter}px`);
-                            
-                            // 3. DURATION (Very Slow Rise)
-                            // 10 to 15 seconds lifetime
-                            el.style.setProperty('--duration', `${10 + Math.random() * 5}s`);
+        const loop = (time) => {
+            if (activeMapThemeRef.current === 'india-dark-diya') {
+                // Spawn Rate: 12ms (Slightly spaced to balance the longer life)
+                if (time - lastTime > 12) {
+                    lastTime = time;
+                    if (effectsContainerRef.current) {
+                        const el = document.createElement('div');
+                        el.className = 'cursor-smoke';
 
-                            // 4. SIZE
-                            const size = 3 + Math.random() * 4; 
-                            el.style.width = `${size}px`;
-                            el.style.height = `${size}px`;
-                            
-                            effectsContainerRef.current.appendChild(el);
-                            
-                            // Cleanup after 15s
-                            setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 15000);
-                        }
+                        // 1. POSITION
+                        el.style.left = `${mousePosRef.current.x}px`;
+                        el.style.top = `${mousePosRef.current.y - 15}px`;
+
+                        // 2. PHYSICS (Very Slow Waft)
+                        const now = Date.now() / 1000;
+
+                        // Slow, hypnotic sway
+                        const sway = Math.sin(now * 0.3) * 30;
+                        // Gentle jitter
+                        const jitter = Math.cos(now * 1.5) * 5;
+
+                        el.style.setProperty('--drift', `${sway + jitter}px`);
+
+                        // 3. DURATION (Very Slow Rise)
+                        // 10 to 15 seconds lifetime
+                        el.style.setProperty('--duration', `${10 + Math.random() * 5}s`);
+
+                        // 4. SIZE
+                        const size = 3 + Math.random() * 4;
+                        el.style.width = `${size}px`;
+                        el.style.height = `${size}px`;
+
+                        effectsContainerRef.current.appendChild(el);
+
+                        // Cleanup after 15s
+                        setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 15000);
                     }
                 }
-                animationFrameId = requestAnimationFrame(loop);
-            };
+            }
             animationFrameId = requestAnimationFrame(loop);
-            return () => cancelAnimationFrame(animationFrameId);
-        }, []);
+        };
+        animationFrameId = requestAnimationFrame(loop);
+        return () => cancelAnimationFrame(animationFrameId);
+    }, []);
 
     // --- HELPER: Apply Artistic Flaire ---
     const updateFlaire = (isoCode) => {
@@ -193,6 +289,8 @@ const App = () => {
             activeMapThemeRef.current = null;
         }
 
+        applyTileStyle('dark');
+
         const flaireData = window.COUNTRY_FLAIRS?.[isoCode];
         if (!flaireData) return;
 
@@ -201,6 +299,9 @@ const App = () => {
                 if (mapContainerRef.current) {
                     mapContainerRef.current.classList.add(item.name);
                     activeMapThemeRef.current = item.name;
+                }
+                if (item.tiles) {
+                    applyTileStyle(item.tiles);
                 }
                 return;
             }
@@ -218,87 +319,170 @@ const App = () => {
                     count = 60; className = 'diwali-lamp';
                 } else if (item.name === 'lanterns-rise') {
                     count = 50; className = 'lantern';
+                } else if (item.name === 'macaw-flight') {
+                    count = 10; className = 'macaw';
+                } else if (item.name === 'amazon-fireflies') {
+                    count = 110; className = 'firefly-spark';
                 } else if (item.name === 'sakura-wind') {
-                    count = 60; className = 'sakura-petal'; // Use updated wind petals
+                    count = 60; className = 'sakura-petal';
+                } else if (item.name === 'canopy-mist') {
+                    count = 18; className = 'mist-puff';
                 }
-                
+
                 for (let i = 0; i < count; i++) {
                     let el;
-                    
+
                     // --- SPECIAL LOGIC FOR SAKURA WIND (JAPAN) ---
                     if (item.name === 'sakura-wind') {
-                        // Create a wrapper for movement (Wind)
                         const wrapper = document.createElement('div');
                         wrapper.className = 'sakura-wrapper';
 
-                        // Spawn randomly across the entire viewport + buffer (-20% to 100%)
                         wrapper.style.left = (Math.random() * 120 - 20) + '%';
                         wrapper.style.top = (Math.random() * 120 - 20) + '%';
-                        
-                        // Wind Speed
+
                         const duration = Math.random() * 8 + 6;
                         wrapper.style.animationDuration = duration + 's';
                         wrapper.style.animationDelay = -(Math.random() * duration) + 's';
 
-                        // Create the inner petal for rotation (Tumble)
                         const petal = document.createElement('div');
                         petal.className = 'sakura-petal';
-                        
-                        // Random sizes for depth perception
-                        const size = Math.random() * 12 + 6; 
+
+                        const size = Math.random() * 12 + 6;
                         petal.style.width = size + 'px';
                         petal.style.height = size + 'px';
-                        
-                        // Randomize tumble speed slightly
+
                         petal.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                        
+
                         wrapper.appendChild(petal);
                         el = wrapper;
+                    } else if (item.name === 'canopy-mist') {
+                        el = document.createElement('div');
+                        el.className = 'mist-puff';
+
+                        el.style.left = `${Math.random() * 100}%`;
+                        el.style.top = `${Math.random() * 100}%`;
+
+                        const size = 160 + Math.random() * 240;
+                        el.style.width = `${size}px`;
+                        el.style.height = `${size * 0.7}px`;
+
+                        el.style.setProperty('--duration', `${14 + Math.random() * 18}s`);
+                        el.style.setProperty('--dx1', `${-80 + Math.random() * 60}px`);
+                        el.style.setProperty('--dy1', `${20 + Math.random() * 70}px`);
+                        el.style.setProperty('--dx2', `${30 + Math.random() * 110}px`);
+                        el.style.setProperty('--dy2', `${-70 + Math.random() * 80}px`);
+                        el.style.setProperty('--dx3', `${-40 + Math.random() * 90}px`);
+                        el.style.setProperty('--dy3', `${-120 + Math.random() * 110}px`);
+                        el.style.setProperty('--s1', `${0.85 + Math.random() * 0.25}`);
+                        el.style.setProperty('--s2', `${1.0 + Math.random() * 0.25}`);
+                        el.style.setProperty('--s3', `${1.05 + Math.random() * 0.30}`);
+                        el.style.animationDelay = `${-(Math.random() * 12)}s`;
+                    } else if (item.name === 'jungle-rain') {
+                        // Single pass for rain (it covers the screen)
+                        el = document.createElement('div');
+                        el.className = 'rain-layer-1';
+                        effectsContainerRef.current.appendChild(el);
+                        
+                        const el2 = document.createElement('div');
+                        el2.className = 'rain-layer-2';
+                        effectsContainerRef.current.appendChild(el2);
+                        return; // Stop loop, we only need these two layers
+                    } else if (item.name === 'macaw-flight') {
+                        el = document.createElement('div');
+                        el.className = 'macaw';
+
+                        el.style.top = `${8 + Math.random() * 72}%`;
+
+                        el.style.setProperty('--duration', `${10 + Math.random() * 10}s`);
+                        el.style.setProperty('--dy', `${-40 + Math.random() * 80}px`);
+                        el.style.setProperty('--s', `${0.55 + Math.random() * 0.65}`);
+                        el.style.setProperty('--rot', `${-8 + Math.random() * 16}deg`);
+                        el.style.animationDelay = `${Math.random() * 6}s`;
+
+                        const gidBody = `macawBody_${Math.random().toString(36).slice(2)}`;
+                        const gidWing = `macawWing_${Math.random().toString(36).slice(2)}`;
+
+                        el.innerHTML = `
+                          <svg viewBox="0 0 120 60" width="52" height="26" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">
+                            <defs>
+                              <linearGradient id="${gidBody}" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="rgba(0,191,255,0.95)"/>
+                                <stop offset="100%" stop-color="rgba(76,225,197,0.90)"/>
+                              </linearGradient>
+                              <linearGradient id="${gidWing}" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="rgba(245,200,76,0.95)"/>
+                                <stop offset="100%" stop-color="rgba(0,191,255,0.75)"/>
+                              </linearGradient>
+                            </defs>
+
+                            <path d="M48 30 C58 18, 82 18, 92 30 C82 42, 58 42, 48 30 Z"
+                                  fill="url(#${gidBody})" opacity="0.95"/>
+
+                            <g class="wing l">
+                              <path d="M52 30 C30 18, 18 18, 8 30 C18 42, 30 42, 52 30 Z"
+                                    fill="url(#${gidWing})" opacity="0.95"/>
+                            </g>
+
+                            <g class="wing r">
+                              <path d="M88 30 C110 18, 118 18, 128 30 C118 42, 110 42, 88 30 Z"
+                                    fill="url(#${gidWing})" opacity="0.95"/>
+                            </g>
+
+                            <path d="M92 30 L104 26 L104 34 Z" fill="rgba(255,176,0,0.95)"/>
+                            <circle cx="86" cy="27" r="2" fill="rgba(10,10,10,0.7)"/>
+                          </svg>
+                        `;
                     } else {
                         // --- STANDARD LOGIC FOR OTHERS ---
                         el = document.createElement('div');
                         el.className = className;
                         el.style.left = Math.random() * 100 + '%';
-                        
+
                         if (item.name === 'sand-dust-devils') {
                             el.style.bottom = (Math.random() * 40 - 20) + '%';
                             el.style.transform = `scale(${Math.random() * 0.5 + 0.3})`;
                         } else if (item.name === 'lanterns-rise') {
-                            el.style.top = '0'; // Position handled by transform
+                            el.style.top = '0';
                             el.style.width = (Math.random() * 25 + 18) + 'px';
                             el.style.height = (parseFloat(el.style.width) * 1.3) + 'px';
                         } else if (item.name === 'incense-smoke') {
-                            // Random positions for smoke
                             el.style.left = Math.random() * 100 + '%';
                             el.style.top = Math.random() * 100 + '%';
                             el.style.animationDelay = -(Math.random() * 10) + 's';
-                            
-                            // Randomize smoke colors (Increased opacity for visibility)
+
                             const colors = ['rgba(255, 160, 120, 0.3)', 'rgba(220, 220, 220, 0.3)', 'rgba(150, 255, 180, 0.2)'];
                             const color = colors[Math.floor(Math.random() * colors.length)];
                             el.style.background = `radial-gradient(ellipse at center, ${color} 0%, transparent 70%)`;
                         } else if (item.name === 'diwali-lamp') {
-                            // Random positions for lamps
                             el.style.left = Math.random() * 100 + '%';
                             el.style.top = Math.random() * 100 + '%';
                             el.style.animationDelay = -(Math.random() * 5) + 's';
+                        } else if (item.name === 'amazon-fireflies') {
+                            const size = 2 + Math.random() * 2.5;
+                            el.style.width = `${size}px`;
+                            el.style.height = `${size}px`;
+                            el.style.top = Math.random() * 100 + '%';
+                            el.style.setProperty('--duration', `${6 + Math.random() * 11}s`);
+                            el.style.setProperty('--dx', `${-60 + Math.random() * 140}px`);
+                            el.style.setProperty('--dy', `${-90 + Math.random() * 160}px`);
+                            el.style.animationDelay = `${-(Math.random() * 7)}s`;
                         } else {
                             el.style.width = (Math.random() * 10 + 8) + 'px';
                             el.style.height = el.style.width;
                         }
-                        
+
                         const duration = item.name === 'lanterns-rise' ? Math.random() * 20 + 15 : Math.random() * 5 + 5;
                         el.style.animationDuration = duration + 's';
-                        el.style.animationDelay = item.name === 'lanterns-rise' 
-                            ? -(Math.random() * duration) + 's' 
+                        el.style.animationDelay = item.name === 'lanterns-rise'
+                            ? -(Math.random() * duration) + 's'
                             : (Math.random() * 5) + 's';
                     }
-                    
+
                     effectsContainerRef.current.appendChild(el);
                 }
                 return;
             }
-            
+
             if (item.type === 'circle') {
                 L.circle([item.lat, item.lon], { radius: item.radius, ...item.style }).addTo(flaireLayerRef.current);
                 return;
@@ -324,7 +508,7 @@ const App = () => {
                 iconSize: [item.width || 100, item.height || 50],
                 iconAnchor: [(item.width || 100) / 2, (item.height || 50) / 2]
             });
-            
+
             L.marker([item.lat, item.lon], { icon, interactive: false, zIndexOffset: 1000 })
                 .addTo(flaireLayerRef.current);
         });
@@ -333,6 +517,12 @@ const App = () => {
     // --- GLOBAL SUB-REGION HIGHLIGHTS (SEARCH) ---
     useEffect(() => {
         if (!mapInstanceRef.current) return;
+
+        // Create a custom pane for sub-region highlights so they sit above countries (z-index 450)
+        if (!mapInstanceRef.current.getPane('highlightPane')) {
+            mapInstanceRef.current.createPane('highlightPane');
+            mapInstanceRef.current.getPane('highlightPane').style.zIndex = 450;
+        }
 
         // Initialize or clear the global highlight layer
         if (!globalSubHighlightLayerRef.current) {
@@ -346,33 +536,38 @@ const App = () => {
         const countriesWithSubRegions = Object.keys(REGION_CONFIG);
 
         countriesWithSubRegions.forEach(isoCode => {
+            // Skip the active country in drill-down mode to let subRegionLayerRef handle it
+            if (isDrillDownMode && activeRegionIsoRef.current === isoCode) return;
+
             const config = REGION_CONFIG[isoCode];
 
             const renderHighlights = (data) => {
                 const featuresToHighlight = data.features.filter(f => {
-                    // Use normalized name from cache
                     const name = f.properties.st_nm || f.properties.name;
-                    return highlightedKeys.includes(name);
+                    return highlightedKeys[name];
                 });
 
                 if (featuresToHighlight.length > 0) {
                     L.geoJson(featuresToHighlight, {
-                        style: {
-                            fillColor: '#ef4444', // Red/Orange to contrast with Yellow country highlight
-                            fillOpacity: 0.9,
-                            weight: 1,
-                            color: '#ffffff'
+                        pane: 'highlightPane', // Force this layer to be above the country layer
+                        style: (feature) => {
+                            const name = feature.properties.st_nm || feature.properties.name;
+                            const type = highlightedKeys[name];
+                            let color = "#eab308"; // default yellow (food)
+                            if (type === 'drink') color = "#06b6d4"; // cyan
+                            if (type === 'both') color = "#a855f7"; // purple
+                            return { fillColor: color, fillOpacity: 0.9, weight: 1, color: "#ffffff" };
                         },
                         onEachFeature: (feature, layer) => {
                             layer.on('click', (e) => {
                                 L.DomEvent.stopPropagation(e);
                                 const name = feature.properties.st_nm || feature.properties.name;
-                                
+
                                 mapInstanceRef.current.setView(config.view.center, config.view.zoom, { animate: true });
                                 activeRegionIsoRef.current = isoCode;
                                 setIsDrillDownMode(true);
                                 loadSubRegionLayer(isoCode, config);
-                                
+
                                 setSelectedCountry({
                                     name: { common: name },
                                     cca3: name
@@ -392,7 +587,7 @@ const App = () => {
                         // Pre-process/Normalize Data for Cache
                         data.features.forEach(f => {
                             let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name || '').trim();
-                            
+
                             if (isoCode === 'CHN' && CHINA_NAME_MAPPING[name]) {
                                 name = CHINA_NAME_MAPPING[name];
                             }
@@ -404,8 +599,7 @@ const App = () => {
                                 if (name.includes('Dadra') || name.includes('Daman')) name = 'Dadra and Nagar Haveli and Daman and Diu';
                                 if (name === 'Jammu & Kashmir') name = 'Jammu and Kashmir';
                             }
-                            
-                            // Standardize properties for easier access later
+
                             f.properties.st_nm = name;
                             f.properties.name = name;
                         });
@@ -416,7 +610,7 @@ const App = () => {
                     .catch(err => console.error(`Error loading region ${isoCode}`, err));
             }
         });
-    }, [highlightedKeys]);
+    }, [highlightedKeys, isDrillDownMode]);
 
     const loadSubRegionLayer = (isoCode, regionConfig) => {
         if (subRegionLayerRef.current) {
@@ -424,84 +618,87 @@ const App = () => {
             subRegionLayerRef.current = null;
         }
 
-        const fetchData = regionCacheRef.current[isoCode] 
-            ? Promise.resolve(regionCacheRef.current[isoCode]) 
+        const fetchData = regionCacheRef.current[isoCode]
+            ? Promise.resolve(regionCacheRef.current[isoCode])
             : fetch(regionConfig.geoJsonUrl).then(res => res.json());
 
         fetchData.then(subData => {
-                if (activeRegionIsoRef.current !== isoCode) return;
+            if (activeRegionIsoRef.current !== isoCode) return;
 
-                const subLayer = L.geoJson(subData, {
-                    style: (feature) => {
-                        const name = getNormalizedName(feature);
-                        const iso = getIso3(feature);
-                        
-                        // Default Style
-                        let style = { fillColor: '#374151', weight: 1, opacity: 1, color: '#eab308', fillOpacity: 0.4 };
+            const subLayer = L.geoJson(subData, {
+                style: (feature) => {
+                    const name = getNormalizedName(feature);
+                    const iso = getIso3(feature);
 
-                        // Check Highlight (Recipe Finder)
-                        const searchKeys = highlightedKeysRef.current;
-                        if (searchKeys) {
-                            const isMatch = searchKeys.includes(iso) || searchKeys.includes(name);
-                            if (isMatch) {
-                                style = { fillColor: '#eab308', fillOpacity: 0.6, color: '#ffffff', weight: 1 };
-                            } else {
-                                style = { fillColor: '#1f2937', fillOpacity: 0.1, color: '#374151', weight: 1 };
-                            }
+                    // Default Style
+                    let style = { fillColor: '#374151', weight: 1, opacity: 1, color: '#eab308', fillOpacity: 0.4 };
+
+                    // Check Highlight (Recipe Finder)
+                    const searchKeys = highlightedKeysRef.current;
+                    if (searchKeys) {
+                        const matchType = searchKeys[iso] || searchKeys[name];
+                        if (matchType) {
+                            let color = "#eab308"; // food
+                            if (matchType === 'drink') color = "#06b6d4";
+                            if (matchType === 'both') color = "#a855f7";
+                            if (matchType === 'ready') color = "#10b981"; 
+                            style = { fillColor: color, fillOpacity: 0.6, color: "#ffffff", weight: 1 };
+                        } else {
+                            style = { fillColor: '#1f2937', fillOpacity: 0.1, color: '#374151', weight: 1 };
                         }
-
-                        // Check Selection (Click)
-                        const isSelected = selectedCountryRef.current && selectedCountryRef.current.name.common === name;
-                        if (isSelected) {
-                            style = { ...style, color: '#38bdf8', weight: 2, opacity: 1 };
-                        }
-
-                        return style;
-                    },
-                    onEachFeature: (feature, layer) => {
-                        // Data is already normalized if it came from cache, but if fresh fetch (rare race condition), handle it:
-                        if (isoCode === 'CHN') {
-                            const rawName = feature.properties.name || feature.properties.NAME_1 || feature.properties.NAME;
-                            if (rawName && CHINA_NAME_MAPPING[rawName]) {
-                                feature.properties.name = CHINA_NAME_MAPPING[rawName];
-                                feature.properties.st_nm = feature.properties.name;
-                            }
-                        }
-
-                        layer.on({
-                            mouseover: (e) => {
-                                const l = e.target;
-                                l.setStyle({ weight: 2, color: '#ffffff', fillOpacity: 0.7 });
-                                l.bringToFront();
-                                setHoveredFeature(layer.feature);
-                            },
-                            mouseout: (e) => {
-                                const l = e.target;
-                                subRegionLayerRef.current.resetStyle(l);
-                                
-                                const name = getNormalizedName(l.feature);
-                                const isSelected = selectedCountryRef.current && selectedCountryRef.current.name.common === name;
-                                if (isSelected) {
-                                    l.setStyle({ color: '#38bdf8', weight: 2, opacity: 1 });
-                                }
-                                
-                                setHoveredFeature(null);
-                            },
-                            click: (e) => {
-                                L.DomEvent.stopPropagation(e);
-                                const subName = getNormalizedName(feature);
-
-                                mapInstanceRef.current.fitBounds(e.target.getBounds());
-                                setSelectedCountry({
-                                    name: { common: subName },
-                                    cca3: subName
-                                });
-                            }
-                        });
                     }
-                }).addTo(mapInstanceRef.current);
-                subRegionLayerRef.current = subLayer;
-            });
+
+                    // Check Selection (Click)
+                    const isSelected = selectedCountryRef.current && selectedCountryRef.current.name.common === name;
+                    if (isSelected) {
+                        style = { ...style, color: '#38bdf8', weight: 2, opacity: 1 };
+                    }
+
+                    return style;
+                },
+                onEachFeature: (feature, layer) => {
+                    if (isoCode === 'CHN') {
+                        const rawName = feature.properties.name || feature.properties.NAME_1 || feature.properties.NAME;
+                        if (rawName && CHINA_NAME_MAPPING[rawName]) {
+                            feature.properties.name = CHINA_NAME_MAPPING[rawName];
+                            feature.properties.st_nm = feature.properties.name;
+                        }
+                    }
+
+                    layer.on({
+                        mouseover: (e) => {
+                            const l = e.target;
+                            l.setStyle({ weight: 2, color: '#ffffff', fillOpacity: 0.7 });
+                            l.bringToFront();
+                            setHoveredFeature(layer.feature);
+                        },
+                        mouseout: (e) => {
+                            const l = e.target;
+                            subRegionLayerRef.current.resetStyle(l);
+
+                            const name = getNormalizedName(l.feature);
+                            const isSelected = selectedCountryRef.current && selectedCountryRef.current.name.common === name;
+                            if (isSelected) {
+                                l.setStyle({ color: '#38bdf8', weight: 2, opacity: 1 });
+                            }
+
+                            setHoveredFeature(null);
+                        },
+                        click: (e) => {
+                            L.DomEvent.stopPropagation(e);
+                            const subName = getNormalizedName(feature);
+
+                            mapInstanceRef.current.fitBounds(e.target.getBounds());
+                            setSelectedCountry({
+                                name: { common: subName },
+                                cca3: subName
+                            });
+                        }
+                    });
+                }
+            }).addTo(mapInstanceRef.current);
+            subRegionLayerRef.current = subLayer;
+        });
     };
 
     useEffect(() => {
@@ -518,11 +715,7 @@ const App = () => {
         L.control.zoom({ position: 'bottomright' }).addTo(map);
         mapInstanceRef.current = map;
 
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; OpenStreetMap &copy; CARTO',
-            subdomains: 'abcd',
-            maxZoom: 20
-        }).addTo(map);
+        applyTileStyle('dark');
 
         fetch('./recipes.json')
             .then(res => res.json())
@@ -563,13 +756,17 @@ const App = () => {
                     let styleToApply = highlightStyle;
 
                     if (isSearchActive) {
-                        const isMatch = searchKeys.includes(isoCode) || searchKeys.includes(name);
-                        if (isMatch) {
+                        const matchType = searchKeys[isoCode] || searchKeys[name];
+                        if (matchType) {
+                            let color = "#eab308";
+                            if (matchType === 'drink') color = "#06b6d4";
+                            if (matchType === 'both') color = "#a855f7";
+                            if (matchType === 'ready') color = "#10b981";
                             styleToApply = {
                                 weight: 2,
                                 color: '#ffffff',
                                 fillOpacity: 0.9,
-                                fillColor: '#eab308'
+                                fillColor: color
                             };
                         }
                     }
@@ -593,15 +790,19 @@ const App = () => {
                     }
 
                     const isSelected = selectedCountryRef.current && (
-                        selectedCountryRef.current.cca3 === isoCode || 
+                        selectedCountryRef.current.cca3 === isoCode ||
                         selectedCountryRef.current.name.common === name
                     );
 
                     const searchKeys = highlightedKeysRef.current;
                     if (searchKeys !== null) {
-                        const isMatch = searchKeys.includes(isoCode) || searchKeys.includes(name);
-                        if (isMatch) {
-                            layer.setStyle({ fillColor: '#eab308', fillOpacity: 0.6, color: '#ffffff', weight: 1 });
+                        const matchType = searchKeys[isoCode] || searchKeys[name];
+                        if (matchType) {
+                            let color = "#eab308";
+                            if (matchType === 'drink') color = "#06b6d4";
+                            if (matchType === 'both') color = "#a855f7";
+                            if (matchType === 'ready') color = "#10b981";
+                            layer.setStyle({ fillColor: color, fillOpacity: 0.6, color: '#ffffff', weight: 1 });
                         } else {
                             layer.setStyle({ fillColor: '#1f2937', fillOpacity: 0.1, color: '#374151', weight: 1 });
                         }
@@ -612,7 +813,7 @@ const App = () => {
                     if (isSelected) {
                         layer.setStyle({ color: '#38bdf8', weight: 2, opacity: 1 });
                         if (searchKeys === null) {
-                             layer.setStyle({ fillOpacity: 0.2, fillColor: '#374151' });
+                            layer.setStyle({ fillOpacity: 0.2, fillColor: '#374151' });
                         }
                     }
 
@@ -687,21 +888,25 @@ const App = () => {
 
         const updateLayerStyle = (layerGroup) => {
             if (!layerGroup) return;
-            
+
             layerGroup.eachLayer(layer => {
                 const isoCode = getIso3(layer.feature);
                 const name = getNormalizedName(layer.feature);
                 const isSelected = selectedCountry && (selectedCountry.cca3 === isoCode || selectedCountry.name.common === name);
-                
+
                 if (highlightedKeys === null && !isSelected) {
                     layerGroup.resetStyle(layer);
                     return;
                 }
 
-                const isMatch = highlightedKeys && (highlightedKeys.includes(isoCode) || highlightedKeys.includes(name));
+                const matchType = highlightedKeys && (highlightedKeys[isoCode] || highlightedKeys[name]);
 
-                if (isMatch) {
-                    layer.setStyle({ fillColor: '#eab308', fillOpacity: 0.6, color: '#ffffff', weight: 1 });
+                if (matchType) {
+                    let color = "#eab308";
+                    if (matchType === 'drink') color = "#06b6d4";
+                    if (matchType === 'both') color = "#a855f7";
+                    if (matchType === 'ready') color = "#10b981";
+                    layer.setStyle({ fillColor: color, fillOpacity: 0.6, color: '#ffffff', weight: 1 });
                 } else if (highlightedKeys !== null) {
                     layer.setStyle({ fillColor: '#1f2937', fillOpacity: 0.1, color: '#374151', weight: 1 });
                 } else {
@@ -724,7 +929,7 @@ const App = () => {
         setIsDrillDownMode(false);
         activeRegionIsoRef.current = null;
         setSelectedCountry(null);
-        
+
         if (flaireLayerRef.current) {
             flaireLayerRef.current.clearLayers();
         }
@@ -732,8 +937,8 @@ const App = () => {
         if (effectsContainerRef.current) {
             effectsContainerRef.current.innerHTML = '';
             effectsContainerRef.current.style.display = 'none';
-            setTimeout(() => { 
-                if(effectsContainerRef.current) effectsContainerRef.current.style.display = 'block'; 
+            setTimeout(() => {
+                if (effectsContainerRef.current) effectsContainerRef.current.style.display = 'block';
             }, 10);
         }
 
@@ -741,6 +946,8 @@ const App = () => {
             mapContainerRef.current.classList.remove(activeMapThemeRef.current);
             activeMapThemeRef.current = null;
         }
+
+        applyTileStyle('dark');
 
         if (mapInstanceRef.current) {
             mapInstanceRef.current.setView([20, 0], 2.5);
@@ -764,9 +971,9 @@ const App = () => {
             const isoCode = key;
             const iso2Code = getIso2(targetLayer.feature);
             const name = targetLayer.feature.properties.NAME || targetLayer.feature.properties.name;
-            
+
             const regionConfig = REGION_CONFIG[isoCode];
-            
+
             if (regionConfig) {
                 mapInstanceRef.current.setView(regionConfig.view.center, regionConfig.view.zoom, { animate: true });
                 activeRegionIsoRef.current = isoCode;
@@ -791,10 +998,15 @@ const App = () => {
                 targetCountryIso = 'IND';
                 targetCountryCca2 = 'IN';
             }
-            
+
             if (CHINESE_PROVINCES.includes(key)) {
                 targetCountryIso = 'CHN';
                 targetCountryCca2 = 'CN';
+            }
+
+            if (BRAZIL_STATES.includes(key)) {
+                targetCountryIso = 'BRA';
+                targetCountryCca2 = 'BR';
             }
 
             if (!isDrillDownMode || activeRegionIsoRef.current !== targetCountryIso) {
@@ -828,7 +1040,7 @@ const App = () => {
         <div className="relative w-full h-screen bg-gray-900 font-sans text-gray-100" onMouseMove={handleMouseMove}>
             <div id="map" ref={mapContainerRef} className="outline-none"></div>
 
-            <div ref={effectsContainerRef} className="sakura-container"></div>
+            <div ref={effectsContainerRef} className="effects-container"></div>
 
             {isMapLoading && (
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-gray-900">
@@ -837,25 +1049,112 @@ const App = () => {
                 </div>
             )}
 
-            <RecipeFinder 
-                db={culinaryDB} 
+            <RecipeFinder
+                db={culinaryDB}
                 onRecipeSelect={handleRecipeSelect}
                 onHighlight={setHighlightedKeys}
+                onSearchIngredientsChange={setSearchIngredients}
+                activeSearchMode={activeSearchMode}
+                onActivateMode={() => setActiveSearchMode('recipe')}
             />
 
-            <RecipeCard 
-                country={selectedCountry} 
+            <StockpileManager
                 db={culinaryDB}
+                onRecipeSelect={handleRecipeSelect}
+                onHighlight={setHighlightedKeys}
+                onSearchIngredientsChange={setSearchIngredients}
+                activeSearchMode={activeSearchMode}
+                onActivateMode={() => setActiveSearchMode('stockpile')}
+            />
+
+            {/* Shopping Cart Button */}
+            <button 
+                onClick={() => setIsCartOpen(!isCartOpen)}
+                className="absolute top-4 right-6 z-[1100] bg-gray-800 hover:bg-gray-700 text-white p-3 rounded-full shadow-lg border border-gray-600 transition-all hover:scale-110 group"
+                title="Shopping Cart"
+            >
+                <span className="text-xl group-hover:animate-bounce">🛒</span>
+                {shoppingList.length > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border border-gray-900">
+                        {shoppingList.length}
+                    </span>
+                )}
+            </button>
+
+            {/* Shopping Cart Modal */}
+            {isCartOpen && (
+                <div className="absolute top-20 right-6 z-[1100] w-72 bg-gray-900/95 text-white rounded-xl shadow-2xl border border-gray-700 backdrop-blur-md flex flex-col max-h-[60vh] animate-in fade-in slide-in-from-top-4 duration-300">
+                    <div className="p-4 border-b border-gray-700 flex justify-between items-center">
+                        <h3 className="text-lg font-serif font-bold text-blue-400 flex items-center gap-2">
+                            <span>🛒</span> Shopping List
+                        </h3>
+                        <button onClick={() => clearShoppingList()} className="text-xs text-red-400 hover:text-red-300 uppercase font-bold tracking-wider">Clear All</button>
+                    </div>
+                    <div className="overflow-y-auto custom-scroll p-2 flex-grow">
+                        {shoppingList.length === 0 ? (
+                            <p className="text-gray-500 text-center text-xs py-4 italic">Your cart is empty.</p>
+                        ) : (
+                            shoppingList.map((item, idx) => (
+                                <div key={idx} className="flex justify-between items-center p-2 hover:bg-gray-800 rounded border-b border-gray-800 last:border-0 group">
+                                    <span className="text-sm text-gray-300">{item}</span>
+                                    <button onClick={() => removeFromShoppingList(item)} className="text-gray-500 hover:text-red-400">&times;</button>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </div>
+            )}
+
+            <RecipeCard
+                country={selectedCountry}
+                db={culinaryDB}
+                searchIngredients={searchIngredients}
+                onAddToShoppingList={addToShoppingList}
+                onShowToast={showToast}
                 onClose={() => {
                     setSelectedCountry(null);
                     handleBackToWorld();
                 }}
             />
 
+            {/* GLOBAL CLEAR BUTTON (Visible whenever map is highlighted) */}
+            {highlightedKeys && (
+                <button
+                    onClick={handleGlobalClear}
+                    className="absolute top-4 left-1/2 transform -translate-x-1/2 z-[1200] bg-red-600 hover:bg-red-500 text-white px-6 py-2 rounded-full shadow-xl border border-red-400 font-bold text-sm tracking-wide animate-in fade-in slide-in-from-top-4 duration-300 flex items-center gap-2"
+                >
+                    <span>✕</span> Clear Map
+                </button>
+            )}
+
             <PreviewCard feature={hoveredFeature} db={culinaryDB} />
 
+            {highlightedKeys && (
+                <div className="absolute bottom-24 right-4 z-[1000] bg-gray-900/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-2xl text-xs text-gray-200 animate-in fade-in slide-in-from-right-4 duration-300 pointer-events-none select-none w-32">
+                    <h4 className="font-bold mb-3 uppercase tracking-wider text-gray-400 border-b border-white/10 pb-2 text-[10px]">Match Type</h4>
+                    <div className="flex flex-col gap-2.5">
+                        <div className="flex items-center gap-3">
+                            <span className="w-3 h-3 rounded-full bg-[#10b981] shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
+                            <span className="font-medium">Ready</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <span className="w-3 h-3 rounded-full bg-[#eab308] shadow-[0_0_8px_rgba(234,179,8,0.6)]"></span>
+                            <span className="font-medium">Food</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <span className="w-3 h-3 rounded-full bg-[#06b6d4] shadow-[0_0_8px_rgba(6,182,212,0.6)]"></span>
+                            <span className="font-medium">Drink</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <span className="w-3 h-3 rounded-full bg-[#a855f7] shadow-[0_0_8px_rgba(168,85,247,0.6)]"></span>
+                            <span className="font-medium">Both</span>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {isDrillDownMode && !selectedCountry && (
-                <button 
+                <button
                     onClick={handleBackToWorld}
                     className="absolute top-4 left-4 z-[1000] bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg shadow-lg border border-gray-600 transition-colors font-bold flex items-center gap-2 animate-in fade-in slide-in-from-top-4 duration-300"
                 >
@@ -868,6 +1167,13 @@ const App = () => {
                     <span className="bg-black/70 text-gray-300 px-6 py-3 rounded-full text-sm font-medium backdrop-blur-md border border-gray-700">
                         Click a country to reveal its secret recipe 🍳
                     </span>
+                </div>
+            )}
+
+            {toast && (
+                <div className={`fixed bottom-10 left-1/2 transform -translate-x-1/2 z-[2000] px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-4 duration-300 border border-white/10 backdrop-blur-md ${toast.type === 'success' ? 'bg-emerald-600/90 text-white' : 'bg-red-600/90 text-white'}`}>
+                    <span className="text-xl">{toast.type === 'success' ? '🛒' : '⚠️'}</span>
+                    <span className="font-bold text-sm tracking-wide">{toast.message}</span>
                 </div>
             )}
         </div>

@@ -51,3 +51,11 @@ window.CHINA_NAME_MAPPING = {
     "澳门": "Macau", "澳门特别行政区": "Macau",
     "台湾": "Taiwan", "台湾省": "Taiwan"
 };
+
+window.BRAZIL_STATES = [
+    'Acre', 'Alagoas', 'Amapá', 'Amazonas', 'Bahia', 'Ceará', 'Distrito Federal', 
+    'Espírito Santo', 'Goiás', 'Maranhão', 'Mato Grosso', 'Mato Grosso do Sul', 
+    'Minas Gerais', 'Pará', 'Paraíba', 'Paraná', 'Pernambuco', 'Piauí', 'Rio de Janeiro', 
+    'Rio Grande do Norte', 'Rio Grande do Sul', 'Rondônia', 'Roraima', 'Santa Catarina', 
+    'São Paulo', 'Sergipe', 'Tocantins'
+];

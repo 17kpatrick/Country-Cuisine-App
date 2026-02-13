@@ -1,4 +1,5 @@
-const RecipeFinder = ({ db, onRecipeSelect, onHighlight }) => {
+const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChange, activeSearchMode, onActivateMode }) => {
+    const [isOpen, setIsOpen] = React.useState(true);
     const [searchTerm, setSearchTerm] = React.useState('');
     const [selectedIngredients, setSelectedIngredients] = React.useState([]);
     const [suggestions, setSuggestions] = React.useState([]);
@@ -49,36 +50,86 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight }) => {
         }
     }, [searchTerm, allIngredients, selectedIngredients]);
 
+    // React to global mode changes (e.g. if Stockpile is activated or Global Clear is clicked)
+    React.useEffect(() => {
+        if (activeSearchMode !== 'recipe') {
+            setSelectedIngredients([]);
+            setResults([]);
+        }
+    }, [activeSearchMode]);
+
     // Handle Filtering & Highlighting
     React.useEffect(() => {
+        // Only update map/state if we are the active mode (or becoming it)
+        if (activeSearchMode === 'recipe' && onSearchIngredientsChange) {
+            onSearchIngredientsChange(selectedIngredients);
+        }
+
         if (selectedIngredients.length === 0) {
             setResults([]);
-            onHighlight(null); // Clear highlight
+            // Only clear highlight if we were the ones who set it
+            if (activeSearchMode === 'recipe') onHighlight(null);
             return;
         }
 
-        const matchedKeys = [];
+        const matchedMap = {}; // { "ISO": "food" | "drink" | "both" }
         const matchedRecipes = [];
 
-        Object.entries(db).forEach(([key, recipe]) => {
-            const recipeIngs = recipe.ingredients.map(i => parseIngredient(i).toLowerCase());
-            // Check if recipe contains ALL selected ingredients
-            const hasAll = selectedIngredients.every(sel => 
-                recipeIngs.some(rIng => rIng.includes(sel.toLowerCase()))
+        const checkRecipe = (key, recipe) => {
+            // Helper to collect all ingredients including preliminary ones
+            const collectIngs = (baseIngs, prelimSteps) => {
+                let list = baseIngs ? baseIngs.map(i => parseIngredient(i).toLowerCase()) : [];
+                if (prelimSteps) {
+                    prelimSteps.forEach(step => {
+                        if (step.ingredients) {
+                            list = list.concat(step.ingredients.map(i => parseIngredient(i).toLowerCase()));
+                        }
+                    });
+                }
+                return list;
+            };
+
+            const foodIngs = collectIngs(recipe.ingredients, recipe.preliminary_steps);
+            const drinkIngs = recipe.drink 
+                ? collectIngs(recipe.drink.ingredients, recipe.drink.preliminary_steps) 
+                : [];
+            
+            const hasFood = selectedIngredients.every(sel => 
+                foodIngs.some(rIng => window.isIngredientMatch(rIng, sel))
+            );
+            const hasDrink = selectedIngredients.every(sel => 
+                drinkIngs.some(rIng => window.isIngredientMatch(rIng, sel))
             );
 
-            if (hasAll) {
-                matchedKeys.push(key);
-                matchedRecipes.push({ key, ...recipe });
+            if (hasFood || hasDrink) {
+                let type = 'food';
+                if (hasFood && hasDrink) type = 'both';
+                else if (hasDrink) type = 'drink';
+                
+                matchedMap[key] = type;
+                matchedRecipes.push({ key, ...recipe, matchType: type });
+            }
+        };
+
+        Object.entries(db).forEach(([key, recipe]) => {
+            checkRecipe(key, recipe);
+            if (recipe.regions) {
+                Object.entries(recipe.regions).forEach(([rKey, rRecipe]) => {
+                    checkRecipe(rKey, rRecipe);
+                });
             }
         });
 
         setResults(matchedRecipes);
-        onHighlight(matchedKeys);
+        
+        if (activeSearchMode === 'recipe') {
+            onHighlight(Object.keys(matchedMap).length > 0 ? matchedMap : null);
+        }
 
-    }, [selectedIngredients, db]);
+    }, [selectedIngredients, db, activeSearchMode]);
 
     const addIngredient = (ing) => {
+        onActivateMode(); // Tell App we are taking over
         setSelectedIngredients([...selectedIngredients, ing]);
         setSearchTerm('');
         setSuggestions([]);
@@ -88,12 +139,35 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight }) => {
         setSelectedIngredients(selectedIngredients.filter(i => i !== ing));
     };
 
+    const clearAll = () => {
+        setSelectedIngredients([]);
+        setSearchTerm('');
+        setSuggestions([]);
+    };
+
+    if (!isOpen) {
+        return (
+            <button 
+                onClick={() => setIsOpen(true)}
+                className="absolute top-4 left-4 z-[1000] bg-gray-800 hover:bg-gray-700 text-white p-3 rounded-full shadow-lg border border-gray-600 transition-all hover:scale-110 group"
+                title="Search Recipes"
+            >
+                <span className="text-xl group-hover:text-yellow-400 transition-colors">🔍</span>
+                {selectedIngredients.length > 0 && <span className="absolute top-0 right-0 w-3 h-3 bg-yellow-500 rounded-full border border-gray-800"></span>}
+            </button>
+        );
+    }
+
     return (
         <div className="absolute top-4 left-4 z-[1000] w-80 bg-gray-900/95 text-white rounded-xl shadow-2xl border border-gray-700 backdrop-blur-md flex flex-col max-h-[80vh] animate-in fade-in slide-in-from-left-4 duration-300">
-            <div className="p-4 border-b border-gray-700">
-                <h3 className="text-lg font-serif font-bold text-yellow-500 mb-2 flex items-center gap-2">
+            <div className="p-4 border-b border-gray-700 flex justify-between items-center">
+                <h3 className="text-lg font-serif font-bold text-yellow-500 flex items-center gap-2">
                     <span>🔍</span> Recipe Finder
                 </h3>
+                <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-white">&times;</button>
+            </div>
+            
+            <div className="p-4 border-b border-gray-700">
                 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-2">
@@ -137,7 +211,14 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight }) => {
                     <div key={recipe.key} onClick={() => onRecipeSelect(recipe.key)} className="flex items-center gap-3 p-2 hover:bg-gray-800 rounded cursor-pointer transition-colors group">
                         <img src={getDishImage(recipe.dish)} alt={recipe.dish} className="w-12 h-12 rounded object-cover bg-gray-700 border border-gray-600 group-hover:border-yellow-500 transition-colors" />
                         <div>
-                            <p className="font-bold text-sm leading-tight text-gray-200 group-hover:text-yellow-500 transition-colors">{recipe.dish}</p>
+                            <div className="flex items-center gap-2">
+                                <p className="font-bold text-sm leading-tight text-gray-200 group-hover:text-yellow-500 transition-colors">{recipe.dish}</p>
+                                {recipe.matchType === 'drink' && <span className="text-[10px] bg-blue-900 text-blue-200 px-1 rounded">DRINK</span>}
+                                {recipe.matchType === 'both' && <span className="text-[10px] bg-purple-900 text-purple-200 px-1 rounded">BOTH</span>}
+                            </div>
+                            {recipe.matchType === 'drink' && recipe.drink && (
+                                <p className="text-xs text-gray-400 italic">Matches: {recipe.drink.dish}</p>
+                            )}
                             <p className="text-xs text-gray-500">{recipe.key}</p> 
                         </div>
                     </div>

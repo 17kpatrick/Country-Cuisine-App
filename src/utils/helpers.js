@@ -1,3 +1,37 @@
+// Global Staples (Assumed to be in pantry)
+window.STAPLES = [
+    'water', 'hot water', 'cold water', 'boiling water', 'warm water', 'ice', 'ice water', 'crushed ice', 'ice cubes',
+    'salt', 'pepper', 'black pepper', 'kosher salt', 'sea salt', 'white pepper', 'coarse salt',
+    'oil', 'vegetable oil', 'olive oil', 'canola oil', 'cooking oil', 'neutral oil', 'oil for frying', 'frying oil',
+    'sugar', 'white sugar', 'granulated sugar', 'brown sugar', 'flour', 'all-purpose flour'
+];
+
+// Helper to check if an ingredient is a staple (fuzzy match)
+window.isStaple = (ingredient) => {
+    if (!ingredient) return false;
+    const lower = ingredient.toLowerCase().trim();
+    return window.STAPLES.some(s => lower === s || lower.includes(` ${s}`) || lower.includes(`${s} `) || lower === s + 's');
+};
+
+// Robust fuzzy matching for ingredients (handles "Gin" vs "Ginger")
+window.isIngredientMatch = (ing1, ing2) => {
+    if (!ing1 || !ing2) return false;
+    const a = ing1.toLowerCase().trim();
+    const b = ing2.toLowerCase().trim();
+    
+    if (a === b) return true;
+    
+    const escape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    
+    // Check if 'a' is a distinct word/phrase in 'b' (e.g. "Rice" in "Basmati Rice")
+    if (new RegExp(`\\b${escape(a)}\\b`, 'i').test(b)) return true;
+    
+    // Check if 'b' is a distinct word/phrase in 'a'
+    if (new RegExp(`\\b${escape(b)}\\b`, 'i').test(a)) return true;
+    
+    return false;
+};
+
 // Fallback generator for countries not in detailed DB
 window.getGenericRecipe = (countryName) => {
     return {
@@ -33,27 +67,33 @@ window.parseIngredient = (rawIngredient) => {
     cleaned = cleaned.replace(/^[A-Za-z\s]+:\s*/, '');
     
     // 1. Remove quantity and units
-    cleaned = cleaned.replace(/^[\d\s/.\-\u00BC-\u00BE]+(kg|g|lb|oz|cup|tbsp|tsp|ml|l|can|bunch|clove|slice|piece|ear|rack|stick|packet|bag|head|stalk|strip|pinch|dash|bottle|jar)s?\s+/i, '');
+    const units = [
+        'kg', 'g', 'lb', 'oz', 'cup', 'tbsp', 'tsp', 'ml', 'l', 'can', 'bunch', 'clove', 'slice', 'piece', 
+        'ear', 'rack', 'stick', 'packet', 'bag', 'head', 'stalk', 'strip', 'pinch', 'dash', 'bottle', 'jar',
+        'liter', 'litre', 'quart', 'pint', 'gallon', 'gal', 'pound', 'ounce', 'fluid ounce', 'fl oz'
+    ].join('|');
+    cleaned = cleaned.replace(new RegExp(`^[\\d\\s/.\u00BC-\u00BE\\-]+(${units})s?\\s+`, 'i'), '');
     
     // 2. Remove leading numbers
     cleaned = cleaned.replace(/^[\d\s/.\-\u00BC-\u00BE]+\s+/, '');
 
-    // 3. Remove details in parentheses
-    cleaned = cleaned.replace(/\s*\(.*?\)/g, '');
+    // 3. Convert parentheses to alternatives (e.g. "Cheese (Gruyere)" -> "Cheese or Gruyere")
+    cleaned = cleaned.replace(/\s*\(/g, ' or ').replace(/\)/g, '');
 
     // 4. Remove details after comma
     cleaned = cleaned.split(',')[0];
 
-    // 5. Replace slashes with spaces
-    cleaned = cleaned.replace(/\//g, ' ');
+    // 5. Replace slashes with ' or ' to support alternatives
+    cleaned = cleaned.replace(/\//g, ' or ');
 
     // 6. Remove common prep/state/cut words (Case insensitive)
     const prepWords = [
         'Fresh', 'Dried', 'Dry', 'Frozen', 'Canned', 'Preserved',
-        'Chopped', 'Minced', 'Diced', 'Sliced', 'Grated', 'Crushed', 'Peeled', 'Shredded', 'Beaten', 'Melted', 'Smashed', 'Toasted', 'Roasted', 'Fried', 'Boiled', 'Steamed', 'Poached', 'Baked', 'Smoked', 'Pickled', 'Fermented', 'Marinated', 'Blanched',
+        'Chopped', 'Minced', 'Diced', 'Sliced', 'Grated', 'Crushed', 'Peeled', 'Shredded', 'Beaten', 'Melted', 'Smashed', 'Toasted', 'Roasted', 'Fried', 'Boiled', 'Hard-boiled', 'Steamed', 'Poached', 'Baked', 'Smoked', 'Pickled', 'Fermented', 'Marinated', 'Blanched',
         'Large', 'Small', 'Medium', 'Whole', 'Raw', 'Cooked', 'Boneless', 'Skinless', 'Lean', 'Extra', 'Virgin',
         'Ground', 'Fillet', 'Steak', 'Chop', 'Rib', 'Shank', 'Shoulder', 'Belly', 'Loin', 'Brisket', 'Breast', 'Thigh', 'Wing', 'Leg', 'Bone', 'Skin', 'Head', 'Tail', 'Trotter', 'Liver', 'Heart', 'Kidney',
-        'Paste', 'Powder', 'Sauce', 'Oil', 'Extract', 'Essence', 'Juice', 'Zest', 'Wedge', 'Cube', 'Chunk', 'Ring', 'Strip', 'Sheet', 'Leaf', 'Leaves', 'Stalk', 'Bulb', 'Clove', 'Sprig', 'Bunch'
+        'Paste', 'Powder', 'Sauce', 'Oil', 'Extract', 'Essence', 'Juice', 'Zest', 'Wedge', 'Cube', 'Chunk', 'Ring', 'Strip', 'Sheet', 'Leaf', 'Leaves', 'Stalk', 'Bulb', 'Clove', 'Sprig', 'Bunch', 'Frying', 'For Frying',
+        'Optional', 'To Taste', 'Garnish', 'Decoration', 'Starchy', 'Waxy'
     ];
     
     // Sort prepWords by length descending to match longest phrases first
@@ -63,42 +103,148 @@ window.parseIngredient = (rawIngredient) => {
     cleaned = cleaned.replace(prepRegex, '');
 
     // 7. Trim and Singularize
-    cleaned = cleaned.trim();
-    
-    const lower = cleaned.toLowerCase();
     const exceptions = ['asparagus', 'couscous', 'hummus', 'molasses', 'bass', 'lens', 'swiss', 'grits', 'oats', 'chips'];
     
-    if (!exceptions.some(ex => lower.endsWith(ex))) {
-        if (cleaned.match(/ies$/i)) {
-            cleaned = cleaned.replace(/ies$/i, 'y');
-        } else if (cleaned.match(/oes$/i)) {
-            cleaned = cleaned.replace(/oes$/i, 'o');
-        } else if (cleaned.match(/s$/i) && !cleaned.match(/ss$/i)) {
-            cleaned = cleaned.replace(/s$/i, '');
+    // Split by ' or ' to handle alternatives created by parens or slashes so we singularize each part
+    const parts = cleaned.split(/\s+or\s+/i);
+    const processedParts = parts.map(part => {
+        let p = part.trim();
+        const lower = p.toLowerCase();
+        
+        if (!exceptions.some(ex => lower.endsWith(ex))) {
+            if (p.match(/ies$/i)) {
+                return p.replace(/ies$/i, 'y');
+            } else if (p.match(/oes$/i)) {
+                return p.replace(/oes$/i, 'o');
+            } else if (p.match(/s$/i) && !p.match(/ss$/i)) {
+                return p.replace(/s$/i, '');
+            }
         }
-    }
+        return p;
+    });
+    
+    cleaned = processedParts.join(' or ');
 
     // 8. Final cleanup of extra spaces
     cleaned = cleaned.replace(/\s+/g, ' ').trim();
 
+    // 9. Cleanup "or" artifacts (e.g. "Milk or or" -> "Milk")
+    cleaned = cleaned.replace(/\s+or(\s+or)+/gi, ' or ');
+    cleaned = cleaned.replace(/^or\s+|\s+or$/gi, '');
+
     return cleaned;
+};
+
+window.getRecipeFromDB = (db, key) => {
+    if (!db || !key) return null;
+    // 1. Try direct access
+    if (db[key]) return db[key];
+
+    // 2. Try searching in regions of known countries
+    for (const countryKey in db) {
+        const country = db[countryKey];
+        if (country.regions && country.regions[key]) {
+            return country.regions[key];
+        }
+    }
+    return null;
 };
 
 window.getUniqueIngredients = (db) => {
     const ingredients = new Set();
-    Object.values(db).forEach(recipe => {
+    
+    const processRecipe = (recipe) => {
         if (recipe.ingredients) {
             recipe.ingredients.forEach(ing => {
-                const parsed = parseIngredient(ing);
-                if (parsed && parsed.length > 2) { // Filter out tiny junk
-                    ingredients.add(parsed.toLowerCase()); // Store lower case for deduping
+                // Split by comma to handle grouped ingredients (e.g. "Flour, Water, Salt")
+                const parts = ing.split(',');
+                for (const part of parts) {
+                    const parsed = parseIngredient(part);
+                    if (parsed && parsed.length > 2) {
+                        parsed.split(/\s+or\s+/i).forEach(p => ingredients.add(p.trim().toLowerCase()));
+                    }
                 }
             });
+        }
+        // Scan preliminary steps ingredients (food)
+        if (recipe.preliminary_steps) {
+            recipe.preliminary_steps.forEach(step => {
+                if (step.ingredients) {
+                    step.ingredients.forEach(ing => {
+                        const parts = ing.split(',');
+                        for (const part of parts) {
+                            const parsed = parseIngredient(part);
+                            if (parsed && parsed.length > 2) parsed.split(/\s+or\s+/i).forEach(p => ingredients.add(p.trim().toLowerCase()));
+                        }
+                    });
+                }
+            });
+        }
+        // Scan drink ingredients
+        if (recipe.drink && recipe.drink.ingredients) {
+            recipe.drink.ingredients.forEach(ing => {
+                const parts = ing.split(',');
+                for (const part of parts) {
+                    const parsed = parseIngredient(part);
+                    if (parsed && parsed.length > 2) {
+                        parsed.split(/\s+or\s+/i).forEach(p => ingredients.add(p.trim().toLowerCase()));
+                    }
+                }
+            });
+        }
+        // Scan preliminary steps ingredients (drink)
+        if (recipe.drink && recipe.drink.preliminary_steps) {
+            recipe.drink.preliminary_steps.forEach(step => {
+                if (step.ingredients) {
+                    step.ingredients.forEach(ing => {
+                        const parts = ing.split(',');
+                        for (const part of parts) {
+                            const parsed = parseIngredient(part);
+                            if (parsed && parsed.length > 2) parsed.split(/\s+or\s+/i).forEach(p => ingredients.add(p.trim().toLowerCase()));
+                        }
+                    });
+                }
+            });
+        }
+    };
+
+    Object.values(db).forEach(recipe => {
+        processRecipe(recipe);
+        if (recipe.regions) {
+            Object.values(recipe.regions).forEach(processRecipe);
         }
     });
     
     // Return formatted title case sorted list
     return Array.from(ingredients).map(ing => ing.charAt(0).toUpperCase() + ing.slice(1)).sort();
+};
+
+window.getAllRecipeIngredients = (recipe) => {
+    const collect = (baseIngs, prelimSteps) => {
+        let list = [];
+        if (baseIngs) {
+            baseIngs.forEach(ing => {
+                ing.split(',').forEach(part => list.push(window.parseIngredient(part).toLowerCase()));
+            });
+        }
+        if (prelimSteps) {
+            prelimSteps.forEach(step => {
+                if (step.ingredients) {
+                    step.ingredients.forEach(ing => {
+                        ing.split(',').forEach(part => list.push(window.parseIngredient(part).toLowerCase()));
+                    });
+                }
+            });
+        }
+        return list;
+    };
+
+    const foodIngs = collect(recipe.ingredients, recipe.preliminary_steps);
+    const drinkIngs = recipe.drink 
+        ? collect(recipe.drink.ingredients, recipe.drink.preliminary_steps) 
+        : [];
+    
+    return { foodIngs, drinkIngs };
 };
 
 // --- COUNTRY THEMES (FLAIRE) ---
@@ -175,6 +321,10 @@ window.getRegionConfig = () => {
         'CHN': {
             geoJsonUrl: 'https://gist.githubusercontent.com/songkeys/e0e3467a7e2ab1e571de9ed4296fbc2a/raw/China%20Province%20GeoJSON',
             view: { center: [35.8617, 104.1954], zoom: 4 }
+        },
+        'BRA': {
+            geoJsonUrl: 'https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/brazil-states.geojson',
+            view: { center: [-14.2350, -51.9253], zoom: 4 }
         }
         // Example for future:
         // 'CAN': { geoJsonUrl: 'path/to/canada-provinces.json', view: { center: [56, -106], zoom: 4 } }
@@ -183,5 +333,5 @@ window.getRegionConfig = () => {
 
 // --- ARTISTIC FLAIRE CONFIGURATION ---
 window.COUNTRY_FLAIRS = {
-    // Flairs will be loaded from external config files (e.g., src/config/japan.js)
+    // Brazil theme removed as requested
 };

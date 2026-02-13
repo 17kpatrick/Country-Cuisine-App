@@ -19,7 +19,7 @@ const PreviewCard = ({ feature, db }) => {
     if (countryName === 'Jammu & Kashmir') countryName = 'Jammu and Kashmir';
     
     // Get data or fallback
-    let culinaryData = db[countryCode] || db[countryName];
+    let culinaryData = window.getRecipeFromDB(db, countryCode) || window.getRecipeFromDB(db, countryName);
     if (!culinaryData) culinaryData = getGenericRecipe(countryName);
     
     const imageUrl = getDishImage(culinaryData.dish);
@@ -30,7 +30,7 @@ const PreviewCard = ({ feature, db }) => {
     const flagUrl = iso2 ? `https://flagcdn.com/w80/${iso2.toLowerCase()}.png` : null;
 
     return (
-        <div className="absolute bottom-8 left-8 z-[1000] w-80 bg-gray-900/80 text-gray-100 rounded-3xl shadow-2xl overflow-hidden border border-white/10 backdrop-blur-2xl animate-in fade-in slide-in-from-bottom-4 duration-300 pointer-events-none">
+        <div className="absolute bottom-8 left-8 z-[1000] w-80 bg-gray-900/90 text-gray-100 rounded-3xl shadow-2xl overflow-hidden border border-white/10 backdrop-blur-2xl animate-in fade-in slide-in-from-bottom-4 duration-300 pointer-events-none">
             <div className="h-40 relative">
                 <img src={imageUrl} alt={culinaryData.dish} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent"></div>
@@ -42,6 +42,12 @@ const PreviewCard = ({ feature, db }) => {
                     <h3 className="text-xl font-serif font-bold leading-tight shadow-black drop-shadow-md">{culinaryData.dish}</h3>
                 </div>
             </div>
+            {culinaryData.drink && (
+                <div className="px-4 py-2 bg-black/40 border-t border-white/5 flex items-center gap-2">
+                    <span className="text-xs uppercase font-bold text-blue-400 tracking-wider">Drink:</span>
+                    <span className="text-xs text-gray-300 font-medium truncate">{culinaryData.drink.dish}</span>
+                </div>
+            )}
         </div>
     );
 };
