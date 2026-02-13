@@ -76,8 +76,11 @@ const App = () => {
     const flaireLayerRef = useRef(null);
     const activeMapThemeRef = useRef(null);
     const highlightedKeysRef = useRef(null);
+    const selectedCountryRef = useRef(null);
     const effectsContainerRef = useRef(null);
     const mousePosRef = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+    const globalSubHighlightLayerRef = useRef(null);
+    const regionCacheRef = useRef({});
     
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [hoveredFeature, setHoveredFeature] = useState(null);
@@ -89,6 +92,24 @@ const App = () => {
     useEffect(() => {
         highlightedKeysRef.current = highlightedKeys;
     }, [highlightedKeys]);
+
+    useEffect(() => {
+        selectedCountryRef.current = selectedCountry;
+    }, [selectedCountry]);
+
+    const getNormalizedName = (feature) => {
+        const p = feature.properties;
+        const isoCode = getIso3(feature);
+        let name = (p.st_nm || p.ST_NM || p.NAME_1 || p.name_1 || p.NAME || p.ADMIN || p.name || '').trim();
+        if (name === 'Orissa') name = 'Odisha';
+        if (name === 'Uttaranchal') name = 'Uttarakhand';
+        if (name === 'Pondicherry') name = 'Puducherry';
+        if (name.includes('Andaman')) name = 'Andaman and Nicobar Islands';
+        if (name.includes('Dadra') || name.includes('Daman')) name = 'Dadra and Nagar Haveli and Daman and Diu';
+        if (name === 'Jammu & Kashmir') name = 'Jammu and Kashmir';
+        if (isoCode === 'CHN' && CHINA_NAME_MAPPING[name]) name = CHINA_NAME_MAPPING[name];
+        return name;
+    };
 
     // --- MOUSE TRACKING FOR DIYA EFFECT ---
     const handleMouseMove = (e) => {
@@ -309,20 +330,136 @@ const App = () => {
         });
     };
 
+    // --- GLOBAL SUB-REGION HIGHLIGHTS (SEARCH) ---
+    useEffect(() => {
+        if (!mapInstanceRef.current) return;
+
+        // Initialize or clear the global highlight layer
+        if (!globalSubHighlightLayerRef.current) {
+            globalSubHighlightLayerRef.current = L.layerGroup().addTo(mapInstanceRef.current);
+        } else {
+            globalSubHighlightLayerRef.current.clearLayers();
+        }
+
+        if (!highlightedKeys) return;
+
+        const countriesWithSubRegions = Object.keys(REGION_CONFIG);
+
+        countriesWithSubRegions.forEach(isoCode => {
+            const config = REGION_CONFIG[isoCode];
+
+            const renderHighlights = (data) => {
+                const featuresToHighlight = data.features.filter(f => {
+                    // Use normalized name from cache
+                    const name = f.properties.st_nm || f.properties.name;
+                    return highlightedKeys.includes(name);
+                });
+
+                if (featuresToHighlight.length > 0) {
+                    L.geoJson(featuresToHighlight, {
+                        style: {
+                            fillColor: '#ef4444', // Red/Orange to contrast with Yellow country highlight
+                            fillOpacity: 0.9,
+                            weight: 1,
+                            color: '#ffffff'
+                        },
+                        onEachFeature: (feature, layer) => {
+                            layer.on('click', (e) => {
+                                L.DomEvent.stopPropagation(e);
+                                const name = feature.properties.st_nm || feature.properties.name;
+                                
+                                mapInstanceRef.current.setView(config.view.center, config.view.zoom, { animate: true });
+                                activeRegionIsoRef.current = isoCode;
+                                setIsDrillDownMode(true);
+                                loadSubRegionLayer(isoCode, config);
+                                
+                                setSelectedCountry({
+                                    name: { common: name },
+                                    cca3: name
+                                });
+                            });
+                        }
+                    }).addTo(globalSubHighlightLayerRef.current);
+                }
+            };
+
+            if (regionCacheRef.current[isoCode]) {
+                renderHighlights(regionCacheRef.current[isoCode]);
+            } else {
+                fetch(config.geoJsonUrl)
+                    .then(res => res.json())
+                    .then(data => {
+                        // Pre-process/Normalize Data for Cache
+                        data.features.forEach(f => {
+                            let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name || '').trim();
+                            
+                            if (isoCode === 'CHN' && CHINA_NAME_MAPPING[name]) {
+                                name = CHINA_NAME_MAPPING[name];
+                            }
+                            if (isoCode === 'IND') {
+                                if (name === 'Orissa') name = 'Odisha';
+                                if (name === 'Uttaranchal') name = 'Uttarakhand';
+                                if (name === 'Pondicherry') name = 'Puducherry';
+                                if (name.includes('Andaman')) name = 'Andaman and Nicobar Islands';
+                                if (name.includes('Dadra') || name.includes('Daman')) name = 'Dadra and Nagar Haveli and Daman and Diu';
+                                if (name === 'Jammu & Kashmir') name = 'Jammu and Kashmir';
+                            }
+                            
+                            // Standardize properties for easier access later
+                            f.properties.st_nm = name;
+                            f.properties.name = name;
+                        });
+
+                        regionCacheRef.current[isoCode] = data;
+                        renderHighlights(data);
+                    })
+                    .catch(err => console.error(`Error loading region ${isoCode}`, err));
+            }
+        });
+    }, [highlightedKeys]);
+
     const loadSubRegionLayer = (isoCode, regionConfig) => {
         if (subRegionLayerRef.current) {
             mapInstanceRef.current.removeLayer(subRegionLayerRef.current);
             subRegionLayerRef.current = null;
         }
 
-        fetch(regionConfig.geoJsonUrl)
-            .then(res => res.json())
-            .then(subData => {
+        const fetchData = regionCacheRef.current[isoCode] 
+            ? Promise.resolve(regionCacheRef.current[isoCode]) 
+            : fetch(regionConfig.geoJsonUrl).then(res => res.json());
+
+        fetchData.then(subData => {
                 if (activeRegionIsoRef.current !== isoCode) return;
 
                 const subLayer = L.geoJson(subData, {
-                    style: { fillColor: '#374151', weight: 1, opacity: 1, color: '#eab308', fillOpacity: 0.4 },
+                    style: (feature) => {
+                        const name = getNormalizedName(feature);
+                        const iso = getIso3(feature);
+                        
+                        // Default Style
+                        let style = { fillColor: '#374151', weight: 1, opacity: 1, color: '#eab308', fillOpacity: 0.4 };
+
+                        // Check Highlight (Recipe Finder)
+                        const searchKeys = highlightedKeysRef.current;
+                        if (searchKeys) {
+                            const isMatch = searchKeys.includes(iso) || searchKeys.includes(name);
+                            if (isMatch) {
+                                style = { fillColor: '#eab308', fillOpacity: 0.6, color: '#ffffff', weight: 1 };
+                            } else {
+                                style = { fillColor: '#1f2937', fillOpacity: 0.1, color: '#374151', weight: 1 };
+                            }
+                        }
+
+                        // Check Selection (Click)
+                        const isSelected = selectedCountryRef.current && selectedCountryRef.current.name.common === name;
+                        if (isSelected) {
+                            style = { ...style, color: '#38bdf8', weight: 2, opacity: 1 };
+                        }
+
+                        return style;
+                    },
                     onEachFeature: (feature, layer) => {
+                        // Data is already normalized if it came from cache, but if fresh fetch (rare race condition), handle it:
                         if (isoCode === 'CHN') {
                             const rawName = feature.properties.name || feature.properties.NAME_1 || feature.properties.NAME;
                             if (rawName && CHINA_NAME_MAPPING[rawName]) {
@@ -339,19 +476,20 @@ const App = () => {
                                 setHoveredFeature(layer.feature);
                             },
                             mouseout: (e) => {
-                                subRegionLayerRef.current.resetStyle(e.target);
+                                const l = e.target;
+                                subRegionLayerRef.current.resetStyle(l);
+                                
+                                const name = getNormalizedName(l.feature);
+                                const isSelected = selectedCountryRef.current && selectedCountryRef.current.name.common === name;
+                                if (isSelected) {
+                                    l.setStyle({ color: '#38bdf8', weight: 2, opacity: 1 });
+                                }
+                                
                                 setHoveredFeature(null);
                             },
                             click: (e) => {
                                 L.DomEvent.stopPropagation(e);
-                                let subName = (feature.properties.st_nm || feature.properties.ST_NM || feature.properties.NAME_1 || feature.properties.name_1 || feature.properties.name || feature.properties.NAME || '').trim();
-                                
-                                if (subName === 'Orissa') subName = 'Odisha';
-                                if (subName === 'Uttaranchal') subName = 'Uttarakhand';
-                                if (subName === 'Pondicherry') subName = 'Puducherry';
-                                if (subName.includes('Andaman')) subName = 'Andaman and Nicobar Islands';
-                                if (subName.includes('Dadra') || subName.includes('Daman')) subName = 'Dadra and Nagar Haveli and Daman and Diu';
-                                if (subName === 'Jammu & Kashmir') subName = 'Jammu and Kashmir';
+                                const subName = getNormalizedName(feature);
 
                                 mapInstanceRef.current.fitBounds(e.target.getBounds());
                                 setSelectedCountry({
@@ -448,11 +586,16 @@ const App = () => {
                 function resetHighlight(e) {
                     const layer = e.target;
                     const isoCode = getIso3(layer.feature);
-                    const name = layer.feature.properties.NAME || layer.feature.properties.ADMIN || layer.feature.properties.name;
+                    const name = getNormalizedName(layer.feature);
 
                     if (activeRegionIsoRef.current === isoCode) {
                         return;
                     }
+
+                    const isSelected = selectedCountryRef.current && (
+                        selectedCountryRef.current.cca3 === isoCode || 
+                        selectedCountryRef.current.name.common === name
+                    );
 
                     const searchKeys = highlightedKeysRef.current;
                     if (searchKeys !== null) {
@@ -464,6 +607,13 @@ const App = () => {
                         }
                     } else {
                         geoJsonLayerRef.current.resetStyle(e.target);
+                    }
+
+                    if (isSelected) {
+                        layer.setStyle({ color: '#38bdf8', weight: 2, opacity: 1 });
+                        if (searchKeys === null) {
+                             layer.setStyle({ fillOpacity: 0.2, fillColor: '#374151' });
+                        }
                     }
 
                     setHoveredFeature(null);
@@ -497,7 +647,13 @@ const App = () => {
                         highlightedLayerRef.current = null;
                         loadSubRegionLayer(isoCode, regionConfig);
                     } else {
-                        map.fitBounds(layer.getBounds(), { padding: [50, 50], maxZoom: 6, animate: true });
+                        if (isoCode === 'FRA') {
+                            map.setView([46.603354, 1.888334], 5.5, { animate: true });
+                        } else if (isoCode === 'PRT') {
+                            map.setView([39.3999, -8.2245], 7, { animate: true });
+                        } else {
+                            map.fitBounds(layer.getBounds(), { padding: [50, 50], maxZoom: 6, animate: true });
+                        }
                         activeRegionIsoRef.current = null;
                         setIsDrillDownMode(false);
                         if (subRegionLayerRef.current && map.hasLayer(subRegionLayerRef.current)) {
@@ -534,26 +690,35 @@ const App = () => {
             
             layerGroup.eachLayer(layer => {
                 const isoCode = getIso3(layer.feature);
-                const name = layer.feature.properties.NAME || layer.feature.properties.ADMIN || layer.feature.properties.name;
+                const name = getNormalizedName(layer.feature);
+                const isSelected = selectedCountry && (selectedCountry.cca3 === isoCode || selectedCountry.name.common === name);
                 
-                if (highlightedKeys === null) {
-                    geoJsonLayerRef.current.resetStyle(layer);
+                if (highlightedKeys === null && !isSelected) {
+                    layerGroup.resetStyle(layer);
                     return;
                 }
 
-                const isMatch = highlightedKeys.includes(isoCode) || highlightedKeys.includes(name);
+                const isMatch = highlightedKeys && (highlightedKeys.includes(isoCode) || highlightedKeys.includes(name));
 
                 if (isMatch) {
                     layer.setStyle({ fillColor: '#eab308', fillOpacity: 0.6, color: '#ffffff', weight: 1 });
-                } else {
+                } else if (highlightedKeys !== null) {
                     layer.setStyle({ fillColor: '#1f2937', fillOpacity: 0.1, color: '#374151', weight: 1 });
+                } else {
+                    layerGroup.resetStyle(layer);
+                }
+
+                if (isSelected) {
+                    layer.setStyle({ color: '#38bdf8', weight: 2, opacity: 1 });
+                    layer.bringToFront();
+                } else {
                 }
             });
         };
 
         updateLayerStyle(geoJsonLayerRef.current);
         updateLayerStyle(subRegionLayerRef.current);
-    }, [highlightedKeys]);
+    }, [highlightedKeys, selectedCountry]);
 
     const handleBackToWorld = () => {
         setIsDrillDownMode(false);
@@ -563,7 +728,7 @@ const App = () => {
         if (flaireLayerRef.current) {
             flaireLayerRef.current.clearLayers();
         }
-        
+
         if (effectsContainerRef.current) {
             effectsContainerRef.current.innerHTML = '';
             effectsContainerRef.current.style.display = 'none';
@@ -607,7 +772,13 @@ const App = () => {
                 activeRegionIsoRef.current = isoCode;
                 setIsDrillDownMode(true);
             } else {
-                mapInstanceRef.current.fitBounds(targetLayer.getBounds(), { padding: [50, 50], maxZoom: 6, animate: true });
+                if (isoCode === 'FRA') {
+                    mapInstanceRef.current.setView([46.603354, 1.888334], 5.5, { animate: true });
+                } else if (isoCode === 'PRT') {
+                    mapInstanceRef.current.setView([39.3999, -8.2245], 7, { animate: true });
+                } else {
+                    mapInstanceRef.current.fitBounds(targetLayer.getBounds(), { padding: [50, 50], maxZoom: 6, animate: true });
+                }
             }
 
             setSelectedCountry({ name: { common: name }, cca3: isoCode, cca2: iso2Code });

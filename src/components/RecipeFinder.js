@@ -20,6 +20,29 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight }) => {
                 ing.toLowerCase().includes(lowerTerm) && 
                 !selectedIngredients.includes(ing)
             );
+            
+            // Sort suggestions: Exact match > Starts with > Length > Alphabetical
+            filtered.sort((a, b) => {
+                const aLower = a.toLowerCase();
+                const bLower = b.toLowerCase();
+                
+                // 1. Exact match
+                if (aLower === lowerTerm) return -1;
+                if (bLower === lowerTerm) return 1;
+                
+                // 2. Starts with
+                const aStarts = aLower.startsWith(lowerTerm);
+                const bStarts = bLower.startsWith(lowerTerm);
+                if (aStarts && !bStarts) return -1;
+                if (!aStarts && bStarts) return 1;
+                
+                // 3. Length (shorter is usually more "core")
+                if (a.length !== b.length) return a.length - b.length;
+                
+                // 4. Alphabetical
+                return a.localeCompare(b);
+            });
+
             setSuggestions(filtered.slice(0, 10));
         } else {
             setSuggestions([]);

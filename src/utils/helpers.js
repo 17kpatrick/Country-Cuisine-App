@@ -27,21 +27,61 @@ window.getIngredientImage = (ingredientName) => {
 window.parseIngredient = (rawIngredient) => {
     if (!rawIngredient) return "";
     
-    // 1. Remove quantity and units (simple regex for common patterns)
-    // Matches "1 kg", "1/2 cup", "2 tbsp", "large", etc.
-    let cleaned = rawIngredient.replace(/^[\d\s/.\-\u00BC-\u00BE]+(kg|g|lb|oz|cup|tbsp|tsp|ml|l|can|bunch|clove|slice|piece|ear|rack|stick|packet|bag|large|small|medium)s?\s+/i, '');
+    let cleaned = rawIngredient;
+
+    // 0. Remove "Label:" prefixes (e.g. "Sauce:", "Filling:", "Dough:")
+    cleaned = cleaned.replace(/^[A-Za-z\s]+:\s*/, '');
     
-    // 2. Remove leading numbers if units weren't caught (e.g. "2 Onions")
+    // 1. Remove quantity and units
+    cleaned = cleaned.replace(/^[\d\s/.\-\u00BC-\u00BE]+(kg|g|lb|oz|cup|tbsp|tsp|ml|l|can|bunch|clove|slice|piece|ear|rack|stick|packet|bag|head|stalk|strip|pinch|dash|bottle|jar)s?\s+/i, '');
+    
+    // 2. Remove leading numbers
     cleaned = cleaned.replace(/^[\d\s/.\-\u00BC-\u00BE]+\s+/, '');
 
-    // 3. Remove details in parentheses (e.g. "(chopped)")
+    // 3. Remove details in parentheses
     cleaned = cleaned.replace(/\s*\(.*?\)/g, '');
 
-    // 4. Remove details after comma (e.g. "Onion, chopped")
+    // 4. Remove details after comma
     cleaned = cleaned.split(',')[0];
 
-    // 5. Trim whitespace
-    return cleaned.trim();
+    // 5. Replace slashes with spaces
+    cleaned = cleaned.replace(/\//g, ' ');
+
+    // 6. Remove common prep/state/cut words (Case insensitive)
+    const prepWords = [
+        'Fresh', 'Dried', 'Dry', 'Frozen', 'Canned', 'Preserved',
+        'Chopped', 'Minced', 'Diced', 'Sliced', 'Grated', 'Crushed', 'Peeled', 'Shredded', 'Beaten', 'Melted', 'Smashed', 'Toasted', 'Roasted', 'Fried', 'Boiled', 'Steamed', 'Poached', 'Baked', 'Smoked', 'Pickled', 'Fermented', 'Marinated', 'Blanched',
+        'Large', 'Small', 'Medium', 'Whole', 'Raw', 'Cooked', 'Boneless', 'Skinless', 'Lean', 'Extra', 'Virgin',
+        'Ground', 'Fillet', 'Steak', 'Chop', 'Rib', 'Shank', 'Shoulder', 'Belly', 'Loin', 'Brisket', 'Breast', 'Thigh', 'Wing', 'Leg', 'Bone', 'Skin', 'Head', 'Tail', 'Trotter', 'Liver', 'Heart', 'Kidney',
+        'Paste', 'Powder', 'Sauce', 'Oil', 'Extract', 'Essence', 'Juice', 'Zest', 'Wedge', 'Cube', 'Chunk', 'Ring', 'Strip', 'Sheet', 'Leaf', 'Leaves', 'Stalk', 'Bulb', 'Clove', 'Sprig', 'Bunch'
+    ];
+    
+    // Sort prepWords by length descending to match longest phrases first
+    prepWords.sort((a, b) => b.length - a.length);
+
+    const prepRegex = new RegExp(`\\b(${prepWords.join('|')})\\b`, 'gi');
+    cleaned = cleaned.replace(prepRegex, '');
+
+    // 7. Trim and Singularize
+    cleaned = cleaned.trim();
+    
+    const lower = cleaned.toLowerCase();
+    const exceptions = ['asparagus', 'couscous', 'hummus', 'molasses', 'bass', 'lens', 'swiss', 'grits', 'oats', 'chips'];
+    
+    if (!exceptions.some(ex => lower.endsWith(ex))) {
+        if (cleaned.match(/ies$/i)) {
+            cleaned = cleaned.replace(/ies$/i, 'y');
+        } else if (cleaned.match(/oes$/i)) {
+            cleaned = cleaned.replace(/oes$/i, 'o');
+        } else if (cleaned.match(/s$/i) && !cleaned.match(/ss$/i)) {
+            cleaned = cleaned.replace(/s$/i, '');
+        }
+    }
+
+    // 8. Final cleanup of extra spaces
+    cleaned = cleaned.replace(/\s+/g, ' ').trim();
+
+    return cleaned;
 };
 
 window.getUniqueIngredients = (db) => {
