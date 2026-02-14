@@ -1,0 +1,18 @@
+{
+  "name": "country-cuisine-app",
+  "version": "1.0.0",
+  "description": "World Recipe Map - explore recipes by country",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "node tests/e2e/run.js",
+    "test:e2e:headed": "node tests/e2e/run.js --headed"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^2.1.0",
+    "selenium-webdriver": "^4.27.0",
+    "vitest": "^2.1.0"
+  }
+}

@@ -151,6 +151,7 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
                 onClick={() => setIsOpen(true)}
                 className="absolute top-4 left-4 z-[1000] bg-gray-800 hover:bg-gray-700 text-white p-3 rounded-full shadow-lg border border-gray-600 transition-all hover:scale-110 group"
                 title="Search Recipes"
+                data-testid="recipe-finder-toggle"
             >
                 <span className="text-xl group-hover:text-yellow-400 transition-colors">🔍</span>
                 {selectedIngredients.length > 0 && <span className="absolute top-0 right-0 w-3 h-3 bg-yellow-500 rounded-full border border-gray-800"></span>}
@@ -159,7 +160,7 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
     }
 
     return (
-        <div className="absolute top-4 left-4 z-[1000] w-80 bg-gray-900/95 text-white rounded-xl shadow-2xl border border-gray-700 backdrop-blur-md flex flex-col max-h-[80vh] animate-in fade-in slide-in-from-left-4 duration-300">
+        <div className="absolute top-4 left-4 z-[1000] w-80 bg-gray-900/95 text-white rounded-xl shadow-2xl border border-gray-700 backdrop-blur-md flex flex-col max-h-[80vh] animate-in fade-in slide-in-from-left-4 duration-300" data-testid="recipe-finder-panel">
             <div className="p-4 border-b border-gray-700 flex justify-between items-center">
                 <h3 className="text-lg font-serif font-bold text-yellow-500 flex items-center gap-2">
                     <span>🔍</span> Recipe Finder
@@ -188,11 +189,12 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
                         onChange={(e) => setSearchTerm(e.target.value)}
                         placeholder="Type an ingredient (e.g. Beef)..."
                         className="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-sm focus:outline-none focus:border-yellow-500 placeholder-gray-500"
+                        data-testid="recipe-finder-search"
                     />
                     {suggestions.length > 0 && (
-                        <ul className="absolute top-full left-0 right-0 bg-gray-800 border border-gray-600 mt-1 rounded shadow-lg max-h-60 overflow-y-auto z-50 custom-scroll">
+                        <ul className="absolute top-full left-0 right-0 bg-gray-800 border border-gray-600 mt-1 rounded shadow-lg max-h-60 overflow-y-auto z-50 custom-scroll" data-testid="recipe-finder-suggestions">
                             {suggestions.map(ing => (
-                                <li key={ing} onClick={() => addIngredient(ing)} className="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer border-b border-gray-700 last:border-0 flex items-center gap-3 transition-colors">
+                                <li key={ing} onClick={() => addIngredient(ing)} className="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer border-b border-gray-700 last:border-0 flex items-center gap-3 transition-colors" data-testid="recipe-finder-suggestion">
                                     <img src={getIngredientImage(ing)} alt={ing} className="w-8 h-8 rounded-full bg-gray-900 object-cover border border-gray-600" />
                                     <span className="font-medium text-gray-200">{ing}</span>
                                 </li>
@@ -205,10 +207,10 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
             {/* Results */}
             <div className="overflow-y-auto custom-scroll p-2 flex-grow">
                 {results.length === 0 && selectedIngredients.length > 0 && (
-                    <p className="text-gray-400 text-center text-sm py-4">No recipes found with these ingredients.</p>
+                    <p className="text-gray-400 text-center text-sm py-4" data-testid="recipe-finder-no-results">No recipes found with these ingredients.</p>
                 )}
                 {results.map(recipe => (
-                    <div key={recipe.key} onClick={() => onRecipeSelect(recipe.key)} className="flex items-center gap-3 p-2 hover:bg-gray-800 rounded cursor-pointer transition-colors group">
+                    <div key={recipe.key} onClick={() => onRecipeSelect(recipe.key)} className="flex items-center gap-3 p-2 hover:bg-gray-800 rounded cursor-pointer transition-colors group" data-testid="recipe-result">
                         <img src={getDishImage(recipe.dish)} alt={recipe.dish} className="w-12 h-12 rounded object-cover bg-gray-700 border border-gray-600 group-hover:border-yellow-500 transition-colors" />
                         <div>
                             <div className="flex items-center gap-2">

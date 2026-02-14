@@ -27,7 +27,7 @@
     100% { transform: rotate(360deg); }
 }
 .custom-flaire-element {
-    background: transparent;
-    border: none;
+    background: transparent !important;
+    border: none !important;
     overflow: visible !important;
 }

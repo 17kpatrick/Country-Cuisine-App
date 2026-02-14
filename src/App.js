@@ -156,17 +156,15 @@ const App = () => {
     }, [shoppingList]);
 
     const addToShoppingList = (items) => {
-        const newItems = items.filter(item => !shoppingList.includes(item));
-        if (newItems.length > 0) {
-            setShoppingList([...shoppingList, ...newItems]);
-        }
+        const next = window.shoppingListAdd(shoppingList, items);
+        if (next !== shoppingList) setShoppingList(next);
     };
 
     const removeFromShoppingList = (item) => {
-        setShoppingList(shoppingList.filter(i => i !== item));
+        setShoppingList(window.shoppingListRemove(shoppingList, item));
     };
 
-    const clearShoppingList = () => setShoppingList([]);
+    const clearShoppingList = () => setShoppingList(window.shoppingListClear());
 
     const handleGlobalClear = () => {
         setHighlightedKeys(null);
@@ -264,8 +262,8 @@ const App = () => {
                     }
                 }
             } else if (activeMapThemeRef.current === 'brazil-cinematic') {
-                // Spawn Rate: 40ms (Leaf trail)
-                if (time - lastTime > 40) {
+                // Spawn Rate: 70ms (Amazon leaf trail)
+                if (time - lastTime > 70) {
                     lastTime = time;
                     if (effectsContainerRef.current) {
                         const el = document.createElement('div');
@@ -334,20 +332,24 @@ const App = () => {
             }
 
             if (item.type === 'effect') {
-                let count = 40;
+                let count = item.count ?? 40;
                 let className = 'sakura-petal';
 
-                // Configure counts and classes based on effect type
+                // Configure counts and classes based on effect type (item.count overrides)
                 if (item.name === 'sand-dust-devils') {
-                    count = 15; className = 'sand-devil';
+                    count = item.count ?? 15; className = 'sand-devil';
                 } else if (item.name === 'incense-smoke') {
-                    count = 30; className = 'incense-smoke';
+                    count = item.count ?? 30; className = 'incense-smoke';
                 } else if (item.name === 'diwali-lamp') {
-                    count = 60; className = 'diwali-lamp';
+                    count = item.count ?? 60; className = 'diwali-lamp';
                 } else if (item.name === 'lanterns-rise') {
-                    count = 50; className = 'lantern';
+                    count = item.count ?? 50; className = 'lantern';
                 } else if (item.name === 'sakura-wind') {
-                    count = 60; className = 'sakura-petal';
+                    count = item.count ?? 60; className = 'sakura-petal';
+                } else if (item.name === 'carnival-confetti') {
+                    count = item.count ?? 80; className = 'carnival-confetti';
+                } else if (item.name === 'carnival-embers') {
+                    count = item.count ?? 25; className = 'carnival-ember';
                 }
 
                 for (let i = 0; i < count; i++) {
@@ -394,6 +396,18 @@ const App = () => {
                         el.style.height = `${size}px`;
                         el.style.animationDuration = `${10 + Math.random() * 10}s`;
                         el.style.animationDelay = `-${Math.random() * 10}s`;
+                    } else if (item.name === 'carnival-confetti') {
+                        el = document.createElement('div');
+                        el.className = 'carnival-confetti';
+                        el.style.left = `${Math.random() * 100}%`;
+                        el.style.top = '-20px';
+                        const colors = ['#009c3b', '#ffdf00', '#002776'];
+                        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+                        const size = 4 + Math.random() * 5;
+                        el.style.width = `${size}px`;
+                        el.style.height = `${size * (0.5 + Math.random() * 0.6)}px`;
+                        el.style.animationDuration = `${10 + Math.random() * 10}s`;
+                        el.style.animationDelay = `-${Math.random() * 15}s`;
                     } else {
                         // --- STANDARD LOGIC FOR OTHERS ---
                         el = document.createElement('div');
@@ -455,11 +469,14 @@ const App = () => {
 
             if (!htmlContent) return;
 
+            const w = item.width || 100;
+            const h = item.height || 50;
+            const anchor = item.iconAnchor || [w / 2, h / 2];
             const icon = L.divIcon({
                 className: 'custom-flaire-element',
                 html: htmlContent,
-                iconSize: [item.width || 100, item.height || 50],
-                iconAnchor: [(item.width || 100) / 2, (item.height || 50) / 2]
+                iconSize: [w, h],
+                iconAnchor: anchor
             });
 
             L.marker([item.lat, item.lon], { icon, interactive: false, zIndexOffset: 1000 })
@@ -806,7 +823,7 @@ const App = () => {
                         } else if (isoCode === 'PRT') {
                             map.setView([39.3999, -8.2245], 7, { animate: true });
                         } else if (isoCode === 'BRA') {
-                            map.setView([-14.2, -28], 4, { animate: true });
+                            map.setView([-12, -38], 4, { animate: true });
                         } else if (isoCode === 'NLD') {
                             map.setView([52.2, 5.5], 7.5, { animate: true });
                         } else {
@@ -941,7 +958,7 @@ const App = () => {
                 } else if (isoCode === 'PRT') {
                     mapInstanceRef.current.setView([39.3999, -8.2245], 7, { animate: true });
                 } else if (isoCode === 'BRA') {
-                    mapInstanceRef.current.setView([-14.2, -28], 4, { animate: true });
+                    mapInstanceRef.current.setView([-12, -38], 4, { animate: true });
                 } else if (isoCode === 'NLD') {
                     mapInstanceRef.current.setView([52.2, 5.5], 7.5, { animate: true });
                 } else {
@@ -1033,6 +1050,7 @@ const App = () => {
                 onClick={() => setIsCartOpen(!isCartOpen)}
                 className="absolute top-4 right-6 z-[1100] bg-gray-800 hover:bg-gray-700 text-white p-3 rounded-full shadow-lg border border-gray-600 transition-all hover:scale-110 group"
                 title="Shopping Cart"
+                data-testid="shopping-cart-btn"
             >
                 <span className="text-xl group-hover:animate-bounce">🛒</span>
                 {shoppingList.length > 0 && (
@@ -1124,7 +1142,7 @@ const App = () => {
             )}
 
             {!selectedCountry && !hoveredFeature && !isMapLoading && (
-                <div className="absolute bottom-8 w-full text-center pointer-events-none z-[400]">
+                <div className="absolute bottom-8 w-full text-center pointer-events-none z-[400]" data-testid="map-hint">
                     <span className="bg-black/70 text-gray-300 px-6 py-3 rounded-full text-sm font-medium backdrop-blur-md border border-gray-700">
                         Click a country to reveal its secret recipe 🍳
                     </span>

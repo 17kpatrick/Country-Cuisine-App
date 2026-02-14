@@ -323,6 +323,15 @@ window.getAllRecipeIngredients = (recipe) => {
     return { foodIngs, drinkIngs };
 };
 
+// --- SHOPPING LIST (tested in tests/shoppingList.test.js) ---
+window.shoppingListAdd = (currentList, newItems) => {
+    const newItemsFiltered = newItems.filter(item => !currentList.includes(item));
+    if (newItemsFiltered.length === 0) return currentList;
+    return [...currentList, ...newItemsFiltered];
+};
+window.shoppingListRemove = (currentList, item) => currentList.filter(i => i !== item);
+window.shoppingListClear = () => [];
+
 // --- COUNTRY THEMES (FLAIRE) ---
 const COUNTRY_THEMES = {
     'BRA': { primary: '#009c3b', secondary: '#ffdf00', gradient: 'linear-gradient(135deg, #009c3b 0%, #002776 100%)' },
@@ -400,7 +409,7 @@ window.getRegionConfig = () => {
         },
         'BRA': {
             geoJsonUrl: 'https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/brazil-states.geojson',
-            view: { center: [-14.2350, -51.9253], zoom: 4 }
+            view: { center: [-12, -38], zoom: 4 }
         }
         // Example for future:
         // 'CAN': { geoJsonUrl: 'path/to/canada-provinces.json', view: { center: [56, -106], zoom: 4 } }
