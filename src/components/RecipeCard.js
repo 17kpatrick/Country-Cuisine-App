@@ -38,30 +38,27 @@ const RecipeCard = ({ country, onClose, db, searchIngredients = [], onAddToShopp
         const checkList = (list) => {
             if (!list) return;
             list.forEach(ing => {
-                // Split by comma to handle grouped ingredients
-                const parts = ing.split(',');
-                parts.forEach(part => {
-                    const parsed = window.parseIngredient(part).toLowerCase();
-                    if (!parsed) return;
+                // Don't split by comma - comma separates ingredient from prep method
+                const parsed = window.parseIngredient(ing).toLowerCase();
+                if (!parsed) return;
 
-                    // Handle "OR" logic (e.g. "Beef or Chicken")
-                    const options = parsed.split(/\s+or\s+/i).map(s => s.trim());
-                    
-                    // Check if ANY option is a staple
-                    const isStaple = options.some(opt => window.isStaple(opt));
+                // Handle "OR" logic (e.g. "Beef or Chicken")
+                const options = parsed.split(/\s+or\s+/i).map(s => s.trim());
 
-                    // Check if we have ANY of the options (or if it's a staple)
-                    const hasIt = options.some(opt => 
-                        window.isStaple(opt) || 
-                        uniqueOwned.some(owned => window.isIngredientMatch(opt, owned))
-                    );
+                // Check if ANY option is a staple
+                const isStaple = options.some(opt => window.isStaple(opt));
 
-                    // Only count towards "Missing" if it's NOT a staple
-                    if (!isStaple) {
-                        totalNonStaples++;
-                        if (hasIt) metNonStaples++;
-                    }
-                });
+                // Check if we have ANY of the options (or if it's a staple)
+                const hasIt = options.some(opt =>
+                    window.isStaple(opt) ||
+                    uniqueOwned.some(owned => window.isIngredientMatch(opt, owned))
+                );
+
+                // Only count towards "Missing" if it's NOT a staple
+                if (!isStaple) {
+                    totalNonStaples++;
+                    if (hasIt) metNonStaples++;
+                }
             });
         };
 
@@ -93,22 +90,20 @@ const RecipeCard = ({ country, onClose, db, searchIngredients = [], onAddToShopp
 
         const checkAndAdd = (ingredients) => {
              ingredients.forEach(ing => {
-                const parts = ing.split(',');
-                parts.forEach(part => {
-                    const parsed = window.parseIngredient(part).toLowerCase();
-                    if (!parsed || window.isStaple(parsed)) return;
+                // Don't split by comma - comma separates ingredient from prep method
+                const parsed = window.parseIngredient(ing).toLowerCase();
+                if (!parsed || window.isStaple(parsed)) return;
 
-                    const options = parsed.split(/\s+or\s+/i).map(s => s.trim());
-                    
-                    const hasRequirement = options.some(opt => 
-                        window.isStaple(opt) || 
-                        uniqueOwned.some(owned => window.isIngredientMatch(opt, owned))
-                    );
+                const options = parsed.split(/\s+or\s+/i).map(s => s.trim());
 
-                    if (!hasRequirement) {
-                        missing.push(window.parseIngredient(options[0])); 
-                    }
-                });
+                const hasRequirement = options.some(opt =>
+                    window.isStaple(opt) ||
+                    uniqueOwned.some(owned => window.isIngredientMatch(opt, owned))
+                );
+
+                if (!hasRequirement) {
+                    missing.push(window.parseIngredient(options[0]));
+                }
             });
         };
 
@@ -209,16 +204,15 @@ const RecipeCard = ({ country, onClose, db, searchIngredients = [], onAddToShopp
                     <h3 className="text-xs font-bold uppercase tracking-widest mb-4 border-b border-white/10 pb-2 text-gray-400">Ingredients</h3>
                     <div className="grid grid-cols-1 gap-3">
                         {displayData.ingredients.map((ing, i) => {
-                            // Check match for highlighting
-                            const parts = ing.split(',');
-                            const isMatch = parts.some(part => {
-                                const parsed = window.parseIngredient(part).toLowerCase();
+                            // Check match for highlighting (don't split by comma)
+                            const parsed = window.parseIngredient(ing).toLowerCase();
+                            const isMatch = (() => {
                                 if (!parsed || window.isStaple(parsed)) return false;
                                 const options = parsed.split(/\s+or\s+/i).map(s => s.trim());
-                                return options.some(opt => 
+                                return options.some(opt =>
                                     searchIngredients.some(s => window.isIngredientMatch(opt, s))
                                 );
-                            });
+                            })();
 
                             return (
                                 <div key={i} className={`flex items-center text-sm font-light ${isMatch ? 'text-yellow-400 font-medium' : 'text-gray-300'}`}>
@@ -256,15 +250,15 @@ const RecipeCard = ({ country, onClose, db, searchIngredients = [], onAddToShopp
                                                 <span className="uppercase font-bold text-[10px] tracking-wider opacity-70 block mb-1.5">Needs:</span>
                                                 <div className="flex flex-wrap gap-1.5">
                                                     {prep.ingredients.map((ing, i) => {
-                                                        const parts = ing.split(',');
-                                                        const isMatch = parts.some(part => {
-                                                            const parsed = window.parseIngredient(part).toLowerCase();
+                                                        // Don't split by comma - comma separates ingredient from prep method
+                                                        const parsed = window.parseIngredient(ing).toLowerCase();
+                                                        const isMatch = (() => {
                                                             if (!parsed || window.isStaple(parsed)) return false;
                                                             const options = parsed.split(/\s+or\s+/i).map(s => s.trim());
-                                                            return options.some(opt => 
+                                                            return options.some(opt =>
                                                             searchIngredients.some(s => window.isIngredientMatch(opt, s))
                                                             );
-                                                        });
+                                                        })();
 
                                                         return (
                                                             <span key={i} className={`px-2 py-1 rounded border inline-block leading-tight ${isMatch ? 'bg-yellow-500/20 border-yellow-500/40 text-yellow-200' : 'bg-white/5 border-white/5 text-gray-300'}`}>

@@ -1,9 +1,13 @@
 // Global Staples (Assumed to be in pantry)
 window.STAPLES = [
+    // Water variants
     'water', 'hot water', 'cold water', 'boiling water', 'warm water', 'ice', 'ice water', 'crushed ice', 'ice cubes',
-    'salt', 'pepper', 'black pepper', 'kosher salt', 'sea salt', 'white pepper', 'coarse salt',
+    // Salt variants
+    'salt', 'pepper', 'black pepper', 'kosher salt', 'sea salt', 'white pepper', 'coarse salt', 'table salt',
+    // Oil variants
     'oil', 'vegetable oil', 'olive oil', 'canola oil', 'cooking oil', 'neutral oil', 'oil for frying', 'frying oil',
-    'sugar', 'white sugar', 'granulated sugar', 'brown sugar', 'flour', 'all-purpose flour'
+    // Sugar and flour
+    'sugar', 'white sugar', 'granulated sugar', 'brown sugar', 'flour', 'all-purpose flour', 'plain flour'
 ];
 
 // Helper to check if an ingredient is a staple (fuzzy match)
@@ -60,40 +64,66 @@ window.getIngredientImage = (ingredientName) => {
 // Clean up raw ingredient strings to get the core item (e.g. "1 kg Beef" -> "Beef")
 window.parseIngredient = (rawIngredient) => {
     if (!rawIngredient) return "";
-    
+
     let cleaned = rawIngredient;
 
-    // 0. Remove "Label:" prefixes (e.g. "Sauce:", "Filling:", "Dough:")
-    cleaned = cleaned.replace(/^[A-Za-z\s]+:\s*/, '');
-    
-    // 1. Remove quantity and units
+    // 0. Remove ALL leading junk: list markers (-, *, •), whitespace, etc.
+    cleaned = cleaned.replace(/^[\s\-*•·→⋅,;]+/, '').trim();
+
+    // 0a. Remove "Label:" prefixes (e.g. "Sauce:", "Filling:", "Dough:")
+    cleaned = cleaned.replace(/^[A-Za-z\s]+:\s*/, '').trim();
+
+    // Units list - comprehensive
     const units = [
-        'kg', 'g', 'lb', 'oz', 'cup', 'tbsp', 'tsp', 'ml', 'l', 'can', 'bunch', 'clove', 'slice', 'piece', 
-        'ear', 'rack', 'stick', 'packet', 'bag', 'head', 'stalk', 'strip', 'pinch', 'dash', 'bottle', 'jar',
-        'liter', 'litre', 'quart', 'pint', 'gallon', 'gal', 'pound', 'ounce', 'fluid ounce', 'fl oz'
-    ].join('|');
-    cleaned = cleaned.replace(new RegExp(`^[\\d\\s/.\u00BC-\u00BE\\-]+(${units})s?\\s+`, 'i'), '');
-    
-    // 2. Remove leading numbers
-    cleaned = cleaned.replace(/^[\d\s/.\-\u00BC-\u00BE]+\s+/, '');
+        'kg', 'g', 'lb', 'lbs', 'oz', 'cup', 'cups', 'tbsp', 'tablespoon', 'tablespoons', 'tsp', 'teaspoon', 'teaspoons',
+        'ml', 'milliliter', 'milliliters', 'l', 'liter', 'litre', 'litres', 'liters',
+        'can', 'cans', 'bunch', 'bunches', 'clove', 'cloves', 'slice', 'slices', 'piece', 'pieces',
+        'ear', 'ears', 'rack', 'racks', 'stick', 'sticks', 'packet', 'packets', 'bag', 'bags',
+        'head', 'heads', 'stalk', 'stalks', 'strip', 'strips', 'pinch', 'dash',
+        'bottle', 'bottles', 'jar', 'jars', 'quart', 'quarts', 'pint', 'pints', 'gallon', 'gallons', 'gal',
+        'pound', 'pounds', 'ounce', 'ounces', 'fluid ounce', 'fl oz'
+    ];
 
-    // 3. Convert parentheses to alternatives (e.g. "Cheese (Gruyere)" -> "Cheese or Gruyere")
-    cleaned = cleaned.replace(/\s*\(/g, ' or ').replace(/\)/g, '');
+    // 1. Remove parenthetical content that contains measurements (e.g. "(120 ml)" or "(optional)")
+    cleaned = cleaned.replace(/\([^)]*\)/g, '');
 
-    // 4. Remove details after comma
-    cleaned = cleaned.split(',')[0];
+    // 2. Split by comma first to remove preparation notes
+    cleaned = cleaned.split(',')[0].trim();
 
-    // 5. Replace slashes with ' or ' to support alternatives
+    // 3. Aggressively remove ALL number + unit patterns (anywhere in string, multiple passes)
+    const unitsPattern = units.join('|');
+    const measurementRegex = new RegExp(`\\b[\\d\\s/.\u00BC-\u00BE\\-]+(${unitsPattern})s?\\b`, 'gi');
+    cleaned = cleaned.replace(measurementRegex, ' ');
+
+    // 4. Remove standalone numbers, percentages, and symbols at the start (e.g. "2 Eggs", "100%", "% something")
+    cleaned = cleaned.replace(/^[\d\s/.\u00BC-\u00BE\-%]+/, '').trim();
+
+    // 5. Remove "of" patterns (e.g. "of coconut" -> "coconut")
+    cleaned = cleaned.replace(/\b(of|from)\s+/gi, '').trim();
+
+    // 6. Replace slashes with ' or ' to support alternatives
     cleaned = cleaned.replace(/\//g, ' or ');
 
-    // 6. Remove common prep/state/cut words (Case insensitive)
+    // 7. Remove common prep/state/cut words AND variety/type descriptors (Case insensitive)
     const prepWords = [
-        'Fresh', 'Dried', 'Dry', 'Frozen', 'Canned', 'Preserved',
+        // Temperature & State
+        'Fresh', 'Dried', 'Dry', 'Frozen', 'Canned', 'Preserved', 'Hot', 'Cold', 'Warm', 'Cool', 'Room Temperature',
+        // Preparation Methods
         'Chopped', 'Minced', 'Diced', 'Sliced', 'Grated', 'Crushed', 'Peeled', 'Shredded', 'Beaten', 'Melted', 'Smashed', 'Toasted', 'Roasted', 'Fried', 'Boiled', 'Hard-boiled', 'Steamed', 'Poached', 'Baked', 'Smoked', 'Pickled', 'Fermented', 'Marinated', 'Blanched',
-        'Large', 'Small', 'Medium', 'Whole', 'Raw', 'Cooked', 'Boneless', 'Skinless', 'Lean', 'Extra', 'Virgin',
+        // Size & Quality
+        'Large', 'Small', 'Medium', 'Whole', 'Raw', 'Cooked', 'Boneless', 'Skinless', 'Lean', 'Extra', 'Virgin', 'Premium', 'Quality', 'Grade',
+        // Cuts & Parts
         'Ground', 'Fillet', 'Steak', 'Chop', 'Rib', 'Shank', 'Shoulder', 'Belly', 'Loin', 'Brisket', 'Breast', 'Thigh', 'Wing', 'Leg', 'Bone', 'Skin', 'Head', 'Tail', 'Trotter', 'Liver', 'Heart', 'Kidney',
+        // Forms
         'Paste', 'Powder', 'Sauce', 'Oil', 'Extract', 'Essence', 'Juice', 'Zest', 'Wedge', 'Cube', 'Chunk', 'Ring', 'Strip', 'Sheet', 'Leaf', 'Leaves', 'Stalk', 'Bulb', 'Clove', 'Sprig', 'Bunch', 'Frying', 'For Frying',
-        'Optional', 'To Taste', 'Garnish', 'Decoration', 'Starchy', 'Waxy'
+        // Coffee Varieties
+        'Robusta', 'Arabica', 'Colombian', 'Ethiopian', 'Espresso', 'Instant', 'Brewed', 'Ground Coffee',
+        // Rice Varieties
+        'Basmati', 'Jasmine', 'Arborio', 'Sushi', 'Long-grain', 'Short-grain', 'Medium-grain', 'Wild',
+        // Cheese & Dairy Descriptors
+        'Aged', 'Sharp', 'Mild', 'Creamy', 'Full-fat', 'Low-fat', 'Non-fat', 'Skim',
+        // General Descriptors
+        'Optional', 'To Taste', 'Garnish', 'Decoration', 'Starchy', 'Waxy', 'Store-bought', 'Homemade', 'Organic', 'Natural', 'Artificial', 'Pure', 'Imported', 'Local', 'Domestic'
     ];
     
     // Sort prepWords by length descending to match longest phrases first
@@ -102,7 +132,7 @@ window.parseIngredient = (rawIngredient) => {
     const prepRegex = new RegExp(`\\b(${prepWords.join('|')})\\b`, 'gi');
     cleaned = cleaned.replace(prepRegex, '');
 
-    // 7. Trim and Singularize
+    // 8. Trim and Singularize
     const exceptions = ['asparagus', 'couscous', 'hummus', 'molasses', 'bass', 'lens', 'swiss', 'grits', 'oats', 'chips'];
     
     // Split by ' or ' to handle alternatives created by parens or slashes so we singularize each part
@@ -125,12 +155,35 @@ window.parseIngredient = (rawIngredient) => {
     
     cleaned = processedParts.join(' or ');
 
-    // 8. Final cleanup of extra spaces
+    // 9. Final cleanup of extra spaces
     cleaned = cleaned.replace(/\s+/g, ' ').trim();
 
-    // 9. Cleanup "or" artifacts (e.g. "Milk or or" -> "Milk")
+    // 10. Cleanup "or" artifacts (e.g. "Milk or or" -> "Milk")
     cleaned = cleaned.replace(/\s+or(\s+or)+/gi, ' or ');
     cleaned = cleaned.replace(/^or\s+|\s+or$/gi, '');
+
+    // 11. Remove any remaining standalone numbers, percentages, or measurements
+    cleaned = cleaned.replace(/\b\d+%?\b/g, '').trim();
+    cleaned = cleaned.replace(/^\%+/, '').trim();  // Remove leading %
+    cleaned = cleaned.replace(/\%+$/, '').trim();  // Remove trailing %
+
+    // 12. Strip ALL leading and trailing punctuation, symbols, and whitespace
+    cleaned = cleaned.replace(/^[\s\-*•·→⋅,;:.!?'"()\[\]{}%#@&]+/, '');
+    cleaned = cleaned.replace(/[\s\-*•·→⋅,;:.!?'"()\[\]{}%#@&]+$/, '');
+    cleaned = cleaned.trim();
+
+    // 13. Validation: reject if result is too short, just numbers, or invalid
+    if (cleaned.length < 3) return "";
+    if (/^\d+%?$/.test(cleaned)) return ""; // Just a number or percentage
+    if (/^[^\w\s]+$/.test(cleaned)) return ""; // Just special characters
+    if (/^(block|soft|hard|firm|extra|super|light|dark|heavy)$/i.test(cleaned)) return ""; // Descriptors only
+
+    // 14. Reject common non-ingredient words that might slip through
+    const invalidResults = ['into', 'cut', 'to', 'for', 'with', 'from', 'at', 'in', 'on', 'by', 'about', 'like', 'through', 'over', 'before', 'between', 'after', 'since', 'of', 'the', 'a', 'an', 'and', 'or', 'as', 'per', 'each', 'all', 'some', 'any', 'few'];
+    if (invalidResults.includes(cleaned.toLowerCase())) return "";
+
+    // 15. Reject if it's just a prep word that slipped through
+    if (prepWords.some(w => w.toLowerCase() === cleaned.toLowerCase())) return "";
 
     return cleaned;
 };
@@ -152,17 +205,22 @@ window.getRecipeFromDB = (db, key) => {
 
 window.getUniqueIngredients = (db) => {
     const ingredients = new Set();
-    
+
     const processRecipe = (recipe) => {
         if (recipe.ingredients) {
             recipe.ingredients.forEach(ing => {
-                // Split by comma to handle grouped ingredients (e.g. "Flour, Water, Salt")
-                const parts = ing.split(',');
-                for (const part of parts) {
-                    const parsed = parseIngredient(part);
-                    if (parsed && parsed.length > 2) {
-                        parsed.split(/\s+or\s+/i).forEach(p => ingredients.add(p.trim().toLowerCase()));
-                    }
+                const parsed = window.parseIngredient(ing);
+                if (parsed && parsed.length > 2) {
+                    parsed.split(/\s+or\s+/i).forEach(p => {
+                        // Aggressive normalization: strip punctuation, lowercase, trim
+                        let normalized = p.trim().toLowerCase();
+                        normalized = normalized.replace(/^[\s\-*•·→⋅,;:.!?'"()\[\]{}%#@&]+/, '');
+                        normalized = normalized.replace(/[\s\-*•·→⋅,;:.!?'"()\[\]{}%#@&]+$/, '');
+                        normalized = normalized.replace(/^\d+%?/, ''); // Remove leading numbers/percentages
+                        normalized = normalized.trim();
+                        // Only add if it's at least 3 characters and contains letters
+                        if (normalized.length > 2 && /[a-z]/.test(normalized)) ingredients.add(normalized);
+                    });
                 }
             });
         }
@@ -171,10 +229,16 @@ window.getUniqueIngredients = (db) => {
             recipe.preliminary_steps.forEach(step => {
                 if (step.ingredients) {
                     step.ingredients.forEach(ing => {
-                        const parts = ing.split(',');
-                        for (const part of parts) {
-                            const parsed = parseIngredient(part);
-                            if (parsed && parsed.length > 2) parsed.split(/\s+or\s+/i).forEach(p => ingredients.add(p.trim().toLowerCase()));
+                        const parsed = window.parseIngredient(ing);
+                        if (parsed && parsed.length > 2) {
+                            parsed.split(/\s+or\s+/i).forEach(p => {
+                                let normalized = p.trim().toLowerCase();
+                                normalized = normalized.replace(/^[\s\-*•·→⋅,;:.!?'"()\[\]{}%#@&]+/, '');
+                                normalized = normalized.replace(/[\s\-*•·→⋅,;:.!?'"()\[\]{}%#@&]+$/, '');
+                                normalized = normalized.replace(/^\d+%?/, '');
+                                normalized = normalized.trim();
+                                if (normalized.length > 2 && /[a-z]/.test(normalized)) ingredients.add(normalized);
+                            });
                         }
                     });
                 }
@@ -183,12 +247,15 @@ window.getUniqueIngredients = (db) => {
         // Scan drink ingredients
         if (recipe.drink && recipe.drink.ingredients) {
             recipe.drink.ingredients.forEach(ing => {
-                const parts = ing.split(',');
-                for (const part of parts) {
-                    const parsed = parseIngredient(part);
-                    if (parsed && parsed.length > 2) {
-                        parsed.split(/\s+or\s+/i).forEach(p => ingredients.add(p.trim().toLowerCase()));
-                    }
+                const parsed = window.parseIngredient(ing);
+                if (parsed && parsed.length > 2) {
+                    parsed.split(/\s+or\s+/i).forEach(p => {
+                        let normalized = p.trim().toLowerCase();
+                        normalized = normalized.replace(/^[\s\-*•·→⋅,;:.!?'"()\[\]{}]+/, '');
+                        normalized = normalized.replace(/[\s\-*•·→⋅,;:.!?'"()\[\]{}]+$/, '');
+                        normalized = normalized.trim();
+                        if (normalized.length > 2) ingredients.add(normalized);
+                    });
                 }
             });
         }
@@ -197,10 +264,16 @@ window.getUniqueIngredients = (db) => {
             recipe.drink.preliminary_steps.forEach(step => {
                 if (step.ingredients) {
                     step.ingredients.forEach(ing => {
-                        const parts = ing.split(',');
-                        for (const part of parts) {
-                            const parsed = parseIngredient(part);
-                            if (parsed && parsed.length > 2) parsed.split(/\s+or\s+/i).forEach(p => ingredients.add(p.trim().toLowerCase()));
+                        const parsed = window.parseIngredient(ing);
+                        if (parsed && parsed.length > 2) {
+                            parsed.split(/\s+or\s+/i).forEach(p => {
+                                let normalized = p.trim().toLowerCase();
+                                normalized = normalized.replace(/^[\s\-*•·→⋅,;:.!?'"()\[\]{}%#@&]+/, '');
+                                normalized = normalized.replace(/[\s\-*•·→⋅,;:.!?'"()\[\]{}%#@&]+$/, '');
+                                normalized = normalized.replace(/^\d+%?/, '');
+                                normalized = normalized.trim();
+                                if (normalized.length > 2 && /[a-z]/.test(normalized)) ingredients.add(normalized);
+                            });
                         }
                     });
                 }
@@ -214,7 +287,7 @@ window.getUniqueIngredients = (db) => {
             Object.values(recipe.regions).forEach(processRecipe);
         }
     });
-    
+
     // Return formatted title case sorted list
     return Array.from(ingredients).map(ing => ing.charAt(0).toUpperCase() + ing.slice(1)).sort();
 };
@@ -224,14 +297,17 @@ window.getAllRecipeIngredients = (recipe) => {
         let list = [];
         if (baseIngs) {
             baseIngs.forEach(ing => {
-                ing.split(',').forEach(part => list.push(window.parseIngredient(part).toLowerCase()));
+                // Don't split by comma - comma separates ingredient from prep method
+                const parsed = window.parseIngredient(ing).toLowerCase();
+                if (parsed) list.push(parsed);
             });
         }
         if (prelimSteps) {
             prelimSteps.forEach(step => {
                 if (step.ingredients) {
                     step.ingredients.forEach(ing => {
-                        ing.split(',').forEach(part => list.push(window.parseIngredient(part).toLowerCase()));
+                        const parsed = window.parseIngredient(ing).toLowerCase();
+                        if (parsed) list.push(parsed);
                     });
                 }
             });
@@ -240,10 +316,10 @@ window.getAllRecipeIngredients = (recipe) => {
     };
 
     const foodIngs = collect(recipe.ingredients, recipe.preliminary_steps);
-    const drinkIngs = recipe.drink 
-        ? collect(recipe.drink.ingredients, recipe.drink.preliminary_steps) 
+    const drinkIngs = recipe.drink
+        ? collect(recipe.drink.ingredients, recipe.drink.preliminary_steps)
         : [];
-    
+
     return { foodIngs, drinkIngs };
 };
 
@@ -332,6 +408,4 @@ window.getRegionConfig = () => {
 };
 
 // --- ARTISTIC FLAIRE CONFIGURATION ---
-window.COUNTRY_FLAIRS = {
-    // Brazil theme removed as requested
-};
+window.COUNTRY_FLAIRS = window.COUNTRY_FLAIRS || {};

@@ -263,6 +263,33 @@ const App = () => {
                         setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 15000);
                     }
                 }
+            } else if (activeMapThemeRef.current === 'brazil-cinematic') {
+                // Spawn Rate: 40ms (Leaf trail)
+                if (time - lastTime > 40) {
+                    lastTime = time;
+                    if (effectsContainerRef.current) {
+                        const el = document.createElement('div');
+                        el.className = 'cursor-leaf';
+
+                        // 1. POSITION
+                        el.style.left = `${mousePosRef.current.x}px`;
+                        el.style.top = `${mousePosRef.current.y}px`;
+
+                        // 2. PHYSICS
+                        const drift = (Math.random() - 0.5) * 50;
+                        const rot = (Math.random() - 0.5) * 360;
+                        el.style.setProperty('--drift', `${drift}px`);
+                        el.style.setProperty('--rot', `${rot}deg`);
+                        el.style.setProperty('--duration', `${1 + Math.random()}s`);
+
+                        const size = 10 + Math.random() * 10;
+                        el.style.width = `${size}px`;
+                        el.style.height = `${size}px`;
+
+                        effectsContainerRef.current.appendChild(el);
+                        setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 2000);
+                    }
+                }
             }
             animationFrameId = requestAnimationFrame(loop);
         };
@@ -319,14 +346,8 @@ const App = () => {
                     count = 60; className = 'diwali-lamp';
                 } else if (item.name === 'lanterns-rise') {
                     count = 50; className = 'lantern';
-                } else if (item.name === 'macaw-flight') {
-                    count = 10; className = 'macaw';
-                } else if (item.name === 'amazon-fireflies') {
-                    count = 110; className = 'firefly-spark';
                 } else if (item.name === 'sakura-wind') {
                     count = 60; className = 'sakura-petal';
-                } else if (item.name === 'canopy-mist') {
-                    count = 18; className = 'mist-puff';
                 }
 
                 for (let i = 0; i < count; i++) {
@@ -355,83 +376,24 @@ const App = () => {
 
                         wrapper.appendChild(petal);
                         el = wrapper;
-                    } else if (item.name === 'canopy-mist') {
+                    } else if (item.name === 'river-mist') {
                         el = document.createElement('div');
-                        el.className = 'mist-puff';
-
+                        el.className = 'river-mist';
                         el.style.left = `${Math.random() * 100}%`;
-                        el.style.top = `${Math.random() * 100}%`;
-
-                        const size = 160 + Math.random() * 240;
+                        el.style.bottom = `${Math.random() * 20 - 10}%`;
+                        el.style.width = `${200 + Math.random() * 300}px`;
+                        el.style.height = `${50 + Math.random() * 50}px`;
+                        el.style.animationDuration = `${20 + Math.random() * 20}s`;
+                        el.style.animationDelay = `-${Math.random() * 20}s`;
+                    } else if (item.name === 'carnival-embers') {
+                        el = document.createElement('div');
+                        el.className = 'carnival-ember';
+                        el.style.left = `${Math.random() * 100}%`;
+                        const size = 3 + Math.random() * 5;
                         el.style.width = `${size}px`;
-                        el.style.height = `${size * 0.7}px`;
-
-                        el.style.setProperty('--duration', `${14 + Math.random() * 18}s`);
-                        el.style.setProperty('--dx1', `${-80 + Math.random() * 60}px`);
-                        el.style.setProperty('--dy1', `${20 + Math.random() * 70}px`);
-                        el.style.setProperty('--dx2', `${30 + Math.random() * 110}px`);
-                        el.style.setProperty('--dy2', `${-70 + Math.random() * 80}px`);
-                        el.style.setProperty('--dx3', `${-40 + Math.random() * 90}px`);
-                        el.style.setProperty('--dy3', `${-120 + Math.random() * 110}px`);
-                        el.style.setProperty('--s1', `${0.85 + Math.random() * 0.25}`);
-                        el.style.setProperty('--s2', `${1.0 + Math.random() * 0.25}`);
-                        el.style.setProperty('--s3', `${1.05 + Math.random() * 0.30}`);
-                        el.style.animationDelay = `${-(Math.random() * 12)}s`;
-                    } else if (item.name === 'jungle-rain') {
-                        // Single pass for rain (it covers the screen)
-                        el = document.createElement('div');
-                        el.className = 'rain-layer-1';
-                        effectsContainerRef.current.appendChild(el);
-                        
-                        const el2 = document.createElement('div');
-                        el2.className = 'rain-layer-2';
-                        effectsContainerRef.current.appendChild(el2);
-                        return; // Stop loop, we only need these two layers
-                    } else if (item.name === 'macaw-flight') {
-                        el = document.createElement('div');
-                        el.className = 'macaw';
-
-                        el.style.top = `${8 + Math.random() * 72}%`;
-
-                        el.style.setProperty('--duration', `${10 + Math.random() * 10}s`);
-                        el.style.setProperty('--dy', `${-40 + Math.random() * 80}px`);
-                        el.style.setProperty('--s', `${0.55 + Math.random() * 0.65}`);
-                        el.style.setProperty('--rot', `${-8 + Math.random() * 16}deg`);
-                        el.style.animationDelay = `${Math.random() * 6}s`;
-
-                        const gidBody = `macawBody_${Math.random().toString(36).slice(2)}`;
-                        const gidWing = `macawWing_${Math.random().toString(36).slice(2)}`;
-
-                        el.innerHTML = `
-                          <svg viewBox="0 0 120 60" width="52" height="26" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">
-                            <defs>
-                              <linearGradient id="${gidBody}" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0%" stop-color="rgba(0,191,255,0.95)"/>
-                                <stop offset="100%" stop-color="rgba(76,225,197,0.90)"/>
-                              </linearGradient>
-                              <linearGradient id="${gidWing}" x1="0" y1="0" x2="1" y2="0">
-                                <stop offset="0%" stop-color="rgba(245,200,76,0.95)"/>
-                                <stop offset="100%" stop-color="rgba(0,191,255,0.75)"/>
-                              </linearGradient>
-                            </defs>
-
-                            <path d="M48 30 C58 18, 82 18, 92 30 C82 42, 58 42, 48 30 Z"
-                                  fill="url(#${gidBody})" opacity="0.95"/>
-
-                            <g class="wing l">
-                              <path d="M52 30 C30 18, 18 18, 8 30 C18 42, 30 42, 52 30 Z"
-                                    fill="url(#${gidWing})" opacity="0.95"/>
-                            </g>
-
-                            <g class="wing r">
-                              <path d="M88 30 C110 18, 118 18, 128 30 C118 42, 110 42, 88 30 Z"
-                                    fill="url(#${gidWing})" opacity="0.95"/>
-                            </g>
-
-                            <path d="M92 30 L104 26 L104 34 Z" fill="rgba(255,176,0,0.95)"/>
-                            <circle cx="86" cy="27" r="2" fill="rgba(10,10,10,0.7)"/>
-                          </svg>
-                        `;
+                        el.style.height = `${size}px`;
+                        el.style.animationDuration = `${10 + Math.random() * 10}s`;
+                        el.style.animationDelay = `-${Math.random() * 10}s`;
                     } else {
                         // --- STANDARD LOGIC FOR OTHERS ---
                         el = document.createElement('div');
@@ -457,15 +419,6 @@ const App = () => {
                             el.style.left = Math.random() * 100 + '%';
                             el.style.top = Math.random() * 100 + '%';
                             el.style.animationDelay = -(Math.random() * 5) + 's';
-                        } else if (item.name === 'amazon-fireflies') {
-                            const size = 2 + Math.random() * 2.5;
-                            el.style.width = `${size}px`;
-                            el.style.height = `${size}px`;
-                            el.style.top = Math.random() * 100 + '%';
-                            el.style.setProperty('--duration', `${6 + Math.random() * 11}s`);
-                            el.style.setProperty('--dx', `${-60 + Math.random() * 140}px`);
-                            el.style.setProperty('--dy', `${-90 + Math.random() * 160}px`);
-                            el.style.animationDelay = `${-(Math.random() * 7)}s`;
                         } else {
                             el.style.width = (Math.random() * 10 + 8) + 'px';
                             el.style.height = el.style.width;
@@ -852,6 +805,10 @@ const App = () => {
                             map.setView([46.603354, 1.888334], 5.5, { animate: true });
                         } else if (isoCode === 'PRT') {
                             map.setView([39.3999, -8.2245], 7, { animate: true });
+                        } else if (isoCode === 'BRA') {
+                            map.setView([-14.2, -28], 4, { animate: true });
+                        } else if (isoCode === 'NLD') {
+                            map.setView([52.2, 5.5], 7.5, { animate: true });
                         } else {
                             map.fitBounds(layer.getBounds(), { padding: [50, 50], maxZoom: 6, animate: true });
                         }
@@ -983,6 +940,10 @@ const App = () => {
                     mapInstanceRef.current.setView([46.603354, 1.888334], 5.5, { animate: true });
                 } else if (isoCode === 'PRT') {
                     mapInstanceRef.current.setView([39.3999, -8.2245], 7, { animate: true });
+                } else if (isoCode === 'BRA') {
+                    mapInstanceRef.current.setView([-14.2, -28], 4, { animate: true });
+                } else if (isoCode === 'NLD') {
+                    mapInstanceRef.current.setView([52.2, 5.5], 7.5, { animate: true });
                 } else {
                     mapInstanceRef.current.fitBounds(targetLayer.getBounds(), { padding: [50, 50], maxZoom: 6, animate: true });
                 }

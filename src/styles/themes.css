@@ -2,6 +2,7 @@
 
 /* Fonts (keep it minimal + modern) */
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Noto+Serif:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&display=swap");
 
 /* -----------------------------
    GLOBAL / HELPERS
@@ -157,222 +158,6 @@
   to { opacity: 0.85; transform: scale(1.15); }
 }
 
-/* -----------------------------
-   BRAZIL — CINEMATIC JUNGLE (Balanced)
------------------------------- */
-.brazil-cinematic {
-  background-color: #0d1f12 !important; /* Dark but visible jungle green */
-}
-
-/* Transform tiles into atmospheric rainforest - darker but visible */
-.brazil-cinematic .leaflet-tile-pane {
-  filter:
-    grayscale(100%)
-    sepia(100%)
-    hue-rotate(72deg)
-    saturate(240%)
-    brightness(0.55)
-    contrast(1.7);
-  transition: filter 1.5s ease;
-}
-
-/* Moderate vignette - atmospheric but not overwhelming */
-.brazil-cinematic::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 450;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(10, 20, 12, 0.1) 0%,
-    rgba(8, 18, 10, 0.5) 60%,
-    rgba(5, 12, 7, 0.8) 100%
-  );
-  mix-blend-mode: multiply;
-}
-
-/* Light atmospheric overlay */
-.brazil-cinematic::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 451;
-  background: rgba(8, 20, 12, 0.35);
-  mix-blend-mode: multiply;
-}
-
-/* Title: Majestic Gold (No tacky animation) */
-.brazil-title {
-  font-family: "Sora", sans-serif;
-  text-transform: uppercase;
-  background: linear-gradient(to bottom, #FFD700 10%, #B8860B 80%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.9));
-  font-weight: 900;
-  letter-spacing: 10px;
-}
-
-/* Landmarks: Glowing Silhouettes (Japan Style) */
-.landmark-glow {
-  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
-  animation: landmarkPulse 4s ease-in-out infinite alternate;
-}
-@keyframes landmarkPulse {
-  from { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4)); transform: scale(1); }
-  to { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); transform: scale(1.02); }
-}
-
-/* Amazon river shimmer (Leaflet SVG path gets className) */
-.amazon-river {
-  /* Solid, organic pulse instead of dashed lines */
-  stroke-dasharray: none;
-  animation: riverPulse 4s ease-in-out infinite alternate;
-  filter: drop-shadow(0 0 5px rgba(200, 230, 255, 0.5));
-}
-@keyframes riverPulse {
-  from { opacity: 0.6; stroke-width: 3; }
-  to { opacity: 0.9; stroke-width: 4; }
-}
-
-/* Floating Music Notes */
-@keyframes floatNotes {
-  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
-  50% { transform: translateY(-10px) rotate(5deg); opacity: 1; }
-}
-
-/* Flag Waving Effect */
-@keyframes flagWave {
-  0% { transform: skewY(0deg) scale(1); }
-  25% { transform: skewY(1deg) scale(1.01); }
-  50% { transform: skewY(0deg) scale(1); }
-  75% { transform: skewY(-1deg) scale(1.01); }
-  100% { transform: skewY(0deg) scale(1); }
-}
-
-/* -----------------------------
-   BRAZIL — EFFECTS (mist + fireflies + macaws)
------------------------------- */
-
-/* Mist puffs */
-.mist-puff {
-  position: absolute;
-  border-radius: 999px;
-  pointer-events: none;
-  z-index: 820;
-  opacity: 0;
-
-  background: radial-gradient(circle,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.2) 40%,
-    rgba(0,0,0,0) 75%
-  );
-
-  filter: blur(20px);
-  mix-blend-mode: screen;
-  animation: mistDrift var(--duration) ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-@keyframes mistDrift {
-  0%   { transform: translate(var(--dx1), var(--dy1)) scale(var(--s1)); opacity: 0; }
-  20%  { opacity: 0.5; }
-  55%  { transform: translate(var(--dx2), var(--dy2)) scale(var(--s2)); opacity: 0.3; }
-  100% { transform: translate(var(--dx3), var(--dy3)) scale(var(--s3)); opacity: 0; }
-}
-
-/* Fireflies: twinkle + drift */
-.firefly-spark {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 830;
-
-    background: #ffbf00; /* Warm Amber/Gold */
-  box-shadow:
-        0 0 6px 2px rgba(255, 191, 0, 0.6),
-        0 0 12px 4px rgba(255, 140, 0, 0.2);
-
-  opacity: 0;
-  animation:
-    fireflyDrift var(--duration) ease-in-out infinite,
-    fireflyTwinkle 2.8s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-@keyframes fireflyTwinkle {
-  0%, 100% { opacity: 0.05; transform: scale(0.85); }
-  35% { opacity: 0.85; transform: scale(1.15); }
-  60% { opacity: 0.25; transform: scale(0.95); }
-}
-
-@keyframes fireflyDrift {
-  0%   { transform: translate(0, 0); }
-  50%  { transform: translate(var(--dx), var(--dy)); }
-  100% { transform: translate(calc(var(--dx) * -0.7), calc(var(--dy) * 1.1)); }
-}
-
-/* Macaws: less “dot with wings”, more “stylized glyph” */
-.macaw-bird {
-  position: absolute;
-  width: 30px;
-  height: 18px;
-  pointer-events: none;
-  z-index: 850;
-
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at 70% 45%, rgba(255,255,255,0.7) 0 1.5px, transparent 2px),
-    radial-gradient(circle at 86% 58%, rgba(255, 176, 0, 0.95) 0 4px, transparent 5px),
-    linear-gradient(90deg, rgba(0,191,255,0.95), rgba(0,214,140,0.90));
-
-  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.25));
-  animation: macawFly linear infinite;
-  will-change: transform, opacity;
-}
-
-.macaw-bird::before,
-.macaw-bird::after {
-  content: "";
-  position: absolute;
-  top: 2px;
-  width: 30px;
-  height: 12px;
-  border-radius: 999px;
-
-  background: linear-gradient(90deg, rgba(255,215,0,0.9), rgba(0,191,255,0.75));
-  opacity: 0.95;
-
-  /* wing shape */
-  clip-path: polygon(0% 50%, 20% 10%, 60% 0%, 100% 35%, 60% 65%, 20% 85%);
-
-  animation: macawWing 0.22s infinite alternate ease-in-out;
-}
-
-.macaw-bird::before { left: -20px; transform-origin: right center; }
-.macaw-bird::after  { right: -20px; transform-origin: left center; }
-
-@keyframes macawFly {
-  0%   { transform: translate(-12vw, 110vh) scale(0.65) rotate(-35deg); opacity: 0; }
-  8%   { opacity: 1; }
-  100% { transform: translate(112vw, -12vh) scale(1.25) rotate(-35deg); opacity: 1; }
-}
-
-@keyframes macawWing {
-  from { transform: rotate(22deg) scaleX(0.95); }
-  to   { transform: rotate(-22deg) scaleX(1.05); }
-}
-
-/* -----------------------------
-   YOUR EXISTING THEMES (kept)
-   - china-imperial unchanged
-   - japan-ink etc can stay in this file if you already had them
------------------------------- */
-
 /* China Imperial Theme */
 .china-imperial { background-color: #3a0000 !important; }
 .china-imperial .leaflet-tile-pane {
@@ -386,4 +171,81 @@
   pointer-events: none;
   z-index: 400;
   mix-blend-mode: overlay;
+}
+
+
+/* -----------------------------
+   BRAZIL: Poem Card (Parchment Style)
+------------------------------ */
+.brazil-poem-card {
+  position: relative;
+  width: 220px;
+  padding: 15px 12px;
+  color: #3e2723;
+  font-family: 'Cinzel Decorative', serif;
+  text-align: center;
+  /* Parchment effect */
+  background: radial-gradient(circle, #fdfbf0 0%, #eaddcf 100%);
+  border-radius: 2px;
+  box-shadow: 
+    0 1px 4px rgba(0,0,0,0.3),
+    0 0 40px rgba(0,0,0,0.1) inset;
+  transform: rotate(3deg);
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+  transition: transform 0.3s ease;
+}
+
+.brazil-poem-card:hover {
+  transform: rotate(0deg) scale(1.05);
+  z-index: 1000;
+}
+
+.brazil-poem-card::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(62, 39, 35, 0.2);
+  pointer-events: none;
+}
+
+.toucan-img {
+  width: 60px;
+  height: auto;
+  display: block;
+  margin: -10px auto 10px auto;
+  filter: sepia(20%) contrast(1.1);
+}
+
+.poem-content .pt {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.4;
+  color: #2c1a16;
+}
+
+.poem-content .en {
+  font-family: "Sora", sans-serif;
+  font-size: 9px;
+  color: #5d4037;
+  margin-bottom: 10px;
+  line-height: 1.3;
+  font-style: italic;
+}
+
+.poem-content .author {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.7;
+  margin-top: 10px;
+  border-top: 1px solid rgba(62, 39, 35, 0.2);
+  padding-top: 5px;
+}
+
+
+/* Brazil drill-down: make states feel clickable without neon */
+.brazil-cinematic .leaflet-interactive:hover {
+  filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.25));
 }

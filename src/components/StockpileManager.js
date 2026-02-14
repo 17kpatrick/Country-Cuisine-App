@@ -124,15 +124,18 @@ const StockpileManager = ({ db, onRecipeSelect, onHighlight, onSearchIngredients
             // 3. Check Food (Count Matches vs Missing)
             let foodIngs = [];
             if (recipe.ingredients) {
-                // Split by comma to handle grouped ingredients
-                recipe.ingredients.forEach(ing => ing.split(',').forEach(part => foodIngs.push(window.parseIngredient(part).toLowerCase())));
+                // Parse each ingredient (don't split by comma - comma separates ingredient from prep method)
+                recipe.ingredients.forEach(ing => {
+                    const parsed = window.parseIngredient(ing).toLowerCase();
+                    if (parsed) foodIngs.push(parsed);
+                });
             }
             const validFoodIngs = foodIngs.filter(i => i && !window.isStaple(i));
-            
+
             const foodMatches = validFoodIngs.filter(ing => canMakeIngredient(ing));
             const isFoodFull = validFoodIngs.length > 0 && foodMatches.length === validFoodIngs.length;
             const isFoodPartial = foodMatches.length > 0;
-            
+
             // 4. Check Drink (Count Matches vs Missing)
             let drinkIngs = [];
             let validDrinkIngs = [];
@@ -141,7 +144,10 @@ const StockpileManager = ({ db, onRecipeSelect, onHighlight, onSearchIngredients
             let isDrinkPartial = false;
 
             if (recipe.drink && recipe.drink.ingredients) {
-                recipe.drink.ingredients.forEach(ing => ing.split(',').forEach(part => drinkIngs.push(window.parseIngredient(part).toLowerCase())));
+                recipe.drink.ingredients.forEach(ing => {
+                    const parsed = window.parseIngredient(ing).toLowerCase();
+                    if (parsed) drinkIngs.push(parsed);
+                });
                 validDrinkIngs = drinkIngs.filter(i => i && !window.isStaple(i));
                 drinkMatches = validDrinkIngs.filter(ing => canMakeIngredient(ing));
                 isDrinkFull = validDrinkIngs.length > 0 && drinkMatches.length === validDrinkIngs.length;
