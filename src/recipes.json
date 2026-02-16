@@ -4272,6 +4272,45 @@
             }
         ]
     },
+    "COD":  {
+        "dish":  "Poulet à la Moambe",
+        "description":  "The national dish of the Democratic Republic of Congo. Chicken is braised in moambe—a rich sauce made from the pulp of the African oil palm (or, at home, red palm oil and peanut butter)—with tomatoes, ginger, and pepper. Often finished with spinach or cassava leaves and served with rice, fufu, plantain, or sweet potato.",
+        "ingredients":  [
+            "4 lbs chicken thighs (bone-in, skin-on or skinless)",
+            "1/4 cup red palm oil",
+            "1 large yellow onion, thinly sliced",
+            "3 cloves garlic, pressed or minced",
+            "1 (6 oz) can tomato paste",
+            "1 large ripe tomato, diced",
+            "1 (1-inch) piece fresh ginger, grated",
+            "1 tsp red pepper flakes",
+            "1 cup water",
+            "Kosher salt, to taste",
+            "1/2 cup smooth peanut butter (optional; traditional in some regions—omit for palm-only moambe and use 6 tbsp red palm oil total)",
+            "2 cups fresh spinach, roughly chopped (optional but traditional)",
+            "Cooked white rice, fried plantains, or fufu (to serve)"
+        ],
+        "steps":  [
+            "Heat the palm oil in a large Dutch oven over high heat until nearly smoking. Brown the chicken in batches, 3–4 minutes per side; transfer to a plate.",
+            "Reduce heat to medium-low. Sauté the onion until golden brown, 5–7 minutes. Add the garlic and stir until fragrant, about 30 seconds.",
+            "Add the tomato paste and stir constantly until it darkens slightly, about 3 minutes. Add the diced tomato, ginger, red pepper flakes, water, and salt to taste. Return the chicken and any juices to the pot. Bring to a boil over high heat, then reduce to low, cover, and simmer 20 minutes.",
+            "If using peanut butter: ladle 1–2 cups of the sauce into a bowl, whisk in the peanut butter until smooth, then pour back into the pot. If using spinach, stir it in now. Simmer uncovered 5–10 minutes until the sauce is thick and glossy.",
+            "Taste and adjust salt. Serve hot over rice with fried plantains or fufu on the side."
+        ],
+        "drink":  {
+            "dish":  "Malafu (Nsámbá) — Palm Wine",
+            "description":  "Traditional palm wine in the DRC is known as Malafu (Kikongo) or Nsámbá (Lingala). Fresh sap from the oil palm is collected and ferments naturally within hours into a lightly fizzy, mildly sweet drink; consumed the same day it is at its best.",
+            "ingredients":  [
+                "Fresh palm sap (from tapping oil palm or raffia palm), as available"
+            ],
+            "steps":  [
+                "Collect fresh palm sap into a very clean container; keep shaded and cool.",
+                "Allow to ferment naturally at room temperature 4–8 hours for a lightly sweet, lightly fizzy palm wine (about 2–4% alcohol).",
+                "Chill and drink the same day. Longer fermentation yields a stronger, more sour beverage."
+            ]
+        },
+        "preliminary_steps":  []
+    },
     "COG":  {
         "dish":  "Poulet à la Moambe",
         "description":  "A Congolese-style chicken stew enriched with moambe (palm butter) and served with rice or a starchy mash.",
@@ -4975,6 +5014,113 @@
                 "If using aquavit/vodka, add off heat.",
                 "Ladle into mugs, including a spoonful of raisins/almonds in each."
             ]
+        },
+        "regions":  {
+            "Region Hovedstaden":  {
+                "dish":  "Smørrebrød (Classic Open Sandwich)",
+                "description":  "Copenhagen’s iconic open-faced rye sandwiches. Technique: butter the rye bread to the edges so it stays moist; layer ingredients in order (protein, sauce, garnish); keep each bite-sized and visually distinct. Served cold with a knife and fork.",
+                "ingredients":  [
+                    "Slices of dense, dark rugbrød (Danish rye bread)",
+                    "Unsalted butter, softened",
+                    "Topping option A: thin-sliced roast beef, remoulade, fried onion rings, horseradish",
+                    "Topping option B: pickled herring, red onion, capers, dill",
+                    "Topping option C: smoked salmon, cream cheese, dill, lemon",
+                    "Salt and pepper"
+                ],
+                "steps":  [
+                    "Slice the rugbrød about 1/2 inch (1.2 cm) thick. Butter each slice to the edges so the bread does not get soggy from toppings.",
+                    "Choose one protein per slice. For roast beef: layer thin slices on the buttered bread; add a stripe of remoulade; top with crispy fried onion and a little grated horseradish.",
+                    "For herring: drain the herring; place fillets on the bread; add thin red onion rings, capers, and fresh dill.",
+                    "For salmon: spread a thin layer of cream cheese; add smoked salmon; garnish with dill and a squeeze of lemon.",
+                    "Season lightly. Serve cold, one or two pieces per person, with a knife and fork. Pair with akvavit or Danish beer."
+                ],
+                "drink":  { "dish":  "Danish Beer or Akvavit", "description":  "Copenhagen’s smørrebrød is often enjoyed with pilsner or a small glass of akvavit.", "ingredients":  ["Chilled Danish pilsner or akvavit"], "steps":  ["Serve beer cold; akvavit ice-cold in small glasses."] }
+            },
+            "Region Midtjylland":  {
+                "dish":  "Frikadeller (Danish Meatballs)",
+                "description":  "Classic Danish pan-fried meatballs from the heart of Jutland. Technique: a panade (bread and milk) keeps them tender; mix just until combined to avoid toughness; fry in butter over medium heat so they cook through without burning. Served with potatoes and gravy or red cabbage.",
+                "ingredients":  [
+                    "1/2 cup (120 ml) whole milk",
+                    "2 slices white bread, crusts removed, torn into small pieces",
+                    "1 lb (450 g) ground pork (or half pork, half veal)",
+                    "1 small onion, finely grated",
+                    "1 large egg",
+                    "2 tbsp all-purpose flour",
+                    "1/4 tsp ground allspice",
+                    "1/4 tsp freshly grated nutmeg",
+                    "2 tbsp heavy cream (optional)",
+                    "Kosher salt and white pepper",
+                    "2–3 tbsp butter, for frying"
+                ],
+                "steps":  [
+                    "Soak the bread in the milk 5–10 min until soft. Squeeze out excess milk and mash with a fork to a paste (panade).",
+                    "In a bowl, combine the meat, onion, egg, flour, allspice, nutmeg, and the panade. Mix with your hands or a spoon until just combined; do not overwork. Add cream if using. Season with salt and white pepper. Rest 15–30 min in the fridge.",
+                    "With wet hands, shape into oval patties about 2 inches long and 3/4 inch thick (traditional shape).",
+                    "Melt butter in a large skillet over medium heat. Fry the frikadeller in batches, 3–4 min per side, until golden and cooked through (internal temp 160°F / 71°C). Add more butter as needed. Keep cooked ones warm.",
+                    "Serve with boiled potatoes, gravy (from the pan drippings and a little stock or cream), and red cabbage or cucumber salad."
+                ],
+                "drink":  { "dish":  "Danish Pilsner", "description":  "Cold pilsner from Midtjylland breweries.", "ingredients":  ["Chilled Danish pilsner"], "steps":  ["Serve cold with the frikadeller."] }
+            },
+            "Region Nordjylland":  {
+                "dish":  "Kogt Torsk med Sennepssovs (Poached Cod with Mustard Sauce)",
+                "description":  "North Jutland’s coastal classic: delicate cod poached in a court bouillon, served with a warm mustard-dill sauce. Technique: gentle poaching so the fish stays flaky; sauce is built in the pan and finished with butter and dill.",
+                "ingredients":  [
+                    "4 cod fillets (about 6 oz / 170 g each), skinless, pin bones removed",
+                    "2 cups (480 ml) water or light fish stock",
+                    "1/2 cup (120 ml) dry white wine",
+                    "1 small carrot, 1/2 onion, 1 celery stalk (sliced)",
+                    "6 black peppercorns, 1 bay leaf, 2–3 sprigs dill",
+                    "For mustard sauce: 2 tbsp butter, 2 tbsp all-purpose flour, 1 cup (240 ml) poaching liquid (strained), 2 tbsp Danish or Dijon mustard, 2 tbsp chopped dill, 1–2 tbsp heavy cream (optional), salt and white pepper"
+                ],
+                "steps":  [
+                    "Bring water or stock, wine, carrot, onion, celery, peppercorns, bay leaf, and dill to a gentle simmer; cook 10 min to infuse. Strain and return to the pan; keep at a bare simmer.",
+                    "Add the cod fillets; they should be just submerged. Poach 4–6 min until the fish flakes with a fork and is opaque. Remove carefully and keep warm. Reserve 1 cup of the poaching liquid.",
+                    "For the sauce: melt the butter in a small saucepan. Whisk in the flour and cook 1 min. Gradually whisk in the reserved poaching liquid; bring to a simmer and cook until thickened, 2–3 min. Whisk in the mustard, dill, and cream if using. Season with salt and white pepper.",
+                    "Serve the cod on warmed plates with the mustard sauce, boiled new potatoes, and steamed vegetables or a simple salad."
+                ],
+                "drink":  { "dish":  "Hvidtøl or White Wine", "description":  "Light beer or dry white wine with North Jutland fish.", "ingredients":  ["Chilled hvidtøl or dry white wine"], "steps":  ["Serve cold."] }
+            },
+            "Region Sjælland":  {
+                "dish":  "Æbleflæsk (Apple and Bacon)",
+                "description":  "Traditional Zealand dish of fried bacon and apples, sweet and savory. Technique: render the bacon first; cook the apples in the fat until tender and lightly caramelized; balance sweet, salt, and a touch of thyme. Served with rye bread or as a side.",
+                "ingredients":  [
+                    "1 lb (450 g) thick-cut smoked bacon (or slab bacon), cut into 1/2-inch dice or strips",
+                    "3–4 tart apples (e.g. Granny Smith), peeled, cored, and sliced",
+                    "1 medium onion, sliced (optional)",
+                    "1–2 tbsp sugar, or to taste",
+                    "1–2 tsp fresh thyme leaves (optional)",
+                    "Salt and black pepper",
+                    "Rye bread, to serve"
+                ],
+                "steps":  [
+                    "In a large skillet over medium heat, fry the bacon until it has rendered fat and is golden but not crisp. Transfer to a plate; leave the fat in the pan.",
+                    "Add the apple slices (and onion if using) to the bacon fat. Sprinkle with sugar and thyme. Cook, stirring occasionally, until the apples are tender and lightly golden, 8–12 min.",
+                    "Return the bacon to the pan; stir to combine. Taste and adjust with salt, pepper, and a little more sugar if needed. The dish should be a balance of sweet and salty.",
+                    "Serve hot with dense rye bread and optionally a green salad. Leftovers reheat well."
+                ],
+                "drink":  { "dish":  "Cider or Danish Beer", "description":  "Apple cider or pilsner from Zealand.", "ingredients":  ["Chilled cider or Danish beer"], "steps":  ["Serve cold."] }
+            },
+            "Region Syddanmark":  {
+                "dish":  "Grønlangkål (Creamed Curly Kale)",
+                "description":  "Southern Denmark’s hearty winter dish: curly kale simmered until tender, then creamed and served with smoked pork or sausage. Technique: blanch the kale to soften and reduce bitterness; long, gentle simmer so it melds with the cream; often served at Christmas or with flæskesteg.",
+                "ingredients":  [
+                    "2 lbs (900 g) curly kale (fresh or frozen), tough stems removed, leaves chopped",
+                    "2–3 tbsp butter",
+                    "2–3 tbsp all-purpose flour",
+                    "1 1/2–2 cups (360–480 ml) whole milk or cream",
+                    "1/2 tsp sugar",
+                    "Salt, white pepper, and a pinch of nutmeg",
+                    "Smoked pork belly or medisterpølse (Danish sausage), to serve",
+                    "Boiled potatoes, to serve"
+                ],
+                "steps":  [
+                    "If using fresh kale: bring a large pot of salted water to a boil; blanch the kale 3–5 min until wilted. Drain and squeeze out excess liquid. Chop finely. (If using frozen, thaw and squeeze; no need to blanch.)",
+                    "Melt the butter in a heavy pot. Whisk in the flour; cook 1 min. Gradually add the milk or cream, whisking until smooth. Bring to a gentle simmer.",
+                    "Add the kale and sugar. Simmer uncovered, stirring occasionally, 20–40 min until the kale is very tender and the sauce has thickened. Add a little more milk if it becomes too thick. Season with salt, white pepper, and nutmeg.",
+                    "Serve hot with boiled potatoes and sliced smoked pork or medisterpølse. Traditional at Christmas alongside flæskesteg."
+                ],
+                "drink":  { "dish":  "Snaps or Danish Beer", "description":  "Snaps or beer with South Danish winter food.", "ingredients":  ["Chilled snaps or Danish beer"], "steps":  ["Serve cold."] }
+            }
         }
     },
     "DOM":  {
@@ -5544,6 +5690,278 @@
                 "Give a single gentle stir to combine.",
                 "Serve immediately."
             ]
+        },
+        "regions":  {
+            "Auvergne-Rhône-Alpes":  {
+                "dish":  "Tartiflette",
+                "description":  "A Savoyard gratin of potatoes, reblochon, lardons, and onions. Technique: waxy potatoes hold their shape; the cheese is cut through the middle so it melts into the layers; white wine adds acidity to cut the fat. Served blistering hot from the oven.",
+                "ingredients":  [
+                    "2 lbs (900 g) waxy potatoes (e.g. Charlotte, Ratte), unpeeled, scrubbed",
+                    "1 whole reblochon (about 14 oz / 400 g), rind on, at room temperature",
+                    "6 oz (170 g) smoked bacon lardons or thick-cut bacon cut into 1/2-inch dice",
+                    "2 medium yellow onions, thinly sliced",
+                    "1/2 cup (120 ml) dry white wine (e.g. Apremont or other Savoie)",
+                    "2 tbsp (30 g) unsalted butter, for the dish and dotting",
+                    "Kosher salt and freshly ground black pepper"
+                ],
+                "steps":  [
+                    "Mise en place: Boil the whole potatoes in well-salted water until a knife meets slight resistance (about 20–25 min). Drain; when cool enough to handle, peel and slice into 1/4-inch (6 mm) rounds. Do not overwork or they will break.",
+                    "In a large skillet over medium heat, render the lardons without added fat until golden and some fat has released, 8–10 min. Transfer lardons to a plate; leave about 1 tbsp fat in the pan.",
+                    "In the same pan, sauté the onions in the bacon fat until soft and lightly golden, 10–12 min. Season with a pinch of salt and pepper.",
+                    "Butter a 9-by-13-inch (or equivalent) gratin dish. Spread half the potato slices in a layer; season lightly. Scatter half the onions and half the lardons. Repeat with remaining potatoes, onions, and lardons. Drizzle the wine evenly over the top.",
+                    "Cut the reblochon in half horizontally through the middle (so you have two rounds). Place both halves rind-side up on top of the potatoes, or cut into pieces and distribute. Dot with butter. Bake in the center of a preheated 375°F (190°C) oven 25–35 min until the cheese is melted and bubbling and the top is golden. Rest 5 min; serve hot with cornichons and a green salad."
+                ],
+                "drink":  { "dish":  "Vin de Savoie", "description":  "Local white or red from the Alps.", "ingredients":  ["Chilled Savoie wine"], "steps":  ["Serve chilled with the tartiflette."] }
+            },
+            "Bourgogne-Franche-Comté":  {
+                "dish":  "Bœuf Bourguignon",
+                "description":  "Burgundy's iconic braise: beef chuck, lardons, pearl onions, and mushrooms in red wine. Technique: dry the meat for a proper sear; deglaze with wine and reduce; low, steady heat so the collagen breaks down without boiling. The garniture (onions and mushrooms) is cooked separately and added at the end so it keeps texture and color.",
+                "ingredients":  [
+                    "2 1/2 lbs (1.1 kg) beef chuck or beef bourguignon cut, cut into 2-inch (5 cm) cubes, patted very dry",
+                    "6 oz (170 g) slab bacon or thick-cut bacon, cut into lardons (1/4 by 1 inch)",
+                    "1 bottle (750 ml) Burgundy or other dry, fruity red wine",
+                    "2 cups (480 ml) beef stock, preferably homemade or low-sodium",
+                    "1 lb (450 g) pearl onions, blanched 1 min and peeled (or frozen, thawed)",
+                    "10 oz (280 g) small button or cremini mushrooms, trimmed and quartered if large",
+                    "2 medium carrots, cut into 1/2-inch rounds",
+                    "1 large yellow onion, chopped",
+                    "4 cloves garlic, smashed",
+                    "1 bouquet garni (3 sprigs thyme, 2 bay leaves, 1 small stalk celery, tied in cheesecloth or leek green)",
+                    "2 tbsp (30 g) tomato paste",
+                    "2 tbsp all-purpose flour",
+                    "2 tbsp neutral oil or rendered bacon fat",
+                    "Kosher salt and freshly ground black pepper"
+                ],
+                "steps":  [
+                    "In a large Dutch oven over medium heat, render the lardons until golden; transfer to a plate. Leave fat in the pot (add 1 tbsp oil if needed).",
+                    "Season the beef with salt and pepper. Sear in the fat in a single layer, in batches—do not crowd—until deeply browned on at least two sides, 4–5 min per batch. Transfer to the plate with the bacon.",
+                    "Lower heat; add the chopped onion and carrots. Sauté until the onion is soft and starting to color, 6–8 min. Add the garlic and tomato paste; stir 1 min. Sprinkle with the flour; stir 1 min to cook the raw flour taste off.",
+                    "Deglaze with the wine, scraping up all the browned bits (fond). Add the stock, bouquet garni, and a pinch of salt. Return the beef and bacon; bring to a gentle simmer. Partially cover and braise in a 325°F (165°C) oven (or on the lowest burner setting) 2 1/2–3 hours until the beef is fork-tender. Skim fat from the surface if needed.",
+                    "While the beef braises: in a skillet, brown the pearl onions in a little butter until golden; add a splash of water and cover to finish softening. In the same pan, sauté the mushrooms in butter until golden. Set aside.",
+                    "When the beef is tender, remove the bouquet garni. Add the pearl onions and mushrooms; simmer 10–15 min. Taste and adjust seasoning. Serve with mashed potatoes, buttered noodles, or crusty bread; garnish with chopped parsley."
+                ],
+                "drink":  { "dish":  "Burgundy Red Wine", "description":  "Pinot noir from the Côte de Beaune or Nuits.", "ingredients":  ["Bottle of Burgundy"], "steps":  ["Serve at room temperature (cellar temp) with the stew."] }
+            },
+            "Bretagne":  {
+                "dish":  "Galette Complète",
+                "description":  "A buckwheat (blé noir) crêpe from Brittany filled with ham, Gruyère, and a runny egg. Technique: pure buckwheat batter with no wheat (gluten-free); resting hydrates the flour; a well-seasoned or nonstick crêpe pan and the right heat give a lacy, crisp-edged galette. The egg is cracked onto the galette and cooked just until the white is set so the yolk stays runny.",
+                "ingredients":  [
+                    "1 cup (120 g) buckwheat flour (farine de sarrasin)",
+                    "1/2 tsp fine sea salt",
+                    "1 1/4 cups (300 ml) cold water",
+                    "1 large egg, at room temperature",
+                    "Unsalted butter, for the pan",
+                    "Per galette: 1 thin slice jambon blanc or good ham, 1/4 cup (25 g) grated Gruyère, 1 large egg, salt and pepper"
+                ],
+                "steps":  [
+                    "In a bowl, whisk the buckwheat flour and salt. Make a well; add the egg and half the water. Whisk from the center outward until smooth, then whisk in the rest of the water. The batter should be the consistency of thin cream. Cover and rest at room temperature at least 1 hour (or up to 12 hours in the fridge; bring back to room temp and thin with 1–2 tbsp water if needed).",
+                    "Heat a 9- or 10-inch crêpe pan or nonstick skillet over medium heat. When hot, rub with a little butter. Pour about 1/3 cup (80 ml) batter into the center; immediately tilt and swirl so the batter coats the bottom in a thin, even layer. Cook until the top is set and the edges lift easily, 1–2 min.",
+                    "Place the ham and cheese on one half of the galette. Crack the egg into the center. Fold the opposite half over the filling (or fold the two sides in toward the center to leave the egg visible). Add a small knob of butter to the pan around the galette.",
+                    "Cook until the egg white is set and the cheese has melted, 2–3 min. The yolk should remain runny. Season with salt and pepper. Slide onto a plate and serve immediately. Repeat with remaining batter and fillings. Serve with Breton cider in a bolée."
+                ],
+                "drink":  { "dish":  "Cidre Breton", "description":  "Dry or demi-sec apple cider from Brittany.", "ingredients":  ["Chilled Breton cider"], "steps":  ["Serve cold in a bowl-shaped cup (bolée)."] }
+            },
+            "Centre-Val de Loire":  {
+                "dish":  "Tarte Tatin",
+                "description":  "Upside-down caramelized apple tart from the Loire. Technique: dry caramel (or butter-and-sugar) in the pan; apples are arranged cut-side up in a tight spiral so they hold their shape; the pastry is baked on top, then the tart is inverted in one confident flip so the apples sit on a crisp, buttery base. Rest briefly before inverting so the caramel sets slightly and does not run off.",
+                "ingredients":  [
+                    "6–8 firm, tart apples (e.g. Granny Smith or Reine des Reinettes), peeled, cored, and cut into quarters (or sixths if large)",
+                    "1 sheet all-butter puff pastry, thawed if frozen, rolled to a round 1 inch larger than your pan",
+                    "1/2 cup (1 stick / 115 g) unsalted butter, cut into pieces",
+                    "3/4 cup (150 g) granulated sugar",
+                    "Pinch of fine sea salt"
+                ],
+                "steps":  [
+                    "Use a 10-inch (25 cm) ovenproof skillet (stainless or cast iron). Melt the butter in the pan over medium heat; add the sugar and salt. Stir until the sugar dissolves, then cook without stirring until the mixture turns a deep amber caramel (watch carefully—it can burn quickly). Remove from heat.",
+                    "Arrange the apple quarters in the pan in a tight spiral, rounded side down, packing them so they hold together when inverted. Fill any gaps with smaller pieces. Return the pan to medium-low heat and cook 15–25 min so the apples release juice and the caramel thickens. The apples should be tender but not mushy. Remove from heat.",
+                    "Lay the pastry over the apples and tuck the edges down between the apples and the pan. Pierce the pastry in a few places with a knife so steam can escape. Bake in a preheated 400°F (200°C) oven until the pastry is golden and cooked through, 20–28 min.",
+                    "Let rest 5–10 min (so the caramel is less runny). Place a large serving plate over the pan. Using oven mitts, firmly hold the plate and pan together and invert in one motion. Lift the pan off. If any apples stick, rearrange them. Serve warm with crème fraîche or vanilla ice cream."
+                ]
+            },
+            "Corse":  {
+                "dish":  "Fiadone (Corsican Cheesecake)",
+                "description":  "A light, flourless Corsican cheesecake made with brocciu or ricotta, eggs, and lemon. Technique: no crust—the mixture is blended until smooth, poured into a buttered mold, and baked until set with a slight wobble in the center. The eggs provide structure; the lemon zest is essential. Traditionally served at room temperature, often for Easter.",
+                "ingredients":  [
+                    "2 cups (500 g) brocciu (Corsican fresh cheese) or whole-milk ricotta, drained if watery",
+                    "4 large eggs, at room temperature",
+                    "3/4 cup (150 g) granulated sugar",
+                    "Zest of 2 untreated lemons, finely grated",
+                    "1 tsp vanilla extract or 1/2 tsp lemon juice",
+                    "Butter and flour for the pan (or use a nonstick 9-inch round pan, buttered)"
+                ],
+                "steps":  [
+                    "If using ricotta, drain in a sieve 15–30 min if it is wet; press gently. Preheat the oven to 350°F (175°C). Butter a 9-inch (23 cm) round cake pan and dust with flour, or use a springform and butter it well.",
+                    "In a large bowl, beat the brocciu or ricotta with a whisk or wooden spoon until smooth and free of lumps. Add the eggs one at a time, mixing well after each. Stir in the sugar, lemon zest, and vanilla until fully combined. The mixture should be homogeneous and slightly fluid.",
+                    "Pour the batter into the prepared pan and smooth the top. Bake on the middle rack 35–45 min until the edges are golden and the center is set with a slight jiggle (it will firm up as it cools). Do not overbake or the texture will be dry.",
+                    "Cool in the pan on a rack 15–20 min, then unmold if using a regular pan. Cool completely. Serve at room temperature, optionally with a dusting of powdered sugar or a drizzle of honey."
+                ]
+            },
+            "Grand Est":  {
+                "dish":  "Choucroute Garnie",
+                "description":  "Alsatian sauerkraut braised with juniper, white wine, and an array of pork and sausages. Technique: rinse the sauerkraut to control salt and soften flavor; layer with aromatics and fat (bacon, duck fat, or lard); slow braise so the kraut becomes tender and infused. Meats are nestled in and added according to cooking time—long-cook cuts first, sausages last so they do not burst.",
+                "ingredients":  [
+                    "2 lbs (900 g) raw sauerkraut (choucroute crue), rinsed in cold water and squeezed dry in batches",
+                    "1 lb (450 g) smoked bacon (piece, e.g. poitrine fumée), rind scored",
+                    "1 lb (450 g) pork shoulder or smoked pork knuckle (jarret)",
+                    "4–6 Strasbourg-style or frankfurter sausages (saucisses de Strasbourg)",
+                    "8–10 juniper berries, lightly crushed",
+                    "1 1/2 cups (360 ml) dry Alsace white wine (Riesling or Sylvaner)",
+                    "1 medium onion, peeled and stuck with 2 cloves",
+                    "2 bay leaves",
+                    "6–8 black peppercorns",
+                    "2 tbsp duck fat or lard (optional but traditional)",
+                    "Waxy potatoes (e.g. Charlotte), boiled in salted water, to serve",
+                    "Dijon mustard, to serve"
+                ],
+                "steps":  [
+                    "Rinse the sauerkraut in a colander under cold water; squeeze out excess liquid in handfuls. This reduces salt and softens the flavor. Set aside.",
+                    "In a large heavy pot (or cocotte), melt the duck fat if using. Spread half the sauerkraut in the bottom. Scatter half the juniper berries, the onion with cloves, bay leaves, and peppercorns. Lay the bacon and pork shoulder or knuckle on top. Cover with the remaining sauerkraut. Pour the wine and add enough water or stock to come about halfway up the kraut (do not drown it). Bring to a gentle simmer.",
+                    "Cover with a tight lid or parchment and a lid. Simmer on low heat (or in a 325°F / 165°C oven) 2–2 1/2 hours until the sauerkraut is tender and the pork is cooked. Check liquid occasionally; add a little water if the bottom is dry.",
+                    "Add the sausages, pushing them into the sauerkraut. Simmer 15–20 min until the sausages are heated through. Remove the onion and bay leaves. Slice the bacon and pork; arrange the meats on a platter with the sauerkraut and boiled potatoes. Serve with strong Dijon mustard and the same Alsace wine, chilled."
+                ],
+                "drink":  { "dish":  "Riesling d'Alsace", "description":  "Dry Alsace white.", "ingredients":  ["Chilled Alsace Riesling"], "steps":  ["Serve chilled with choucroute."] }
+            },
+            "Hauts-de-France":  {
+                "dish":  "Carbonnade Flamande",
+                "description":  "Flemish beef and onion stew braised in brown beer, with a touch of brown sugar and vinegar. Technique: beef is seared in batches for fond; onions are cooked slowly until deeply golden; the pain à la moutarde (bread spread with Dijon) is laid on top to thicken and flavor the sauce. Long, gentle simmer so the meat is tender and the sauce is rich and glossy.",
+                "ingredients":  [
+                    "2 lbs (900 g) beef chuck, cut into 1 1/2-inch (4 cm) cubes, patted dry",
+                    "3 large yellow onions, halved and sliced 1/4 inch thick",
+                    "2 (12 oz / 355 ml) bottles brown ale or Flanders red (e.g. Belgian dubbel)",
+                    "2 tbsp (30 g) dark brown sugar",
+                    "1 tbsp red wine vinegar",
+                    "2–3 slices stale country bread",
+                    "Dijon mustard, for the bread",
+                    "2 sprigs thyme, 2 bay leaves",
+                    "2 tbsp neutral oil or butter",
+                    "Kosher salt and freshly ground black pepper"
+                ],
+                "steps":  [
+                    "In a Dutch oven over medium-high heat, heat 1 tbsp oil. Season the beef with salt and pepper. Sear in a single layer in batches until well browned on at least two sides, 4–5 min per batch. Transfer to a plate. Do not crowd the pan or the meat will steam.",
+                    "Lower the heat to medium. Add the remaining oil and the onions. Cook, stirring occasionally, until the onions are soft and deeply golden, 20–25 min. This builds sweetness and depth.",
+                    "Return the beef and any juices to the pot. Add the beer, brown sugar, vinegar, thyme, and bay leaves. Bring to a simmer. Spread one side of each bread slice with a thin layer of Dijon and place mustard-side down on top of the stew (the bread will dissolve and thicken the sauce). Partially cover and simmer on low 2–2 1/2 hours until the beef is fork-tender. Remove the thyme and bay leaves; discard any remaining bread. Taste and adjust salt and pepper. Serve with frites, boiled potatoes, or crusty bread."
+                ]
+            },
+            "Île-de-France":  {
+                "dish":  "Croque-Monsieur",
+                "description":  "Parisian ham-and-cheese sandwich gratinéed with béchamel and Gruyère. Technique: a proper béchamel (roux then milk, no lumps) with nutmeg; the sandwich is assembled, coated with béchamel and cheese, then baked until the sauce is bubbling and the top is golden. For Croque-Madame, add a fried egg on top.",
+                "ingredients":  [
+                    "8 slices pain de mie or good white sandwich bread, about 1/2 inch thick",
+                    "4 thin slices jambon blanc or good cooked ham",
+                    "1 1/2 cups (150 g) grated Gruyère",
+                    "2 tbsp (30 g) unsalted butter",
+                    "2 tbsp (20 g) all-purpose flour",
+                    "1 cup (240 ml) whole milk, warmed",
+                    "Pinch of freshly grated nutmeg",
+                    "Kosher salt and white pepper"
+                ],
+                "steps":  [
+                    "Béchamel: In a small saucepan over medium heat, melt the butter. Add the flour and stir with a wooden spoon for 1–2 min (do not let it color). Off the heat, add the warm milk in a steady stream while whisking to avoid lumps. Return to medium heat and bring to a gentle simmer; cook, stirring, until thickened, 2–3 min. Season with nutmeg, salt, and white pepper. Off the heat, stir in 1/4 cup (25 g) of the Gruyère until melted. Set aside; if it thickens too much, thin with a drop of milk.",
+                    "Assemble: Lay 4 slices of bread on a baking sheet. Top each with 1 slice of ham and a good sprinkle of Gruyère. Cover with the remaining bread slices. Spread the béchamel evenly over the tops (and optionally the sides), then sprinkle with the remaining Gruyère.",
+                    "Bake in a preheated 425°F (220°C) oven 10–14 min until the béchamel is bubbling and the cheese on top is golden and spotted brown. Rest 1–2 min. Serve hot, with a green salad. Optional: top each with a fried egg for Croque-Madame."
+                ]
+            },
+            "Normandie":  {
+                "dish":  "Moules à la Crème Normande",
+                "description":  "Mussels steamed in dry cider with cream, shallots, and apple—a taste of the Norman coast. Technique: sweat the aromatics in butter without browning; add cider and cream, then the mussels; cover and steam over high heat so they open quickly and stay tender. Discard any that do not open. The sauce is finished with parsley and a knob of butter (monter au beurre) for shine.",
+                "ingredients":  [
+                    "4 lbs (1.8 kg) mussels, scrubbed and debearded (pull or cut the beard), rinsed in cold water",
+                    "1 cup (240 ml) dry Norman cider",
+                    "1/2 cup (120 ml) crème fraîche or heavy cream",
+                    "2 shallots, finely minced",
+                    "1 crisp apple (e.g. Granny Smith or Reinette), peeled, cored, and cut into small dice",
+                    "3 tbsp (45 g) unsalted butter",
+                    "2 tbsp chopped flat-leaf parsley",
+                    "Kosher salt and freshly ground black pepper"
+                ],
+                "steps":  [
+                    "Check mussels: discard any that are broken or that do not close when tapped. Rinse and drain. Set aside.",
+                    "In a large pot with a tight-fitting lid (wide and deep enough to hold the mussels), melt 2 tbsp butter over medium heat. Add the shallots and sweat until soft and translucent, 2–3 min—do not brown. Add the apple and cook 1 min. Pour in the cider and bring to a boil; let reduce 1–2 min. Add the crème fraîche, stir, and bring back to a simmer.",
+                    "Add the mussels all at once and cover. Increase heat to high and steam 4–6 min, shaking the pot once or twice, until the mussels have opened. Remove from heat. Discard any mussels that did not open. Stir in the remaining 1 tbsp butter and the parsley. Taste the sauce and season with salt and pepper (cider may be salty). Serve immediately in large bowls with the sauce, with frites or crusty bread and Norman cider."
+                ],
+                "drink":  { "dish":  "Cidre de Normandie", "description":  "Norman apple cider.", "ingredients":  ["Chilled Norman cider"], "steps":  ["Serve cold."] }
+            },
+            "Nouvelle-Aquitaine":  {
+                "dish":  "Confit de Canard",
+                "description":  "Duck leg preserved and slow-cooked in its own fat (confit), then crisped in a pan for serving—a Gascon and Périgord classic. Technique: dry-salting draws moisture and seasons the meat; cooking in fat at a low temperature (around 85–90°C) renders the connective tissue without boiling. Stored under fat, confit keeps for weeks. To serve, the skin is crisped in a hot pan, flesh-side briefly, then skin-side until golden.",
+                "ingredients":  [
+                    "4 duck legs (cuisses de canard), whole with skin",
+                    "1 1/2–2 lbs (700–900 g) duck fat, or enough to submerge the legs completely",
+                    "4–6 cloves garlic, unpeeled, lightly smashed",
+                    "4–6 sprigs thyme",
+                    "1 1/2 tbsp (about 15 g) fine sea salt",
+                    "1 tsp black peppercorns, lightly crushed",
+                    "2 bay leaves (optional)"
+                ],
+                "steps":  [
+                    "Salt the duck legs on both sides with the sea salt; add the peppercorns and optional bay. Place in a dish, cover, and refrigerate 12–24 hours. This draws out moisture and seasons the meat.",
+                    "Rinse the legs and pat very dry. Preheat the oven to 285°F (140°C). In a heavy ovenproof pot just large enough to hold the legs in one layer, melt the duck fat. Add the garlic and thyme. Submerge the duck legs completely in the fat (they must be covered). Bring to a very gentle simmer on the stovetop, then transfer, uncovered, to the oven. Cook 2–2 1/2 hours until the meat is tender and pulls easily from the bone. The fat should never boil—only gentle bubbles.",
+                    "To store: cool the legs in the fat, then transfer to a container and cover completely with the strained fat. Refrigerate; they keep for weeks. To serve: remove the legs from the fat and scrape off excess fat. In a cold skillet, place the legs skin-side down. Turn heat to medium; cook 8–12 min until the skin is golden and crisp. Flip and warm the flesh side 1–2 min. Serve with potatoes sautéed in duck fat, or a simple green salad."
+                ]
+            },
+            "Occitanie":  {
+                "dish":  "Cassoulet",
+                "description":  "Slow-cooked white beans with duck confit, Toulouse sausage, and pork—the soul of Languedoc. Technique: beans are cooked until tender and their cooking liquid becomes the base; meats are layered with the beans in a deep vessel; a breadcrumb crust forms on top and is deliberately broken and pushed back in (casser la croûte) several times so it thickens and flavors the whole dish. Long, gentle baking melds everything.",
+                "ingredients":  [
+                    "2 lbs (900 g) dried Tarbais or cannellini beans, soaked overnight in cold water, drained",
+                    "4 duck confit legs (from your own confit or store-bought)",
+                    "1 lb (450 g) Toulouse sausage or other garlic pork sausage, pricked",
+                    "8 oz (225 g) pork shoulder or fresh pork belly, cut into 1 1/2-inch cubes",
+                    "2 medium onions, 1 quartered and 1 chopped",
+                    "2 carrots, 1 halved and 1 diced",
+                    "6 cloves garlic, 2 smashed and 4 minced",
+                    "1 (14 oz / 400 g) can whole tomatoes, crushed by hand, with juice",
+                    "1 bouquet garni (thyme, bay leaf, parsley stems)",
+                    "1/2 cup (50 g) dry breadcrumbs",
+                    "2 tbsp duck fat or olive oil",
+                    "Kosher salt and freshly ground black pepper"
+                ],
+                "steps":  [
+                    "Put the soaked beans in a large pot with the quartered onion, halved carrot, smashed garlic, and bouquet garni. Cover with cold water by 2 inches. Bring to a simmer and cook until the beans are tender but not mushy, 1–1 1/2 hours (timing depends on the bean). Add salt in the last 15 min. Drain, reserving the cooking liquid; remove the bouquet garni and aromatics. You need about 4–5 cups of bean liquid.",
+                    "In a skillet, brown the sausage and pork cubes in duck fat; set aside. In a large cassole or Dutch oven, build layers: a third of the beans, half the chopped onion and diced carrot, half the minced garlic, half the tomatoes, the pork cubes, then more beans, the sausages (whole or halved), and the duck confit. Top with the remaining beans. Add enough reserved bean liquid to come just to the top of the beans. Bring to a simmer on the stovetop.",
+                    "Sprinkle the top evenly with breadcrumbs. Bake uncovered at 300°F (150°C) for 2–3 hours. Every 30–45 min, break the crust (casser la croûte) with a spoon and push it into the cassoulet; add a little bean liquid if it looks dry. The final result should be creamy beans with a golden, broken crust. Rest 15 min; serve from the pot with a green salad and red wine."
+                ]
+            },
+            "Pays de la Loire":  {
+                "dish":  "Rillettes du Mans",
+                "description":  "Shredded pork (or goose) slow-cooked in fat and its own juices, then potted—a classic of Le Mans and the Loire. Technique: equal parts shoulder and belly (or mostly shoulder with some belly for fat); very low heat so the meat confits in fat and water without frying; shredding while still warm so the fat distributes; pressing into jars and sealing with a thin layer of fat for keeping. Served cold on bread with cornichons.",
+                "ingredients":  [
+                    "2 lbs (900 g) pork shoulder, cut into 2-inch cubes",
+                    "1/2 lb (225 g) pork belly, cut into 2-inch pieces (rind removed)",
+                    "1 1/2 tsp fine sea salt",
+                    "1/2 tsp black peppercorns",
+                    "2–3 sprigs thyme",
+                    "2 bay leaves",
+                    "2–3 cups (480–720 ml) water, or enough to just cover the meat"
+                ],
+                "steps":  [
+                    "Put the pork shoulder and belly in a heavy pot (Dutch oven or cocotte). Add the salt, peppercorns, thyme, and bay leaves. Pour in enough water to just cover the meat. Bring to a very gentle simmer over low heat—the surface should barely move. Do not boil.",
+                    "Partially cover and cook 4–5 hours, checking occasionally. The meat should be falling apart and the liquid mostly reduced to a fatty, gelatinous layer. Add a splash of water if the bottom threatens to dry before the meat is tender.",
+                    "Remove the thyme and bay leaves. Using two forks or your hands, shred the meat in the pot, mixing it with the fat and juices until you have a coarse, spreadable consistency. Taste and adjust salt. Pack the rillettes into clean jars, pressing down to remove air pockets. Smooth the top and, if you have extra fat, pour a thin layer over the surface. Cool to room temperature, then refrigerate. The fat layer helps preserve. Serve cold, spread on toasted bread or baguette with cornichons and optionally a little Dijon."
+                ]
+            },
+            "Provence-Alpes-Côte d'Azur":  {
+                "dish":  "Ratatouille",
+                "description":  "Provençal vegetable stew: eggplant, zucchini, bell peppers, and tomatoes, each given attention so they keep their character. Traditional technique: onions and garlic form the base; vegetables are often cooked separately or in sequence (sautéing eggplant and zucchini so they take color, then peppers, then tomatoes) so they do not turn to mush. Herbes de Provence and basil; serve warm or at room temperature with bread.",
+                "ingredients":  [
+                    "1 large eggplant (about 1 lb), cut into 1-inch chunks, salted 20 min and patted dry",
+                    "2 medium zucchini, cut into 1-inch chunks",
+                    "2 bell peppers (red and/or yellow), cored and cut into 1-inch pieces",
+                    "4–5 ripe tomatoes, peeled, seeded, and chopped (or 1 [14 oz] can whole tomatoes, crushed)",
+                    "2 medium onions, chopped",
+                    "4–6 cloves garlic, minced",
+                    "1/3 cup (80 ml) extra-virgin olive oil",
+                    "2 sprigs thyme, 1 bay leaf, 3–4 tbsp torn basil",
+                    "Kosher salt and freshly ground black pepper"
+                ],
+                "steps":  [
+                    "If salting the eggplant: toss chunks with 1 tsp salt, let drain in a colander 20 min, then pat dry. This reduces bitterness and excess moisture.",
+                    "In a large Dutch oven or heavy pot, heat 2 tbsp olive oil over medium heat. Sauté the onions until soft and golden, 8–10 min. Add the garlic and cook 1 min. Transfer to a bowl.",
+                    "In the same pot, add 2 tbsp oil and sauté the eggplant until golden on several sides, 8–10 min. Transfer to the bowl. Add 1 tbsp oil and sauté the zucchini until lightly colored, 5–6 min; add to the bowl. Sauté the peppers 5–6 min until softened; add to the bowl.",
+                    "Return the onions to the pot. Add the tomatoes, thyme, and bay leaf. Bring to a simmer and cook 10 min. Add the eggplant, zucchini, and peppers. Stir gently, reduce the heat to low, and simmer uncovered 30–45 min, stirring occasionally, until the vegetables are tender and the sauce has thickened. Remove the thyme and bay leaf. Stir in the basil; season with salt and pepper. Drizzle with a little olive oil. Serve warm or at room temperature with crusty bread, as a side to grilled meat or fish, or with rice or pasta."
+                ],
+                "drink":  { "dish":  "Pastis", "description":  "Anise apéritif of the south.", "ingredients":  ["1 oz pastis", "5 oz cold water", "Ice"], "steps":  ["Pour pastis over ice; add water. Serve with the ratatouille or as an apéro."] }
+            }
         }
     },
     "FRO":  {
@@ -8926,41 +9344,82 @@
     },
     "MEX":  {
         "dish":  "Mole Poblano",
-        "description":  "The pinnacle of Mexican gastronomy. Born in the convents of Puebla, this dark, baroque sauce blends indigenous chilies and chocolate with Old World spices and nuts. It is not just a sauce, but a symphony of over 20 ingredients representing Mexico's mestizo heritage.",
+        "description":  "The pinnacle of Mexican gastronomy. Born in the convents of Puebla, this dark, baroque sauce blends indigenous chilies and chocolate with Old World spices and nuts. It is not just a sauce but a symphony of over 20 ingredients representing Mexico's mestizo heritage—toasted, ground, and fried until profound and silky.",
         "ingredients":  [
-            "4 Ancho, 4 Mulato, 4 Pasilla peppers (dried)",
-            "1/2 cup Almonds, Peanuts, Sesame seeds",
-            "1/2 stick Cinnamon",
-            "1 disk Mexican Chocolate (Ibarra)",
-            "1 Plantain",
-            "2 Corn Tortillas (stale)",
-            "Chicken or Turkey"
+            "4 ancho, 4 mulato, 4 pasilla chiles (dried)",
+            "1/2 cup almonds",
+            "1/4 cup peanuts",
+            "2 tbsp sesame seeds",
+            "1/2 stick cinnamon",
+            "3 cloves",
+            "5 black peppercorns",
+            "1 disk Mexican chocolate (e.g. Ibarra or Abuelita)",
+            "1 ripe plantain, sliced",
+            "2 corn tortillas (stale), torn",
+            "2 tomatoes, charred",
+            "1/2 white onion, charred",
+            "3 cloves garlic",
+            "2 tbsp lard or vegetable oil",
+            "4–5 cups chicken or turkey broth",
+            "1 whole chicken or turkey breast (or legs), for serving",
+            "Salt to taste"
         ],
         "steps":  [
-            "Remove seeds from dried chilies. Fry them briefly in lard (don't burn). Soak in hot water.",
-            "Fry nuts, seeds, plantain slices, and tortillas until golden.",
-            "Blend the soaked chilies, fried ingredients, roasted tomatoes, and spices into a smooth paste.",
-            "Fry this paste in a pot with oil. It will splatter.",
-            "Add chicken broth and the chocolate. Simmer for 1-2 hours until thick and dark.",
-            "Poach chicken separately. Serve the Mole sauce poured over the chicken, sprinkled with sesame seeds."
+            "Stem and seed the dried chiles. Heat a dry skillet; toast chiles briefly until fragrant (do not burn). Soak in hot water 20–30 minutes until soft. Drain, reserving a little soaking liquid.",
+            "In the same skillet, toast almonds, peanuts, sesame seeds, cinnamon, cloves, and peppercorns until fragrant. In a blender, combine soaked chiles, toasted nuts and spices, chocolate, plantain, tortillas, charred tomato and onion, garlic, and a splash of soaking liquid; blend until very smooth.",
+            "Heat lard in a large heavy pot over medium heat. Add the mole paste (it will splatter); fry, stirring constantly, 5–8 minutes until darkened and thick. Add broth and bring to a simmer; reduce heat and cook uncovered 1–1½ hours, stirring occasionally, until thick and glossy. Season with salt.",
+            "Poach or roast the chicken or turkey separately until cooked through. Shred or slice. Serve the mole generously over the meat with white rice, warm tortillas, and a sprinkle of sesame seeds."
         ],
         "drink":  {
             "dish":  "Paloma",
-            "description":  "A classic Mexican highball: tequila with grapefruit soda and lime—bright, salty, and refreshing.",
+            "description":  "Mexico's beloved highball: blanco tequila with fresh lime and grapefruit soda. One drink, one recipe—bright, salty, and refreshing.",
             "ingredients":  [
-                "2 oz blanco tequila",
-                "1/2 oz fresh lime juice",
-                "4–6 oz grapefruit soda (or sparkling water + grapefruit juice)",
-                "Pinch of salt (optional)",
+                "2 oz (60 ml) blanco tequila",
+                "1/2 oz (15 ml) fresh lime juice",
+                "4–6 oz (120–180 ml) grapefruit soda (e.g. Jarritos Toronja, Squirt, or 1:1 sparkling water + grapefruit juice)",
+                "Pinch of fine salt",
                 "Ice",
-                "Lime wedge (garnish)"
+                "Lime wedge and salt rim (optional)"
             ],
             "steps":  [
-                "Fill a highball glass with ice.",
-                "Add tequila and lime juice; add a pinch of salt if desired.",
-                "Top with grapefruit soda and stir gently.",
-                "Garnish with a lime wedge."
+                "If desired, rim a highball glass with salt: rub the rim with a lime wedge and dip in a shallow dish of salt.",
+                "Fill the glass with ice. Add tequila and lime juice; add a pinch of salt and stir once.",
+                "Top with grapefruit soda and stir gently. Garnish with a lime wedge. Serve immediately."
             ]
+        },
+        "regions":  {
+            "Aguascalientes":  { "dish":  "Enchiladas Hidrocálidas", "description":  "Red enchiladas from the heart of Mexico: corn tortillas dipped in guajillo sauce, filled with chicken or cheese, topped with lettuce, crema, and queso fresco. Named for the state's thermal waters.", "ingredients":  ["12 corn tortillas", "3–4 guajillo chiles", "2 tomatoes", "1/2 onion", "2 cloves garlic", "Chicken or queso fresco", "Crema", "Queso fresco", "Lettuce", "Oil"], "steps":  ["Blend rehydrated guajillos, tomatoes, onion, garlic; fry into a smooth sauce.", "Dip tortillas in sauce, fill with shredded chicken or cheese, roll. Place in a baking dish, top with more sauce.", "Bake until heated through. Serve with crema, queso fresco, and shredded lettuce."], "drink":  { "dish":  "Agua de Jamaica", "description":  "Hibiscus agua fresca: tart, crimson, refreshing. One drink, one recipe.", "ingredients":  ["2 cups dried hibiscus flowers (jamaica)", "8 cups water", "1/2–3/4 cup sugar", "1 lime, juiced", "Ice"], "steps":  ["Bring water to a boil. Add hibiscus, remove from heat, cover and steep 15–20 minutes.", "Strain into a pitcher; stir in sugar until dissolved. Add lime juice. Chill. Serve over ice."] } },
+            "Baja California":  { "dish":  "Tacos de Pescado (Fish Tacos)", "description":  "The original Baja-style fish taco: beer-battered white fish, crisp cabbage, crema, and salsa. Born in Ensenada, now a global icon.", "ingredients":  ["1 lb white fish (cod or tilapia)", "Beer batter (flour, beer, salt)", "Corn tortillas", "Shredded cabbage", "Crema or mayo-lime", "Salsa verde or pico de gallo", "Lime"], "steps":  ["Cut fish into strips. Dip in beer batter, fry until golden and crisp.", "Warm tortillas. Top with fish, cabbage, crema, salsa, and a squeeze of lime."], "drink":  { "dish":  "Margarita", "description":  "The classic: tequila, lime, and orange liqueur with a salted rim. One recipe.", "ingredients":  ["2 oz blanco tequila", "1 oz fresh lime juice", "3/4 oz Cointreau or triple sec", "1/2 oz agave or simple syrup", "Ice", "Salt for rim", "Lime wedge"], "steps":  ["Rim a rocks glass with salt. In a shaker with ice, combine tequila, lime juice, Cointreau, and syrup; shake well.", "Strain into the glass over fresh ice. Garnish with lime wedge."] } },
+            "Baja California Sur":  { "dish":  "Chocolate Clam Ceviche", "description":  "Pacific coast delicacy: tender chocolate clams (almeja chocolata) 'cooked' in lime with cucumber, tomato, and cilantro. Clean, briny, and refreshing.", "ingredients":  ["1 lb fresh chocolate clams (or small clams)", "1 cup lime juice", "Tomato", "Cucumber", "Red onion", "Cilantro", "Salt", "Tostadas or crackers"], "steps":  ["Shuck clams, chop meat. Marinate in lime juice until opaque, 15–20 min.", "Drain slightly; mix with diced tomato, cucumber, onion, cilantro, salt. Serve on tostadas."], "drink":  { "dish":  "Agua de Tamarindo", "description":  "Sweet-tart tamarind agua fresca. One drink, one recipe.", "ingredients":  ["1 lb tamarind pods (or 4 oz tamarind paste)", "6 cups water", "1/2–3/4 cup sugar", "Ice"], "steps":  ["Break tamarind pods and boil in 2 cups water 10 min. Mash and strain through a sieve into a pitcher; discard solids.", "Add remaining water and sugar; stir until dissolved. Chill. Serve over ice."] } },
+            "Campeche":  { "dish":  "Pan de Cazón", "description":  "Layers of tortillas, black beans, shredded dogfish (cazón), and tomato sauce—a Gulf state casserole that’s hearty and distinctly Campechano.", "ingredients":  ["Cooked dogfish or shark (cazón)", "Corn tortillas", "Black beans (refried)", "Tomato sauce", "Epazote", "Onion"], "steps":  ["Shred cooked cazón. Fry tortillas briefly.", "Layer: tortilla, beans, cazón, tomato sauce. Repeat. Top with sauce and epazote; heat through."], "drink":  { "dish":  "Horchata", "description":  "Rice and cinnamon agua fresca. One drink, one recipe.", "ingredients":  ["1 cup long-grain white rice", "1 cinnamon stick", "4 cups water", "1/2 cup milk", "1/3–1/2 cup sugar", "1 tsp vanilla", "Ice"], "steps":  ["Soak rice and cinnamon in 2 cups water overnight (or 2 hours). Blend until smooth; strain through cheesecloth into a pitcher.", "Add remaining water, milk, sugar, and vanilla; stir. Chill. Serve over ice."] } },
+            "Chiapas":  { "dish":  "Cochito Horneado", "description":  "Chiapas’s Sunday feast: pork shoulder marinated in achiote, vinegar, and spices, wrapped in banana leaves and slow-roasted until fall-apart tender. Served with rice, beans, and pickled onions.", "ingredients":  ["3–4 lbs pork shoulder", "Achiote paste", "Vinegar", "Garlic", "Cumin", "Banana leaves", "Sour orange or lime"], "steps":  ["Marinate pork in achiote, vinegar, garlic, cumin, and citrus overnight.", "Wrap in banana leaves; roast at 300°F for 3–4 hours until tender. Serve with rice, black beans, and cebolla en escabeche."], "drink":  { "dish":  "Pozol (Cacao and Maize Drink)", "description":  "Pre-Hispanic maize and cacao drink: cold, frothy, lightly sweet. One recipe.", "ingredients":  ["1/2 cup masa harina", "2 tbsp unsweetened cacao powder", "4 cups water", "2–3 tbsp sugar", "Pinch of salt", "Ice"], "steps":  ["Mix masa with 1 cup water until smooth; add cacao. Bring remaining water to a boil; whisk in masa-cacao mix and sugar. Simmer 10 min, stirring. Add salt.", "Cool; blend until frothy or whisk vigorously. Chill. Serve cold over ice."] } },
+            "Chihuahua":  { "dish":  "Burritos Norteños", "description":  "The norteño burrito: large flour tortillas stuffed with machaca (dried beef), refried beans, cheese, and salsa. Hearty ranch and border food.", "ingredients":  ["Large flour tortillas", "Machaca (dried shredded beef) or carne seca", "Refried beans", "Queso Chihuahua or cheddar", "Salsa", "Eggs (optional)"], "steps":  ["Rehydrate and fry machaca with onion; scramble with eggs if desired.", "Warm tortillas. Fill with beans, machaca, cheese, salsa. Roll and serve."], "drink":  { "dish":  "Café de Olla", "description":  "Spiced coffee brewed with piloncillo and cinnamon. One drink, one recipe.", "ingredients":  ["6 cups water", "1/2 cup piloncillo (or dark brown sugar)", "1 cinnamon stick", "2 tbsp coarse ground coffee", "Optional: 1 strip orange peel"], "steps":  ["In a pot, bring water, piloncillo, cinnamon, and orange peel (if using) to a boil; stir until piloncillo dissolves.", "Add coffee; simmer 5 min. Remove from heat, cover, steep 5 min. Strain into mugs. Serve hot."] } },
+            "Ciudad de México":  { "dish":  "Tacos al Pastor", "description":  "The capital’s street icon: thin slices of pork marinated in achiote and pineapple, cooked on a vertical trompo, then carved onto small tortillas with cilantro, onion, and lime. Lebanese-Mexican fusion at its best.", "ingredients":  ["Pork shoulder (thinly sliced)", "Achiote", "Pineapple", "Vinegar", "Guajillo chiles", "Corn tortillas", "Cilantro", "Onion", "Lime"], "steps":  ["Marinate pork in achiote, vinegar, blended guajillos, and pineapple juice. Stack on a spit or roast in oven with pineapple.", "Slice crispy edges onto tortillas. Top with cilantro, onion, lime, and a bite of pineapple."], "drink":  { "dish":  "Michelada", "description":  "Beer with lime, salt, Worcestershire and hot sauce. One drink, one recipe.", "ingredients":  ["1 lime", "Salt and Tajín or chile powder for rim", "2–3 dashes Worcestershire sauce", "2–3 dashes hot sauce (e.g. Valentina)", "1 (12 oz) cold Mexican lager", "Ice"], "steps":  ["Rim a tall glass with lime juice and salt (or Tajín). Fill with ice. Squeeze in lime juice; add Worcestershire and hot sauce.", "Pour beer into the glass; stir gently. Serve immediately."] } },
+            "Coahuila":  { "dish":  "Cabrito al Pastor", "description":  "Whole kid goat roasted over mesquite—the definitive norteño celebration dish. Tender, smoky, and served with tortillas, salsa, and beans.", "ingredients":  ["Whole kid goat (cabrito)", "Salt", "Lime", "Mesquite or charcoal"], "steps":  ["Season cabrito with salt and lime. Roast over mesquite (or in a very hot oven) until skin is crisp and meat is tender.", "Carve and serve with warm tortillas, salsa verde, and frijoles charros."], "drink":  { "dish":  "Sangría (Tinto de Verano Style)", "description":  "Red wine with citrus and a splash of soda. One recipe.", "ingredients":  ["1 (750 ml) bottle red wine", "1 cup orange juice", "1/4 cup sugar", "1 orange, sliced", "1 lime, sliced", "2 cups lemon-lime soda or sparkling water", "Ice"], "steps":  ["In a pitcher, combine wine, orange juice, and sugar; stir until sugar dissolves. Add orange and lime slices.", "Chill 1 hour. To serve, add soda and ice; stir gently."] } },
+            "Colima":  { "dish":  "Tatemado", "description":  "Pork braised in a rich, dark sauce of chilies, vinegar, and spices—Colima’s beloved weekend dish. Served with rice and tortillas.", "ingredients":  ["2 lbs pork (shoulder or ribs)", "Ancho and guajillo chiles", "Vinegar", "Garlic", "Cumin", "Cloves", "Bay leaf"], "steps":  ["Sear pork; set aside. Blend rehydrated chiles with vinegar, garlic, spices.", "Return pork to pot; add sauce. Braise 1½–2 hours until tender. Serve with rice and tortillas."], "drink":  { "dish":  "Limonada", "description":  "Fresh limeade: tart, sweet, refreshing. One recipe.", "ingredients":  ["1 cup fresh lime juice (about 8–10 limes)", "1/2 cup sugar", "4 cups cold water", "Ice", "Lime slices"], "steps":  ["In a pitcher, stir lime juice and sugar until sugar dissolves. Add water and stir.", "Serve over ice with lime slices."] } },
+            "Durango":  { "dish":  "Caldillo Duranguense", "description":  "Beef and green tomato stew with potatoes and green chile—comfort food from the high desert. Simple, warming, and satisfying.", "ingredients":  ["1 lb beef (cubed)", "Green tomatoes (tomatillos)", "Potatoes", "Green chile", "Garlic", "Cilantro"], "steps":  ["Brown beef; add blended tomatillos, garlic, and chile. Simmer.", "Add potato cubes; cook until tender. Finish with cilantro. Serve with tortillas."], "drink":  { "dish":  "Café de Olla", "description":  "Spiced coffee with piloncillo and cinnamon. One recipe.", "ingredients":  ["6 cups water", "1/2 cup piloncillo (or dark brown sugar)", "1 cinnamon stick", "2 tbsp coarse ground coffee"], "steps":  ["Bring water and piloncillo to a boil in a pot; add cinnamon. Stir until piloncillo dissolves.", "Add coffee; simmer 5 min. Steep 5 min off heat. Strain into mugs. Serve hot."] } },
+            "Guanajuato":  { "dish":  "Enchiladas Mineras", "description":  "Mining country enchiladas: tortillas dipped in guajillo sauce, filled with cheese or chicken, topped with potatoes, carrots, and crema. Hearty and colorful.", "ingredients":  ["Corn tortillas", "Guajillo chiles", "Potatoes", "Carrots", "Queso fresco", "Crema", "Lettuce", "Oil"], "steps":  ["Make guajillo sauce; fry tortillas briefly in oil, dip in sauce. Fill with cheese.", "Top with boiled potato and carrot dice, crema, and shredded lettuce."], "drink":  { "dish":  "Chocolate Caliente Mexicano", "description":  "Mexican hot chocolate with cinnamon. One recipe.", "ingredients":  ["4 cups milk", "2 disks Mexican chocolate (Ibarra or Abuelita)", "1 cinnamon stick", "Pinch of salt", "Optional: 1/4 tsp almond extract"], "steps":  ["Heat milk with cinnamon stick until steaming; do not boil. Add chocolate and salt; whisk until melted and frothy.", "Remove cinnamon. Add almond extract if using. Pour into mugs. Serve hot."] } },
+            "Guerrero":  { "dish":  "Pozole Verde", "description":  "Acapulco and Chilpancingo’s green pozole: hominy and pork in a vibrant sauce of pumpkin seeds, tomatillos, and green chile. Topped with radish, oregano, and lime.", "ingredients":  ["Pork", "Hominy (maíz pozolero)", "Tomatillos", "Pumpkin seeds", "Serrano or jalapeño", "Cabbage", "Radish", "Oregano", "Lime"], "steps":  ["Cook pork and hominy until tender. Blend tomatillos, pumpkin seeds, and chile for green sauce.", "Add sauce to the broth; simmer. Serve in bowls with cabbage, radish, oregano, and lime."], "drink":  { "dish":  "Limonada de Coco", "description":  "Coconut limeade: creamy and tart. One recipe.", "ingredients":  ["1 cup fresh lime juice", "1 cup coconut cream or full-fat coconut milk", "1/3 cup sugar", "3 cups cold water", "Ice"], "steps":  ["In a pitcher, whisk lime juice, coconut cream, and sugar until sugar dissolves. Add water; stir.", "Chill. Serve over ice."] } },
+            "Hidalgo":  { "dish":  "Barbacoa de Hidalgo", "description":  "Lamb or mutton slow-steamed in maguey leaves (or banana leaves) until meltingly tender. The original barbacoa—served with consommé, salsa, and tortillas.", "ingredients":  ["Lamb or mutton (head, ribs, or leg)", "Maguey or banana leaves", "Garlic", "Bay leaf", "Avocado leaves"], "steps":  ["Season meat; wrap in leaves. Steam in a pit or large pot 6–8 hours until fall-apart tender.", "Strain cooking liquid for consommé. Serve meat with consommé, salsa, cilantro, and tortillas."], "drink":  { "dish":  "Atole de Guayaba", "description":  "Warm atole with guava: thick, sweet, comforting. One recipe.", "ingredients":  ["4 cups milk", "1/2 cup masa harina", "1/2 cup piloncillo or sugar", "1 cup guava paste or puréed guava", "1 cinnamon stick", "Pinch of salt"], "steps":  ["Whisk masa with 1 cup milk until smooth. In a pot, heat remaining milk with cinnamon and piloncillo; add masa mixture and guava. Cook over medium heat, stirring, 10–15 min until thick.", "Remove cinnamon. Serve hot in mugs."] } },
+            "Jalisco":  { "dish":  "Birria", "description":  "Goat or beef stewed in a complex mix of dried chiles, vinegar, and spices. Served as a consomé with tender meat, or in tacos dipped in the broth. The soul of Jalisco.", "ingredients":  ["Goat or beef (shank, shoulder)", "Guajillo, ancho, cascabel chiles", "Vinegar", "Garlic", "Cumin", "Cloves", "Bay leaf", "Corn tortillas"], "steps":  ["Blend rehydrated chiles with vinegar and spices. Marinate meat; braise until tender, 2–3 hours.", "Strain broth. Shred meat. Serve as consomé with meat, or dip tortillas in broth, fill with meat, and pan-fry for birria tacos."], "drink":  { "dish":  "Paloma", "description":  "Tequila, lime, and grapefruit soda. Jalisco signature cocktail. One recipe.", "ingredients":  ["2 oz blanco tequila", "1/2 oz fresh lime juice", "4-6 oz grapefruit soda", "Pinch of salt", "Ice", "Lime wedge"], "steps":  ["Fill a highball glass with ice. Add tequila, lime juice, and salt; stir. Top with grapefruit soda. Garnish with lime wedge."] } },
+            "México":  { "dish":  "Barbacoa Estilo Estado de México", "description":  "Lamb barbacoa slow-steamed in the traditional way—often in a pit or large pot with maguey leaves. Served with consommé, salsa borracha, and fresh tortillas.", "ingredients":  ["Lamb (head, ribs)", "Maguey or banana leaves", "Garlic", "Avocado leaves", "Salt"], "steps":  ["Season lamb; wrap in leaves. Steam 6–8 hours until very tender.", "Reserve consommé. Serve meat with consommé, salsa, onion, cilantro, and tortillas."], "drink":  { "dish":  "Atole de Avena", "description":  "Oat atole: creamy, warm, lightly spiced. One recipe.", "ingredients":  ["4 cups milk", "1 cup rolled oats", "1/3 cup piloncillo or brown sugar", "1 cinnamon stick", "Pinch of salt", "1/2 tsp vanilla"], "steps":  ["Blend oats with 1 cup milk until smooth. In a pot, heat remaining milk with cinnamon and piloncillo; add oat mixture. Simmer 8–10 min, stirring, until thick.", "Remove cinnamon; add salt and vanilla. Serve hot."] } },
+            "Michoacán":  { "dish":  "Carnitas", "description":  "Pork confit: chunks of pork shoulder and belly simmered in lard (or oil) until crisp outside and tender inside. A Michoacán original, served with tortillas, salsa, and lime.", "ingredients":  ["3 lbs pork shoulder (and belly if possible)", "Lard or oil", "Orange", "Cinnamon", "Bay leaf", "Salt", "Milk (optional)"], "steps":  ["Cut pork into chunks. Cook in lard with orange, cinnamon, bay leaf, and salt (and a splash of milk for crispness) until golden and tender.", "Serve with warm tortillas, salsa verde, lime, and cilantro."], "drink":  { "dish":  "Atole de Zarzamora", "description":  "Blackberry atole: fruity and warm. One recipe.", "ingredients":  ["3 cups milk", "1/2 cup masa harina", "1 cup blackberries (fresh or frozen)", "1/3 cup sugar", "1 cinnamon stick"], "steps":  ["Whisk masa with 1 cup milk. Puree blackberries; strain seeds. Heat remaining milk with cinnamon and sugar; add masa mix and berry puree. Cook, stirring, 10 min until thick.", "Remove cinnamon. Serve hot."] } },
+            "Morelos":  { "dish":  "Tacos Acorazados", "description":  "Cuernavaca’s 'armored' tacos: a bed of rice topped with breaded beef or milanesa, salsa, and avocado. A full meal on a plate.", "ingredients":  ["Rice (Mexican red rice)", "Beef (thin cut, breaded)", "Salsa", "Avocado", "Tortillas"], "steps":  ["Cook rice. Bread and fry beef cutlets (milanesa).", "Serve a portion of rice with a milanesa on top, salsa, and avocado. Eat with tortillas."], "drink":  { "dish":  "Rompope", "description":  "Mexican eggnog: rich, spiced, silky. One recipe.", "ingredients":  ["4 cups milk", "1 cup sugar", "1 cinnamon stick", "1 tsp vanilla", "6 egg yolks", "1/2 cup rum or brandy (optional)"], "steps":  ["Heat milk with cinnamon and half the sugar until steaming. Whisk yolks with remaining sugar; temper with hot milk, then pour back into pot. Cook over low heat, stirring, until thick (do not boil).", "Remove cinnamon; add vanilla and rum if using. Chill. Serve cold."] } },
+            "Nayarit":  { "dish":  "Pescado Zarandeado", "description":  "Whole fish (often red snapper) butterflied, marinated in achiote, soy, and lime, then grilled over wood. A Pacific coast classic from San Blas and beyond.", "ingredients":  ["Whole fish (snapper or sea bass)", "Achiote paste", "Soy sauce", "Lime", "Butter", "Wood fire or grill"], "steps":  ["Butterfly fish; marinate in achiote, soy, lime, and butter 1–2 hours.", "Grill over medium heat until charred and cooked through. Serve with tortillas, lime, and salsa."], "drink":  { "dish":  "Paloma", "description":  "Tequila, lime, and grapefruit soda. One recipe.", "ingredients":  ["2 oz blanco tequila", "1/2 oz lime juice", "4–6 oz grapefruit soda", "Salt", "Ice", "Lime wedge"], "steps":  ["Rim glass with salt. Fill with ice. Add tequila and lime; top with grapefruit soda. Garnish with lime wedge."] } },
+            "Nuevo León":  { "dish":  "Cabrito al Horno", "description":  "Kid goat roasted in the oven—Monterrey’s signature. Tender, mild, and served with salsa, beans, and flour tortillas.", "ingredients":  ["Whole kid goat", "Salt", "Pepper", "Garlic", "Lime"], "steps":  ["Season cabrito with salt, pepper, garlic, lime. Roast in oven at 300°F until tender and golden.", "Carve; serve with salsa, frijoles a la charra, and flour tortillas."], "drink":  { "dish":  "Carajillo", "description":  "Espresso with Licor 43: sweet, creamy, strong. One recipe.", "ingredients":  ["2 oz freshly brewed espresso", "2 oz Licor 43", "Ice (for iced)", "Optional: lemon peel"], "steps":  ["Brew espresso. Pour Licor 43 into a glass; add hot espresso and stir (or pour over ice for iced).", "Garnish with lemon peel if desired. Serve immediately."] } },
+            "Oaxaca":  { "dish":  "Mole Negro", "description":  "Oaxaca’s most famous mole: a deep, complex sauce of chilhuacle negro, mulato, pasilla, chocolate, nuts, seeds, and fruit. Days of work for a dish that defines Mexican grandeur.", "ingredients":  ["Chilhuacle negro, mulato, pasilla chiles", "Chocolate", "Almonds", "Sesame", "Raisins", "Plantain", "Tortilla", "Chicken"], "steps":  ["Char and rehydrate chiles. Toast nuts, seeds, spices; blend with chiles, plantain, tortilla, and chocolate into a paste.", "Fry paste in oil; add broth and chocolate. Simmer until thick. Poach chicken; serve mole over chicken with rice."], "drink":  { "dish":  "Mezcal con Naranja y Sal de Gusano", "description":  "Oaxacan way to drink mezcal: orange and sal de gusano on the rim. One recipe.", "ingredients":  ["2 oz mezcal (espadín or preferred)", "1 orange wedge", "1 tsp sal de gusano (worm salt with chile)", "Optional: 1 slice orange"], "steps":  ["Rim a copita or small glass with a squeeze of orange and dip in sal de gusano.", "Pour mezcal into the glass. Serve with an orange slice on the side. Sip slowly."] } },
+            "Puebla":  { "dish":  "Mole Poblano", "description":  "The convent-born masterpiece: turkey or chicken in a sauce of mulato, ancho, pasilla, chocolate, nuts, seeds, and spices. Puebla’s gift to the world.", "ingredients":  ["Turkey or chicken", "Mulato, ancho, pasilla chiles", "Chocolate", "Almonds", "Sesame", "Raisins", "Plantain", "Tortillas", "Cinnamon"], "steps":  ["Rehydrate and blend chiles with toasted nuts, seeds, fruit, chocolate. Fry paste; add broth, simmer until thick.", "Poach turkey or chicken. Serve mole over the meat with sesame and rice."], "drink":  { "dish":  "Rompope", "description":  "Puebla's eggnog: rich, spiced, silky. One recipe.", "ingredients":  ["4 cups milk", "1 cup sugar", "1 cinnamon stick", "1 tsp vanilla", "6 egg yolks", "1/2 cup rum or brandy (optional)"], "steps":  ["Heat milk with cinnamon and half the sugar until steaming. Whisk yolks with remaining sugar; temper with hot milk, then pour back into pot. Cook over low heat, stirring, until thick (do not boil).", "Remove cinnamon; add vanilla and rum if using. Chill. Serve cold."] } },
+            "Querétaro":  { "dish":  "Enchiladas Queretanas", "description":  "Tortillas in a guajillo and ancho sauce, filled with cheese and onion, topped with potato, carrot, crema, and queso fresco. A hearty, colorful plate.", "ingredients":  ["Corn tortillas", "Guajillo and ancho chiles", "Potato", "Carrot", "Queso fresco", "Crema", "Onion"], "steps":  ["Make red sauce from guajillo and ancho. Dip fried tortillas in sauce; fill with cheese and onion.", "Top with boiled potato and carrot dice, crema, and queso fresco."], "drink":  { "dish":  "Chocolate Caliente Mexicano", "description":  "Mexican hot chocolate with cinnamon. One recipe.", "ingredients":  ["4 cups milk", "2 disks Mexican chocolate (Ibarra or Abuelita)", "1 cinnamon stick", "Pinch of salt"], "steps":  ["Heat milk with cinnamon until steaming. Add chocolate and salt; whisk until melted and frothy. Remove cinnamon. Serve hot in mugs."] } },
+            "Quintana Roo":  { "dish":  "Cochinita Pibil", "description":  "Yucatecan pork marinated in achiote and sour orange, wrapped in banana leaves and slow-roasted. Quintana Roo shares this Caribbean-Maya classic—tender, tangy, and unforgettable.", "ingredients":  ["Pork shoulder", "Achiote paste", "Sour orange juice", "Banana leaves", "Garlic", "Habanero"], "steps":  ["Marinate pork in achiote and sour orange overnight. Wrap in banana leaves.", "Roast at 300°F for 2–3 hours until tender. Shred; serve in tacos with pickled red onion and habanero salsa."], "drink":  { "dish":  "Horchata", "description":  "Rice and cinnamon agua fresca. One recipe.", "ingredients":  ["1 cup long-grain white rice", "1 cinnamon stick", "4 cups water", "1/2 cup milk", "1/3–1/2 cup sugar", "1 tsp vanilla", "Ice"], "steps":  ["Soak rice and cinnamon in 2 cups water overnight (or 2 hours). Blend until smooth; strain through cheesecloth into a pitcher.", "Add remaining water, milk, sugar, and vanilla; stir. Chill. Serve over ice."] } },
+            "San Luis Potosí":  { "dish":  "Enchiladas Potosinas", "description":  "Red enchiladas made with cheese-stuffed masa (the tortilla itself contains cheese). Served with more cheese, crema, and lettuce—rich and satisfying.", "ingredients":  ["Masa", "Queso fresco", "Guajillo chiles", "Crema", "Lettuce", "Oil"], "steps":  ["Mix masa with cheese; form small thick tortillas. Fry lightly.", "Dip in guajillo sauce; serve with crema and shredded lettuce."], "drink":  { "dish":  "Café de Olla", "description":  "Spiced coffee with piloncillo and cinnamon. One recipe.", "ingredients":  ["6 cups water", "1/2 cup piloncillo", "1 cinnamon stick", "2 tbsp coarse ground coffee"], "steps":  ["Bring water and piloncillo to a boil; add cinnamon. Stir until piloncillo dissolves. Add coffee; simmer 5 min. Steep 5 min off heat. Strain into mugs. Serve hot."] } },
+            "Sinaloa":  { "dish":  "Aguachile", "description":  "Raw shrimp or fish 'cooked' in lime and puréed cucumber, serrano, and cilantro. Sinaloa’s answer to ceviche—spicy, bright, and addictive.", "ingredients":  ["1 lb fresh shrimp", "1 cup lime juice", "Cucumber", "Serrano chiles", "Cilantro", "Red onion", "Salt", "Tostadas"], "steps":  ["Blend cucumber, serrano, cilantro, and some lime into a smooth liquid. Season with salt.", "Toss shrimp in lime and aguachile mix; let sit 5–10 min. Serve on tostadas with sliced onion."], "drink":  { "dish":  "Michelada", "description":  "Beer with lime, salt, and spices. One recipe.", "ingredients":  ["1 lime", "Salt and Tajín for rim", "2–3 dashes Worcestershire sauce", "2–3 dashes hot sauce (e.g. Valentina)", "1 (12 oz) cold Mexican lager", "Ice"], "steps":  ["Rim a tall glass with lime and salt (or Tajín). Fill with ice. Squeeze in lime; add Worcestershire and hot sauce. Pour beer; stir gently. Serve immediately."] } },
+            "Sonora":  { "dish":  "Carne Asada Sonorense", "description":  "Grilled beef (often arrachera or skirt steak) with flour tortillas, frijoles, and salsa. The definitive norteño grill—simple, bold, and perfect.", "ingredients":  ["Skirt steak or arrachera", "Flour tortillas", "Frijoles", "Salsa", "Lime", "Guacamole"], "steps":  ["Marinate beef with lime, salt, and optional beer. Grill to desired doneness.", "Slice; serve with warm flour tortillas, beans, salsa, lime, and guacamole."], "drink":  { "dish":  "Limonada", "description":  "Fresh limeade. One recipe.", "ingredients":  ["1 cup fresh lime juice", "1/2 cup sugar", "4 cups cold water", "Ice", "Lime slices"], "steps":  ["In a pitcher, stir lime juice and sugar until sugar dissolves. Add water. Serve over ice with lime slices."] } },
+            "Tabasco":  { "dish":  "Pejelagarto al Horno", "description":  "Garfish (pejelagarto) baked in banana leaves with achiote and herbs—a Tabasco river specialty. Unique flavor and texture.", "ingredients":  ["Pejelagarto (garfish) or firm fish", "Achiote", "Banana leaves", "Tomato", "Chile", "Epazote"], "steps":  ["Season fish with achiote. Wrap in banana leaves with tomato and herbs.", "Bake until cooked through. Serve with rice and pickled onions."], "drink":  { "dish":  "Pozol or Chocolate Tabasqueño", "description":  "Fermented cacao drink or Tabasco’s famous chocolate.", "ingredients":  ["Cacao", "Masa", "Water", "Sugar"], "steps":  ["Make pozol or hot chocolate; serve cold or hot."] } },
+            "Tamaulipas":  { "dish":  "Carne a la Tampiqueña", "description":  "A full plate: grilled beef strip, enchilada, guacamole, refried beans, and rice. Born in Tampico—hearty and satisfying.", "ingredients":  ["Beef (arrachera or strip)", "Corn tortillas", "Guajillo sauce", "Guacamole", "Refried beans", "Rice"], "steps":  ["Grill beef. Make enchiladas with guajillo sauce.", "Plate: rice, beans, sliced beef, one or two enchiladas, guacamole. Serve with tortillas."], "drink":  { "dish":  "Sangría", "description":  "Fruit and wine punch. One recipe.", "ingredients":  ["1 (750 ml) bottle red wine", "1/2 cup orange juice", "1/4 cup brandy", "2 tbsp sugar", "Sliced orange, lime, apple", "Ice"], "steps":  ["In a pitcher, combine wine, orange juice, brandy, and sugar; stir until sugar dissolves. Add fruit; chill 1–2 hours. Serve over ice."] } },
+            "Tlaxcala":  { "dish":  "Mole de Caderas", "description":  "Goat meat and spine in a rich, spicy mole—a Tlaxcalan festival dish. Complex and deeply traditional.", "ingredients":  ["Goat (caderas, ribs)", "Ancho, mulato, pasilla chiles", "Tomato", "Garlic", "Cumin", "Chocolate"], "steps":  ["Cook goat until tender. Blend chiles, tomato, garlic, spices into mole.", "Combine meat and mole; simmer. Serve with rice and tortillas."], "drink":  { "dish":  "Atole de Avena", "description":  "Oat atole: warming and comforting. One recipe.", "ingredients":  ["4 cups milk", "1/2 cup rolled oats", "1/3 cup piloncillo or brown sugar", "1 cinnamon stick", "Pinch of salt"], "steps":  ["Blend oats with 1 cup milk until smooth. Heat remaining milk with cinnamon and piloncillo until steaming.", "Whisk in oat mixture; simmer, stirring, 8–10 min until thick. Remove cinnamon. Serve hot."] } },
+            "Veracruz":  { "dish":  "Huachinango a la Veracruzana", "description":  "Whole red snapper in a sauce of tomatoes, olives, capers, and jalapeños—Spanish-Mexican fusion from the port. Bright, briny, and iconic.", "ingredients":  ["Whole red snapper", "Tomatoes", "Olives", "Capers", "Jalapeños", "Onion", "Garlic", "Bay leaf"], "steps":  ["Sauté onion, garlic; add tomatoes, olives, capers, jalapeños, bay leaf. Simmer into a sauce.", "Place fish in a pan; pour sauce over. Bake or poach until fish is cooked. Serve with rice."], "drink":  { "dish":  "Torito", "description":  "Veracruz peanut-and-rum cream drink. One recipe.", "ingredients":  ["2 oz dark rum", "2 tbsp peanut butter", "2 tbsp sweetened condensed milk", "1 cup crushed ice"], "steps":  ["Blend rum, peanut butter, condensed milk, and ice until smooth and frothy. Pour into a glass. Serve immediately."] } },
+            "Yucatán":  { "dish":  "Cochinita Pibil", "description":  "Pork marinated in achiote and sour orange, wrapped in banana leaves and slow-roasted until tender. The Yucatán’s most famous dish—served in tacos with pickled red onion.", "ingredients":  ["Pork shoulder", "Achiote paste", "Sour orange juice", "Banana leaves", "Habanero", "Pickled red onion"], "steps":  ["Marinate pork in achiote and sour orange 4–24 hours. Wrap in banana leaves.", "Roast at 300°F for 2–3 hours. Shred; serve in tortillas with cebolla en escabeche and habanero salsa."], "drink":  { "dish":  "Horchata", "description":  "Rice and cinnamon agua fresca. One recipe.", "ingredients":  ["1 cup long-grain white rice", "1 cinnamon stick", "4 cups water", "1/2 cup milk", "1/3–1/2 cup sugar", "1 tsp vanilla", "Ice"], "steps":  ["Soak rice and cinnamon in 2 cups water overnight (or 2 hours). Blend until smooth; strain through cheesecloth into a pitcher.", "Add remaining water, milk, sugar, and vanilla; stir. Chill. Serve over ice."] } },
+            "Zacatecas":  { "dish":  "Asado de Boda", "description":  "Pork in a rich, sweet-savory sauce of ancho chiles, cinnamon, and piloncillo—Zacatecas’s wedding dish. Served with rice and tortillas.", "ingredients":  ["2 lbs pork (cubed)", "Ancho chiles", "Piloncillo", "Cinnamon", "Cloves", "Garlic", "Vinegar"], "steps":  ["Blend rehydrated anchos with piloncillo, spices, garlic, vinegar. Strain.", "Brown pork; add sauce. Simmer until tender. Serve with rice and tortillas."], "drink":  { "dish":  "Café de Olla", "description":  "Spiced coffee with piloncillo and cinnamon. One recipe.", "ingredients":  ["6 cups water", "1/2 cup piloncillo", "1 cinnamon stick", "2 tbsp coarse ground coffee"], "steps":  ["Bring water and piloncillo to a boil; add cinnamon. Stir until piloncillo dissolves. Add coffee; simmer 5 min. Steep 5 min off heat. Strain into mugs. Serve hot."] } }
         }
     },
     "MKD":  {
@@ -9702,7 +10161,150 @@
                     "Store airtight up to 3 months."
                 ]
             }
-        ]
+        ],
+        "regions":  {
+            "Punjab":  {
+                "dish":  "Chicken Karahi",
+                "description":  "Punjab’s iconic wok-style curry: chicken and tomatoes cooked in a karahi (or heavy pan) with ginger, green chilies, and minimal spices so the poultry and tomato shine. Technique: high heat to char tomatoes and reduce the gravy; finish with fresh cilantro and ginger.",
+                "ingredients":  [
+                    "2 lbs (900 g) bone-in chicken, cut into pieces",
+                    "4–5 medium tomatoes, chopped",
+                    "1/4 cup (60 ml) neutral oil or ghee",
+                    "1 tbsp ginger paste, 1 tbsp garlic paste",
+                    "4–6 green chilies, slit",
+                    "1 tsp cumin seeds",
+                    "1/2 tsp turmeric",
+                    "1 tsp red chili powder (or to taste)",
+                    "1 tsp coriander powder",
+                    "Salt to taste",
+                    "Fresh cilantro and ginger julienne, for garnish"
+                ],
+                "steps":  [
+                    "In a karahi or wide heavy pan, heat the oil. Add cumin seeds; when they sizzle, add ginger and garlic paste. Fry 1 min.",
+                    "Add the chicken and sear over high heat 4–5 min. Add turmeric, chili powder, coriander powder, and salt; stir.",
+                    "Add the tomatoes and green chilies. Cook over high heat, stirring, until the tomatoes break down and the oil separates, 15–20 min. The gravy should be thick and clinging to the chicken.",
+                    "Garnish with cilantro and ginger. Serve hot with naan or roti."
+                ],
+                "drink":  { "dish":  "Lassi", "description":  "Cooling yogurt drink.", "ingredients":  ["1 cup yogurt", "1/2 cup cold water", "Pinch of salt or sugar to taste"], "steps":  ["Blend yogurt with water; season. Serve cold."] }
+            },
+            "Sindh":  {
+                "dish":  "Sindhi Biryani",
+                "description":  "Layered rice and meat biryani from Sindh: marinated meat (or potatoes), fragrant basmati, and a distinct layer of yogurt-mint-chili. Technique: parboil rice; layer with partially cooked meat and potatoes; seal and cook on dum (trapped steam) so the flavors meld.",
+                "ingredients":  [
+                    "2 cups (400 g) basmati rice, soaked 30 min",
+                    "1 lb (450 g) beef or mutton, cubed",
+                    "2 large potatoes, peeled and quartered",
+                    "2 onions, sliced and fried until golden (birista)",
+                    "1 cup (240 g) yogurt",
+                    "2 tbsp biryani masala (or mix of cumin, coriander, cardamom, cloves, cinnamon)",
+                    "1 tbsp ginger-garlic paste",
+                    "Mint and cilantro leaves",
+                    "Saffron soaked in 2 tbsp warm milk (optional)",
+                    "Salt, oil, or ghee"
+                ],
+                "steps":  [
+                    "Marinate the meat with half the yogurt, ginger-garlic paste, half the biryani masala, and salt 1–2 hours. In a pot, brown the meat; add a little water and cook until nearly tender. Add potatoes and cook until just done. Set aside.",
+                    "Parboil the rice in plenty of salted water until 70% done; drain.",
+                    "In a heavy pot, layer: half the rice, then meat and potatoes, fried onion, mint, cilantro, remaining yogurt and masala, then remaining rice. Drizzle saffron milk and a little ghee. Cover tightly; cook on very low heat (dum) 25–30 min. Rest 10 min; fluff and serve with raita."
+                ],
+                "drink":  { "dish":  "Doodh Patti Chai", "description":  "Strong milk tea.", "ingredients":  ["Milk", "Black tea", "Sugar"], "steps":  ["Simmer milk with tea; strain and sweeten."] }
+            },
+            "Khyber Pakhtunkhwa":  {
+                "dish":  "Chapli Kebab",
+                "description":  "Peshawari flat kebabs: minced meat (beef or mutton) with pomegranate seeds, coriander, and spices, pan-fried until crisp-edged. Technique: minimal binding so the kebab holds together but stays coarse; fry in enough oil or ghee to get a crisp crust.",
+                "ingredients":  [
+                    "1 1/2 lbs (680 g) ground beef or mutton",
+                    "1 small onion, finely chopped",
+                    "2 tbsp dried pomegranate seeds (anardana), ground",
+                    "1/2 cup chopped cilantro",
+                    "2–3 green chilies, minced",
+                    "1 tbsp coriander seeds, crushed",
+                    "1 tsp cumin powder",
+                    "1/2 tsp chili powder",
+                    "2 tbsp chickpea flour (besan) or cornmeal (optional, for binding)",
+                    "Salt to taste",
+                    "Oil or ghee for frying"
+                ],
+                "steps":  [
+                    "Mix the meat with onion, anardana, cilantro, green chilies, coriander, cumin, chili powder, besan if using, and salt. Knead 2–3 min. Rest 30 min.",
+                    "Shape into flat round patties about 1/2 inch thick and 3–4 inches across.",
+                    "Heat oil or ghee in a heavy skillet. Fry the kebabs over medium heat 4–5 min per side until browned and cooked through. Drain on paper towels. Serve with naan, chutney, and onion salad."
+                ],
+                "drink":  { "dish":  "Qahwa (Green Tea)", "description":  "Peshawari green tea with cardamom.", "ingredients":  ["Green tea", "Cardamom", "Sugar"], "steps":  ["Brew green tea with cardamom; sweeten to taste."] }
+            },
+            "Balochistan":  {
+                "dish":  "Sajji (Whole Roast Lamb)",
+                "description":  "Balochi whole lamb or chicken, marinated with salt and green papaya (tenderizer), then roasted on a spit or in an oven until the skin is crisp and the meat is tender. Technique: minimal spices so the meat flavor dominates; slow roast so the fat bastes the meat.",
+                "ingredients":  [
+                    "1 whole leg of lamb (4–6 lbs) or 1 whole chicken (3–4 lbs)",
+                    "2–3 tbsp salt (rubbed all over)",
+                    "1 tbsp green papaya paste or raw papaya paste (tenderizer), optional",
+                    "1 tsp black pepper",
+                    "Lemon wedges and chaat masala, to serve"
+                ],
+                "steps":  [
+                    "Score the meat. Rub with salt, pepper, and papaya paste if using. Marinate 4–6 hours or overnight in the fridge.",
+                    "Roast on a spit over coals, or in an oven at 375°F (190°C) on a rack, basting occasionally, until the internal temperature reaches 145°F (63°C) for lamb or 165°F (74°C) for chicken and the outside is golden and crisp (1–2 hours depending on size).",
+                    "Rest 15 min. Carve and serve with lemon and chaat masala, and flatbread."
+                ],
+                "drink":  { "dish":  "Sharbat or Lassi", "description":  "Cool drink with rich meat.", "ingredients":  ["Yogurt or rose sharbat"], "steps":  ["Serve cold."] }
+            },
+            "Gilgit-Baltistan":  {
+                "dish":  "Chapshuro (Meat-Filled Bread)",
+                "description":  "Mountain turnover: spiced minced meat and onion stuffed in a dough pocket and pan-fried or baked. Technique: dough is rolled thin; filling is sealed inside; cooked until the bread is golden and the meat is done.",
+                "ingredients":  [
+                    "For dough: 2 cups (250 g) all-purpose flour, 1/2 tsp salt, water to bind",
+                    "For filling: 1 lb (450 g) ground beef or mutton, 1 onion (finely chopped), 2–3 green chilies, 1 tsp cumin, 1/2 tsp chili powder, salt, cilantro"
+                ],
+                "steps":  [
+                    "Make a stiff dough with flour, salt, and water; rest 20 min.",
+                    "Mix the filling ingredients. Divide the dough into 4–6 balls. Roll each into a thin round. Place filling on one half; fold and seal the edges well.",
+                    "Pan-fry in a little oil over medium heat 4–5 min per side until golden and the meat is cooked, or bake at 375°F (190°C) 20–25 min. Serve hot with chutney or yogurt."
+                ],
+                "drink":  { "dish":  "Butter Tea (Po cha) or Chai", "description":  "Local tea.", "ingredients":  ["Tea", "Milk", "Butter or salt (for butter tea)"], "steps":  ["Brew and serve."] }
+            },
+            "Islamabad":  {
+                "dish":  "Daal Makhani",
+                "description":  "Creamy black lentils and kidney beans, slow-cooked with butter and cream—a staple of the capital’s dhaba and home table. Technique: soak and simmer the legumes until tender; finish with a tadka (tempering) and cream for a rich, silky texture.",
+                "ingredients":  [
+                    "1 cup (200 g) whole black lentils (urad dal), soaked overnight",
+                    "1/4 cup (50 g) red kidney beans (rajma), soaked overnight",
+                    "2 tbsp butter, 2 tbsp cream",
+                    "1 onion, 2 tomatoes (blended or chopped)",
+                    "1 tbsp ginger-garlic paste",
+                    "1 tsp cumin seeds",
+                    "1/2 tsp turmeric, 1 tsp garam masala",
+                    "1 tsp red chili powder",
+                    "Salt, cilantro for garnish"
+                ],
+                "steps":  [
+                    "Drain and rinse the lentils and beans. In a pressure cooker or pot, cook with 4–5 cups water until very tender (pressure cooker 3–4 whistles, or simmer 1–1 1/2 hours). Mash some of the lentils with the back of a spoon.",
+                    "In a pan, melt butter; add cumin, then onion and ginger-garlic. Fry until golden. Add tomato, turmeric, chili powder, garam masala, salt. Cook until the masala releases oil. Add to the lentils; simmer 15–20 min. Stir in cream; adjust salt. Garnish with cilantro. Serve with naan or rice."
+                ],
+                "drink":  { "dish":  "Doodh Patti Chai", "description":  "Milk tea.", "ingredients":  ["Milk", "Tea", "Sugar"], "steps":  ["Simmer; strain and sweeten."] }
+            },
+            "Azad Jammu and Kashmir":  {
+                "dish":  "Goshtaba (Meatballs in Yogurt Gravy)",
+                "description":  "Kashmiri-style lamb meatballs in a mild, creamy yogurt gravy—a festive dish of the region. Technique: meat is pounded with fat until very smooth, shaped into balls, and poached in the yogurt gravy so they stay tender.",
+                "ingredients":  [
+                    "1 lb (450 g) lamb (or mutton), minced very fine or pounded",
+                    "2 tbsp lamb fat or ghee, softened",
+                    "2 cups (480 g) yogurt, whisked smooth",
+                    "1 tsp ginger powder",
+                    "1/2 tsp fennel powder",
+                    "2–3 green cardamom pods",
+                    "1 small onion, finely chopped",
+                    "Salt to taste",
+                    "Kashmiri chili or paprika for color (optional)"
+                ],
+                "steps":  [
+                    "Mix the minced lamb with the fat, a pinch of salt, and half the fennel. Pound or process until very smooth. Shape into smooth balls (about 1 1/2 inch).",
+                    "In a wide pot, whisk the yogurt with 1–2 cups water, ginger, fennel, cardamom, onion, and salt. Bring to a gentle simmer (do not boil hard or the yogurt may split).",
+                    "Gently add the meatballs. Poach 15–20 min until cooked through. The gravy should be thick and creamy. Serve with rice or naan."
+                ],
+                "drink":  { "dish":  "Kashmiri Chai (Noon Chai / Pink Tea)", "description":  "Pink tea: green tea boiled with baking soda, then milk and salt.", "ingredients":  ["Kashmiri green tea", "Baking soda", "Milk", "Salt"], "steps":  ["Boil tea with soda until deep red; add milk and salt; simmer until pink. Strain and serve."] }
+            }
+        }
     },
     "PAN":  {
         "dish":  "Sancocho de Gallina",
@@ -10459,7 +11061,107 @@
                     "Refrigerate at least 4 hours (better after 24–48 hours). Keeps 2 weeks."
                 ]
             }
-        ]
+        ],
+        "regions":  {
+            "Ahuachapán":  {
+                "dish":  "Tamales de Elote",
+                "description":  "Western highlands: fresh corn tamales wrapped in plantain leaves—sweet, soft, and steamed. A staple of the coffee highlands.",
+                "ingredients":  ["6–8 ears fresh corn (or 4 cups corn kernels)", "1/2 cup butter", "1/2 cup sugar", "1 cup masa harina (optional, for binding)", "Plantain or banana leaves", "Salt to taste"],
+                "steps":  ["Blend fresh corn kernels with butter, sugar, and salt until smooth. Add masa if needed for thickness.", "Spread on softened plantain leaves, fold, and tie. Steam 1–1½ hours until set. Serve warm."],
+                "drink":  { "dish":  "Atol de Elote", "description":  "Warm corn drink, sweet and thick.", "ingredients":  ["Fresh corn", "Milk or water", "Sugar", "Cinnamon"], "steps":  ["Blend corn with liquid; cook until thick. Sweeten and add cinnamon. Serve hot."] }
+            },
+            "Cabañas":  {
+                "dish":  "Tamales Pisques",
+                "description":  "Central highlands tamales stuffed with black beans, wrapped in plantain leaves. Simple, hearty, and traditional.",
+                "ingredients":  ["Masa (corn dough)", "Refried black beans", "Plantain leaves", "Salt", "Achiote (optional)"],
+                "steps":  ["Spread masa on plantain leaves. Add a spoonful of beans, fold and tie.", "Steam 1–1½ hours. Serve with salsa and crema."],
+                "drink":  { "dish":  "Horchata Salvadoreña", "description":  "Morro-based horchata.", "ingredients":  ["Horchata mix", "Water", "Sugar", "Ice"], "steps":  ["Mix, sweeten, serve over ice."] }
+            },
+            "Chalatenango":  {
+                "dish":  "Panes Rellenos",
+                "description":  "Northern classic: warm turkey or chicken sandwiches. The meat is marinated with Pipil spices, roasted, hand-pulled, and served with tomato, watercress, cucumber, and cabbage.",
+                "ingredients":  ["Turkey or chicken", "French or soft rolls", "Tomato", "Watercress", "Cucumber", "Cabbage", "Pipil-style spices (achiote, garlic)"],
+                "steps":  ["Marinate and roast turkey or chicken. Shred the meat.", "Stuff warm rolls with meat, tomato, watercress, cucumber, and cabbage. Serve with salsa."],
+                "drink":  { "dish":  "Tamarindo", "description":  "Sweet-tart tamarind drink.", "ingredients":  ["Tamarind pulp", "Water", "Sugar", "Ice"], "steps":  ["Soak tamarind, strain, sweeten, serve over ice."] }
+            },
+            "Cuscatlán":  {
+                "dish":  "Gallo en Chicha",
+                "description":  "Heartland classic: rooster (or chicken) braised in chicha and panela—sweet and savory, with onions, peppers, and sometimes prunes. A celebration dish in the central regions.",
+                "ingredients":  ["Rooster or chicken", "Chicha (or beer)", "Panela (unrefined cane sugar)", "Onions", "Red peppers", "Prunes (optional)", "Mustard", "Spices"],
+                "steps":  ["Brown the bird; add chicha, panela, onions, peppers, and spices. Simmer until tender.", "Add prunes if using. Serve with rice and tortillas."],
+                "drink":  { "dish":  "Horchata Salvadoreña", "description":  "Traditional morro horchata.", "ingredients":  ["Horchata mix", "Water", "Sugar", "Ice"], "steps":  ["Mix and serve over ice."] }
+            },
+            "La Libertad":  {
+                "dish":  "Carne Asada",
+                "description":  "Grilled steak Salvadoran-style: marinated beef served with chimol (fresh tomato-onion salsa), tortillas, and often yuca or beans. Popular along the coast and in the central valleys.",
+                "ingredients":  ["Beef steak (flank or sirloin)", "Lime", "Garlic", "Salt", "Chimol (tomato, onion, cilantro, lime)", "Tortillas"],
+                "steps":  ["Marinate steak with lime, garlic, and salt. Grill to desired doneness.", "Slice and serve with chimol, tortillas, and beans or yuca."],
+                "drink":  { "dish":  "Ensalada (Fruit Drink)", "description":  "Pineapple juice with chopped fruits.", "ingredients":  ["Pineapple juice", "Chopped apple, marañón, mamey", "Watercress", "Ice"], "steps":  ["Mix juice with chopped fruits; serve cold over ice."] }
+            },
+            "La Paz":  {
+                "dish":  "Pupusas",
+                "description":  "Home of Olocuilta—the 'City of Pupusas.' This is the pupusa capital: rice-flour and corn pupusas from the historic pupuserías along the highway, often cooked on comals over wood fire. National Pupusa Day is celebrated here the second Sunday of November.",
+                "ingredients":  ["4 cups Masa Harina or rice flour", "3 cups Warm Water", "Quesillo or Mozzarella", "Refried Beans", "Chicharron", "Curtido", "Salsa roja"],
+                "steps":  ["Mix masa and water. Form balls, fill with cheese, beans, or chicharrón; seal and pat into disks.", "Cook on a comal or griddle until browned. Serve with curtido and salsa."],
+                "drink":  { "dish":  "Horchata Salvadoreña", "description":  "Morro-based horchata—the classic pairing with pupusas in Olocuilta.", "ingredients":  ["Horchata mix (morro)", "Water or milk", "Sugar", "Ice"], "steps":  ["Mix, sweeten, serve over ice."] }
+            },
+            "La Unión":  {
+                "dish":  "Mariscada",
+                "description":  "Gulf of Fonseca specialty: a rich seafood soup with fish, clams, octopus, squid, shrimp, and crab, seasoned with tomatoes, peppers, cumin, and achiote.",
+                "ingredients":  ["Fish fillets", "Shrimp", "Clams", "Crab", "Octopus", "Squid", "Tomatoes", "Green peppers", "Cumin", "Achiote", "Corn flour (optional thickener)"],
+                "steps":  ["Sauté tomatoes, peppers, and spices. Add seafood and enough water or broth to cover.", "Simmer until seafood is cooked. Adjust seasoning. Serve with lime and tortillas."],
+                "drink":  { "dish":  "Tamarindo", "description":  "Refreshing tamarind drink.", "ingredients":  ["Tamarind", "Water", "Sugar", "Ice"], "steps":  ["Soak tamarind, strain, sweeten, serve over ice."] }
+            },
+            "Morazán":  {
+                "dish":  "Sopa de Chipilín",
+                "description":  "Eastern highlands: chicken soup with chipilín leaves (a Central American herb) and vegetables. Light, green, and comforting.",
+                "ingredients":  ["Chicken", "Chipilín leaves", "Tomatoes", "Green peppers", "Carrots", "Potatoes", "Guisquil (optional)", "Consommé or broth"],
+                "steps":  ["Simmer chicken in broth with vegetables until tender.", "Add chipilín leaves and cook a few minutes. Serve with lime and tortillas."],
+                "drink":  { "dish":  "Chilate", "description":  "Traditional corn and cacao drink.", "ingredients":  ["Corn", "Cacao", "Spices", "Panela"], "steps":  ["Toast and grind corn and cacao; simmer with spices and sugar. Serve hot or cold."] }
+            },
+            "San Miguel":  {
+                "dish":  "Tamales de Pollo",
+                "description":  "Eastern city classic: tamales stuffed with chicken and potatoes, wrapped in plantain leaves. Hearty and often served at gatherings.",
+                "ingredients":  ["Masa", "Chicken", "Potatoes", "Tomato sauce", "Plantain leaves", "Olives", "Capers (optional)"],
+                "steps":  ["Spread masa on plantain leaves. Layer with chicken, potato, sauce, olive; fold and tie.", "Steam 1–1½ hours. Serve with salsa and crema."],
+                "drink":  { "dish":  "Horchata Salvadoreña", "description":  "Morro horchata.", "ingredients":  ["Horchata mix", "Water", "Sugar", "Ice"], "steps":  ["Mix, sweeten, serve over ice."] }
+            },
+            "San Salvador":  {
+                "dish":  "Enchiladas Salvadoreñas",
+                "description":  "Capital street food: not the Mexican kind—crisp tortillas topped with minced meat, shredded cabbage, carrots, beets, cheese, hard-boiled egg, and tomato sauce. Colorful and filling.",
+                "ingredients":  ["Corn tortillas", "Ground beef or chicken", "Shredded cabbage", "Carrots", "Beets", "Queso duro", "Hard-boiled eggs", "Tomato sauce", "Oil for frying"],
+                "steps":  ["Fry tortillas until crisp. Top with cooked meat, cabbage, grated vegetables, cheese, egg, and tomato sauce.", "Serve immediately."],
+                "drink":  { "dish":  "Horchata Salvadoreña", "description":  "Capital favorite.", "ingredients":  ["Horchata mix", "Water", "Sugar", "Ice"], "steps":  ["Mix and serve over ice."] }
+            },
+            "San Vicente":  {
+                "dish":  "Sopa de Pata",
+                "description":  "Central Salvadoran delicacy: cow tripe soup with plantain, corn, tomatoes, cabbage, and spices. Rich and beloved at family gatherings.",
+                "ingredients":  ["Beef tripe (cleaned)", "Plantain", "Corn", "Tomatoes", "Cabbage", "Cilantro", "Garlic", "Cumin", "Salt"],
+                "steps":  ["Boil tripe until tender; add plantain, corn, tomatoes, cabbage, and spices.", "Simmer until vegetables are soft. Serve with lime and tortillas."],
+                "drink":  { "dish":  "Horchata Salvadoreña", "description":  "Traditional horchata.", "ingredients":  ["Horchata mix", "Water", "Sugar", "Ice"], "steps":  ["Mix, sweeten, serve over ice."] }
+            },
+            "Santa Ana":  {
+                "dish":  "Yuca con Chicharrón",
+                "description":  "Santa Ana’s iconic dish: boiled or fried yuca (cassava) with crispy chicharrón, curtido, and chimol. Especially popular in the western coffee region—street food and market staple.",
+                "ingredients":  ["2 lbs yuca (cassava), peeled", "Chicharrón (crispy fried pork)", "Curtido", "Chimol (tomato, onion, cilantro)", "Lime", "Salt"],
+                "steps":  ["Boil or fry yuca until tender and golden. Season with salt.", "Serve with chicharrón, curtido, chimol, and lime wedges."],
+                "drink":  { "dish":  "Café Salvadoreño", "description":  "Santa Ana is coffee country; strong local brew.", "ingredients":  ["Salvadoran coffee", "Water", "Sugar to taste"], "steps":  ["Brew coffee; serve black or with sugar."] }
+            },
+            "Sonsonate":  {
+                "dish":  "Ceviche de Camarones",
+                "description":  "Pacific coast: shrimp 'cooked' in lime with tomato, onion, and cilantro. Often served with crackers or tostadas and a dash of Salsa Inglesa (Worcestershire).",
+                "ingredients":  ["Fresh shrimp", "Lime juice", "Tomato", "Onion", "Cilantro", "Salt", "Worcestershire (Salsa Inglesa) optional", "Tostadas or crackers"],
+                "steps":  ["Chop shrimp; marinate in lime juice until opaque. Drain slightly.", "Mix with tomato, onion, cilantro, salt. Serve cold with tostadas."],
+                "drink":  { "dish":  "Tamarindo", "description":  "Sweet-tart coastal refresco.", "ingredients":  ["Tamarind", "Water", "Sugar", "Ice"], "steps":  ["Soak tamarind, strain, sweeten, serve over ice."] }
+            },
+            "Usulután":  {
+                "dish":  "Empanadas de Plátano",
+                "description":  "Eastern favorite: torpedo-shaped fritters made from ripe plantain dough, filled with vanilla custard, fried, and rolled in sugar. A beloved sweet snack or dessert.",
+                "ingredients":  ["Ripe plantains", "Milk", "Sugar", "Vanilla", "Egg (for custard)", "Oil for frying"],
+                "steps":  ["Mash ripe plantains into a dough. Make custard with milk, sugar, vanilla, egg.", "Shape plantain around custard; fry until golden. Roll in sugar. Serve warm."],
+                "drink":  { "dish":  "Atol de Piña", "description":  "Pineapple atol, sweet and warm.", "ingredients":  ["Pineapple", "Corn flour or rice", "Panela", "Cinnamon"], "steps":  ["Blend pineapple; cook with flour and sugar until thick. Serve hot."] }
+            }
+        }
     },
     "SMR":  {
         "dish":  "Nidi di Rondine",
@@ -11286,6 +11988,65 @@
                     "Pixian doubanjiang is a long-fermented chili broad-bean paste; the traditional process takes months.",
                     "For authenticity, purchase a reputable Pixian doubanjiang and use as directed in the recipe.",
                     "If the recipe calls for cooking it, stir-fry it briefly in oil to ‘bloom’ the flavor before adding liquids."
+                ]
+            }
+        ]
+    },
+    "UGA":  {
+        "dish":  "Matoke with Groundnut Sauce",
+        "description":  "Uganda's national dish. Green bananas (bitooke), or plantains outside East Africa, are steamed and mashed into a mild, slightly sweet staple—then topped with a rich groundnut (peanut) sauce. Central to Baganda culture; the word for food in Luganda is often synonymous with matoke. Served at weddings, family meals, and daily tables, often with beef stew or beans.",
+        "ingredients":  [
+            "8–10 green plantains (or green cooking bananas), peeled and cut into 2-inch chunks",
+            "2 cups water",
+            "1 tsp kosher salt",
+            "1/2 cup milk (optional)",
+            "1 tbsp butter (optional)",
+            "For the groundnut sauce: 1 cup creamy peanut butter or 1 cup finely ground roasted peanuts",
+            "1 large onion, diced",
+            "4 cloves garlic, minced",
+            "1 tsp ground turmeric",
+            "1 tsp ground cumin",
+            "1 tsp ground coriander",
+            "1 red bell pepper, diced",
+            "1 cup vegetable broth or water",
+            "Kosher salt and black pepper, to taste",
+            "1 small red chile, slit (optional)",
+            "1 tbsp butter (optional, for finishing sauce)",
+            "Chopped fresh cilantro (optional, for garnish)"
+        ],
+        "steps":  [
+            "Put the plantain chunks in a pot with the water and salt. Bring to a boil, then reduce heat and simmer until tender, about 20–25 minutes. Drain; add milk and butter if using, then mash until smooth (like mashed potatoes). Keep warm.",
+            "For the sauce: In a large pan over medium heat, sauté the onion until softened, 4–5 minutes. Add the garlic and cook 30 seconds. Add the turmeric, cumin, coriander, bell pepper, and chile (if using); stir 1–2 minutes.",
+            "Add the vegetable broth and peanut butter (or ground peanuts). Whisk until smooth. Bring to a boil, then reduce to a simmer and cook 5–8 minutes, stirring often, until the sauce thickens. Season with salt and pepper. Stir in butter and cilantro if using.",
+            "Serve the mashed matoke in bowls, topped generously with the groundnut sauce."
+        ],
+        "drink":  {
+            "dish":  "Mubisi (Banana Beer)",
+            "description":  "A traditional Ugandan fermented drink from the southwest: ripe bananas mashed and fermented with sorghum flour (or millet). Sweet, slightly tangy, and mildly alcoholic; often served in calabashes at weddings, births, and communal gatherings.",
+            "ingredients":  [
+                "6 very ripe bananas (the riper, the better)",
+                "6 cups warm water",
+                "1/2 cup sorghum flour (lightly toasted in a dry pan)",
+                "1/4 tsp active dry yeast (optional, for reliability)",
+                "Pinch of salt"
+            ],
+            "steps":  [
+                "Peel the bananas into a large bowl and mash thoroughly until smooth.",
+                "Add the warm water and mix well. Strain through a fine sieve or cheesecloth into a clean fermentation jar.",
+                "Stir in the toasted sorghum flour and salt. Add the yeast (if using).",
+                "Cover loosely and ferment at room temperature 12–24 hours until lightly effervescent and aromatic.",
+                "Strain again if desired, chill, and serve cold."
+            ]
+        },
+        "preliminary_steps":  [
+            {
+                "item":  "Toasted Sorghum Flour",
+                "ingredients":  [
+                    "1/2 cup sorghum flour"
+                ],
+                "steps":  [
+                    "Toast the sorghum flour in a dry skillet over medium heat, stirring constantly, until lightly nutty and fragrant, 3–5 minutes.",
+                    "Cool completely before adding to the drink."
                 ]
             }
         ]
