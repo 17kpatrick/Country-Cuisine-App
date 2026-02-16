@@ -410,9 +410,31 @@ window.getRegionConfig = () => {
         'BRA': {
             geoJsonUrl: 'https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/brazil-states.geojson',
             view: { center: [-12, -38], zoom: 4 }
+        },
+        'DNK': {
+            geoJsonUrl: 'https://gist.githubusercontent.com/PernilleMatthews/70fd81c96b3572e5494603b07eda250f/raw/regioner_geo.json',
+            view: { center: [56.2, 10.5], zoom: 6 }
+        },
+        'FRA': {
+            geoJsonUrl: 'https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/regions.geojson',
+            view: { center: [46.6, 1.9], zoom: 5.5 }
+        },
+        'ITA': {
+            geoJsonUrl: 'https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson',
+            view: { center: [42.5, 12.5], zoom: 5.5 }
+        },
+        'GRC': {
+            geoJsonUrl: 'https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/greece-regions.geojson',
+            view: { center: [38.5, 23.5], zoom: 6 }
+        },
+        'MEX': {
+            geoJsonUrl: 'https://raw.githubusercontent.com/strotgen/mexico-leaflet/master/states.geojson',
+            view: { center: [23.6, -102.5], zoom: 4 }
+        },
+        'SLV': {
+            geoJsonUrl: 'https://raw.githubusercontent.com/eaguilarjz/elsalvador/master/dptoA_WGS_1984.json',
+            view: { center: [13.7, -88.9], zoom: 7 }
         }
-        // Example for future:
-        // 'CAN': { geoJsonUrl: 'path/to/canada-provinces.json', view: { center: [56, -106], zoom: 4 } }
     };
 };
 

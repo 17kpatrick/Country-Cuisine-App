@@ -6207,6 +6207,493 @@
                 "Top with cold water (and milk if using).",
                 "Stir gently and drink with a straw."
             ]
+        },
+        "regions":  {
+            "East Macedonia and Thrace":  {
+                "dish":  "Kavourma Thrakis",
+                "description":  "An ancient Thracian preservation technique born of necessity: cubes of lamb and goat are slow-braised for hours in their own rendered fat with cumin, paprika, and black pepper until meltingly tender, then packed into earthenware crocks where the fat seals the meat for months. In winter, a chunk is dug out of the crock and reheated in a skillet until the fat sizzles and the meat crisps at the edges. Served with crusty village bread, raw onion, and pickled peppers—shepherd's sustenance from the Rhodope mountains.",
+                "ingredients":  [
+                    "3 lbs boneless lamb shoulder, cut into 1-inch cubes (1.4 kg)",
+                    "1 lb lamb fat or suet, diced (450 g)",
+                    "2 tsp ground cumin",
+                    "1 tsp sweet paprika",
+                    "1 tsp freshly ground black pepper",
+                    "1/2 tsp ground allspice",
+                    "2 tsp coarse sea salt",
+                    "1 cup water (240 ml)",
+                    "For serving: crusty bread, raw red onion rings, pickled hot peppers"
+                ],
+                "steps":  [
+                    "In a heavy-bottomed Dutch oven or deep cast-iron pot, combine the diced lamb fat and 1 cup water. Cook over medium heat, stirring occasionally, until the fat has fully rendered and the water has evaporated—about 30 minutes. The fat should be clear and liquid.",
+                    "Season the lamb cubes with cumin, paprika, pepper, allspice, and salt. Toss to coat evenly.",
+                    "Add the seasoned lamb to the rendered fat. The meat should be mostly submerged. Bring to a gentle simmer.",
+                    "Reduce heat to the lowest setting, cover, and cook 3–4 hours, stirring occasionally, until the lamb is butter-tender and falling apart. The meat is essentially confiting in its own fat.",
+                    "To serve immediately: spoon the kavourma with some of its fat into a hot skillet. Fry until the edges crisp and sizzle. Serve on crusty bread with raw onion rings and pickled peppers.",
+                    "To preserve (traditional method): pack the hot kavourma into sterilized clay or glass jars, ensuring the fat covers the meat completely. Seal and store in a cool place. It keeps for months—dig out portions as needed and reheat in a skillet."
+                ],
+                "drink":  {
+                    "dish":  "Tsipouro Thrakis",
+                    "description":  "The firewater of northern Greece: a clear, potent grape-marc spirit distilled in copper stills across Thrace and Macedonia. Unlike ouzo, tsipouro is uncut—no anise (or with anise, depending on the village). Served neat in small glasses alongside meze, it is the drink of every Thracian evening gathering. The ritual is: one sip tsipouro, one bite meze—never one without the other.",
+                    "ingredients":  [
+                        "2 oz (60 ml) tsipouro (without anise, Thracian style), chilled",
+                        "Small glass of cold water on the side",
+                        "Meze plate: olives, feta, pickled peppers"
+                    ],
+                    "steps":  [
+                        "Chill the tsipouro in the refrigerator (never the freezer—it's already 40–45% ABV).",
+                        "Pour into a small shot glass or tumbler. Serve alongside a glass of cold water and a plate of meze.",
+                        "Sip slowly, alternating with bites of meze and sips of water. The Greeks call this 'tsimpisi kai meze'—a nip and a bite."
+                    ]
+                }
+            },
+            "Central Macedonia":  {
+                "dish":  "Bougatsa me Krema Thessalonikis",
+                "description":  "Thessaloniki's legendary street pastry: impossibly thin, hand-stretched filo sheets layered around a thick, vanilla-scented semolina custard cream (krema), baked until shatteringly crisp and golden, then cut into pieces and showered with powdered sugar and cinnamon. Bougatsa arrived with the Asia Minor refugees in 1923 and became Thessaloniki's soul food. The bougatsadiko (bougatsa shop) is a Thessalonikian institution—you queue at dawn and eat it standing, the cream still warm.",
+                "ingredients":  [
+                    "1 lb handmade or store-bought filo dough (450 g)",
+                    "For the cream: 4 cups whole milk (960 ml), 3/4 cup fine semolina (120 g), 3/4 cup sugar (150 g), 3 large eggs, 1 tsp vanilla extract, 2 tbsp unsalted butter, pinch of salt",
+                    "1/2 cup melted unsalted butter for brushing filo (115 g)",
+                    "Powdered sugar and ground cinnamon for serving"
+                ],
+                "steps":  [
+                    "Make the cream: Heat the milk in a heavy saucepan until steaming. In a bowl, whisk the eggs with the sugar until pale, then whisk in the semolina. Slowly pour the hot milk into the egg mixture, whisking constantly to temper.",
+                    "Return the mixture to the saucepan over medium heat. Stir constantly with a wooden spoon until the cream thickens dramatically—it should be very thick, like pastry cream that holds its shape. This takes 5–8 minutes. Remove from heat, stir in butter, vanilla, and salt. Press plastic wrap directly onto the surface and cool to lukewarm.",
+                    "Preheat oven to 375°F (190°C). Butter a large baking pan. Layer 6–7 sheets of filo on the bottom, brushing each generously with melted butter and letting the edges drape over the sides.",
+                    "Spread the lukewarm cream evenly over the filo in a thick layer. Fold the overhanging filo edges inward over the cream.",
+                    "Layer another 5–6 sheets of filo on top, buttering each one. Tuck the edges neatly under. Brush the top generously with butter. Score the top lightly into portions with a sharp knife.",
+                    "Bake 35–40 minutes until deep golden and crisp. Let cool 10 minutes, then cut into pieces. Dust generously with powdered sugar and a whisper of cinnamon. Serve warm."
+                ],
+                "drink":  {
+                    "dish":  "Ellinikos Kafes (Greek Coffee)",
+                    "description":  "The ritual that defines Greek mornings: finely ground coffee simmered in a briki (small copper pot) with sugar and water, producing a thick, aromatic brew with kaimaki (crema foam) on top. You specify your sweetness: sketos (no sugar), metrios (medium), or glykos (sweet). The grounds settle in the cup—never stir, and never drink the last sip. Reading the grounds afterward (kafemandeia) is optional but traditional.",
+                    "ingredients":  [
+                        "1 heaping tsp very finely ground Greek/Turkish coffee (about 7 g)",
+                        "1 demitasse cup cold water (about 2.5 oz / 75 ml)",
+                        "1 tsp sugar (for metrios; 2 tsp for glykos; none for sketos)"
+                    ],
+                    "steps":  [
+                        "In a briki (small, long-handled copper pot), combine the coffee, sugar, and cold water. Stir once to mix.",
+                        "Place over low heat. Do not stir again. Watch carefully—the coffee will slowly begin to foam.",
+                        "As the foam (kaimaki) rises toward the rim, remove from heat immediately. Do not let it boil over—the kaimaki is sacred.",
+                        "Pour slowly into a demitasse cup, tilting the briki to preserve the foam layer on top. Serve with a glass of cold water and a loukoumi (Turkish delight). Let the grounds settle 1 minute before sipping."
+                    ]
+                }
+            },
+            "West Macedonia":  {
+                "dish":  "Kontosouvli me Krokos Kozanis",
+                "description":  "A festive spit-roast from the mountains of Western Macedonia: large chunks of pork shoulder and belly threaded on a spit, rubbed with Kozani saffron (krokos), oregano, garlic, and lemon, then slow-turned over charcoal for hours until the exterior is mahogany-crisp and the interior is succulent and perfumed with the world's most expensive spice. Kozani, near Kastoria, is the only saffron-producing region in Greece and one of the few in the world.",
+                "ingredients":  [
+                    "4 lbs boneless pork shoulder and belly, mixed, cut into 2-inch chunks (1.8 kg)",
+                    "1/2 tsp Kozani saffron threads (krokos), steeped in 2 tbsp warm water",
+                    "4 garlic cloves, minced to a paste",
+                    "2 tbsp dried Greek oregano (rigani)",
+                    "Juice of 2 lemons",
+                    "1/4 cup extra-virgin olive oil (60 ml)",
+                    "2 tsp coarse sea salt",
+                    "1 tsp freshly ground black pepper",
+                    "1 tsp sweet paprika"
+                ],
+                "steps":  [
+                    "In a large bowl, combine the saffron with its soaking water, garlic paste, oregano, lemon juice, olive oil, salt, pepper, and paprika. Mix into a marinade. Add the pork chunks and toss to coat thoroughly. Marinate in the refrigerator at least 4 hours, ideally overnight.",
+                    "Thread the marinated pork onto a spit or heavy metal skewers, alternating leaner shoulder with fattier belly pieces. Pack tightly so the meat bastes itself as it rotates.",
+                    "Prepare a charcoal fire and let it burn down to glowing embers. Mount the spit about 12 inches above the coals. If using skewers on a grill, cook over indirect medium heat.",
+                    "Roast slowly, turning constantly, for 2–3 hours (spit) or 1.5–2 hours (grill/oven at 350°F/175°C), basting occasionally with any remaining marinade mixed with olive oil. The exterior should be deeply caramelized and crisp; the interior should be moist and golden from the saffron.",
+                    "Rest 10 minutes. Slide the meat off the spit, cut into chunks, and serve on a platter with lemon wedges, village bread, and a tomato-onion salad dressed with oregano."
+                ],
+                "drink":  {
+                    "dish":  "Tsai tou Vounou me Krokos (Mountain Tea with Saffron)",
+                    "description":  "A warming herbal infusion unique to Western Macedonia: wild mountain tea (sideritis/ironwort) gathered from the slopes of Mount Vermion, steeped with Kozani saffron threads and sweetened with local thyme honey. This is the tisane of Greek mountain villages, drunk daily for health—sideritis is revered for its anti-inflammatory and immune-boosting properties.",
+                    "ingredients":  [
+                        "2–3 stalks dried sideritis (Greek mountain tea / tsai tou vounou)",
+                        "3–4 threads Kozani saffron (krokos)",
+                        "2 cups boiling water (480 ml)",
+                        "1–2 tsp Greek thyme honey"
+                    ],
+                    "steps":  [
+                        "Place the dried sideritis stalks and saffron threads in a small pot.",
+                        "Add the boiling water. Simmer gently for 8–10 minutes—do not boil hard, or the delicate flavor turns bitter.",
+                        "Strain into cups. Stir in honey to taste.",
+                        "Drink hot on a cold mountain evening. In Kozani, this tea is believed to cure everything from colds to heartbreak."
+                    ]
+                }
+            },
+            "Thessaly":  {
+                "dish":  "Spetzofai Pelíou",
+                "description":  "The fiery signature dish of the Pelion peninsula: chunks of rustic Pelion sausage (loukaniko horiatiko), loaded with orange peel, fennel, and leek, are seared then braised with roasted sweet peppers, hot peppers, tomato, and a splash of tsipouro. The Pelion villages cling to forested mountainsides above the Aegean, and spetzofai is the dish that warms every taverna table in autumn. The secret is the quality of the sausage—coarsely ground pork with assertive spicing.",
+                "ingredients":  [
+                    "1.5 lbs Greek country sausage (loukaniko horiatiko or Italian sausage as substitute), cut into 2-inch pieces (680 g)",
+                    "3 bell peppers (red, green, yellow), seeded, cut into thick strips",
+                    "2 long mild peppers (horn peppers or Anaheim), sliced",
+                    "1 hot green pepper (or 1/2 tsp red pepper flakes)",
+                    "1 can (14 oz) crushed tomatoes or 4 ripe tomatoes, grated",
+                    "1/4 cup extra-virgin olive oil (60 ml)",
+                    "3 garlic cloves, sliced",
+                    "2 tbsp tsipouro or ouzo",
+                    "1 tsp dried oregano",
+                    "Salt and freshly ground black pepper",
+                    "Crusty bread for serving"
+                ],
+                "steps":  [
+                    "Heat 2 tbsp olive oil in a wide, heavy skillet or clay pot over medium-high heat. Brown the sausage pieces on all sides until caramelized, about 5 minutes. Remove and set aside.",
+                    "Add the remaining olive oil to the same pan. Add all the pepper strips and cook, tossing occasionally, 8–10 minutes until softened and slightly charred at the edges.",
+                    "Add garlic and hot pepper, cook 1 minute. Pour in the tsipouro—it will sizzle and deglaze the pan. Let it evaporate.",
+                    "Add the crushed tomatoes, oregano, salt, and pepper. Stir, bring to a simmer.",
+                    "Return the sausages to the pan, nestling them among the peppers. Reduce heat and simmer, uncovered, 20–25 minutes until the sauce is thick and the peppers are silky.",
+                    "Serve straight from the pan with thick slices of crusty village bread to soak up the spicy, oily sauce. This is taverna food—rustic, generous, unapologetic."
+                ],
+                "drink":  {
+                    "dish":  "Tsipouro Tyrnavou",
+                    "description":  "The legendary tsipouro of Tyrnavos, Thessaly's distilling capital: a grape-marc spirit distilled in small copper pot stills, clear as water, with an anise-perfumed version and a 'without anise' version for purists. Every autumn after the grape harvest, the tsipouro kazania (distilleries) fire up, and the scent of distillation fills the Thessalian plain. Always served with meze—never alone.",
+                    "ingredients":  [
+                        "2 oz (60 ml) Tsipouro Tyrnavou (with or without anise), chilled",
+                        "Splash of cold water (to release the anise oils, if using the anise version)",
+                        "Ice (optional)",
+                        "Meze: olives, feta, grilled octopus, tomato wedges"
+                    ],
+                    "steps":  [
+                        "Pour the tsipouro into a small glass. If drinking the anise version, add a small splash of cold water—the liquid will turn milky-white (the louche effect), releasing the anise oils.",
+                        "Serve alongside meze. The Thessalian way: one sip tsipouro, one bite of meze, one laugh with friends.",
+                        "Repeat until the plate is empty and the bottle needs replacing."
+                    ]
+                }
+            },
+            "Epirus":  {
+                "dish":  "Kreatopita Ioannínon",
+                "description":  "The legendary meat pie of Ioannina: layers of hand-stretched filo enclose a slow-braised filling of lamb and goat in tomato, onion, and rice, seasoned with cinnamon and mint. Epirus is the kingdom of Greek pies—every village, every grandmother has her pita. But kreatopita is the queen: a festive pie made for holidays and name days, baked in a wood-fired oven until the filo shatters like glass and the filling steams fragrant. The Epirote method of hand-stretching filo on a floured tablecloth is the ancestor of all phyllo traditions.",
+                "ingredients":  [
+                    "For the filling: 2 lbs boneless lamb shoulder, cut into small dice (900 g), 1 large onion (diced), 2 garlic cloves, 1/2 cup tomato puree (120 ml), 1/4 cup short-grain rice, 1/4 cup olive oil (60 ml), 1/2 tsp cinnamon, 2 tbsp fresh mint (chopped), salt, pepper",
+                    "For the filo: 1 lb store-bought or handmade filo (450 g), 1/2 cup melted butter mixed with 1/4 cup olive oil for brushing",
+                    "1 egg yolk + 1 tbsp milk for egg wash"
+                ],
+                "steps":  [
+                    "Make the filling: Heat olive oil in a heavy pot. Brown the diced lamb in batches until deeply colored. Add onion and garlic, cook until softened.",
+                    "Add tomato puree, cinnamon, salt, and pepper. Add 1 cup water. Simmer, covered, for 1.5 hours until the lamb is very tender and the liquid is mostly absorbed. Stir in the rice and mint. Cook 10 more minutes until the rice is just tender. The filling should be moist but not soupy. Cool.",
+                    "Preheat oven to 375°F (190°C). Brush a deep baking pan with butter-oil. Layer 7–8 sheets of filo on the bottom, brushing each with the butter-oil mixture, letting edges drape over the sides.",
+                    "Spread the cooled lamb filling evenly over the filo.",
+                    "Fold overhanging edges inward. Layer 6–7 more sheets on top, brushing each. Tuck edges under neatly. Brush the top with egg wash. Score the top into diamond or square portions with a sharp knife.",
+                    "Bake 40–45 minutes until deep golden and crisp. Let rest 15 minutes before cutting. The filo should crackle; the filling should be fragrant with cinnamon and mint."
+                ],
+                "drink":  {
+                    "dish":  "Tsipouro Zagoriou",
+                    "description":  "Tsipouro from the stone villages of Zagori in the Pindus mountains: small-batch, artisanal, distilled from the Debina grape that grows only in Epirus. Zagorochoria tsipouro is clean, floral, and slightly herbaceous—served in the stone-built guesthouses where hikers and pilgrims have warmed themselves for centuries.",
+                    "ingredients":  [
+                        "2 oz (60 ml) Zagorochoria tsipouro (without anise), chilled",
+                        "Cold water on the side",
+                        "Meze: local pita pieces, grilled halloumi, walnuts, honey"
+                    ],
+                    "steps":  [
+                        "Pour into a small glass, chilled but not ice-cold.",
+                        "Sip between bites of warm pita dipped in honey and walnuts—the classic Epirote meze.",
+                        "In Zagori, tsipouro is served by the fireplace with the windows open to the Vikos Gorge."
+                    ]
+                }
+            },
+            "Ionian Islands":  {
+                "dish":  "Pastitsada Kerkyraikí",
+                "description":  "Corfu's Sunday masterpiece: a whole rooster (or beef) braised for hours in a rich tomato sauce perfumed with cinnamon, cloves, allspice, and bay—the Venetian-Greek spice cabinet—then served over thick bucatini or penne. Pastitsada reveals 400 years of Venetian rule over Corfu: the slow braise, the sweet spices, the pasta. Every Corfiot family has their grandmother's version, debated fiercely at every taverna. The sauce must be dark red, thick enough to coat the pasta, and deeply aromatic.",
+                "ingredients":  [
+                    "1 whole rooster or chicken (about 4 lbs / 1.8 kg), cut into 8 pieces (or 3 lbs beef chuck, cubed)",
+                    "1/3 cup extra-virgin olive oil (80 ml)",
+                    "2 large onions, finely chopped",
+                    "4 garlic cloves, minced",
+                    "1 cup dry red wine (240 ml)",
+                    "2 cans (14 oz each) crushed tomatoes",
+                    "2 tbsp tomato paste",
+                    "1 cinnamon stick + 1/2 tsp ground cinnamon",
+                    "4 whole cloves",
+                    "4 whole allspice berries",
+                    "2 bay leaves",
+                    "1/2 tsp ground nutmeg",
+                    "Salt and freshly ground black pepper",
+                    "1 lb thick bucatini or penne (450 g)",
+                    "Grated kefalotyri or Pecorino Romano for serving"
+                ],
+                "steps":  [
+                    "Season the rooster pieces with salt and pepper. Heat olive oil in a large Dutch oven over medium-high heat. Brown the pieces deeply on all sides, about 10 minutes. Remove and set aside.",
+                    "Reduce heat to medium. Add onions and cook until deeply golden and caramelized, 12–15 minutes. Add garlic, cook 1 minute.",
+                    "Pour in the red wine, scraping up all the fond. Let it reduce by half.",
+                    "Add crushed tomatoes, tomato paste, cinnamon stick, ground cinnamon, cloves, allspice, bay leaves, and nutmeg. Stir well. Return the rooster to the pot. The sauce should nearly cover the meat.",
+                    "Bring to a gentle simmer, cover, and cook over very low heat for 2–2.5 hours (for rooster) or 1.5 hours (for chicken/beef), until the meat is falling-off-the-bone tender. Stir occasionally. Remove whole spices.",
+                    "Cook the bucatini in salted water until al dente. Drain. Toss with generous ladlefuls of the sauce. Plate the pasta, place the braised meat alongside, and shower with grated kefalotyri."
+                ],
+                "drink":  {
+                    "dish":  "Tsitsibira (Corfu Ginger Beer)",
+                    "description":  "A sparkling, non-alcoholic ginger drink unique to Corfu—a legacy of the British protectorate (1815–1864). Fresh ginger root, lemon, and sugar are fermented briefly with yeast to produce a fizzy, spicy-sweet drink served cold from the bottle. Tsitsibira is sold at Corfu's cricket matches (yes, another British legacy) and at every local festival. It is the taste of Corfiot summers.",
+                    "ingredients":  [
+                        "4 oz fresh ginger root, peeled and finely grated (110 g)",
+                        "1 cup sugar (200 g)",
+                        "Juice of 2 lemons",
+                        "8 cups water (1.9 L)",
+                        "1/4 tsp active dry yeast"
+                    ],
+                    "steps":  [
+                        "Boil 4 cups of water. Add the grated ginger and sugar. Stir until sugar dissolves. Simmer 5 minutes. Remove from heat and add the remaining 4 cups of cold water and lemon juice. Let cool to lukewarm (body temperature).",
+                        "Sprinkle the yeast over the surface. Stir gently. Cover loosely and let ferment at room temperature 24–48 hours. It will become slightly fizzy.",
+                        "Strain through cheesecloth into clean bottles. Cap tightly and refrigerate at least 12 hours. Open carefully—it's carbonated.",
+                        "Serve ice-cold. The flavor should be sharp ginger, bright lemon, and gentle sweetness with a natural fizz."
+                    ]
+                }
+            },
+            "Western Greece":  {
+                "dish":  "Stifado me Kouneli",
+                "description":  "A wine-dark stew from the villages of Achaia and Aitoloakarnania: rabbit (or hare) braised with a mountain of sweet pearl onions in red wine, aged vinegar, tomato, cinnamon, and cloves until the sauce is thick enough to coat a spoon and the rabbit falls from the bone. The ratio of onions to meat should be nearly 1:1—the onions collapse into a jammy sweetness that defines stifado. This dish descends from Venetian stufato and is the ultimate autumn comfort in Western Greece.",
+                "ingredients":  [
+                    "1 whole rabbit, cut into 8 pieces (about 3 lbs / 1.4 kg), or 3 lbs beef chuck",
+                    "2 lbs pearl onions, peeled (leaving them whole) (900 g)",
+                    "1/3 cup extra-virgin olive oil (80 ml)",
+                    "1 cup dry red wine (240 ml)",
+                    "3 tbsp red wine vinegar",
+                    "1 can (14 oz) crushed tomatoes",
+                    "2 tbsp tomato paste",
+                    "4 garlic cloves, whole",
+                    "1 cinnamon stick",
+                    "4 whole cloves",
+                    "3 whole allspice berries",
+                    "2 bay leaves",
+                    "1 sprig fresh rosemary",
+                    "1 tbsp honey",
+                    "Salt and freshly ground black pepper"
+                ],
+                "steps":  [
+                    "Season the rabbit pieces with salt and pepper. Heat olive oil in a heavy Dutch oven over medium-high heat. Brown the rabbit deeply on all sides. Remove and set aside.",
+                    "In the same pot, add the pearl onions. Cook, shaking the pan, until they color lightly, about 5 minutes. Do not break them—they should stay whole.",
+                    "Return the rabbit. Add wine and vinegar. Let bubble for 2 minutes. Add crushed tomatoes, tomato paste, garlic, cinnamon, cloves, allspice, bay leaves, rosemary, and honey. Add enough water to just cover the meat.",
+                    "Bring to a simmer, cover, and cook over very low heat for 2–2.5 hours. Do not stir aggressively—shake the pot gently instead so the onions stay whole. The stifado is done when the rabbit is tender, the onions are translucent and sweet, and the sauce is thick and mahogany-dark.",
+                    "Remove cinnamon stick, bay leaves, and rosemary. Serve in deep bowls with crusty bread to soak up the sauce. Crumbled feta on the side is optional but excellent."
+                ],
+                "drink":  {
+                    "dish":  "Mavrodaphne of Patras",
+                    "description":  "A fortified sweet red wine from the vineyards around Patras, made from the Mavrodaphne grape since 1873. Rich, dark, and redolent of dried figs, raisins, and chocolate, it is Greece's answer to Port. Traditionally served as a dessert wine or a pairing with dark chocolate, but also used in cooking stifado. Legend has it the grape was named after the dark-haired woman its creator loved.",
+                    "ingredients":  [
+                        "3 oz (90 ml) Mavrodaphne of Patras PDO, served at 60°F (16°C)"
+                    ],
+                    "steps":  [
+                        "Pour into a small wine glass at slightly below room temperature.",
+                        "Swirl gently. Aromas of dried fig, raisin, and cocoa should emerge.",
+                        "Sip slowly alongside dark chocolate, walnut baklava, or a wedge of aged Graviera cheese."
+                    ]
+                }
+            },
+            "Central Greece":  {
+                "dish":  "Formaella Arachovas Saganaki me Meli",
+                "description":  "A dish from the mountain village of Arachova on the slopes of Mount Parnassus, above Delphi: thick slices of Formaella—a semi-hard, barrel-aged sheep's milk cheese made only in Arachova—pan-fried in a blazing-hot skillet until a golden crust forms, then drizzled with thyme honey and cracked pepper. Saganaki means 'little frying pan,' and the sound of cheese hitting hot metal is the overture. Formaella has PDO status; no other village in Greece can make it.",
+                "ingredients":  [
+                    "14 oz Formaella Arachovas cheese (or halloumi or kefalotyri as substitute), cut into 1/2-inch thick slices (400 g)",
+                    "2 tbsp all-purpose flour for dredging",
+                    "2 tbsp extra-virgin olive oil",
+                    "2 tbsp Greek thyme honey",
+                    "1/2 tsp freshly cracked black pepper",
+                    "1 tsp dried oregano",
+                    "Sesame seeds (optional)",
+                    "Lemon wedge"
+                ],
+                "steps":  [
+                    "Pat the cheese slices dry. Dredge lightly in flour, shaking off excess—the flour helps create the golden crust.",
+                    "Heat olive oil in a heavy skillet (ideally a small two-handled saganaki pan) over high heat until the oil shimmers.",
+                    "Add the cheese slices. Fry without moving for 2–3 minutes until a deep golden crust forms on the bottom. Flip carefully and fry the second side another 2 minutes.",
+                    "Transfer immediately to a warm plate. Drizzle with thyme honey, crack pepper generously over the top, sprinkle with oregano and sesame seeds if using.",
+                    "Squeeze the lemon wedge over just before eating. Serve immediately—saganaki waits for no one."
+                ],
+                "drink":  {
+                    "dish":  "Tsai tou Vounou Parnassou (Parnassus Mountain Tea)",
+                    "description":  "Wild mountain tea (sideritis scardica) handpicked from the slopes of Mount Parnassus above Arachova and Delphi. Steeped in boiling water with honey, it is believed by Greeks to cure colds, aid digestion, and bring calmness. Every family in Central Greece has bundles of dried sideritis hanging in the kitchen. The taste is earthy, floral, and faintly citrusy.",
+                    "ingredients":  [
+                        "3–4 stalks dried sideritis (Greek mountain tea)",
+                        "2 cups boiling water (480 ml)",
+                        "1–2 tsp thyme honey",
+                        "Thin slice of lemon (optional)"
+                    ],
+                    "steps":  [
+                        "Place the dried sideritis stalks in a small pot with the boiling water.",
+                        "Simmer gently for 8–10 minutes. Do not boil hard.",
+                        "Strain into cups. Add honey and a slice of lemon if desired.",
+                        "Drink hot, sitting on a stone terrace with a view of the Parnassus peaks."
+                    ]
+                }
+            },
+            "Peloponnese":  {
+                "dish":  "Youvetsi Arniou",
+                "description":  "A Peloponnesian classic baked in a clay pot (youvetsi/giouvetsi): bone-in lamb shanks braised on a bed of kritharaki (orzo pasta) in a tomato-cinnamon sauce until the pasta absorbs every drop of the lamb's juices and the top develops a golden crust. The clay pot goes straight from the village baker's wood-fired oven to the Sunday table. This is Greek home cooking at its most nurturing—the pasta underneath becomes almost risotto-like, infused with lamb fat and spice.",
+                "ingredients":  [
+                    "4 lamb shanks or 3 lbs bone-in lamb shoulder, cut into large pieces (1.4 kg)",
+                    "2 cups kritharaki (orzo pasta) (400 g)",
+                    "1 can (28 oz) crushed tomatoes",
+                    "1 large onion, grated",
+                    "4 garlic cloves, minced",
+                    "1/2 cup dry red wine (120 ml)",
+                    "1/4 cup extra-virgin olive oil (60 ml)",
+                    "1 cinnamon stick",
+                    "2 bay leaves",
+                    "1 tsp dried oregano",
+                    "2 cups hot water or beef broth (480 ml)",
+                    "Salt and freshly ground black pepper",
+                    "Grated kefalotyri or Pecorino for serving"
+                ],
+                "steps":  [
+                    "Preheat oven to 375°F (190°C). Season the lamb generously with salt and pepper. Heat olive oil in a Dutch oven or clay pot over medium-high heat. Brown the lamb deeply on all sides. Remove.",
+                    "Add grated onion to the pot. Cook until softened, 5 minutes. Add garlic, cook 1 minute. Pour in the wine and let it bubble and reduce by half.",
+                    "Add crushed tomatoes, cinnamon stick, bay leaves, oregano, 2 cups hot water, and the lamb. The liquid should mostly cover the meat. Cover and braise in the oven for 1.5 hours until the lamb is very tender.",
+                    "Remove the pot from the oven. Take out the lamb pieces. Stir the orzo directly into the tomato braising liquid. Add another cup of hot water if the liquid seems low—the orzo will absorb a lot.",
+                    "Nestle the lamb back on top of the orzo. Return to the oven, uncovered, for 25–30 minutes, until the orzo is cooked through and has absorbed most of the liquid, with a slight golden crust on top.",
+                    "Let rest 5 minutes. Serve from the pot with generous grated kefalotyri and crusty bread."
+                ],
+                "drink":  {
+                    "dish":  "Nemea Agiorgitiko",
+                    "description":  "The great red wine of the Peloponnese: Agiorgitiko grapes from the valley of Nemea, where Heracles slew the Nemean lion. Deep garnet, velvety, with flavors of dark cherry, plum, and a hint of spice. Nemea Agiorgitiko is Greece's most important red wine and pairs magnificently with lamb youvetsi.",
+                    "ingredients":  [
+                        "1 bottle Nemea Agiorgitiko PDO, served at 62–65°F (17–18°C)"
+                    ],
+                    "steps":  [
+                        "Open the bottle 30 minutes before serving to let it breathe. Pour into large red wine glasses.",
+                        "Swirl to release the aromas of ripe cherry and violet.",
+                        "Pair with lamb youvetsi, grilled meats, or aged Graviera cheese. This is the wine of the Peloponnesian table."
+                    ]
+                }
+            },
+            "Attica":  {
+                "dish":  "Souvlaki Athinaiko",
+                "description":  "The definitive street food of Athens: small cubes of pork marinated in oregano, lemon, and olive oil, grilled over charcoal on small wooden skewers, then stuffed into a warm, lightly grilled pita with tomato, red onion, tzatziki, and—crucially—crispy fried potatoes tucked inside the wrap. The Athenian souvlaki wrap is not a plate; it is architecture. Each layer matters: the pita must be warm and supple, the meat charred, the tzatziki cool, the fries hot and crispy, the onion sharp. This is eaten standing, at 2 AM, after the bars close, or at noon on Monastiraki Square.",
+                "ingredients":  [
+                    "2 lbs boneless pork shoulder, cut into 3/4-inch cubes (900 g)",
+                    "Marinade: 1/4 cup olive oil (60 ml), juice of 2 lemons, 2 tbsp dried oregano, 4 garlic cloves (minced), 1 tsp salt, 1/2 tsp black pepper",
+                    "8 Greek pita breads (round, pocket-less)",
+                    "Tzatziki: 1 cup strained Greek yogurt, 1/2 cucumber (grated, squeezed dry), 1 garlic clove (grated), 1 tbsp olive oil, 1 tsp white wine vinegar, salt",
+                    "2 ripe tomatoes, diced",
+                    "1 red onion, thinly sliced",
+                    "French fries (thick-cut, fried crispy)",
+                    "Sweet paprika for dusting"
+                ],
+                "steps":  [
+                    "Combine all marinade ingredients. Add the pork cubes and toss. Marinate 2 hours minimum, overnight is better.",
+                    "Make the tzatziki: mix all tzatziki ingredients. Refrigerate.",
+                    "Thread the pork onto wooden skewers (soaked). Grill over hot charcoal or a very hot grill, turning frequently, 8–10 minutes until charred on the outside and juicy inside.",
+                    "Warm the pita breads on the grill for 30 seconds per side—they should be soft and pliable, not crispy.",
+                    "Assemble the wrap: lay a pita flat. Spread a generous line of tzatziki down the center. Slide the meat off 1–2 skewers onto the tzatziki. Add tomato, onion, and a handful of hot fries. Dust with paprika.",
+                    "Roll tightly, wrapping the bottom in paper or foil. Eat immediately, standing up. This is souvlaki."
+                ],
+                "drink":  {
+                    "dish":  "Freddo Espresso",
+                    "description":  "Athens' modern coffee obsession: a double shot of espresso shaken with ice and sugar until thick and frothy, served in a tall glass with a crown of cold foam. Freddo espresso has replaced the old frappé as the daily caffeine ritual of young Athenians—you will see it on every café table from Exarchia to Glyfada. The foam is the point; without it, it's just iced coffee.",
+                    "ingredients":  [
+                        "1 double shot espresso (50–60 ml), freshly pulled",
+                        "2 tsp sugar (or to taste; omit for 'sketos')",
+                        "4–5 ice cubes",
+                        "Cold water or milk (optional, for a freddo cappuccino variation)"
+                    ],
+                    "steps":  [
+                        "Pull a double espresso into a small pitcher or shaker cup. Add sugar while the espresso is still hot. Stir to dissolve.",
+                        "Add 4–5 ice cubes to a cocktail shaker or tall jar. Pour the hot espresso over the ice. Shake vigorously for 10–15 seconds until thick, frothy, and ice-cold.",
+                        "Fill a tall glass with fresh ice cubes. Strain the shaken espresso over the ice. The foam should sit on top like a cap.",
+                        "Drink slowly through a straw. In Athens, a freddo espresso lasts at least 45 minutes—it's not fuel, it's lifestyle."
+                    ]
+                }
+            },
+            "North Aegean":  {
+                "dish":  "Sardeles Pastes Mytilinis",
+                "description":  "The legendary salt-cured sardines of Lesbos (Mytilini): fresh sardines from the Gulf of Kalloni—one of the richest sardine fisheries in the Mediterranean—are layered with coarse sea salt in wooden barrels and cured for months. The result is firm, intensely savory, and eaten raw: peeled, drizzled with olive oil and lemon, served with bread and ouzo. Kalloni sardines have PGI status and are the cornerstone of Lesbos cuisine. No cooking required—only the finest raw materials and patience.",
+                "ingredients":  [
+                    "12 salt-cured sardines from Kalloni (sardeles pastes), or 1 lb very fresh whole sardines + coarse sea salt",
+                    "Extra-virgin olive oil (Lesbos, robust)",
+                    "Juice of 1 lemon",
+                    "Freshly ground black pepper",
+                    "Fresh flat-leaf parsley, chopped",
+                    "Crusty bread"
+                ],
+                "steps":  [
+                    "If using store-bought salt-cured sardines: remove them from the salt. Rinse briefly under cold water. Carefully peel off the skin and remove the backbone—the flesh should separate easily into two fillets. Arrange on a plate.",
+                    "If curing fresh sardines: gut and clean the sardines, leaving heads on. Layer in a dish: a bed of coarse salt, then sardines in a single row, then more salt. Repeat. Cover and refrigerate for 24–48 hours. Rinse, peel, and fillet as above.",
+                    "Arrange the sardine fillets on a plate. Drizzle generously with extra-virgin olive oil and fresh lemon juice. Crack black pepper over the top. Scatter with parsley.",
+                    "Serve at room temperature with crusty bread and a glass of ouzo. Eat a fillet on bread, sip ouzo, repeat. This is the eternal meze of the Aegean."
+                ],
+                "drink":  {
+                    "dish":  "Ouzo Plomariou",
+                    "description":  "Ouzo from Plomari, Lesbos—the ouzo capital of Greece. Distilled from grape must with star anise, fennel, mastic, and other botanicals, Plomari ouzo is considered the finest in the Aegean: silky, aromatic, and perfectly balanced. When water or ice is added, it turns milky white—the louche effect that signals authentic, well-made ouzo. In Plomari, ouzo is not a drink; it is a way of life.",
+                    "ingredients":  [
+                        "2 oz (60 ml) ouzo from Plomari (Barbayiannis, Plomari, or similar)",
+                        "3–4 oz (90–120 ml) cold water",
+                        "1–2 ice cubes (optional, added after the water)",
+                        "Meze: sardeles pastes, olives, octopus, cheese"
+                    ],
+                    "steps":  [
+                        "Pour the ouzo into a tall, narrow glass.",
+                        "Add cold water slowly—watch the ouzo turn milky white as the anise oils emulsify. The ratio should be about 1 part ouzo to 1.5–2 parts water.",
+                        "Add an ice cube if desired (always after the water, never before—adding ice first 'shocks' the oils).",
+                        "Sip slowly alongside meze. Ouzo is never drunk alone—it demands company, conversation, and small bites."
+                    ]
+                }
+            },
+            "South Aegean":  {
+                "dish":  "Tomatokeftedes Santorinis",
+                "description":  "The iconic fritters of Santorini: the island's intensely sweet, sun-dried cherry tomatoes (tomataki Santorinis, a PDO product grown in volcanic soil without irrigation) are hand-grated, mixed with fresh mint, onion, and a whisper of flour, then deep-fried into crispy, golden patties that burst with concentrated tomato flavor. These exist nowhere else because no other tomato on earth tastes like Santorini's. The volcanic terroir, the extreme heat, and the complete absence of water produce tomatoes that are tiny, wrinkled, and explosively sweet.",
+                "ingredients":  [
+                    "1.5 lbs Santorini cherry tomatoes (or the ripest, sweetest cherry tomatoes you can find) (680 g)",
+                    "1 medium red onion, finely chopped",
+                    "3 tbsp fresh mint, finely chopped",
+                    "2 tbsp fresh flat-leaf parsley, chopped",
+                    "1/2 cup all-purpose flour (60 g), plus more if needed",
+                    "1/2 tsp baking powder",
+                    "1 tsp dried oregano",
+                    "Salt and freshly ground black pepper",
+                    "Olive oil for frying (about 1 cup / 240 ml)"
+                ],
+                "steps":  [
+                    "Cut the tomatoes in half and grate them on the large holes of a box grater (cut side against the grater), discarding the skins. You should have a thick tomato pulp. Do NOT drain—the juice is essential.",
+                    "In a bowl, combine the grated tomato with onion, mint, parsley, oregano, salt, and pepper. Add the flour and baking powder. Stir until you have a thick, spoonable batter (not pourable—it should hold its shape on a spoon). Add more flour if too wet.",
+                    "Let the batter rest 15 minutes. It will thicken slightly as the flour hydrates.",
+                    "Heat 1/2 inch of olive oil in a deep skillet to 340°F (170°C). Drop heaping tablespoons of batter into the oil, flattening slightly with the back of the spoon. Fry in batches, 2–3 minutes per side, until deeply golden and crisp.",
+                    "Drain on paper towels. Serve hot or at room temperature with a dollop of Greek yogurt or tzatziki on the side. In Santorini, these are eaten at sunset with a glass of Assyrtiko wine, watching the caldera turn gold."
+                ],
+                "drink":  {
+                    "dish":  "Kitron Naxou",
+                    "description":  "A citron liqueur produced only on the island of Naxos from the leaves and fruit of the citron tree (Citrus medica), which has grown in Naxos's Tragea valley since antiquity. Kitron comes in three colors: green (strongest, most aromatic), yellow (medium), and clear (sweetest). The green version—distilled, not just macerated—has the most character: herbaceous, intensely citrusy, and bracingly aromatic.",
+                    "ingredients":  [
+                        "2 oz (60 ml) Kitron Naxou (green label), chilled"
+                    ],
+                    "steps":  [
+                        "Chill the bottle in the refrigerator (not freezer).",
+                        "Pour into a small liqueur glass.",
+                        "Sip cold after dinner as a digestivo. The flavor is unlike any citrus liqueur—floral, herbal, and unmistakably Naxian."
+                    ]
+                }
+            },
+            "Crete":  {
+                "dish":  "Chochlioi Boubouristi",
+                "description":  "The wildest dish in the Greek canon: live Cretan vineyard snails (chochlioi) are placed face-down in a screaming-hot skillet with a thick layer of coarse salt and olive oil. The snails sizzle and seal against the pan, creating a crust on their opening. They're then doused with rosemary-infused wine vinegar, which erupts into fragrant steam. The name 'boubouristi' is onomatopoeia—it mimics the sound of the snails sizzling and popping in the pan. This is primal Cretan cooking: ingredients foraged from the land, cooked with fire, salt, and wild herbs.",
+                "ingredients":  [
+                    "2 lbs live or cleaned Cretan snails (or canned escargot as substitute) (900 g)",
+                    "1/2 cup coarse sea salt (for purging, if using live snails)",
+                    "1/3 cup extra-virgin olive oil (80 ml), Cretan (robust, peppery)",
+                    "1/4 cup red wine vinegar (60 ml)",
+                    "3 sprigs fresh rosemary",
+                    "Coarse sea salt and cracked black pepper",
+                    "All-purpose flour for dusting"
+                ],
+                "steps":  [
+                    "If using live snails: purge them by placing in a bucket with coarse salt and a splash of vinegar for 2 hours (they foam out impurities). Rinse thoroughly under running water. Blanch in boiling water 5 minutes, drain, and remove from shells if desired (traditional is in-shell).",
+                    "Dust the open side of each snail lightly with flour. This helps create the golden crust.",
+                    "Heat the olive oil in a large, heavy cast-iron skillet over high heat until almost smoking. Place the snails face-down (opening against the pan) in a single layer. The oil will sputter and pop—this is the 'boubouristi.'",
+                    "Cook without moving for 3–4 minutes until the flour crust is golden and crisp. Toss the snails in the pan.",
+                    "Add the rosemary sprigs. Pour the vinegar over the snails—it will hiss and steam dramatically. Toss for 30 seconds as the vinegar evaporates into a glaze.",
+                    "Season with salt and pepper. Serve immediately in the hot skillet with bread to soak up the rosemary-vinegar oil. Pick the snails out with toothpicks. Drink raki between every few bites."
+                ],
+                "drink":  {
+                    "dish":  "Rakomelo Kritiko",
+                    "description":  "Crete's beloved winter drink: tsikoudia (Cretan grape-marc spirit, also called raki) warmed with thyme honey, cinnamon, and cloves. Rakomelo means 'raki + honey,' and every Cretan village kafeneio serves it on cold nights. The honey softens the fire of the spirit; the spices perfume the steam. It is medicine, ritual, and comfort in a single glass.",
+                    "ingredients":  [
+                        "3 oz (90 ml) tsikoudia / Cretan raki",
+                        "1 1/2 tbsp Cretan thyme honey",
+                        "1 small cinnamon stick",
+                        "2 whole cloves",
+                        "1 strip of orange peel"
+                    ],
+                    "steps":  [
+                        "Combine the tsikoudia, honey, cinnamon stick, cloves, and orange peel in a small saucepan.",
+                        "Warm over low heat, stirring to dissolve the honey. Do not boil—you want the alcohol to stay; just warm enough to steam and release the spice aromas.",
+                        "Strain into a small heat-proof glass (or serve with the cinnamon stick in the glass for presentation).",
+                        "Drink warm on a cold night in a stone-walled kafeneio, or after a meal of Cretan mezedes. Yamas!"
+                    ]
+                }
+            }
         }
     },
     "GRD":  {
@@ -8230,6 +8717,738 @@
                 "Strain over fresh ice in a rocks glass.",
                 "Express an orange peel over the drink and drop it in."
             ]
+        },
+        "regions":  {
+            "Piemonte":  {
+                "dish":  "Vitello Tonnato",
+                "description":  "A Piedmontese masterpiece of restraint: paper-thin slices of poached veal draped with a silky tuna-caper-anchovy sauce. Born in the aristocratic kitchens of Turin, it is always served cold—a study in temperature, texture, and the Italian art of the antipasto freddo. The secret lies in poaching the veal at the gentlest simmer so it stays rosy and supple.",
+                "ingredients":  [
+                    "2 lbs boneless veal eye of round, trimmed and tied (900 g)",
+                    "1 medium carrot, roughly chopped",
+                    "1 celery rib, roughly chopped",
+                    "1 small onion, halved",
+                    "1 bay leaf",
+                    "5 whole black peppercorns",
+                    "1 cup dry white wine (240 ml)",
+                    "5 oz Italian tuna packed in olive oil, drained (140 g)",
+                    "3 anchovy fillets in oil",
+                    "2 tbsp capers, rinsed (plus extra for garnish)",
+                    "2 large egg yolks (room temperature)",
+                    "1 tbsp fresh lemon juice",
+                    "3/4 cup extra-virgin olive oil (180 ml)",
+                    "2–3 tbsp poaching liquid, cold",
+                    "Salt and white pepper"
+                ],
+                "steps":  [
+                    "Place the tied veal in a snug pot with the carrot, celery, onion, bay leaf, peppercorns, and wine. Add cold water to just cover the meat. Bring to a bare simmer over medium heat—never let it boil.",
+                    "Reduce heat to low, partially cover, and poach 45–55 minutes until a thermometer reads 135°F (57°C) in the center. Remove the veal and let it cool completely in a bowl of strained poaching liquid (reserve liquid). Refrigerate overnight if possible.",
+                    "Make the tonnato sauce: In a blender, combine the drained tuna, anchovies, 2 tbsp capers, egg yolks, and lemon juice. Blend until smooth. With the blender running, drizzle in the olive oil in a thin stream to emulsify like a mayonnaise. Thin with 2–3 tbsp cold poaching liquid until the sauce flows like heavy cream. Season with salt and white pepper.",
+                    "Slice the cold veal very thin (1/8 inch). Arrange slices in a single overlapping layer on a platter. Spoon tonnato sauce generously over each slice, coating completely.",
+                    "Garnish with capers and a drizzle of extra-virgin olive oil. Cover and refrigerate at least 1 hour before serving so the flavors marry. Serve cold."
+                ],
+                "drink":  {
+                    "dish":  "Bicerin",
+                    "description":  "Turin's legendary layered drink from Caffè al Bicerin, dating to 1763: a small glass with espresso on the bottom, drinking chocolate in the middle, and cold fior di latte cream floating on top. It is sipped, never stirred.",
+                    "ingredients":  [
+                        "2 oz (60 ml) freshly brewed espresso, hot",
+                        "2 oz (60 ml) thick Italian drinking chocolate (cioccolata calda)",
+                        "2 tbsp heavy cream, lightly whipped to soft peaks (fior di latte, not sweetened)"
+                    ],
+                    "steps":  [
+                        "Prepare the drinking chocolate: melt 1 oz dark chocolate (70%) with 2 oz whole milk and a pinch of sugar over low heat, whisking until thick and glossy.",
+                        "Pour the hot chocolate into a small heat-proof glass (a traditional bicerin glass or a small tumbler).",
+                        "Slowly pour the hot espresso over the back of a spoon so it layers on top of the chocolate.",
+                        "Gently spoon the lightly whipped cream on top. Do not stir. Serve immediately and sip through all three layers."
+                    ]
+                }
+            },
+            "Valle d'Aosta":  {
+                "dish":  "Fonduta Valdostana",
+                "description":  "The Alpine fondue of the Aosta Valley: Fontina DOP cheese from high-pasture cows, soaked in milk overnight, then melted into a velvety cream with egg yolks and butter. Ladled over polenta or crusty bread, and finished with a shower of shaved white truffle when in season. This is mountain cooking elevated to aristocratic refinement.",
+                "ingredients":  [
+                    "14 oz Fontina DOP, rind removed, cut into small cubes (400 g)",
+                    "1 cup whole milk (240 ml)",
+                    "4 large egg yolks",
+                    "2 tbsp unsalted butter",
+                    "Pinch of white pepper",
+                    "White truffle for shaving (optional, in season)",
+                    "Crusty bread or warm polenta for serving"
+                ],
+                "steps":  [
+                    "Place the cubed Fontina in a bowl. Cover with milk and soak at least 4 hours (overnight is ideal) in the refrigerator. The cheese should soften and absorb the milk.",
+                    "Set up a double boiler (bain-marie): bring water in the bottom pot to a gentle simmer. In the top bowl, melt the butter, then add the Fontina with its milk.",
+                    "Stir constantly with a wooden spoon over the simmering water. The cheese will melt into a smooth, stretchy mass. This takes 10–15 minutes of patient stirring.",
+                    "In a small bowl, lightly beat the egg yolks. Temper them by stirring in a spoonful of the hot cheese mixture, then pour the yolks into the pot while stirring vigorously. Continue stirring 2–3 minutes until the fonduta is thick, creamy, and absolutely smooth. Season with white pepper.",
+                    "Ladle immediately into warm bowls over polenta or alongside crusty bread. If using truffle, shave generously over the top and serve at once."
+                ],
+                "drink":  {
+                    "dish":  "Caffè alla Valdostana (Grolla dell'Amicizia)",
+                    "description":  "Coffee of friendship: a communal Alpine ritual from the Aosta Valley. Strong coffee, grappa, sugar, and lemon peel are heated in a grolla (a carved wooden friendship cup with multiple spouts) and set ablaze. Each person drinks from a different spout. The fire ceremony is the soul of this drink.",
+                    "ingredients":  [
+                        "2 cups (480 ml) hot, strong Italian espresso or moka coffee",
+                        "1/2 cup (120 ml) grappa (or Genepì liqueur for authenticity)",
+                        "3 tbsp sugar",
+                        "Peel of 1 lemon (wide strips, no pith)",
+                        "4 whole cloves"
+                    ],
+                    "steps":  [
+                        "Brew strong coffee. In a saucepan (or grolla), combine the grappa, sugar, lemon peel, and cloves. Warm gently until sugar dissolves.",
+                        "Add the hot coffee and stir. If using a grolla, pour the mixture into the grolla.",
+                        "Carefully ignite the surface with a long match (the alcohol will catch a blue flame). Let it burn 15–20 seconds while gently tilting the cup.",
+                        "Cover to extinguish the flame (or let it die out). Serve immediately, passing the cup among friends—each person sips from a different spout."
+                    ]
+                }
+            },
+            "Lombardia":  {
+                "dish":  "Ossobuco alla Milanese",
+                "description":  "Milan's crown jewel: cross-cut veal shanks braised low and slow in white wine and broth until the marrow melts and the meat falls from the bone. The defining touch is the gremolata—a raw condiment of lemon zest, garlic, and parsley—scattered on just before serving to cut through the richness. Traditionally served with risotto alla milanese (saffron risotto).",
+                "ingredients":  [
+                    "4 veal ossobuco (cross-cut veal shanks, 1 1/2 inch thick, about 3 lbs / 1.4 kg total)",
+                    "1/3 cup all-purpose flour for dredging",
+                    "3 tbsp unsalted butter",
+                    "2 tbsp olive oil",
+                    "1 medium onion, finely diced",
+                    "1 carrot, finely diced",
+                    "1 celery rib, finely diced",
+                    "3 garlic cloves, minced",
+                    "1 cup dry white wine (240 ml)",
+                    "1 cup canned San Marzano tomatoes, crushed by hand (240 ml)",
+                    "2 cups veal or chicken broth (480 ml)",
+                    "1 bay leaf, 2 sprigs fresh thyme",
+                    "Salt and freshly ground black pepper",
+                    "Gremolata: zest of 1 lemon, 1 small garlic clove (minced), 3 tbsp flat-leaf parsley (finely chopped)"
+                ],
+                "steps":  [
+                    "Pat the ossobuco dry. Tie kitchen twine around each piece to hold the meat to the bone. Season generously with salt and pepper and dredge lightly in flour, shaking off excess.",
+                    "In a heavy-bottomed Dutch oven or braiser, heat the butter and olive oil over medium-high heat until foaming subsides. Brown the shanks deeply, about 4 minutes per side. Work in batches to avoid crowding. Set aside.",
+                    "Reduce heat to medium. Add the onion, carrot, and celery (the soffritto). Cook, stirring, 8–10 minutes until soft and lightly golden. Add garlic, cook 1 minute.",
+                    "Pour in the white wine and scrape up all the fond from the bottom. Let the wine reduce by half, about 3 minutes.",
+                    "Return the shanks to the pot, nestling them snugly in a single layer. Add crushed tomatoes, broth, bay leaf, and thyme. The liquid should come about two-thirds up the sides of the shanks.",
+                    "Bring to a simmer, cover with the lid slightly ajar, and transfer to a 325°F (163°C) oven. Braise 2–2.5 hours, turning the shanks once halfway through, until the meat is fork-tender and pulling from the bone.",
+                    "Make the gremolata: combine lemon zest, minced garlic, and chopped parsley. Mix well.",
+                    "Carefully transfer the ossobuco to warm plates. If the braising liquid is thin, reduce it on the stovetop until saucy. Spoon sauce over the shanks, scatter gremolata on top, and serve immediately with risotto alla milanese."
+                ],
+                "drink":  {
+                    "dish":  "Negroni Sbagliato",
+                    "description":  "The 'mistaken Negroni,' born at Bar Basso in Milan in 1972 when bartender Mirko Stocchetto accidentally reached for prosecco instead of gin. The happy accident became a modern classic: lighter, sparkling, and irresistibly aperitivo.",
+                    "ingredients":  [
+                        "1 oz (30 ml) Campari",
+                        "1 oz (30 ml) sweet vermouth (Punt e Mes or Carpano Antica)",
+                        "2 oz (60 ml) dry prosecco, well chilled",
+                        "Ice",
+                        "Orange slice for garnish"
+                    ],
+                    "steps":  [
+                        "Fill a large rocks glass or wine glass with ice.",
+                        "Pour in the Campari and sweet vermouth. Stir briefly.",
+                        "Top with cold prosecco. Give one gentle stir to combine.",
+                        "Garnish with an orange slice. Serve immediately."
+                    ]
+                }
+            },
+            "Trentino-Alto Adige":  {
+                "dish":  "Canederli allo Speck (Knödel)",
+                "description":  "Giant bread dumplings from the Alpine Südtirol: stale bread cubes bound with egg and milk, studded with cubes of smoky speck ham and chives, then poached until pillowy. Served in a clear broth or dressed with brown butter and sage. These are rustic, deeply satisfying, and reflect centuries of Austrian-Italian culinary fusion at the Dolomite crossroads.",
+                "ingredients":  [
+                    "10 oz stale white bread (300 g), cut into 1/2-inch cubes (about 6 cups)",
+                    "3/4 cup whole milk (180 ml), warm",
+                    "2 large eggs, beaten",
+                    "3.5 oz Speck Alto Adige, cut into small dice (100 g)",
+                    "1 small onion, finely diced",
+                    "2 tbsp unsalted butter",
+                    "3 tbsp fresh chives, finely chopped",
+                    "2 tbsp flat-leaf parsley, finely chopped",
+                    "3 tbsp all-purpose flour",
+                    "Salt and freshly grated nutmeg",
+                    "For serving: clear beef broth, OR 3 tbsp butter + 8 sage leaves"
+                ],
+                "steps":  [
+                    "Place bread cubes in a large bowl. Pour over the warm milk and beaten eggs. Toss gently, cover, and let soak 30 minutes until the bread softens but is not mushy.",
+                    "Meanwhile, melt 2 tbsp butter in a small pan over medium heat. Sauté the onion until translucent, about 5 minutes. Add the diced speck and cook 2 minutes until lightly crisped at the edges. Let cool slightly.",
+                    "Add the speck-onion mixture, chives, parsley, and flour to the bread. Season with a pinch of salt and a grating of nutmeg. Mix gently with your hands until the dough holds together. If too wet, add a little more flour; if too dry, a splash of milk.",
+                    "With wet hands, form the mixture into balls roughly the size of a tennis ball (about 6–8 canederli). Compact gently—don't squeeze too hard or they'll be dense.",
+                    "Bring a large pot of well-salted water to a gentle simmer (not a rolling boil). Carefully lower the canederli in. Poach 15–18 minutes; they will float when nearly done.",
+                    "For broth service: ladle the canederli into bowls of hot, clear beef broth. For butter-sage service: melt 3 tbsp butter with sage leaves until the butter foams and the sage crisps. Place canederli on warm plates, spoon the brown butter and sage over the top."
+                ],
+                "drink":  {
+                    "dish":  "Bombardino",
+                    "description":  "The legendary ski-slope drink of the Dolomites: a warm, creamy bomb of zabaglione (egg custard), brandy, and whipped cream. Invented on the slopes in the 1970s, the first person to try it reportedly exclaimed 'È una bomba!' (It's a bomb!). Served in a glass mug on freezing mountain afternoons.",
+                    "ingredients":  [
+                        "1 large egg yolk",
+                        "2 tbsp sugar",
+                        "2 oz (60 ml) brandy or cognac",
+                        "2 oz (60 ml) Advocaat (egg liqueur) or an extra yolk + 1 oz brandy",
+                        "1/2 cup (120 ml) hot whole milk",
+                        "Whipped cream for topping",
+                        "Cocoa powder for dusting"
+                    ],
+                    "steps":  [
+                        "In a small saucepan or metal bowl, whisk the egg yolk and sugar until pale and thick.",
+                        "Place over low heat (or a bain-marie). Slowly whisk in the brandy and Advocaat, then the hot milk. Keep whisking over gentle heat until warm and frothy—do not let it boil or the egg will scramble.",
+                        "Pour into a heat-proof glass mug. Top generously with whipped cream and dust with cocoa powder. Serve immediately."
+                    ]
+                }
+            },
+            "Veneto":  {
+                "dish":  "Baccalà Mantecato",
+                "description":  "Venice's most beloved cicchetto (bar snack): salt cod soaked, poached, then beaten with olive oil into a mousse-like cream—a technique called mantecare (to whip/cream). Spread on grilled polenta crostini, it has graced Venetian bacari (wine bars) for centuries. The method of beating by hand with a wooden spoon is what gives it its cloud-like texture; a stand mixer or wooden spoon works, but never a food processor.",
+                "ingredients":  [
+                    "1.5 lbs dried salt cod (baccalà), soaked in cold water 48 hours, changing water 3–4 times (680 g)",
+                    "1 bay leaf",
+                    "1 cup extra-virgin olive oil (240 ml), mild and fruity",
+                    "1 small garlic clove, finely grated",
+                    "2 tbsp flat-leaf parsley, finely chopped",
+                    "Salt and white pepper",
+                    "Grilled polenta slices or crusty bread for serving"
+                ],
+                "steps":  [
+                    "After 48 hours of soaking (the cod should be flexible and no longer aggressively salty), drain and place in a pot. Cover with fresh cold water, add the bay leaf, and bring to a gentle simmer. Poach 20–25 minutes until the fish flakes easily. Drain and let cool slightly.",
+                    "Remove all skin and bones while the fish is still warm. Break the flesh into small pieces in a large bowl.",
+                    "Using a wooden spoon (traditional) or the paddle attachment of a stand mixer on low speed, begin working the fish. Add the olive oil in a very slow, thin stream while beating continuously—just like making a mayonnaise. The cod will gradually absorb the oil and transform into a white, fluffy, mousse-like cream. This takes 15–20 minutes by hand.",
+                    "Once all the oil is incorporated and the baccalà is smooth and creamy (not oily), fold in the grated garlic and parsley. Season with salt (careful—the cod retains some salt) and white pepper.",
+                    "Spread generously on warm grilled polenta crostini. Finish with a drizzle of olive oil and a crack of pepper."
+                ],
+                "drink":  {
+                    "dish":  "Spritz Veneziano",
+                    "description":  "The aperitivo that conquered the world, born in the Veneto when 19th-century Austrian soldiers asked Venetian barkeeps to spritz (spray) their wine with water. The modern version—Aperol, prosecco, and a splash of soda, served in an oversized wine glass with an orange slice—is the golden hour ritual of every Venetian campo.",
+                    "ingredients":  [
+                        "3 oz (90 ml) prosecco",
+                        "2 oz (60 ml) Aperol",
+                        "1 oz (30 ml) soda water",
+                        "Ice",
+                        "Orange slice for garnish"
+                    ],
+                    "steps":  [
+                        "Fill a large wine glass with ice cubes.",
+                        "Pour in the prosecco first, then the Aperol. Top with a splash of soda water.",
+                        "Stir gently once. Garnish with a large orange slice.",
+                        "Serve with a small bowl of olives and potato chips—the Venetian way."
+                    ]
+                }
+            },
+            "Friuli-Venezia Giulia":  {
+                "dish":  "Frico con Patate",
+                "description":  "A golden, lacy cheese-and-potato pancake from the Friulano heartland: aged Montasio cheese and thinly sliced potatoes, cooked slowly in butter until the cheese melts, crisps, and fuses with the potato into a single, shatteringly crisp-edged, creamy-centered disk. This is the dish that fueled generations of Carnia mountain families. The slow, patient cook over moderate heat is everything.",
+                "ingredients":  [
+                    "10 oz aged Montasio cheese (9+ months), coarsely grated (280 g)",
+                    "2 medium Yukon Gold potatoes, peeled and sliced paper-thin (mandoline ideal)",
+                    "1 small onion, very thinly sliced",
+                    "2 tbsp unsalted butter",
+                    "Salt and freshly ground black pepper"
+                ],
+                "steps":  [
+                    "Melt the butter in a 10-inch non-stick or well-seasoned cast-iron skillet over medium-low heat. Add the onion slices and cook gently until soft and translucent, about 5 minutes.",
+                    "Add the potato slices in an even layer. Season lightly with salt and pepper. Cook undisturbed 5 minutes, then scatter half the grated Montasio over the potatoes.",
+                    "Continue cooking, pressing down gently with a spatula, for another 5 minutes. Scatter the remaining cheese over the top. Press down again.",
+                    "Cook over medium-low heat for 12–15 minutes without disturbing—the bottom will form a deep golden, lacy crust. Gently shake the pan to make sure it's not sticking.",
+                    "Place a plate over the skillet and flip the frico onto it. Slide it back into the pan, uncooked side down. Cook another 8–10 minutes until the second side is golden and crisp.",
+                    "Slide onto a cutting board. Let rest 2 minutes. Cut into wedges and serve immediately—the edges should shatter, the center should be slightly molten."
+                ],
+                "drink":  {
+                    "dish":  "Capo in B",
+                    "description":  "A Trieste coffee-culture classic, reflecting the city's Habsburg heritage: a small cappuccino served in a glass (bicchiere), ordered at the legendary Caffè San Marco or any Trieste bar. In Trieste, you don't order cappuccino—you order 'capo in B' and the barista knows exactly what you mean.",
+                    "ingredients":  [
+                        "1 shot espresso (25–30 ml), freshly pulled",
+                        "3–4 oz (90–120 ml) whole milk, steamed and frothed",
+                        "Served in a small heatproof glass (bicchiere)"
+                    ],
+                    "steps":  [
+                        "Pull a single shot of espresso directly into a small heatproof glass.",
+                        "Steam whole milk until silky with microfoam (not stiff or dry).",
+                        "Pour the steamed milk over the espresso, holding back the foam, then spoon a small cap of foam on top.",
+                        "Serve immediately. No sugar, no cocoa, no nonsense."
+                    ]
+                }
+            },
+            "Liguria":  {
+                "dish":  "Trofie al Pesto Genovese",
+                "description":  "The most sacred sauce of the Italian Riviera: Genoese basil (small-leafed, grown without direct sunlight), Ligurian olive oil, pine nuts, garlic, Parmigiano, and Pecorino Fiore Sardo, pounded in a marble mortar with a wooden pestle. The mortar crushes (not cuts) the basil, releasing its oils without oxidation. Tossed with hand-rolled trofie pasta, green beans, and potato—the holy trinity of pesto tradition.",
+                "ingredients":  [
+                    "14 oz trofie pasta (fresh or dried) (400 g)",
+                    "2 packed cups fresh basil leaves (Genovese if possible), washed and dried",
+                    "1/3 cup pine nuts, lightly toasted (40 g)",
+                    "2 garlic cloves, halved, green germ removed",
+                    "1/2 cup extra-virgin olive oil (120 ml), Ligurian (mild, fruity)",
+                    "1/4 cup finely grated Parmigiano-Reggiano (25 g)",
+                    "2 tbsp finely grated Pecorino Fiore Sardo (or Pecorino Romano)",
+                    "Coarse salt",
+                    "1 medium waxy potato, peeled and cut into 1/2-inch dice",
+                    "4 oz green beans (French beans), trimmed, cut in half (110 g)"
+                ],
+                "steps":  [
+                    "Make the pesto (mortar method): Place garlic and a pinch of coarse salt in a marble mortar. Pound to a paste. Add pine nuts and pound until creamy.",
+                    "Add the basil a handful at a time with a pinch of salt, grinding with a circular motion against the sides (not pounding down) until you have a bright green paste. The salt acts as an abrasive.",
+                    "Stir in the grated cheeses. Drizzle in the olive oil slowly, stirring (not pounding) until you have a thick, creamy sauce. Taste and adjust salt. (If using a blender, pulse gently—never run it continuously or the pesto will heat and oxidize.)",
+                    "Bring a large pot of generously salted water to a boil. Add the potato dice and green beans. Cook 5 minutes, then add the trofie to the same pot. Cook until the trofie are al dente.",
+                    "Reserve 1 cup of starchy pasta water. Drain the trofie, potato, and green beans together. Toss in a warm bowl with the pesto, adding pasta water a splash at a time until silky and clinging. Serve immediately with extra cheese."
+                ],
+                "drink":  {
+                    "dish":  "Sciacchetrà",
+                    "description":  "A rare, amber passito wine from the terraced Cinque Terre vineyards clinging to Liguria's sea cliffs: Bosco, Albarola, and Vermentino grapes are dried on mats for months, then pressed into a honey-gold dessert wine. Served in tiny glasses as a meditation sip.",
+                    "ingredients":  [
+                        "2–3 oz (60–90 ml) Sciacchetrà DOC (chilled to 55°F / 13°C)",
+                        "Cantucci or dry biscuits for dipping (optional)"
+                    ],
+                    "steps":  [
+                        "Chill the bottle to 55°F (13°C).",
+                        "Pour into small tulip glasses. Swirl to release aromas of dried apricot, honey, and sea air.",
+                        "Sip slowly. Pair with aged cheese, cantucci, or simply the Ligurian sunset."
+                    ]
+                }
+            },
+            "Emilia-Romagna":  {
+                "dish":  "Tortellini in Brodo",
+                "description":  "The true test of Emilian mastery: tiny hand-folded pasta parcels filled with a mix of prosciutto crudo, mortadella, Parmigiano-Reggiano, and pork loin, served swimming in a crystal-clear, golden capon broth. In Bologna and Modena, this is Christmas lunch. The filling is cooked first, then minced fine—never raw. Each tortellino should be small enough to sit on a fingertip.",
+                "ingredients":  [
+                    "For the brodo: 1 whole capon or stewing hen (about 4 lbs / 1.8 kg), 1 lb beef shank (450 g), 1 carrot, 1 celery rib, 1 onion (halved, unpeeled), salt",
+                    "For the filling: 4 oz pork loin (110 g), 3 oz prosciutto crudo di Parma (85 g), 3 oz mortadella di Bologna (85 g), 1 cup finely grated Parmigiano-Reggiano (100 g), 1 large egg, pinch of nutmeg, salt",
+                    "For the pasta: 3 1/2 cups '00' flour (400 g), 4 large eggs"
+                ],
+                "steps":  [
+                    "Make the brodo: Place the capon, beef shank, carrot, celery, onion, and 1 tbsp salt in a large stockpot. Cover with 4 quarts cold water. Bring to a very gentle simmer, skimming foam. Cook uncovered 3 hours at a bare simmer. Strain through cheesecloth. You should have a clear, golden, intensely flavored broth.",
+                    "Make the filling: Brown the pork loin in a little butter until just cooked through. Let cool. Finely mince (by knife, not processor) the pork loin, prosciutto, and mortadella together until almost a paste. Mix with the Parmigiano, egg, nutmeg, and a pinch of salt. Refrigerate 1 hour.",
+                    "Make the pasta: Mound flour on a wooden board, make a well, crack in the eggs. Mix with a fork, then knead 10–15 minutes until smooth, silky, and elastic. Wrap and rest 30 minutes.",
+                    "Roll the pasta as thin as possible (setting 6–7 on a pasta machine, or thin enough to read a newspaper through). Cut into 1.5-inch squares. Place a pea-sized ball of filling in the center of each. Fold diagonally into a triangle, press edges to seal, then wrap around your pinky finger, pressing the two ends together. The tortellino should look like a tiny navel.",
+                    "Bring the brodo to a gentle simmer. Cook the tortellini in the broth 3–4 minutes until they float. Ladle into warm bowls—tortellini swimming in golden brodo. Serve with grated Parmigiano."
+                ],
+                "drink":  {
+                    "dish":  "Lambrusco di Sorbara",
+                    "description":  "Emilia-Romagna's sparkling red wine, served frizzante (gently fizzy) and chilled. Dry Lambrusco di Sorbara is crimson, fragrant with violets, and cuts through the richness of Emilian cuisine like nothing else. This is not the sweet Lambrusco of export—this is the real thing.",
+                    "ingredients":  [
+                        "1 bottle Lambrusco di Sorbara DOC (dry/secco), well chilled to 50°F (10°C)"
+                    ],
+                    "steps":  [
+                        "Chill the bottle thoroughly to 50°F (10°C).",
+                        "Open gently—it is frizzante (lightly sparkling), not spumante. Pour into tulip glasses, not flutes.",
+                        "Serve with tortellini in brodo, prosciutto, or any Emilian salumi. The bubbles and acidity are the perfect counterpoint to rich, fatty food."
+                    ]
+                }
+            },
+            "Toscana":  {
+                "dish":  "Bistecca alla Fiorentina",
+                "description":  "The Florentine T-bone: a massive, thick-cut steak from Chianina cattle (or Maremmana), cooked over a scorching wood-fire grill. The steak must be at least 2 fingers thick (1.5–2 inches), brought to room temperature, grilled rare to medium-rare with no marinade—only salt after cooking. The Florentines consider anything past medium-rare a tragedy. This is the primal heart of Tuscan cooking: the best ingredient, treated with the least interference.",
+                "ingredients":  [
+                    "1 T-bone or porterhouse steak, at least 1.5 inches thick, preferably 2 lbs+ (900 g+), bone-in",
+                    "Coarse sea salt (Maldon or flaky)",
+                    "Freshly cracked black pepper",
+                    "Extra-virgin olive oil (Tuscan, peppery)",
+                    "1 lemon wedge (optional, for the contorno)",
+                    "Fresh rosemary sprigs (optional, for basting)"
+                ],
+                "steps":  [
+                    "Remove the steak from the refrigerator 1.5–2 hours before cooking. It must be at room temperature throughout.",
+                    "Build a very hot wood or charcoal fire (or heat a grill to its maximum—600°F/315°C+). Clean the grate and let it heat.",
+                    "Do NOT season or oil the steak before grilling. Place it directly on the screaming-hot grate. Cook 5–7 minutes per side for a 1.5-inch steak, or 7–8 minutes for a 2-inch steak. Do not press, poke, or move it.",
+                    "Stand the steak on its bone-edge for 2–3 minutes to render the fat along the bone.",
+                    "Rest on a warm plate for 5 minutes. Only NOW season generously with coarse sea salt, cracked pepper, and a bold drizzle of Tuscan olive oil.",
+                    "Slice the meat off the bone, cut against the grain into thick strips, and serve on a warm platter. The center should be ruby red (al sangue). A lemon wedge and arugula salad are traditional accompaniments."
+                ],
+                "drink":  {
+                    "dish":  "Vin Santo con Cantucci",
+                    "description":  "Tuscany's contemplative dessert pairing: amber-gold Vin Santo (holy wine), made from Trebbiano and Malvasia grapes dried on straw mats and aged in small barrels for years. Served with cantucci (twice-baked almond biscuits) for dunking.",
+                    "ingredients":  [
+                        "3 oz (90 ml) Vin Santo del Chianti DOC, served at cool room temperature (60°F / 16°C)",
+                        "4–6 cantucci (Tuscan almond biscotti)"
+                    ],
+                    "steps":  [
+                        "Pour the Vin Santo into small tulip glasses at cool room temperature.",
+                        "Dip a cantuccio into the wine, hold for a moment to soften, then eat. The almond crunch meets the honeyed, oxidative wine.",
+                        "Repeat slowly. This is a ritual of patience and conversation, not a drink to be hurried."
+                    ]
+                }
+            },
+            "Umbria":  {
+                "dish":  "Strangozzi al Tartufo Nero di Norcia",
+                "description":  "Umbria's most prized dish: hand-rolled strangozzi (thick, rustic spaghetti with no eggs) dressed with a sauce of black truffle from Norcia, garlic, anchovy, and olive oil. The truffle of Norcia (tartufo nero pregiato) is shaved raw over the hot pasta so the heat releases its intoxicating aroma. This is cucina povera elevated by a luxury ingredient that grows wild in Umbria's oak forests.",
+                "ingredients":  [
+                    "14 oz strangozzi or thick spaghetti (400 g)",
+                    "3 oz fresh black truffle (Tuber melanosporum), cleaned (85 g)",
+                    "1/3 cup extra-virgin olive oil (80 ml), Umbrian (mild, buttery)",
+                    "2 garlic cloves, lightly crushed",
+                    "2 anchovy fillets in oil",
+                    "Salt and freshly ground black pepper"
+                ],
+                "steps":  [
+                    "Finely mince about one-third of the truffle. Shave the remaining two-thirds into thin slices with a truffle slicer or mandoline. Set aside.",
+                    "Warm the olive oil in a large skillet over very low heat. Add the crushed garlic and anchovy fillets. Cook gently, stirring, until the anchovies dissolve into the oil and the garlic is fragrant but not colored, about 3 minutes. Remove garlic.",
+                    "Add the minced truffle to the oil. Stir for 30 seconds—no more. Remove from heat.",
+                    "Cook the strangozzi in generously salted boiling water until al dente. Reserve 1/2 cup pasta water, then drain.",
+                    "Toss the hot pasta in the truffle oil, adding splashes of pasta water to create a silky coating. Plate immediately, then shower each serving with the shaved truffle slices. Serve at once—the truffle aroma fades quickly."
+                ],
+                "drink":  {
+                    "dish":  "Sagrantino Passito",
+                    "description":  "Umbria's ancient dessert wine made from Sagrantino grapes (one of the most tannic varieties on earth) dried on racks and vinified into a dense, sweet, garnet-colored wine with flavors of blackberry, fig, and dried roses. Traditionally served at Easter and Christmas.",
+                    "ingredients":  [
+                        "2–3 oz (60–90 ml) Sagrantino di Montefalco Passito DOCG, served at 60°F (16°C)"
+                    ],
+                    "steps":  [
+                        "Serve in small glasses at slightly below room temperature.",
+                        "Pair with dark chocolate, aged pecorino, or dried fruit. The massive tannins and sweetness create a wine of extraordinary complexity.",
+                        "Sip slowly—this is one of Italy's rarest and most powerful dessert wines."
+                    ]
+                }
+            },
+            "Marche":  {
+                "dish":  "Brodetto all'Anconetana",
+                "description":  "The great Adriatic fish stew of Ancona: at least 13 varieties of fish and shellfish (by tradition), simmered in a saffron-tinged tomato broth sharpened with white wine vinegar. Every family in Ancona has their own recipe, but the rule is firm—no garlic, no onion, and the fish are added in order of how long they take to cook so nothing is overdone. This is fisherman's food refined by generations of coastal wisdom.",
+                "ingredients":  [
+                    "3 lbs mixed Adriatic-style fish and shellfish (1.4 kg): red mullet, monkfish, cuttlefish, mantis shrimp (or large shrimp), scorpionfish or rockfish, sole, clams, mussels",
+                    "1/3 cup extra-virgin olive oil (80 ml)",
+                    "1 cup dry white wine (240 ml)",
+                    "3 tbsp white wine vinegar",
+                    "1 lb ripe tomatoes, peeled and chopped (or 14 oz canned San Marzano) (450 g)",
+                    "Pinch of saffron threads, steeped in 2 tbsp warm water",
+                    "Salt and freshly ground black pepper",
+                    "Fresh flat-leaf parsley, chopped",
+                    "Crusty bread, toasted and rubbed with garlic, for serving"
+                ],
+                "steps":  [
+                    "Clean all fish: scale, gut, and cut large fish into chunks; clean cuttlefish and cut into rings; scrub clams and mussels. Keep each type separate—they cook at different rates.",
+                    "In a wide, heavy terracotta pot or Dutch oven, heat the olive oil over medium heat. Add the cuttlefish (it takes longest) and cook 5 minutes, stirring. Add the vinegar and let it evaporate.",
+                    "Add the tomatoes and saffron water. Season with salt and pepper. Simmer gently 15 minutes.",
+                    "Add the firm-fleshed fish (monkfish, scorpionfish) to the pot. Simmer 5 minutes.",
+                    "Add the medium fish (red mullet, sole) and the shrimp. Simmer 5 minutes.",
+                    "Add the clams and mussels on top, cover, and cook 3–5 minutes until they open. Discard any that stay closed.",
+                    "Scatter with fresh parsley. Bring the pot to the table—brodetto is always served from the cooking vessel. Ladle into bowls over toasted, garlic-rubbed bread."
+                ],
+                "drink":  {
+                    "dish":  "Vino Cotto",
+                    "description":  "An ancient Marchigiano tradition predating the Romans: fresh grape must is slowly cooked down to a fraction of its volume, then aged in small barrels for years. The result is a dark, syrupy, bittersweet elixir used as a sipping digestivo or drizzled over cheese. Every farmhouse in the Marche hills makes its own.",
+                    "ingredients":  [
+                        "2 oz (60 ml) Vino Cotto delle Marche, served at room temperature"
+                    ],
+                    "steps":  [
+                        "Pour into a small digestivo glass at room temperature.",
+                        "Sip after dinner alongside aged pecorino or biscotti. The flavors recall dried figs, caramel, and dark fruit with a balancing bitterness.",
+                        "Alternatively, drizzle a spoonful over vanilla gelato or roasted pears."
+                    ]
+                }
+            },
+            "Lazio":  {
+                "dish":  "Cacio e Pepe",
+                "description":  "Rome's most deceptively simple masterpiece: tonnarelli or rigatoni, Pecorino Romano, black pepper, and starchy pasta water—nothing else. The alchemy is in the technique: creating an emulsion of cheese, fat, and starch that clings to each strand in a creamy, peppery coat without clumping. Roman trattorias guard their exact method. The pepper is toasted whole in the pan, the cheese is added off-heat, and the pasta water must be concentrated and starchy.",
+                "ingredients":  [
+                    "14 oz tonnarelli, rigatoni, or thick spaghetti (400 g)",
+                    "2 cups finely grated Pecorino Romano DOP (200 g)",
+                    "1 1/2 tbsp whole black peppercorns, freshly cracked (coarse)",
+                    "Salt for pasta water"
+                ],
+                "steps":  [
+                    "Bring a pot of water to a boil. Use LESS water than usual (about 3 quarts for 14 oz pasta)—you want extra-starchy cooking water. Salt lightly (the Pecorino is very salty).",
+                    "Toast the cracked peppercorns in a large dry skillet over medium heat for 1–2 minutes until fragrant and smoking slightly. Add 1 ladle (about 3/4 cup) of the starchy pasta water to the pepper pan. Let it simmer and reduce by half.",
+                    "Meanwhile, cook the pasta until 1–2 minutes short of al dente. Reserve 2 cups of pasta water before draining.",
+                    "Transfer the pasta to the pepper pan with tongs. Toss over medium heat, adding splashes of pasta water, until the pasta finishes cooking in the pan and the liquid is starchy and slightly thickened.",
+                    "REMOVE THE PAN FROM HEAT. Wait 30 seconds (the pan must not be screaming hot). Add the Pecorino in three additions, tossing vigorously between each, adding small splashes of pasta water to keep the sauce fluid. The cheese should melt into a creamy, emulsified sauce—not clumpy or greasy.",
+                    "Serve immediately on warm plates with an extra crack of pepper. Do not add oil, butter, cream, or Parmigiano—ever."
+                ],
+                "drink":  {
+                    "dish":  "Grattachecca Romana",
+                    "description":  "Rome's original shaved-ice drink, sold from chioschi (kiosks) along the Tiber since the 1800s. A block of ice is hand-scraped with a metal blade, then doused with fresh fruit syrups and topped with chunks of fresh fruit. Grattachecca is not a granita—the ice is coarser, fluffier, and the toppings are generous.",
+                    "ingredients":  [
+                        "2 cups shaved or crushed ice (from a block, not machine-made)",
+                        "3 tbsp fresh lemon or amarena cherry syrup",
+                        "2 tbsp fresh seasonal fruit (peach, strawberry, or coconut), diced",
+                        "Squeeze of fresh lemon juice"
+                    ],
+                    "steps":  [
+                        "Scrape a block of ice with a metal scraper (or use coarsely crushed ice) into a tall cup.",
+                        "Pour the syrup generously over the ice. Add the diced fruit and a squeeze of lemon.",
+                        "Eat with a spoon and straw on a hot Roman evening, preferably walking along the Lungotevere."
+                    ]
+                }
+            },
+            "Abruzzo":  {
+                "dish":  "Arrosticini",
+                "description":  "Tiny lamb skewers from the Gran Sasso highlands: cubes of castrato (yearling sheep) threaded on thin wooden sticks and grilled over a special half-pipe charcoal brazier called a fornacella. The meat is seasoned with nothing but salt—the quality of the lamb speaks for itself. Abruzzese shepherds have cooked these on hillsides for centuries. The key is small cubes (3/4 inch), high heat, and constant turning.",
+                "ingredients":  [
+                    "2 lbs boneless lamb leg or shoulder, cut into 3/4-inch cubes (900 g)",
+                    "Fine sea salt",
+                    "Thin wooden skewers (8-inch), soaked in water 30 minutes",
+                    "Extra-virgin olive oil (for dipping bread)",
+                    "Crusty bread"
+                ],
+                "steps":  [
+                    "Cut the lamb into uniform 3/4-inch cubes, keeping some fat on each piece (the fat bastes the meat as it grills). Thread 5–6 cubes tightly onto each soaked wooden skewer.",
+                    "Prepare a hot charcoal grill. If you have a fornacella (half-pipe grill), set it up so the skewers rest across the top with the handles extending off the edge. Otherwise, use a standard grill at maximum heat.",
+                    "Grill the arrosticini close to the coals, turning every 30–45 seconds, for a total of 4–6 minutes. The exterior should char lightly while the interior stays juicy and pink.",
+                    "Season with fine sea salt immediately upon pulling from the grill. Serve in bundles of 10–15 per person, with crusty bread to mop up the juices and olive oil for dipping. Eat with your hands."
+                ],
+                "drink":  {
+                    "dish":  "Ratafià d'Abruzzo",
+                    "description":  "A centuries-old Abruzzese cherry liqueur: sour Amarena cherries macerated in Montepulciano d'Abruzzo wine and sugar for months in the summer sun, then strained into a deep ruby digestivo. Made by nonne (grandmothers) across the region every July when the cherries ripen.",
+                    "ingredients":  [
+                        "2 lbs sour cherries (amarene), stemmed, not pitted (900 g)",
+                        "1 bottle (750 ml) Montepulciano d'Abruzzo (young, fruity)",
+                        "1 1/2 cups sugar (300 g)",
+                        "1 cinnamon stick",
+                        "3 whole cloves"
+                    ],
+                    "steps":  [
+                        "Place the cherries in a large glass jar. Add the sugar, cinnamon, and cloves. Pour over the wine. Seal tightly.",
+                        "Set the jar in a sunny spot (a windowsill or terrace) for 40 days, shaking gently every few days to dissolve the sugar.",
+                        "After 40 days, strain through cheesecloth into bottles. Discard the cherries (or save for desserts). Age at least 2 weeks before serving.",
+                        "Serve cold in small glasses as a digestivo."
+                    ]
+                }
+            },
+            "Molise":  {
+                "dish":  "Cavatelli con Ragù di Agnello",
+                "description":  "Molise's soul food: hand-shaped cavatelli pasta (small, ridged shells made from semolina and water, no eggs) simmered in a slow-cooked lamb ragù fragrant with peperoncino and fresh rosemary. Molise is Italy's forgotten region—its cuisine is pastoral, deeply honest, and rooted in the transhumance shepherding traditions of the Apennines.",
+                "ingredients":  [
+                    "For cavatelli: 3 cups fine semolina flour (durum wheat, 360 g), 3/4 cup warm water (180 ml), pinch of salt",
+                    "For ragù: 1.5 lbs bone-in lamb shoulder or neck, cut into chunks (680 g), 1/4 cup olive oil, 1 onion (chopped), 2 garlic cloves, 1/2 cup dry white wine (120 ml), 1 can (14 oz) crushed San Marzano tomatoes, 1 sprig rosemary, 1 dried peperoncino (crumbled), salt",
+                    "Grated Pecorino for serving"
+                ],
+                "steps":  [
+                    "Make cavatelli: Mound semolina on a board, make a well, add warm salted water. Mix and knead 10 minutes until smooth and firm. Rest 30 minutes under a towel.",
+                    "Roll small pieces of dough into thin ropes (1/2 inch diameter). Cut into 1/2-inch pieces. Press each piece with two fingertips and drag toward you on the board—creating a small cupped shell with ridges. Set on a floured tray.",
+                    "Make the ragù: Heat olive oil in a heavy pot. Brown the lamb chunks deeply on all sides, 8–10 minutes. Remove. Add onion, cook until soft. Add garlic, cook 1 minute. Return the lamb, pour in wine, let it evaporate.",
+                    "Add crushed tomatoes, rosemary, peperoncino, and enough water to barely cover the meat. Bring to a simmer. Cover and cook over very low heat for 2–2.5 hours until the lamb falls from the bone. Shred the meat, discard bones, and return to the sauce. Adjust salt.",
+                    "Cook cavatelli in generously salted boiling water 3–4 minutes until they float. Drain. Toss with the lamb ragù. Serve with generous grated Pecorino."
+                ],
+                "drink":  {
+                    "dish":  "Poncio Molisano",
+                    "description":  "A warming winter punch from Molise's mountain villages: espresso coffee spiked with local Strega-style herbal liqueur, sugar, and lemon peel, served hot on cold Apennine evenings. Every village has its own variation.",
+                    "ingredients":  [
+                        "2 oz (60 ml) freshly brewed espresso, hot",
+                        "1 oz (30 ml) Strega or local herbal liqueur",
+                        "1 tsp sugar",
+                        "1 strip of lemon peel",
+                        "1 whole clove"
+                    ],
+                    "steps":  [
+                        "Brew a strong espresso. Stir the sugar into the hot coffee.",
+                        "Add the Strega (or herbal liqueur) and stir.",
+                        "Drop in the lemon peel and clove. Serve immediately in a small heat-proof glass."
+                    ]
+                }
+            },
+            "Campania":  {
+                "dish":  "Ragù Napoletano",
+                "description":  "Naples' Sunday ritual: a massive pot of tomato sauce cooked for 5–6 hours with whole cuts of beef, pork, sausage, and braciole (stuffed meat rolls). The sauce (la salsa) is served over pasta as a primo; the meats are served as a secondo. The secret of the ragù guardiano (the guardian of the pot) is the pippiare—the gentle, hypnotic bubbling that sounds like someone blowing kisses. It must never boil hard.",
+                "ingredients":  [
+                    "2 lbs beef chuck roast, in one piece (900 g)",
+                    "1 lb pork ribs (450 g)",
+                    "4 Italian pork sausages",
+                    "4 braciole: thin slices of beef top round, each stuffed with raisins, pine nuts, garlic, and parsley, rolled and tied",
+                    "1/3 cup olive oil (80 ml)",
+                    "1 large onion, finely chopped",
+                    "1/2 cup red wine (120 ml)",
+                    "4 cans (28 oz each) San Marzano whole peeled tomatoes, crushed by hand",
+                    "2 tbsp tomato paste",
+                    "Fresh basil leaves",
+                    "Salt",
+                    "1 lb ziti or rigatoni for serving (450 g)"
+                ],
+                "steps":  [
+                    "Season all the meats with salt. In a very large, heavy pot, heat the olive oil over medium-high heat. Brown the meats in batches—deeply and on all sides. Set aside.",
+                    "Reduce heat to medium. Add the onion and cook until deeply golden, about 10 minutes. Add the wine and scrape up the fond. Let the wine evaporate almost completely.",
+                    "Add the tomato paste and stir for 2 minutes. Add all the crushed tomatoes and a handful of basil. Stir well, then return all the meats to the pot. The sauce should cover the meats.",
+                    "Bring to the barest simmer—the surface should 'pippiate' (gently blip, not bubble violently). Cover with the lid slightly ajar. Cook for 5–6 hours over the lowest possible heat, stirring occasionally from the bottom to prevent sticking.",
+                    "The ragù is done when the sauce is dark red, dense, and the meats are fork-tender. Remove the meats and set aside. Taste and salt the sauce.",
+                    "Cook the ziti in salted boiling water until al dente. Toss with the sauce. Serve the pasta as a first course, followed by the sliced meats on a platter with more sauce."
+                ],
+                "drink":  {
+                    "dish":  "Limoncello",
+                    "description":  "The lemon liqueur of the Amalfi Coast and Sorrento Peninsula, made from the thick, fragrant peels of Sfusato Amalfitano lemons, steeped in grain alcohol and sweetened with simple syrup. Always served ice-cold from the freezer in frozen ceramic cups.",
+                    "ingredients":  [
+                        "10 large organic lemons (unwaxed, thick-skinned Amalfi-type)",
+                        "1 bottle (750 ml) grain alcohol (190-proof) or vodka (100-proof)",
+                        "3 cups sugar (600 g)",
+                        "3 cups water (720 ml)"
+                    ],
+                    "steps":  [
+                        "Peel the lemons with a vegetable peeler, taking only the yellow zest—no white pith (it makes the liqueur bitter).",
+                        "Place the peels in a large glass jar. Pour over the alcohol. Seal and store in a cool, dark place for 10–15 days, shaking daily. The alcohol will turn bright yellow.",
+                        "Make simple syrup: dissolve the sugar in the water over medium heat. Let cool completely.",
+                        "Strain the lemon-infused alcohol through cheesecloth. Combine with the cooled syrup. Stir well. Bottle and store in the freezer for at least 1 week before serving.",
+                        "Serve ice-cold in small frozen glasses after dinner."
+                    ]
+                }
+            },
+            "Puglia":  {
+                "dish":  "Orecchiette con Cime di Rapa",
+                "description":  "The iconic pasta of Puglia: 'little ears' hand-shaped from semolina dough, tossed with bitter broccoli rabe (cime di rapa), garlic, peperoncino, anchovy, and olive oil. In Bari Vecchia's old town, women still sit in doorways shaping orecchiette on wooden boards. The technique of dragging the dough with a butter knife creates the concave ear shape with a rough surface that grips the sauce.",
+                "ingredients":  [
+                    "For orecchiette: 2 cups fine semolina flour (240 g), 1 cup all-purpose flour (120 g), 3/4 cup warm water (180 ml), pinch of salt",
+                    "1 large bunch broccoli rabe (cime di rapa), about 1.5 lbs (680 g), tough stems trimmed",
+                    "4 garlic cloves, thinly sliced",
+                    "4 anchovy fillets in oil",
+                    "1 dried peperoncino, crumbled (or 1/2 tsp red pepper flakes)",
+                    "1/3 cup extra-virgin olive oil (80 ml), Pugliese",
+                    "Salt",
+                    "Grated Pecorino or toasted breadcrumbs for serving"
+                ],
+                "steps":  [
+                    "Make orecchiette: Mix the flours. Make a well, add warm salted water. Knead 10 minutes until smooth and firm. Rest 30 minutes. Roll into thin ropes (1/2 inch diameter). Cut 1/2-inch pieces. Using a butter knife, press and drag each piece across the board to form a concave disk, then invert it over your thumb to create the ear shape. Set on a floured tray.",
+                    "Prepare the cime di rapa: Bring a large pot of well-salted water to a boil. Add the broccoli rabe and cook 3–4 minutes until tender but still bright green. Remove with a slotted spoon (keep the water boiling for the pasta). Chop roughly.",
+                    "Cook the orecchiette in the same broccoli rabe water until they float and are al dente, about 8–10 minutes for fresh. Reserve 1 cup pasta water before draining.",
+                    "In a large skillet, heat the olive oil over medium heat. Add garlic and peperoncino. When the garlic begins to color, add the anchovies, stirring until they dissolve.",
+                    "Add the chopped cime di rapa to the skillet. Toss for 2 minutes. Add the drained orecchiette and toss together, adding splashes of pasta water until everything is glossy and saucy.",
+                    "Serve with grated Pecorino or a shower of golden toasted breadcrumbs (the 'poor man's Parmigiano' of Puglia)."
+                ],
+                "drink":  {
+                    "dish":  "Caffè Leccese",
+                    "description":  "Lecce's signature iced coffee: a shot of espresso poured over ice with latte di mandorla (sweet almond milk). Born in Salento's scorching summers, it's the most refreshing way to drink coffee in Italy—sweet, nutty, and cold.",
+                    "ingredients":  [
+                        "1 shot espresso (25–30 ml), freshly brewed",
+                        "3 oz (90 ml) latte di mandorla (Italian almond milk, sweetened)",
+                        "Ice cubes"
+                    ],
+                    "steps":  [
+                        "Fill a small glass with ice cubes.",
+                        "Pour the almond milk over the ice.",
+                        "Pull a fresh shot of espresso and pour it directly over the ice and almond milk. The hot espresso hitting the cold milk creates a beautiful marbled effect.",
+                        "Stir gently and drink through a straw. In Lecce, this is ordered simply as 'caffè con ghiaccio e latte di mandorla.'"
+                    ]
+                }
+            },
+            "Basilicata":  {
+                "dish":  "Lagane e Ceci",
+                "description":  "An ancient Lucanian dish dating to the Romans (Horace mentions laganum, the ancestor of lasagna): wide, flat, hand-cut pasta cooked with chickpeas, garlic, rosemary, and peperoncino in olive oil. Basilicata is one of Italy's poorest and least-known regions, and this dish embodies the genius of cucina povera—four or five humble ingredients transformed by technique into something deeply satisfying.",
+                "ingredients":  [
+                    "For lagane: 2 cups semolina flour (240 g), 3/4 cup warm water (180 ml), pinch of salt",
+                    "1 1/2 cups dried chickpeas, soaked overnight (or 2 cans, drained) (300 g dried)",
+                    "1/3 cup extra-virgin olive oil (80 ml)",
+                    "3 garlic cloves, lightly crushed",
+                    "1 sprig fresh rosemary",
+                    "1 dried peperoncino, crumbled",
+                    "Salt and black pepper",
+                    "Extra-virgin olive oil (Lucanian, peppery) for drizzling"
+                ],
+                "steps":  [
+                    "If using dried chickpeas: drain soaked chickpeas, place in a pot, cover with fresh water by 3 inches, add a bay leaf and simmer 1.5–2 hours until creamy-tender. Reserve 2 cups cooking liquid.",
+                    "Make lagane: Knead semolina, water, and salt into a firm dough for 10 minutes. Rest 30 minutes. Roll out to 1/16 inch thick. Cut into wide strips (about 1 inch x 3 inches). Let dry on a floured tray for 15 minutes.",
+                    "In a wide pan, heat the olive oil over medium heat. Add garlic, rosemary, and peperoncino. Cook until the garlic is golden and fragrant, 2 minutes.",
+                    "Add two-thirds of the chickpeas with 1.5 cups of their cooking liquid. Simmer 10 minutes. Roughly mash the remaining one-third of chickpeas and stir them in—this thickens the sauce into a creamy base.",
+                    "Cook the lagane in generously salted boiling water for 3–4 minutes until al dente. Drain and add to the chickpea pan. Toss together, adding more cooking liquid if needed—the consistency should be soupy-saucy, not dry.",
+                    "Serve in warm bowls with a generous drizzle of raw olive oil and a crack of black pepper."
+                ],
+                "drink":  {
+                    "dish":  "Amaro Lucano",
+                    "description":  "Basilicata's most famous export: a bittersweet herbal digestivo made in Pisticci since 1894 from a secret blend of over 30 herbs and roots. Served neat, over ice, or with a splash of soda.",
+                    "ingredients":  [
+                        "2 oz (60 ml) Amaro Lucano, chilled or room temperature",
+                        "Ice (optional)",
+                        "Lemon twist (optional)"
+                    ],
+                    "steps":  [
+                        "Pour the Amaro Lucano into a small tumbler—neat, over ice, or with a lemon twist.",
+                        "Sip slowly after a meal as a digestivo. The flavors of wormwood, elderflower, and bitter orange unfold with each sip."
+                    ]
+                }
+            },
+            "Calabria":  {
+                "dish":  "Fileja con 'Nduja e Cipolla di Tropea",
+                "description":  "Calabria in a single dish: hand-rolled fileja pasta (twisted around a knitting needle or thin stick) tossed with 'nduja—Calabria's infamous spicy, spreadable salami from Spilinga—and sweet red onions of Tropea. The 'nduja melts into the olive oil to create a fiery, porky sauce that clings to the spiral ridges of the fileja. This is bold, unapologetic, heat-forward cooking.",
+                "ingredients":  [
+                    "14 oz fileja pasta (or fusilli, gemelli) (400 g)",
+                    "5 oz 'nduja di Spilinga (140 g)",
+                    "2 medium Tropea onions (or red onions), thinly sliced",
+                    "3 tbsp extra-virgin olive oil",
+                    "1/2 cup cherry tomatoes, halved",
+                    "Salt",
+                    "Grated Pecorino Crotonese or Ricotta Salata for serving",
+                    "Fresh basil leaves"
+                ],
+                "steps":  [
+                    "Heat olive oil in a large skillet over medium-low heat. Add the sliced Tropea onions and cook very slowly, 10–12 minutes, until soft, sweet, and lightly caramelized. Season with a pinch of salt.",
+                    "Add the cherry tomatoes and cook 3–4 minutes until they begin to soften.",
+                    "Remove the pan from direct heat. Add the 'nduja in chunks and stir—it will melt into the oil and onions, creating a fiery, rust-colored sauce. If it seems thick, add a ladleful of pasta water.",
+                    "Cook the fileja in generously salted boiling water until al dente. Reserve 1 cup pasta water, then drain.",
+                    "Toss the fileja in the 'nduja sauce, adding splashes of pasta water until the sauce clings to the pasta in a glossy coat. Tear in basil leaves.",
+                    "Serve with shaved Pecorino Crotonese or crumbled Ricotta Salata."
+                ],
+                "drink":  {
+                    "dish":  "Liquore al Bergamotto",
+                    "description":  "A luminous citrus liqueur from the Calabrian Ionian coast, the only place on earth where bergamot oranges grow naturally. The intensely aromatic peel is steeped in alcohol and sweetened—the result is floral, citrusy, and utterly unique. Served ice-cold as a digestivo.",
+                    "ingredients":  [
+                        "5 bergamot oranges (organic, unwaxed)",
+                        "2 cups (480 ml) grain alcohol or high-proof vodka",
+                        "1 1/2 cups sugar (300 g)",
+                        "2 cups water (480 ml)"
+                    ],
+                    "steps":  [
+                        "Peel the bergamots, taking only the fragrant zest (no pith). Place peels in a jar with the alcohol. Seal and steep 7–10 days in a dark place.",
+                        "Make syrup: dissolve sugar in water over heat. Cool completely.",
+                        "Strain the infused alcohol, combine with syrup. Bottle. Rest in the freezer 1 week.",
+                        "Serve ice-cold in small glasses. The aroma is Earl Grey tea's soul, distilled."
+                    ]
+                }
+            },
+            "Sicilia":  {
+                "dish":  "Pasta alla Norma",
+                "description":  "Catania's masterpiece, named after Bellini's opera 'Norma' because it is considered 'a work of art': penne or rigatoni with fried eggplant, tomato sauce, basil, and a snowfall of aged ricotta salata. The eggplant must be fried properly—golden, creamy, and not oily. The sauce is a quick, bright pomodoro. Simplicity is the point; quality is the method.",
+                "ingredients":  [
+                    "14 oz rigatoni or penne (400 g)",
+                    "2 medium eggplants (Italian globe type), cut into 1/2-inch cubes",
+                    "Olive oil for frying (about 1 cup / 240 ml)",
+                    "3 garlic cloves, lightly crushed",
+                    "1 can (28 oz) San Marzano whole tomatoes, crushed by hand",
+                    "Fresh basil leaves (a generous handful)",
+                    "Salt",
+                    "3 oz ricotta salata, grated or shaved (85 g)"
+                ],
+                "steps":  [
+                    "Salt the eggplant cubes generously and place in a colander for 30 minutes. This extracts bitterness and excess moisture. Rinse and pat very dry with paper towels.",
+                    "Heat 1/2 inch of olive oil in a deep skillet to 350°F (175°C). Fry the eggplant cubes in batches, without crowding, until deeply golden on all sides. Drain on paper towels. Season with a pinch of salt.",
+                    "In a separate pan, heat 3 tbsp olive oil over medium heat. Add the crushed garlic, cook until golden, then discard. Add the crushed tomatoes and a few basil leaves. Season with salt. Simmer 15–20 minutes until the sauce thickens and the raw tomato edge is gone.",
+                    "Cook the rigatoni in generously salted water until al dente. Drain.",
+                    "Toss the pasta with the tomato sauce. Fold in the fried eggplant cubes. Tear in fresh basil leaves.",
+                    "Serve on warm plates with a generous shower of grated ricotta salata on top. The ricotta salata should fall like snow."
+                ],
+                "drink":  {
+                    "dish":  "Granita di Mandorla con Brioche",
+                    "description":  "Sicily's iconic breakfast: a glass of silky almond granita (frozen, slowly stirred to a crystalline slush) eaten with a warm, dome-shaped brioche col tuppo. You tear off pieces of brioche and dip them into the granita. In Catania and along the eastern coast, this IS breakfast from June to September.",
+                    "ingredients":  [
+                        "1 cup blanched almonds (140 g)",
+                        "3 cups water (720 ml)",
+                        "1/2 cup sugar (100 g)",
+                        "1/2 tsp almond extract (optional, for intensity)",
+                        "Warm Sicilian brioche col tuppo (or any soft brioche roll) for serving"
+                    ],
+                    "steps":  [
+                        "Soak the blanched almonds in 1 cup of the water overnight. Blend the almonds and their soaking water until very smooth. Strain through a fine-mesh sieve or cheesecloth, pressing hard to extract all the milk. Discard the pulp.",
+                        "Dissolve the sugar in the remaining 2 cups of water over gentle heat. Cool. Combine with the almond milk and almond extract.",
+                        "Pour into a shallow metal pan and freeze. Every 30 minutes for 3–4 hours, scrape and stir with a fork, breaking up ice crystals into a smooth, slushy texture. The granita should be creamy-crystalline, not a solid block.",
+                        "Scoop into glasses. Serve alongside a warm brioche col tuppo—tear, dip, eat."
+                    ]
+                }
+            },
+            "Sardegna":  {
+                "dish":  "Culurgiones d'Ogliastra",
+                "description":  "Sardinia's hand-pinched ravioli from the wild Ogliastra coast: a thin semolina dough enclosing a filling of potato, aged Pecorino, mint, and garlic, sealed with an elaborate braid called sa spighitta (the wheat ear) that only Sardinian hands know by heart. Each pinch creates a decorative ridge that also seals the dumpling perfectly. Served with a simple fresh tomato sauce and basil.",
+                "ingredients":  [
+                    "For dough: 3 cups fine semolina flour (360 g), 3/4 cup warm water (180 ml), 1 tbsp olive oil, pinch of salt",
+                    "For filling: 1.5 lbs potatoes, boiled and riced (680 g), 1 cup grated aged Pecorino Sardo (100 g), 2 garlic cloves minced, 12 fresh mint leaves (finely chopped), 2 tbsp olive oil, salt",
+                    "For sauce: 1 can (14 oz) San Marzano tomatoes, 2 tbsp olive oil, 1 garlic clove, basil, salt",
+                    "Grated Pecorino Sardo for serving"
+                ],
+                "steps":  [
+                    "Make the filling: Boil potatoes until tender, peel and rice while hot. Mix with Pecorino, garlic, chopped mint, and olive oil. Season with salt. The filling should be smooth and fragrant. Cool.",
+                    "Make the dough: Knead semolina, water, olive oil, and salt into a smooth, elastic dough, 10–12 minutes. Rest 30 minutes under a towel.",
+                    "Roll the dough very thin. Cut into 3-inch circles. Place a tablespoon of filling in the center of each. To close: pinch and fold the edge over itself in a continuous braid from one end to the other, creating the decorative spighitta pattern. Press firmly at the end to seal.",
+                    "Make the sauce: Heat olive oil with garlic until fragrant. Add crushed tomatoes and basil. Simmer 15 minutes. Season.",
+                    "Cook the culurgiones in gently simmering salted water for 3–4 minutes (they will float). Remove with a slotted spoon.",
+                    "Place in a warm bowl, spoon tomato sauce over the top, and finish with grated Pecorino Sardo."
+                ],
+                "drink":  {
+                    "dish":  "Mirto",
+                    "description":  "Sardinia's signature liqueur, distilled from the wild myrtle berries that grow in the island's macchia (scrubland). Mirto rosso (red, from the berries) is the most common—deep purple, bittersweet, and herbal. Always served ice-cold from the freezer as a digestivo.",
+                    "ingredients":  [
+                        "1 lb fresh myrtle berries (mirto), rinsed (450 g)",
+                        "2 cups (480 ml) grain alcohol or high-proof vodka",
+                        "1 1/2 cups sugar (300 g)",
+                        "2 cups water (480 ml)"
+                    ],
+                    "steps":  [
+                        "Place the myrtle berries in a large glass jar. Pour over the alcohol. Seal tightly and steep in a cool, dark place for 40–60 days.",
+                        "Make syrup: dissolve sugar in water over heat. Cool completely.",
+                        "Strain the berry-infused alcohol through cheesecloth (press the berries to extract flavor). Combine with the syrup.",
+                        "Bottle and rest in the freezer for at least 2 weeks. Serve ice-cold in small glasses after dinner."
+                    ]
+                }
+            }
         }
     },
     "JAM":  {

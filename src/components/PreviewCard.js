@@ -5,18 +5,25 @@ const PreviewCard = ({ feature, db }) => {
     
     // Prioritize state name (st_nm) if present, otherwise fallback to standard country logic
     // This ensures we don't accidentally look up "IND" when hovering over a state
-    const isState = !!(p.st_nm || p.ST_NM || p.NAME_1 || p.name_1);
+    const isState = !!(p.st_nm || p.ST_NM || p.NAME_1 || p.name_1 || p.nom || p.state_name || p.NOM_DPTO || p.reg_name);
     
     const countryCode = isState ? null : ((p.ISO_A3 && p.ISO_A3 !== '-99' ? p.ISO_A3 : p.ADM0_A3) || feature.id);
-    let countryName = (p.st_nm || p.ST_NM || p.NAME_1 || p.name_1 || p.NAME || p.ADMIN || p.name || '').trim();
+    let countryName = (p.st_nm || p.ST_NM || p.NAME_1 || p.name_1 || p.NAME || p.ADMIN || p.name || p.nom || p.state_name || p.NOM_DPTO || p.reg_name || '').trim();
     
-    // Fix common GeoJSON name mismatches for India
+    // Fix common GeoJSON name mismatches
     if (countryName === 'Orissa') countryName = 'Odisha';
     if (countryName === 'Uttaranchal') countryName = 'Uttarakhand';
     if (countryName === 'Pondicherry') countryName = 'Puducherry';
     if (countryName.includes('Andaman')) countryName = 'Andaman and Nicobar Islands';
     if (countryName.includes('Dadra') || countryName.includes('Daman')) countryName = 'Dadra and Nagar Haveli and Daman and Diu';
     if (countryName === 'Jammu & Kashmir') countryName = 'Jammu and Kashmir';
+    if (countryName === 'Distrito Federal') countryName = 'Ciudad de México';
+    if (countryName === 'Ile-de-France') countryName = 'Île-de-France';
+    if (countryName === 'Michoacán de Ocampo') countryName = 'Michoacán';
+    if (countryName === 'Veracruz de Ignacio de la Llave') countryName = 'Veracruz';
+    if (countryName === 'Coahuila de Zaragoza') countryName = 'Coahuila';
+    if (countryName.includes('/Vall')) countryName = "Valle d'Aosta";
+    if (countryName.includes('/S\u00fcdtirol')) countryName = 'Trentino-Alto Adige';
     
     // Get data or fallback
     let culinaryData = window.getRecipeFromDB(db, countryCode) || window.getRecipeFromDB(db, countryName);

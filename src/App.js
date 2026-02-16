@@ -37,6 +37,74 @@ const BRAZIL_STATES = [
     'São Paulo', 'Sergipe', 'Tocantins'
 ];
 
+const DENMARK_REGIONS = [
+    'Region Hovedstaden', 'Region Midtjylland', 'Region Nordjylland', 'Region Sjælland', 'Region Syddanmark'
+];
+
+const FRANCE_REGIONS = [
+    'Auvergne-Rhône-Alpes', 'Bourgogne-Franche-Comté', 'Bretagne', 'Centre-Val de Loire', 'Corse',
+    'Grand Est', 'Hauts-de-France', 'Île-de-France', 'Normandie', 'Nouvelle-Aquitaine',
+    'Occitanie', 'Pays de la Loire', 'Provence-Alpes-Côte d\'Azur'
+];
+
+const MEXICO_STATES = [
+    'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche', 'Chiapas', 'Chihuahua',
+    'Ciudad de México', 'Coahuila', 'Colima', 'Durango', 'Guanajuato', 'Guerrero', 'Hidalgo',
+    'Jalisco', 'México', 'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 'Oaxaca', 'Puebla',
+    'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa', 'Sonora', 'Tabasco', 'Tamaulipas',
+    'Tlaxcala', 'Veracruz', 'Yucatán', 'Zacatecas'
+];
+
+const ITALIAN_REGIONS = [
+    'Piemonte', 'Valle d\'Aosta', 'Lombardia', 'Trentino-Alto Adige', 'Veneto',
+    'Friuli-Venezia Giulia', 'Liguria', 'Emilia-Romagna', 'Toscana', 'Umbria',
+    'Marche', 'Lazio', 'Abruzzo', 'Molise', 'Campania', 'Puglia', 'Basilicata',
+    'Calabria', 'Sicilia', 'Sardegna'
+];
+
+const GREEK_REGIONS = [
+    'East Macedonia and Thrace', 'Central Macedonia', 'West Macedonia', 'Thessaly',
+    'Epirus', 'Ionian Islands', 'Western Greece', 'Central Greece', 'Peloponnese',
+    'Attica', 'North Aegean', 'South Aegean', 'Crete'
+];
+
+const EL_SALVADOR_DEPARTMENTS = [
+    'Ahuachapán', 'Cabañas', 'Chalatenango', 'Cuscatlán', 'La Libertad', 'La Paz', 'La Unión',
+    'Morazán', 'San Miguel', 'San Salvador', 'San Vicente', 'Santa Ana', 'Sonsonate', 'Usulután'
+];
+
+const EL_SALVADOR_NAME_MAPPING = {
+    "AHUACHAPAN": "Ahuachapán", "AHUACHAPÁN": "Ahuachapán",
+    "CABANAS": "Cabañas", "CABAÑAS": "Cabañas",
+    "CHALATENANGO": "Chalatenango",
+    "CUSCATLAN": "Cuscatlán", "CUSCATLÁN": "Cuscatlán",
+    "LA LIBERTAD": "La Libertad",
+    "LA PAZ": "La Paz",
+    "LA UNION": "La Unión", "LA UNIÓN": "La Unión",
+    "MORAZAN": "Morazán", "MORAZÁN": "Morazán",
+    "SAN MIGUEL": "San Miguel",
+    "SAN SALVADOR": "San Salvador",
+    "SAN VICENTE": "San Vicente",
+    "SANTA ANA": "Santa Ana",
+    "SONSONATE": "Sonsonate",
+    "USULUTAN": "Usulután", "USULUTÁN": "Usulután"
+};
+
+const MEXICO_NAME_MAPPING = {
+    "Michoacán de Ocampo": "Michoacán",
+    "Veracruz de Ignacio de la Llave": "Veracruz",
+    "Coahuila de Zaragoza": "Coahuila"
+};
+
+const FRANCE_NAME_MAPPING = {
+    "Ile-de-France": "Île-de-France"
+};
+
+const ITALY_NAME_MAPPING = {
+    "Valle d'Aosta/Vallée d'Aoste": "Valle d'Aosta",
+    "Trentino-Alto Adige/Südtirol": "Trentino-Alto Adige"
+};
+
 const CHINA_NAME_MAPPING = {
     "安徽": "Anhui", "安徽省": "Anhui",
     "北京": "Beijing", "北京市": "Beijing",
@@ -195,14 +263,20 @@ const App = () => {
     const getNormalizedName = (feature) => {
         const p = feature.properties;
         const isoCode = getIso3(feature);
-        let name = (p.st_nm || p.ST_NM || p.NAME_1 || p.name_1 || p.NAME || p.ADMIN || p.name || '').trim();
+        let name = (p.st_nm || p.ST_NM || p.NAME_1 || p.name_1 || p.NAME || p.ADMIN || p.name || p.nom || p.navn || p.state_name || p.NOM_DPTO || p.DPTO || p.nombre || p.reg_name || p.REGIONNAVN || '').trim();
         if (name === 'Orissa') name = 'Odisha';
         if (name === 'Uttaranchal') name = 'Uttarakhand';
         if (name === 'Pondicherry') name = 'Puducherry';
         if (name.includes('Andaman')) name = 'Andaman and Nicobar Islands';
         if (name.includes('Dadra') || name.includes('Daman')) name = 'Dadra and Nagar Haveli and Daman and Diu';
         if (name === 'Jammu & Kashmir') name = 'Jammu and Kashmir';
-        if (isoCode === 'CHN' && CHINA_NAME_MAPPING[name]) name = CHINA_NAME_MAPPING[name];
+        if (CHINA_NAME_MAPPING[name]) name = CHINA_NAME_MAPPING[name];
+        if (EL_SALVADOR_NAME_MAPPING[name]) name = EL_SALVADOR_NAME_MAPPING[name];
+        if (MEXICO_NAME_MAPPING[name]) name = MEXICO_NAME_MAPPING[name];
+        if (FRANCE_NAME_MAPPING[name]) name = FRANCE_NAME_MAPPING[name];
+        if (ITALY_NAME_MAPPING[name]) name = ITALY_NAME_MAPPING[name];
+        if (name && !name.startsWith('Region ') && DENMARK_REGIONS.includes('Region ' + name)) name = 'Region ' + name;
+        if (name === 'Distrito Federal') name = 'Ciudad de México';
         return name;
     };
 
@@ -556,10 +630,22 @@ const App = () => {
                     .then(data => {
                         // Pre-process/Normalize Data for Cache
                         data.features.forEach(f => {
-                            let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name || '').trim();
+                            let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.REGIONNAVN || '').trim();
 
                             if (isoCode === 'CHN' && CHINA_NAME_MAPPING[name]) {
                                 name = CHINA_NAME_MAPPING[name];
+                            }
+                            if (isoCode === 'SLV' && EL_SALVADOR_NAME_MAPPING[name]) {
+                                name = EL_SALVADOR_NAME_MAPPING[name];
+                            }
+                            if (isoCode === 'MEX' && MEXICO_NAME_MAPPING[name]) {
+                                name = MEXICO_NAME_MAPPING[name];
+                            }
+                            if (isoCode === 'FRA' && FRANCE_NAME_MAPPING[name]) {
+                                name = FRANCE_NAME_MAPPING[name];
+                            }
+                            if (isoCode === 'ITA' && ITALY_NAME_MAPPING[name]) {
+                                name = ITALY_NAME_MAPPING[name];
                             }
                             if (isoCode === 'IND') {
                                 if (name === 'Orissa') name = 'Odisha';
@@ -568,6 +654,12 @@ const App = () => {
                                 if (name.includes('Andaman')) name = 'Andaman and Nicobar Islands';
                                 if (name.includes('Dadra') || name.includes('Daman')) name = 'Dadra and Nagar Haveli and Daman and Diu';
                                 if (name === 'Jammu & Kashmir') name = 'Jammu and Kashmir';
+                            }
+                            if (name && !name.startsWith('Region ') && DENMARK_REGIONS.includes('Region ' + name)) {
+                                name = 'Region ' + name;
+                            }
+                            if (name === 'Distrito Federal') {
+                                name = 'Ciudad de México';
                             }
 
                             f.properties.st_nm = name;
@@ -594,6 +686,30 @@ const App = () => {
 
         fetchData.then(subData => {
             if (activeRegionIsoRef.current !== isoCode) return;
+
+            if (subData.features && !regionCacheRef.current[isoCode]) {
+                subData.features.forEach(f => {
+                    let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.REGIONNAVN || '').trim();
+                    if (isoCode === 'CHN' && CHINA_NAME_MAPPING[name]) name = CHINA_NAME_MAPPING[name];
+                    if (isoCode === 'SLV' && EL_SALVADOR_NAME_MAPPING[name]) name = EL_SALVADOR_NAME_MAPPING[name];
+                    if (isoCode === 'MEX' && MEXICO_NAME_MAPPING[name]) name = MEXICO_NAME_MAPPING[name];
+                    if (isoCode === 'FRA' && FRANCE_NAME_MAPPING[name]) name = FRANCE_NAME_MAPPING[name];
+                    if (isoCode === 'ITA' && ITALY_NAME_MAPPING[name]) name = ITALY_NAME_MAPPING[name];
+                    if (isoCode === 'IND') {
+                        if (name === 'Orissa') name = 'Odisha';
+                        if (name === 'Uttaranchal') name = 'Uttarakhand';
+                        if (name === 'Pondicherry') name = 'Puducherry';
+                        if (name.includes('Andaman')) name = 'Andaman and Nicobar Islands';
+                        if (name.includes('Dadra') || name.includes('Daman')) name = 'Dadra and Nagar Haveli and Daman and Diu';
+                        if (name === 'Jammu & Kashmir') name = 'Jammu and Kashmir';
+                    }
+                    if (name && !name.startsWith('Region ') && DENMARK_REGIONS.includes('Region ' + name)) name = 'Region ' + name;
+                    if (name === 'Distrito Federal') name = 'Ciudad de México';
+                    f.properties.st_nm = name;
+                    f.properties.name = name;
+                });
+                regionCacheRef.current[isoCode] = subData;
+            }
 
             const subLayer = L.geoJson(subData, {
                 style: (feature) => {
@@ -953,12 +1069,8 @@ const App = () => {
                 activeRegionIsoRef.current = isoCode;
                 setIsDrillDownMode(true);
             } else {
-                if (isoCode === 'FRA') {
-                    mapInstanceRef.current.setView([46.603354, 1.888334], 5.5, { animate: true });
-                } else if (isoCode === 'PRT') {
+                if (isoCode === 'PRT') {
                     mapInstanceRef.current.setView([39.3999, -8.2245], 7, { animate: true });
-                } else if (isoCode === 'BRA') {
-                    mapInstanceRef.current.setView([-12, -38], 4, { animate: true });
                 } else if (isoCode === 'NLD') {
                     mapInstanceRef.current.setView([52.2, 5.5], 7.5, { animate: true });
                 } else {
@@ -985,6 +1097,30 @@ const App = () => {
             if (BRAZIL_STATES.includes(key)) {
                 targetCountryIso = 'BRA';
                 targetCountryCca2 = 'BR';
+            }
+            if (DENMARK_REGIONS.includes(key)) {
+                targetCountryIso = 'DNK';
+                targetCountryCca2 = 'DK';
+            }
+            if (FRANCE_REGIONS.includes(key)) {
+                targetCountryIso = 'FRA';
+                targetCountryCca2 = 'FR';
+            }
+            if (MEXICO_STATES.includes(key)) {
+                targetCountryIso = 'MEX';
+                targetCountryCca2 = 'MX';
+            }
+            if (EL_SALVADOR_DEPARTMENTS.includes(key)) {
+                targetCountryIso = 'SLV';
+                targetCountryCca2 = 'SV';
+            }
+            if (ITALIAN_REGIONS.includes(key)) {
+                targetCountryIso = 'ITA';
+                targetCountryCca2 = 'IT';
+            }
+            if (GREEK_REGIONS.includes(key)) {
+                targetCountryIso = 'GRC';
+                targetCountryCca2 = 'GR';
             }
 
             if (!isDrillDownMode || activeRegionIsoRef.current !== targetCountryIso) {
