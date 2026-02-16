@@ -185,6 +185,7 @@ const App = () => {
     const effectsContainerRef = useRef(null);
     const mousePosRef = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
     const globalSubHighlightLayerRef = useRef(null);
+    const choroplethSubLayersRef = useRef(null);
     const regionCacheRef = useRef({});
 
     const [selectedCountry, setSelectedCountry] = useState(null);
@@ -198,17 +199,61 @@ const App = () => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [toast, setToast] = useState(null);
     const [activeSearchMode, setActiveSearchMode] = useState(null); // 'recipe' | 'stockpile' | null
+    const [mapMode, setMapMode] = useState('political'); // 'political' | 'primary_meat' | 'spice_level' | 'complexity'
+    const [meatMapData, setMeatMapData] = useState({});
+    const [meatStats, setMeatStats] = useState({});
+    const [spiceMapData, setSpiceMapData] = useState({});
+    const [spiceStats, setSpiceStats] = useState({});
+    const [complexityMapData, setComplexityMapData] = useState({});
+    const [complexityStats, setComplexityStats] = useState({});
+    const [spiritMapData, setSpiritMapData] = useState({});
+    const [spiritStats, setSpiritStats] = useState({});
+    const mapModeRef = useRef('political');
+    const meatMapDataRef = useRef({});
+    const spiceMapDataRef = useRef({});
+    const complexityMapDataRef = useRef({});
+    const spiritMapDataRef = useRef({});
+    const choroplethTooltipRef = useRef(null);
 
     // Safe reference to StockpileManager in case it hasn't loaded yet
     const StockpileManager = window.StockpileManager || (() => null);
+    const MapModePanel = window.MapModePanel || (() => null);
 
     useEffect(() => {
         highlightedKeysRef.current = highlightedKeys;
     }, [highlightedKeys]);
 
+    // Build analysis maps when recipes load
+    useEffect(() => {
+        if (Object.keys(culinaryDB).length === 0) return;
+        const meatData = window.buildMeatMap(culinaryDB);
+        setMeatMapData(meatData);
+        meatMapDataRef.current = meatData;
+        setMeatStats(window.getMeatStats(meatData));
+
+        const spiceData = window.buildSpiceMap(culinaryDB);
+        setSpiceMapData(spiceData);
+        spiceMapDataRef.current = spiceData;
+        setSpiceStats(window.getSpiceStats(spiceData));
+
+        const cxData = window.buildComplexityMap(culinaryDB);
+        setComplexityMapData(cxData);
+        complexityMapDataRef.current = cxData;
+        setComplexityStats(window.getComplexityStats(cxData));
+
+        const spiritData = window.buildSpiritMap(culinaryDB);
+        setSpiritMapData(spiritData);
+        spiritMapDataRef.current = spiritData;
+        setSpiritStats(window.getSpiritStats(spiritData));
+    }, [culinaryDB]);
+
     useEffect(() => {
         selectedCountryRef.current = selectedCountry;
     }, [selectedCountry]);
+
+    useEffect(() => {
+        mapModeRef.current = mapMode;
+    }, [mapMode]);
 
     // Load shopping list from local storage
     useEffect(() => {
@@ -233,6 +278,252 @@ const App = () => {
     };
 
     const clearShoppingList = () => setShoppingList(window.shoppingListClear());
+
+    // Unified helper: get choropleth color for a given key based on active mode
+    const getChoroplethColor = (key) => {
+        const mode = mapModeRef.current;
+        if (mode === 'primary_meat') {
+            const data = meatMapDataRef.current[key];
+            return data ? window.getMeatColor(data.primary) : null;
+        }
+        if (mode === 'spice_level') {
+            const data = spiceMapDataRef.current[key];
+            return data ? window.getSpiceColor(data.tier) : null;
+        }
+        if (mode === 'complexity') {
+            const data = complexityMapDataRef.current[key];
+            return data ? window.getComplexityColor(data.tier) : null;
+        }
+        if (mode === 'base_spirit') {
+            const data = spiritMapDataRef.current[key];
+            return data ? window.getSpiritColor(data.primary) : null;
+        }
+        return null;
+    };
+
+    // Choropleth: apply coloring to map layers based on active mode data
+    const applyChoropleth = () => {
+        const mode = mapModeRef.current;
+
+        if (!geoJsonLayerRef.current) return;
+
+        if (mode === 'political') {
+            geoJsonLayerRef.current.eachLayer(layer => {
+                geoJsonLayerRef.current.resetStyle(layer);
+            });
+            if (subRegionLayerRef.current) {
+                subRegionLayerRef.current.eachLayer(layer => {
+                    subRegionLayerRef.current.resetStyle(layer);
+                });
+            }
+            return;
+        }
+
+        const countriesWithRegions = Object.keys(REGION_CONFIG);
+
+        geoJsonLayerRef.current.eachLayer(layer => {
+            const isoCode = getIso3(layer.feature);
+            const hasRegions = countriesWithRegions.includes(isoCode);
+
+            if (hasRegions) {
+                layer.setStyle({
+                    fillColor: '#0f172a',
+                    fillOpacity: 0.15,
+                    weight: 1,
+                    color: 'rgba(255,255,255,0.04)',
+                    opacity: 1
+                });
+                return;
+            }
+
+            const color = getChoroplethColor(isoCode);
+            if (color) {
+                layer.setStyle({
+                    fillColor: color,
+                    fillOpacity: 0.65,
+                    weight: 1,
+                    color: 'rgba(255,255,255,0.18)',
+                    opacity: 1
+                });
+            } else {
+                layer.setStyle({
+                    fillColor: '#1e293b',
+                    fillOpacity: 0.25,
+                    weight: 1,
+                    color: 'rgba(255,255,255,0.06)',
+                    opacity: 1
+                });
+            }
+        });
+
+        if (subRegionLayerRef.current) {
+            subRegionLayerRef.current.eachLayer(layer => {
+                const name = getNormalizedName(layer.feature);
+                const color = getChoroplethColor(name);
+                if (color) {
+                    layer.setStyle({
+                        fillColor: color,
+                        fillOpacity: 0.7,
+                        weight: 1,
+                        color: 'rgba(255,255,255,0.25)',
+                        opacity: 1
+                    });
+                } else {
+                    layer.setStyle({
+                        fillColor: '#1e293b',
+                        fillOpacity: 0.25,
+                        weight: 1,
+                        color: 'rgba(255,255,255,0.08)',
+                        opacity: 1
+                    });
+                }
+            });
+        }
+    };
+
+    // Load/clear choropleth sub-region overlays on the world map
+    useEffect(() => {
+        if (!mapInstanceRef.current) return;
+
+        // Ensure the highlight pane exists (shared with search highlights)
+        if (!mapInstanceRef.current.getPane('highlightPane')) {
+            mapInstanceRef.current.createPane('highlightPane');
+            mapInstanceRef.current.getPane('highlightPane').style.zIndex = 450;
+        }
+
+        // Initialize or clear
+        if (!choroplethSubLayersRef.current) {
+            choroplethSubLayersRef.current = L.layerGroup().addTo(mapInstanceRef.current);
+        } else {
+            choroplethSubLayersRef.current.clearLayers();
+        }
+
+        // Only render sub-region overlays in metric modes
+        if (mapMode === 'political') return;
+        const hasData = (mapMode === 'primary_meat' && Object.keys(meatMapData).length > 0)
+            || (mapMode === 'spice_level' && Object.keys(spiceMapData).length > 0)
+            || (mapMode === 'complexity' && Object.keys(complexityMapData).length > 0)
+            || (mapMode === 'base_spirit' && Object.keys(spiritMapData).length > 0);
+        if (!hasData) return;
+
+        const countriesWithRegions = Object.keys(REGION_CONFIG);
+
+        countriesWithRegions.forEach(isoCode => {
+            if (isDrillDownMode && activeRegionIsoRef.current === isoCode) return;
+
+            const config = REGION_CONFIG[isoCode];
+
+            const renderChoroplethRegions = (data) => {
+                L.geoJson(data, {
+                    pane: 'highlightPane',
+                    style: (feature) => {
+                        const name = feature.properties.st_nm || feature.properties.name;
+                        const color = getChoroplethColor(name);
+                        if (color) {
+                            return { fillColor: color, fillOpacity: 0.7, weight: 0.8, color: 'rgba(255,255,255,0.2)', opacity: 1 };
+                        }
+                        return { fillColor: '#1e293b', fillOpacity: 0.3, weight: 0.5, color: 'rgba(255,255,255,0.06)', opacity: 1 };
+                    },
+                    onEachFeature: (feature, layer) => {
+                        layer.on({
+                            mouseover: (e) => {
+                                const l = e.target;
+                                const name = feature.properties.st_nm || feature.properties.name;
+                                const color = getChoroplethColor(name);
+                                if (color) {
+                                    l.setStyle({ fillOpacity: 0.92, weight: 2, color: '#ffffff' });
+                                } else {
+                                    l.setStyle({ fillOpacity: 0.45, weight: 2, color: '#94a3b8' });
+                                }
+                                l.bringToFront();
+                                setHoveredFeature(feature);
+                            },
+                            mouseout: (e) => {
+                                const l = e.target;
+                                const name = feature.properties.st_nm || feature.properties.name;
+                                const color = getChoroplethColor(name);
+                                if (color) {
+                                    l.setStyle({ fillColor: color, fillOpacity: 0.7, weight: 0.8, color: 'rgba(255,255,255,0.2)' });
+                                } else {
+                                    l.setStyle({ fillColor: '#1e293b', fillOpacity: 0.3, weight: 0.5, color: 'rgba(255,255,255,0.06)' });
+                                }
+                                setHoveredFeature(null);
+                            },
+                            click: (e) => {
+                                L.DomEvent.stopPropagation(e);
+                                const name = feature.properties.st_nm || feature.properties.name;
+
+                                mapInstanceRef.current.setView(config.view.center, config.view.zoom, { animate: true });
+                                activeRegionIsoRef.current = isoCode;
+                                setIsDrillDownMode(true);
+                                loadSubRegionLayer(isoCode, config);
+
+                                setSelectedCountry({
+                                    name: { common: name },
+                                    cca3: name
+                                });
+                            }
+                        });
+                    }
+                }).addTo(choroplethSubLayersRef.current);
+            };
+
+            if (regionCacheRef.current[isoCode]) {
+                renderChoroplethRegions(regionCacheRef.current[isoCode]);
+            } else {
+                fetch(config.geoJsonUrl)
+                    .then(res => res.json())
+                    .then(data => {
+                        // Pre-process names (same normalization as global highlights)
+                        data.features.forEach(f => {
+                            let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.REGIONNAVN || '').trim();
+                            if (isoCode === 'CHN' && CHINA_NAME_MAPPING[name]) name = CHINA_NAME_MAPPING[name];
+                            if (isoCode === 'SLV' && EL_SALVADOR_NAME_MAPPING[name]) name = EL_SALVADOR_NAME_MAPPING[name];
+                            if (isoCode === 'MEX' && MEXICO_NAME_MAPPING[name]) name = MEXICO_NAME_MAPPING[name];
+                            if (isoCode === 'FRA' && FRANCE_NAME_MAPPING[name]) name = FRANCE_NAME_MAPPING[name];
+                            if (isoCode === 'ITA' && ITALY_NAME_MAPPING[name]) name = ITALY_NAME_MAPPING[name];
+                            if (isoCode === 'IND') {
+                                if (name === 'Orissa') name = 'Odisha';
+                                if (name === 'Uttaranchal') name = 'Uttarakhand';
+                                if (name === 'Pondicherry') name = 'Puducherry';
+                                if (name.includes('Andaman')) name = 'Andaman and Nicobar Islands';
+                                if (name.includes('Dadra') || name.includes('Daman')) name = 'Dadra and Nagar Haveli and Daman and Diu';
+                                if (name === 'Jammu & Kashmir') name = 'Jammu and Kashmir';
+                            }
+                            if (name && !name.startsWith('Region ') && DENMARK_REGIONS.includes('Region ' + name)) name = 'Region ' + name;
+                            if (name === 'Distrito Federal') name = 'Ciudad de México';
+                            f.properties.st_nm = name;
+                            f.properties.name = name;
+                        });
+                        regionCacheRef.current[isoCode] = data;
+                        renderChoroplethRegions(data);
+                    })
+                    .catch(err => console.error(`Error loading choropleth region ${isoCode}`, err));
+            }
+        });
+    }, [mapMode, meatMapData, spiceMapData, complexityMapData, spiritMapData, isDrillDownMode]);
+
+    // Apply country-level choropleth when mode or data changes
+    useEffect(() => {
+        applyChoropleth();
+    }, [mapMode, meatMapData, spiceMapData, complexityMapData, spiritMapData, isDrillDownMode]);
+
+    const handleMapModeChange = (newMode) => {
+        setMapMode(newMode);
+        mapModeRef.current = newMode;
+        // Clear search highlights when switching to metric modes
+        if (newMode !== 'political') {
+            setHighlightedKeys(null);
+            setActiveSearchMode(null);
+        }
+        setTimeout(() => {
+            meatMapDataRef.current = meatMapData;
+            spiceMapDataRef.current = spiceMapData;
+            complexityMapDataRef.current = complexityMapData;
+            spiritMapDataRef.current = spiritMapData;
+            applyChoropleth();
+        }, 100);
+    };
 
     const handleGlobalClear = () => {
         setHighlightedKeys(null);
@@ -716,6 +1007,15 @@ const App = () => {
                     const name = getNormalizedName(feature);
                     const iso = getIso3(feature);
 
+                    // Choropleth mode for sub-regions (any metric mode)
+                    if (mapModeRef.current !== 'political') {
+                        const color = getChoroplethColor(name);
+                        if (color) {
+                            return { fillColor: color, fillOpacity: 0.7, weight: 1, color: 'rgba(255,255,255,0.25)', opacity: 1 };
+                        }
+                        return { fillColor: '#1e293b', fillOpacity: 0.25, weight: 1, color: 'rgba(255,255,255,0.08)', opacity: 1 };
+                    }
+
                     // Default Style
                     let style = { fillColor: '#374151', weight: 1, opacity: 1, color: '#eab308', fillOpacity: 0.4 };
 
@@ -754,18 +1054,38 @@ const App = () => {
                     layer.on({
                         mouseover: (e) => {
                             const l = e.target;
-                            l.setStyle({ weight: 2, color: '#ffffff', fillOpacity: 0.7 });
+                            if (mapModeRef.current !== 'political') {
+                                const regionName = getNormalizedName(layer.feature);
+                                const color = getChoroplethColor(regionName);
+                                if (color) {
+                                    l.setStyle({ fillColor: color, fillOpacity: 0.9, weight: 2, color: '#ffffff', opacity: 1 });
+                                } else {
+                                    l.setStyle({ fillColor: '#334155', fillOpacity: 0.4, weight: 2, color: '#94a3b8', opacity: 1 });
+                                }
+                            } else {
+                                l.setStyle({ weight: 2, color: '#ffffff', fillOpacity: 0.7 });
+                            }
                             l.bringToFront();
                             setHoveredFeature(layer.feature);
                         },
                         mouseout: (e) => {
                             const l = e.target;
-                            subRegionLayerRef.current.resetStyle(l);
+                            if (mapModeRef.current !== 'political') {
+                                const regionName = getNormalizedName(l.feature);
+                                const color = getChoroplethColor(regionName);
+                                if (color) {
+                                    l.setStyle({ fillColor: color, fillOpacity: 0.7, weight: 1, color: 'rgba(255,255,255,0.25)', opacity: 1 });
+                                } else {
+                                    l.setStyle({ fillColor: '#1e293b', fillOpacity: 0.25, weight: 1, color: 'rgba(255,255,255,0.08)', opacity: 1 });
+                                }
+                            } else {
+                                subRegionLayerRef.current.resetStyle(l);
 
-                            const name = getNormalizedName(l.feature);
-                            const isSelected = selectedCountryRef.current && selectedCountryRef.current.name.common === name;
-                            if (isSelected) {
-                                l.setStyle({ color: '#38bdf8', weight: 2, opacity: 1 });
+                                const name = getNormalizedName(l.feature);
+                                const isSelected = selectedCountryRef.current && selectedCountryRef.current.name.common === name;
+                                if (isSelected) {
+                                    l.setStyle({ color: '#38bdf8', weight: 2, opacity: 1 });
+                                }
                             }
 
                             setHoveredFeature(null);
@@ -837,6 +1157,23 @@ const App = () => {
                         return;
                     }
 
+                    // Choropleth mode hover (any metric mode)
+                    if (mapModeRef.current !== 'political') {
+                        const countriesWithRegions = Object.keys(REGION_CONFIG);
+                        if (countriesWithRegions.includes(isoCode)) return;
+
+                        const color = getChoroplethColor(isoCode);
+                        if (color) {
+                            layer.setStyle({ fillColor: color, fillOpacity: 0.9, weight: 2, color: '#ffffff', opacity: 1 });
+                        } else {
+                            layer.setStyle({ fillColor: '#334155', fillOpacity: 0.4, weight: 2, color: '#94a3b8', opacity: 1 });
+                        }
+                        layer.bringToFront();
+                        setHoveredFeature(layer.feature);
+                        highlightedLayerRef.current = layer;
+                        return;
+                    }
+
                     const searchKeys = highlightedKeysRef.current;
                     const isSearchActive = searchKeys !== null;
                     let styleToApply = highlightStyle;
@@ -872,6 +1209,22 @@ const App = () => {
                     const name = getNormalizedName(layer.feature);
 
                     if (activeRegionIsoRef.current === isoCode) {
+                        return;
+                    }
+
+                    // Choropleth mode reset
+                    if (mapModeRef.current !== 'political') {
+                        const countriesWithRegions = Object.keys(REGION_CONFIG);
+                        if (countriesWithRegions.includes(isoCode)) return;
+
+                        const color = getChoroplethColor(isoCode);
+                        if (color) {
+                            layer.setStyle({ fillColor: color, fillOpacity: 0.65, weight: 1, color: 'rgba(255,255,255,0.18)', opacity: 1 });
+                        } else {
+                            layer.setStyle({ fillColor: '#1e293b', fillOpacity: 0.25, weight: 1, color: 'rgba(255,255,255,0.06)', opacity: 1 });
+                        }
+                        setHoveredFeature(null);
+                        if (highlightedLayerRef.current === e.target) highlightedLayerRef.current = null;
                         return;
                     }
 
@@ -976,6 +1329,12 @@ const App = () => {
     useEffect(() => {
         if (!mapInstanceRef.current) return;
 
+        // In metric modes, don't let search/selection override choropleth
+        if (mapModeRef.current !== 'political') {
+            applyChoropleth();
+            return;
+        }
+
         const updateLayerStyle = (layerGroup) => {
             if (!layerGroup) return;
 
@@ -1046,6 +1405,10 @@ const App = () => {
                 subRegionLayerRef.current = null;
             }
         }
+
+        // Re-apply choropleth sub-region overlays if in metric mode
+        // (the useEffect on [mapMode, meatMapData, isDrillDownMode] will handle it
+        //  since isDrillDownMode just changed to false)
     };
 
     const handleRecipeSelect = (key) => {
@@ -1150,11 +1513,222 @@ const App = () => {
         }
     };
 
+    // Resolve the ISO2 for any feature (including sub-regions)
+    const resolveIso2 = (feature, displayName) => {
+        let iso2 = getIso2(feature);
+        if (!iso2 || iso2 === '-99') {
+            if (INDIAN_STATES.includes(displayName)) iso2 = 'in';
+            else if (CHINESE_PROVINCES.includes(displayName)) iso2 = 'cn';
+            else if (BRAZIL_STATES.includes(displayName)) iso2 = 'br';
+            else if (MEXICO_STATES.includes(displayName)) iso2 = 'mx';
+            else if (FRANCE_REGIONS.includes(displayName)) iso2 = 'fr';
+            else if (ITALIAN_REGIONS.includes(displayName)) iso2 = 'it';
+            else if (GREEK_REGIONS.includes(displayName)) iso2 = 'gr';
+            else if (DENMARK_REGIONS.includes(displayName)) iso2 = 'dk';
+            else if (EL_SALVADOR_DEPARTMENTS.includes(displayName)) iso2 = 'sv';
+            else {
+                const usEntry = culinaryDB['USA'];
+                if (usEntry && usEntry.regions && usEntry.regions[displayName]) iso2 = 'us';
+            }
+        }
+        return iso2;
+    };
+
+    // Compute tooltip data for hovered feature based on active metric mode
+    const getMetricTooltipData = () => {
+        if (!hoveredFeature || mapMode === 'political') return null;
+        const isoCode = getIso3(hoveredFeature);
+        const name = hoveredFeature.properties.NAME || hoveredFeature.properties.ADMIN || hoveredFeature.properties.name || '';
+        const normalizedName = getNormalizedName(hoveredFeature);
+        const displayName = normalizedName || name;
+        const iso2 = resolveIso2(hoveredFeature, displayName);
+        const recipe = window.getRecipeFromDB(culinaryDB, isoCode) || window.getRecipeFromDB(culinaryDB, normalizedName) || window.getRecipeFromDB(culinaryDB, name);
+
+        if (mapMode === 'primary_meat') {
+            const data = meatMapData[isoCode] || meatMapData[normalizedName] || meatMapData[name];
+            if (!data || typeof data !== 'object' || !data.primary) {
+                return { mode: 'meat', name: displayName, primary: 'No Data', dish: null, iso2 };
+            }
+            return { mode: 'meat', name: displayName, primary: data.primary, dish: recipe ? recipe.dish : null, iso2 };
+        }
+
+        if (mapMode === 'spice_level') {
+            const data = spiceMapData[isoCode] || spiceMapData[normalizedName] || spiceMapData[name];
+            if (!data || typeof data !== 'object' || !data.tier) {
+                return { mode: 'spice', name: displayName, tier: 'mild', label: 'Mild', score: 0, dish: null, iso2 };
+            }
+            return {
+                mode: 'spice',
+                name: displayName,
+                tier: data.tier,
+                label: data.label,
+                score: data.score,
+                dish: recipe ? recipe.dish : null,
+                iso2
+            };
+        }
+
+        if (mapMode === 'complexity') {
+            const data = complexityMapData[isoCode] || complexityMapData[normalizedName] || complexityMapData[name];
+            if (!data || typeof data !== 'object' || !data.tier) {
+                return { mode: 'complexity', name: displayName, tier: 'quick', label: 'Quick & Easy', score: 0, breakdown: null, dish: null, iso2 };
+            }
+            return {
+                mode: 'complexity',
+                name: displayName,
+                tier: data.tier,
+                label: data.label,
+                score: data.score,
+                breakdown: data.breakdown,
+                dish: recipe ? recipe.dish : null,
+                iso2
+            };
+        }
+
+        if (mapMode === 'base_spirit') {
+            const data = spiritMapData[isoCode] || spiritMapData[normalizedName] || spiritMapData[name];
+            if (!data || typeof data !== 'object' || !data.primary) {
+                return { mode: 'spirit', name: displayName, primary: 'No Drink', drinkName: null, iso2 };
+            }
+            return {
+                mode: 'spirit',
+                name: displayName,
+                primary: data.primary,
+                drinkName: data.drinkName,
+                iso2
+            };
+        }
+
+        return null;
+    };
+
+    const metricTooltip = getMetricTooltipData();
+
     return (
         <div className="relative w-full h-screen bg-gray-900 font-sans text-gray-100" onMouseMove={handleMouseMove}>
             <div id="map" ref={mapContainerRef} className="outline-none"></div>
 
             <div ref={effectsContainerRef} className="effects-container"></div>
+
+            {/* EU5-Style Map Mode Panel */}
+            <MapModePanel
+                activeMode={mapMode}
+                onModeChange={handleMapModeChange}
+                meatStats={meatStats}
+                spiceStats={spiceStats}
+                complexityStats={complexityStats}
+                spiritStats={spiritStats}
+            />
+
+            {/* Metric Tooltip (shown on hover in any metric mode) */}
+            {metricTooltip && mapMode !== 'political' && (
+                <div className="meat-tooltip" style={{ bottom: 80, left: 16 }}>
+                    <div className="meat-tooltip-header">
+                        {metricTooltip.iso2 && (
+                            <img
+                                className="meat-tooltip-flag"
+                                src={`https://flagcdn.com/w40/${metricTooltip.iso2.toLowerCase()}.png`}
+                                alt=""
+                                onError={(e) => { e.target.style.display = 'none'; }}
+                            />
+                        )}
+                        <span className="meat-tooltip-name">{metricTooltip.name}</span>
+                    </div>
+
+                    {metricTooltip.mode === 'meat' && (
+                        <div className="meat-tooltip-body">
+                            <div className="meat-tooltip-swatch-wrap" style={{ background: `${window.getMeatColor(metricTooltip.primary)}20` }}>
+                                <span className="meat-tooltip-swatch-icon">{window.getMeatIcon(metricTooltip.primary)}</span>
+                            </div>
+                            <div className="meat-tooltip-info">
+                                <span className="meat-tooltip-label">Primary Meat</span>
+                                <span className="meat-tooltip-value" style={{ color: window.getMeatColor(metricTooltip.primary) }}>{metricTooltip.primary}</span>
+                            </div>
+                        </div>
+                    )}
+
+                    {metricTooltip.mode === 'spice' && (
+                        <React.Fragment>
+                            <div className="meat-tooltip-body">
+                                <div className="meat-tooltip-swatch-wrap" style={{ background: `${window.getSpiceColor(metricTooltip.tier)}20` }}>
+                                    <span className="meat-tooltip-swatch-icon">{window.getSpiceIcon(metricTooltip.tier)}</span>
+                                </div>
+                                <div className="meat-tooltip-info">
+                                    <span className="meat-tooltip-label">Spice Level</span>
+                                    <span className="meat-tooltip-value" style={{ color: window.getSpiceColor(metricTooltip.tier) }}>{metricTooltip.label}</span>
+                                </div>
+                            </div>
+                            <div className="spice-tooltip-score">
+                                <div className="spice-tooltip-score-bar-track">
+                                    <div className="spice-tooltip-score-bar-fill" style={{ width: `${Math.min(100, (metricTooltip.score / 12) * 100)}%`, background: `linear-gradient(90deg, #60a5fa, ${window.getSpiceColor(metricTooltip.tier)})` }} />
+                                </div>
+                                <span className="spice-tooltip-score-num">{metricTooltip.score}</span>
+                            </div>
+                        </React.Fragment>
+                    )}
+
+                    {metricTooltip.mode === 'complexity' && (
+                        <React.Fragment>
+                            <div className="meat-tooltip-body">
+                                <div className="meat-tooltip-swatch-wrap" style={{ background: `${window.getComplexityColor(metricTooltip.tier)}20` }}>
+                                    <span className="meat-tooltip-swatch-icon">{window.getComplexityIcon(metricTooltip.tier)}</span>
+                                </div>
+                                <div className="meat-tooltip-info">
+                                    <span className="meat-tooltip-label">Complexity</span>
+                                    <span className="meat-tooltip-value" style={{ color: window.getComplexityColor(metricTooltip.tier) }}>{metricTooltip.label}</span>
+                                </div>
+                            </div>
+                            {metricTooltip.breakdown && (
+                                <div className="cx-tooltip-breakdown">
+                                    {[
+                                        { key: 'ingredients', label: 'Ingredients', max: 25, color: '#38bdf8' },
+                                        { key: 'technique', label: 'Technique', max: 30, color: '#8b5cf6' },
+                                        { key: 'process', label: 'Process', max: 30, color: '#6366f1' },
+                                        { key: 'skill', label: 'Skill', max: 15, color: '#c026d3' }
+                                    ].map(dim => (
+                                        <div key={dim.key} className="cx-tooltip-dim">
+                                            <span className="cx-tooltip-dim-label">{dim.label}</span>
+                                            <div className="cx-tooltip-dim-bar-track">
+                                                <div className="cx-tooltip-dim-bar-fill" style={{ width: `${Math.min(100, (metricTooltip.breakdown[dim.key] / dim.max) * 100)}%`, background: dim.color }} />
+                                            </div>
+                                            <span className="cx-tooltip-dim-val">{metricTooltip.breakdown[dim.key]}</span>
+                                        </div>
+                                    ))}
+                                    <div className="cx-tooltip-total">
+                                        <span className="cx-tooltip-total-label">Total Score</span>
+                                        <span className="cx-tooltip-total-score" style={{ color: window.getComplexityColor(metricTooltip.tier) }}>{metricTooltip.score}</span>
+                                    </div>
+                                </div>
+                            )}
+                        </React.Fragment>
+                    )}
+
+                    {metricTooltip.mode === 'spirit' && (
+                        <div className="meat-tooltip-body">
+                            <div className="meat-tooltip-swatch-wrap" style={{ background: `${window.getSpiritColor(metricTooltip.primary)}20` }}>
+                                <span className="meat-tooltip-swatch-icon">{window.getSpiritIcon(metricTooltip.primary)}</span>
+                            </div>
+                            <div className="meat-tooltip-info">
+                                <span className="meat-tooltip-label">Base Spirit</span>
+                                <span className="meat-tooltip-value" style={{ color: window.getSpiritColor(metricTooltip.primary) }}>{metricTooltip.primary}</span>
+                            </div>
+                        </div>
+                    )}
+
+                    {metricTooltip.dish && metricTooltip.mode !== 'spirit' && (
+                        <div className="meat-tooltip-dish">
+                            <span className="meat-tooltip-dish-label">Dish:</span>
+                            <span>{metricTooltip.dish}</span>
+                        </div>
+                    )}
+                    {metricTooltip.drinkName && metricTooltip.mode === 'spirit' && (
+                        <div className="meat-tooltip-dish">
+                            <span className="meat-tooltip-dish-label">Drink:</span>
+                            <span>{metricTooltip.drinkName}</span>
+                        </div>
+                    )}
+                </div>
+            )}
 
             {isMapLoading && (
                 <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-gray-900">
@@ -1233,16 +1807,16 @@ const App = () => {
             />
 
             {/* GLOBAL CLEAR BUTTON (Visible whenever map is highlighted) */}
-            {highlightedKeys && (
+            {highlightedKeys && mapMode === 'political' && (
                 <button
                     onClick={handleGlobalClear}
-                    className="absolute top-4 left-1/2 transform -translate-x-1/2 z-[1200] bg-red-600 hover:bg-red-500 text-white px-6 py-2 rounded-full shadow-xl border border-red-400 font-bold text-sm tracking-wide animate-in fade-in slide-in-from-top-4 duration-300 flex items-center gap-2"
+                    className="absolute top-20 left-1/2 transform -translate-x-1/2 z-[1200] bg-red-600 hover:bg-red-500 text-white px-6 py-2 rounded-full shadow-xl border border-red-400 font-bold text-sm tracking-wide animate-in fade-in slide-in-from-top-4 duration-300 flex items-center gap-2"
                 >
                     <span>✕</span> Clear Map
                 </button>
             )}
 
-            <PreviewCard feature={hoveredFeature} db={culinaryDB} />
+            {mapMode === 'political' && <PreviewCard feature={hoveredFeature} db={culinaryDB} />}
 
             {highlightedKeys && (
                 <div className="absolute bottom-24 right-4 z-[1000] bg-gray-900/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-2xl text-xs text-gray-200 animate-in fade-in slide-in-from-right-4 duration-300 pointer-events-none select-none w-32">
@@ -1280,7 +1854,11 @@ const App = () => {
             {!selectedCountry && !hoveredFeature && !isMapLoading && (
                 <div className="absolute bottom-8 w-full text-center pointer-events-none z-[400]" data-testid="map-hint">
                     <span className="bg-black/70 text-gray-300 px-6 py-3 rounded-full text-sm font-medium backdrop-blur-md border border-gray-700">
-                        Click a country to reveal its secret recipe 🍳
+                        {mapMode === 'political' && 'Click a country to reveal its secret recipe 🍳'}
+                        {mapMode === 'primary_meat' && 'Hover over a region to see its primary protein 🍖'}
+                        {mapMode === 'spice_level' && 'Hover over a region to see its spice level 🌶️'}
+                        {mapMode === 'complexity' && 'Hover over a region to see recipe complexity 🧪'}
+                        {mapMode === 'base_spirit' && 'Hover over a region to see its signature drink 🍸'}
                     </span>
                 </div>
             )}

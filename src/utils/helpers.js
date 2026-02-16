@@ -438,5 +438,779 @@ window.getRegionConfig = () => {
     };
 };
 
+// --- PRIMARY MEAT / PROTEIN ANALYSIS ENGINE ---
+window.MEAT_CATEGORIES = {
+    'Chicken': {
+        keywords: ['chicken', 'poultry', 'hen', 'fowl', 'turkey'],
+        color: '#f59e0b',
+        icon: '\u{1F414}'
+    },
+    'Beef': {
+        keywords: ['beef', 'cattle', 'veal', 'steer', 'ox', 'oxtail', 'brisket'],
+        color: '#dc2626',
+        icon: '\u{1F42E}'
+    },
+    'Pork': {
+        keywords: ['pork', 'ham', 'bacon', 'lard', 'prosciutto', 'pancetta', 'chorizo', 'sausage', 'lardon', 'lardons', 'guanciale', 'pig'],
+        color: '#f472b6',
+        icon: '\u{1F437}'
+    },
+    'Lamb/Goat': {
+        keywords: ['lamb', 'mutton', 'goat', 'sheep', 'kid meat'],
+        color: '#a855f7',
+        icon: '\u{1F411}'
+    },
+    'Fish/Seafood': {
+        keywords: ['fish', 'salmon', 'tuna', 'cod', 'shrimp', 'prawn', 'crab', 'lobster', 'clam', 'mussel', 'oyster', 'squid', 'octopus', 'anchovy', 'anchovies', 'sardine', 'mackerel', 'tilapia', 'snapper', 'bass', 'trout', 'halibut', 'swordfish', 'crawfish', 'crayfish', 'scallop', 'calamari', 'seafood', 'conch', 'grouper', 'catfish', 'perch', 'herring', 'haddock', 'pollock', 'mahi', 'barramundi', 'dogfish', 'cazón', 'shark', 'eel', 'bream', 'kingfish', 'snail', 'escargot'],
+        color: '#06b6d4',
+        icon: '\u{1F41F}'
+    },
+    'Duck/Game': {
+        keywords: ['duck', 'goose', 'venison', 'rabbit', 'quail', 'pheasant', 'bison', 'elk', 'boar', 'game', 'pigeon', 'guinea fowl'],
+        color: '#84cc16',
+        icon: '\u{1F986}'
+    },
+    'Vegetarian': {
+        keywords: [],
+        color: '#10b981',
+        icon: '\u{1F331}'
+    },
+    'No Data': {
+        keywords: [],
+        color: '#374151',
+        icon: '\u{2753}'
+    }
+};
+
+window.analyzeMeatForRecipe = (recipe) => {
+    if (!recipe || !recipe.ingredients) return null;
+
+    const scores = {};
+    Object.keys(window.MEAT_CATEGORIES).forEach(cat => {
+        if (cat !== 'Vegetarian' && cat !== 'No Data') scores[cat] = 0;
+    });
+
+    // Analyze each ingredient line individually for context
+    recipe.ingredients.forEach(rawIng => {
+        const ing = rawIng.toLowerCase();
+
+        // Handle "X or Y" alternatives: only score the first (preferred) option
+        const alternatives = ing.split(/\s+or\s+/);
+        const textToScore = alternatives[0];
+
+        // Downweight cooking fats -- "lard" or "duck fat" as a cooking medium
+        // doesn't mean the dish IS that protein
+        const isCookingFat = /\b(lard|duck fat|bacon fat|schmaltz|dripping)\b/i.test(textToScore)
+            && /\b(for frying|for cooking|tablespoon|tbsp|tsp|teaspoon)\b/i.test(ing);
+
+        Object.entries(window.MEAT_CATEGORIES).forEach(([category, data]) => {
+            if (category === 'Vegetarian' || category === 'No Data') return;
+            data.keywords.forEach(keyword => {
+                const regex = new RegExp('\\b' + keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i');
+                if (regex.test(textToScore)) {
+                    // Context-aware sausage: "chicken sausage" → chicken, "turkey sausage" → chicken
+                    if (keyword === 'sausage') {
+                        if (/chicken|turkey|poultry/i.test(ing)) return;
+                        if (/lamb|mutton/i.test(ing)) return;
+                        if (/beef/i.test(ing)) return;
+                    }
+                    scores[category] += isCookingFat ? 0.25 : 1;
+                }
+            });
+        });
+    });
+
+    let maxScore = 0;
+    let primary = 'Vegetarian';
+    Object.entries(scores).forEach(([cat, score]) => {
+        if (score > maxScore) {
+            maxScore = score;
+            primary = cat;
+        }
+    });
+
+    return { primary, scores, total: maxScore };
+};
+
+window.buildMeatMap = (db) => {
+    const meatMap = {};
+    const countriesWithRegions = new Set();
+    
+    Object.entries(db).forEach(([key, entry]) => {
+        if (entry.regions) {
+            countriesWithRegions.add(key);
+            Object.entries(entry.regions).forEach(([regionName, regionRecipe]) => {
+                const analysis = window.analyzeMeatForRecipe(regionRecipe);
+                if (analysis) {
+                    meatMap[regionName] = analysis;
+                }
+            });
+        }
+        
+        // Always store national-level too (for fallback/tooltip)
+        const analysis = window.analyzeMeatForRecipe(entry);
+        if (analysis) {
+            meatMap[key] = analysis;
+        }
+    });
+    
+    // Tag which keys are national entries for countries that have regions
+    meatMap._countriesWithRegions = Array.from(countriesWithRegions);
+    
+    return meatMap;
+};
+
+window.getMeatColor = (meatType) => {
+    const cat = window.MEAT_CATEGORIES[meatType];
+    return cat ? cat.color : '#374151';
+};
+
+window.getMeatIcon = (meatType) => {
+    const cat = window.MEAT_CATEGORIES[meatType];
+    return cat ? cat.icon : '\u{2753}';
+};
+
+window.getMeatStats = (meatMap) => {
+    const stats = {};
+    const countriesWithRegions = new Set(meatMap._countriesWithRegions || []);
+    
+    Object.entries(meatMap).forEach(([key, value]) => {
+        if (key === '_countriesWithRegions') return;
+        if (typeof value !== 'object' || !value.primary) return;
+        
+        // Skip national-level entries for countries that have regions
+        // (only count their provinces/states)
+        if (countriesWithRegions.has(key)) return;
+        
+        stats[value.primary] = (stats[value.primary] || 0) + 1;
+    });
+    return stats;
+};
+
+// --- SPICE LEVEL / HEAT INDEX ANALYSIS ENGINE ---
+window.SPICE_TIERS = [
+    { id: 'fiery',  label: 'Fiery',  icon: '\u{1F525}\u{1F525}', minScore: 8,  color: '#ef4444', glow: 'rgba(239,68,68,0.5)' },
+    { id: 'hot',    label: 'Hot',    icon: '\u{1F525}',          minScore: 5,  color: '#f97316', glow: 'rgba(249,115,22,0.5)' },
+    { id: 'medium', label: 'Medium', icon: '\u{1F336}\u{FE0F}',  minScore: 3,  color: '#eab308', glow: 'rgba(234,179,8,0.5)' },
+    { id: 'gentle', label: 'Gentle', icon: '\u{1F33F}',          minScore: 1,  color: '#22d3ee', glow: 'rgba(34,211,238,0.5)' },
+    { id: 'mild',   label: 'Mild',   icon: '\u{2744}\u{FE0F}',   minScore: 0,  color: '#60a5fa', glow: 'rgba(96,165,250,0.5)' }
+];
+
+// Heat-producing ingredient patterns with Scoville-calibrated weights.
+// Pure aromatics are excluded. All patterns use \b word boundaries.
+window.SPICE_KEYWORDS = {
+    extreme: {
+        weight: 5,
+        words: [
+            '\\bhabanero\\b', '\\bscotch bonnet\\b', '\\bghost pepper\\b',
+            '\\bbhut jolokia\\b', '\\bcarolina reaper\\b', '\\btrinidad scorpion\\b',
+            '\\bnaga\\b', '\\bbird.?s?.?eye chili', '\\bbird.?s?.?eye pepper',
+            '\\bpiri piri\\b', '\\bperi peri\\b', '\\bthai chili', '\\bthai chile',
+            '\\bthai pepper\\b'
+        ]
+    },
+    high: {
+        weight: 3,
+        words: [
+            '\\bcayenne\\b', '\\bserrano\\b', '\\bgochugaru\\b', '\\bgochujang\\b',
+            '\\bsambal\\b', '\\bsriracha\\b', '\\bhot sauce\\b',
+            '\\bred pepper flake', '\\bcrushed red pepper',
+            '\\bchipotle\\b', '\\bde arbol\\b', '\\btabasco\\b',
+            '\\bharissa\\b', '\\bberbere\\b',
+            '\\baji\\s+\\w+', '\\baleppo pepper\\b',
+            '\\bkashmiri chili', '\\bkashmiri chilli',
+            '\\bred chili', '\\bred chile', '\\bred chilli',
+            '\\bgreen chili', '\\bgreen chile', '\\bgreen chilli',
+            '\\bdried chili', '\\bdried chile',
+            '\\bchili paste', '\\bchile paste',
+            '\\bchili sauce', '\\bchile sauce',
+            '\\bhot pepper', '\\bguajillo\\b',
+            '\\bpasilla\\b', '\\bjerk seasoning\\b', '\\bcajun\\b',
+            // Standalone dried chili variety names (Mexican, etc.)
+            '\\bancho\\b', '\\bmulato\\b', '\\bcascabel\\b',
+            '\\bmorita\\b', '\\bpuya\\b', '\\btepín\\b', '\\btepin\\b'
+        ]
+    },
+    medium: {
+        weight: 2,
+        words: [
+            '\\bchili powder', '\\bchile powder', '\\bchilli powder',
+            '\\bchili flake', '\\bchile flake',
+            '\\bjalapeno\\b', '\\bjalape.o\\b', '\\bpoblano\\b',
+            '\\bcurry paste\\b', '\\bred curry\\b', '\\bgreen curry\\b',
+            '\\byellow curry\\b', '\\bvindaloo\\b', '\\bmadras\\b',
+            '\\bszechuan pepper', '\\bsichuan pepper',
+            '\\bwasabi\\b', '\\bhorseradish\\b',
+            '\\bgaram masala\\b', '\\btandoori\\b',
+            // Bare "chile(s)" / "chili(s)" as standalone (the word itself implies heat)
+            '\\bchiles\\b', '\\bchilis\\b', '\\bchilies\\b',
+            '\\bchillies\\b', '\\bchillis\\b'
+        ]
+    },
+    low: {
+        weight: 1,
+        words: [
+            '\\bcurry powder\\b',
+            '\\bmustard powder\\b', '\\bdijon mustard\\b',
+            '\\bginger\\b',
+            // Bare singular "chili"/"chile"/"chilli" (could be incidental)
+            '\\bchili\\b', '\\bchile\\b', '\\bchilli\\b'
+        ]
+    }
+};
+
+// Modifiers that reduce a heat keyword's contribution
+window._SPICE_DAMPENERS = /\b(sweet|mild|smoked|dulce|optional|garnish|to taste|if desired|or to taste|seeded|deveined)\b/i;
+// Paprika needs special handling: only counts if NOT preceded by "sweet" or "smoked"
+window._PAPRIKA_PATTERN = /\bpaprika\b/i;
+window._PAPRIKA_NEGATE = /\b(sweet|smoked|dulce)\b/i;
+
+window.analyzeSpiceForRecipe = (recipe) => {
+    if (!recipe || !recipe.ingredients) return null;
+
+    const ings = recipe.ingredients;
+    const totalIngredients = ings.length;
+    if (totalIngredients === 0) return null;
+
+    let rawScore = 0;
+    let heatIngredientCount = 0;
+    let highestSingleWeight = 0;
+    const matched = new Set();
+
+    // === INGREDIENT SCAN (primary signal) ===
+    ings.forEach(rawIng => {
+        const fullIng = rawIng.toLowerCase();
+        const orParts = fullIng.split(/\s+or\s+/);
+        const ing = orParts[0];
+        let ingContributed = false;
+
+        const isDampened = window._SPICE_DAMPENERS.test(fullIng);
+        const dampenFactor = isDampened ? 0.3 : 1.0;
+
+        // Quantity boost: "4 ancho" or "6 chiles" → multiple chilis = more heat
+        const qtyMatch = ing.match(/^(\d+)\s/);
+        const qty = qtyMatch ? parseInt(qtyMatch[1]) : 1;
+        const qtyBoost = qty >= 3 ? 1.5 : (qty >= 2 ? 1.2 : 1.0);
+
+        // Special paprika handling
+        if (window._PAPRIKA_PATTERN.test(ing) && !window._PAPRIKA_NEGATE.test(ing)) {
+            if (!matched.has('_paprika')) {
+                matched.add('_paprika');
+                const pts = 2 * dampenFactor * qtyBoost;
+                rawScore += pts;
+                highestSingleWeight = Math.max(highestSingleWeight, pts);
+                ingContributed = true;
+            }
+        }
+
+        Object.entries(window.SPICE_KEYWORDS).forEach(([level, { weight, words }]) => {
+            words.forEach(pattern => {
+                if (matched.has(pattern)) return;
+                try {
+                    const regex = new RegExp(pattern, 'i');
+                    if (regex.test(ing)) {
+                        matched.add(pattern);
+                        const pts = weight * dampenFactor * qtyBoost;
+                        rawScore += pts;
+                        highestSingleWeight = Math.max(highestSingleWeight, weight);
+                        ingContributed = true;
+                    }
+                } catch (e) {}
+            });
+        });
+
+        if (ingContributed) heatIngredientCount++;
+    });
+
+    // === STEP TEXT SCAN (secondary signal, 40% weight) ===
+    // Catches heat ingredients mentioned in steps but not the ingredient list
+    const stepsText = (recipe.steps || []).join(' ').toLowerCase();
+    let stepBonus = 0;
+    const stepPatterns = [
+        { p: /\b(cayenne|serrano|habanero|scotch bonnet|ghost pepper|chipotle|gochugaru|gochujang|sambal|harissa|berbere)\b/i, w: 2 },
+        { p: /\b(red chili|green chili|red chile|green chile|chili powder|chile powder|chili flake|hot sauce|hot pepper)\b/i, w: 1.5 },
+        { p: /\b(paprika|jalapeno|jalapeño|curry paste|garam masala)\b/i, w: 1 }
+    ];
+    stepPatterns.forEach(({ p, w }) => {
+        if (p.test(stepsText) && !p.test(ings.join(' ').toLowerCase())) {
+            stepBonus += w;
+        }
+    });
+    rawScore += stepBonus * 0.4;
+
+    // === RATIO-BASED ADJUSTMENT ===
+    const heatRatio = totalIngredients > 0 ? heatIngredientCount / totalIngredients : 0;
+    const relevanceMultiplier = Math.max(0.3, Math.min(2.0, 0.25 + heatRatio * 3.0));
+
+    // === INTENSITY FLOOR ===
+    // Even if only 1 ingredient is a chili, a scotch bonnet (weight 5) must score
+    // at least Medium. The raw weight encodes how hot the pepper IS.
+    const intensityFloor = Math.round(highestSingleWeight * 0.6);
+
+    // === DESCRIPTION SENTIMENT ===
+    const desc = (recipe.description || '').toLowerCase();
+    const dishName = (recipe.dish || '').toLowerCase();
+    const descText = desc + ' ' + dishName;
+
+    let sentimentBonus = 0;
+    if (/\b(fiery|burning|pungent|scorching|blazing|incendiary)\b/.test(descText)) sentimentBonus += 2;
+    if (/\b(spicy|spiced)\b/.test(descText)) sentimentBonus += 1;
+    const negativeHits = (descText.match(/\b(mild|delicate|subtle|light|refresh\w*|cream\w*|cool\w*|sweet|citrus\w*|tang\w*|sour|tart|bright|clean|briny|herbal|aromatic|fragrant|comfort\w*|rich|savory|umami)\b/g) || []).length;
+    sentimentBonus -= Math.min(negativeHits, 3);
+
+    // === FINAL SCORE ===
+    const ratioAdjusted = Math.round(rawScore * relevanceMultiplier);
+    const adjustedScore = Math.max(0, Math.max(intensityFloor, ratioAdjusted) + sentimentBonus);
+
+    let tier = window.SPICE_TIERS[window.SPICE_TIERS.length - 1];
+    for (const t of window.SPICE_TIERS) {
+        if (adjustedScore >= t.minScore) { tier = t; break; }
+    }
+
+    return { score: adjustedScore, tier: tier.id, label: tier.label, color: tier.color };
+};
+
+window.buildSpiceMap = (db) => {
+    const spiceMap = {};
+    const countriesWithRegions = new Set();
+
+    Object.entries(db).forEach(([key, entry]) => {
+        if (entry.regions) {
+            countriesWithRegions.add(key);
+            Object.entries(entry.regions).forEach(([regionName, regionRecipe]) => {
+                const analysis = window.analyzeSpiceForRecipe(regionRecipe);
+                if (analysis) spiceMap[regionName] = analysis;
+            });
+        }
+        const analysis = window.analyzeSpiceForRecipe(entry);
+        if (analysis) spiceMap[key] = analysis;
+    });
+
+    spiceMap._countriesWithRegions = Array.from(countriesWithRegions);
+    return spiceMap;
+};
+
+window.getSpiceTier = (tierId) => {
+    return window.SPICE_TIERS.find(t => t.id === tierId) || window.SPICE_TIERS[window.SPICE_TIERS.length - 1];
+};
+
+window.getSpiceColor = (tierId) => {
+    const tier = window.getSpiceTier(tierId);
+    return tier.color;
+};
+
+window.getSpiceIcon = (tierId) => {
+    const tier = window.getSpiceTier(tierId);
+    return tier.icon;
+};
+
+window.getSpiceStats = (spiceMap) => {
+    const stats = {};
+    const countriesWithRegions = new Set(spiceMap._countriesWithRegions || []);
+
+    Object.entries(spiceMap).forEach(([key, value]) => {
+        if (key === '_countriesWithRegions') return;
+        if (typeof value !== 'object' || !value.label) return;
+        if (countriesWithRegions.has(key)) return;
+        stats[value.label] = (stats[value.label] || 0) + 1;
+    });
+    return stats;
+};
+
+// --- RECIPE COMPLEXITY INDEX ENGINE (multi-dimensional) ---
+window.COMPLEXITY_TIERS = [
+    { id: 'masterclass',   label: 'Masterclass',   icon: '\u{1F451}', minScore: 55, color: '#c026d3', glow: 'rgba(192,38,211,0.5)' },
+    { id: 'advanced',      label: 'Advanced',      icon: '\u{1F52C}', minScore: 38, color: '#8b5cf6', glow: 'rgba(139,92,246,0.5)' },
+    { id: 'intermediate',  label: 'Intermediate',  icon: '\u{1F373}', minScore: 22, color: '#6366f1', glow: 'rgba(99,102,241,0.5)' },
+    { id: 'approachable',  label: 'Approachable',  icon: '\u{1F44C}', minScore: 10, color: '#38bdf8', glow: 'rgba(56,189,248,0.5)' },
+    { id: 'quick',         label: 'Quick & Easy',  icon: '\u{26A1}',  minScore: 0,  color: '#34d399', glow: 'rgba(52,211,153,0.5)' }
+];
+
+window.TECHNIQUE_LEXICON = {
+    basic: {
+        weight: 1,
+        verbs: ['boil', 'fry', 'bake', 'roast', 'grill', 'steam', 'simmer', 'stir', 'mix',
+                'chop', 'slice', 'dice', 'mash', 'melt', 'toast', 'heat', 'warm', 'cook',
+                'drain', 'rinse', 'soak', 'peel', 'trim', 'wash', 'season', 'toss',
+                'spread', 'layer', 'wrap', 'fill', 'stuff', 'serve', 'plate', 'garnish',
+                'form', 'shape', 'roll', 'flatten', 'crush', 'crumble', 'assemble',
+                'dip', 'coat', 'bread', 'dust', 'drizzle', 'brush', 'pour']
+    },
+    intermediate: {
+        weight: 2,
+        verbs: ['braise', 'stew', 'poach', 'blanch', 'deglaze', 'reduce', 'marinate',
+                'caramelize', 'char', 'smoke', 'sear', 'sweat', 'render', 'fold',
+                'whisk', 'cream', 'knead', 'proof', 'rest', 'infuse', 'steep',
+                'baste', 'glaze', 'score', 'butterfly', 'pound', 'shred', 'julienne',
+                'zest', 'bloom', 'dry.?rub', 'deep.?fry', 'stir.?fry', 'pan.?fry',
+                'par.?boil', 'par.?cook', 'blind.?bake', 'skim', 'strain', 'sift',
+                'puree', 'blend', 'process', 'grind', 'spatchcock']
+    },
+    advanced: {
+        weight: 3,
+        verbs: ['temper', 'laminate', 'ferment', 'confit', 'cure', 'flamb',
+                'sous.?vide', 'emulsify', 'clarify', 'debone', 'truss',
+                'brine', 'cold.?smoke', 'hot.?smoke', 'dry.?age',
+                'chiffonade', 'brunoise', 'baton', 'tournee',
+                'mount', 'nappe', 'ribbon', 'coddle', 'spherif']
+    }
+};
+
+window.analyzeComplexityForRecipe = (recipe) => {
+    if (!recipe || !recipe.ingredients || !recipe.steps) return null;
+
+    // === DIMENSION 1: Ingredient Breadth (0-25) ===
+    // Expand compound ingredient lines ("Dough: flour, cornmeal, ghee" -> 3 items)
+    const rawIngs = [...(recipe.ingredients || [])];
+    if (recipe.preliminary_steps) {
+        recipe.preliminary_steps.forEach(ps => {
+            if (ps.ingredients) rawIngs.push(...ps.ingredients);
+        });
+    }
+    const expandedIngs = [];
+    rawIngs.forEach(line => {
+        if (line.includes(':')) {
+            const afterColon = line.split(':').slice(1).join(':');
+            const subs = afterColon.split(',').map(s => s.trim()).filter(s => s.length > 1);
+            if (subs.length > 1) {
+                subs.forEach(s => expandedIngs.push(s));
+            } else {
+                expandedIngs.push(line);
+            }
+        } else {
+            expandedIngs.push(line);
+        }
+    });
+    let nonStapleCount = 0;
+    expandedIngs.forEach(ing => {
+        if (!window.isStaple(ing)) nonStapleCount++;
+    });
+    let ingredientScore = Math.min(nonStapleCount, 8);
+    if (nonStapleCount > 8) ingredientScore += (Math.min(nonStapleCount, 15) - 8) * 0.6;
+    if (nonStapleCount > 15) ingredientScore += (nonStapleCount - 15) * 0.3;
+    ingredientScore = Math.min(ingredientScore, 25);
+
+    // === DIMENSION 2: Technique Depth (0-30) ===
+    let allStepsText = (recipe.steps || []).join(' ').toLowerCase();
+    if (recipe.preliminary_steps) {
+        recipe.preliminary_steps.forEach(ps => {
+            if (ps.steps) allStepsText += ' ' + ps.steps.join(' ').toLowerCase();
+        });
+    }
+    // Also scan ingredient text for technique hints (e.g. "marinated", "smoked")
+    const allIngText = expandedIngs.join(' ').toLowerCase();
+
+    const foundTechniques = new Set();
+    let techniqueScore = 0;
+    Object.entries(window.TECHNIQUE_LEXICON).forEach(([level, { weight, verbs }]) => {
+        verbs.forEach(verb => {
+            try {
+                if (new RegExp('\\b' + verb, 'i').test(allStepsText + ' ' + allIngText)) {
+                    if (!foundTechniques.has(verb)) {
+                        foundTechniques.add(verb);
+                        techniqueScore += weight;
+                    }
+                }
+            } catch(e) {}
+        });
+    });
+    // Multi-method bonus: using 3+ distinct cooking METHODS is harder
+    const cookingMethods = ['boil', 'fry', 'bake', 'roast', 'grill', 'steam', 'simmer',
+        'braise', 'stew', 'poach', 'smoke', 'sear', 'deep.?fry', 'stir.?fry', 'pan.?fry', 'char'];
+    let methodCount = 0;
+    cookingMethods.forEach(m => {
+        try { if (new RegExp('\\b' + m, 'i').test(allStepsText)) methodCount++; } catch(e) {}
+    });
+    if (methodCount >= 3) techniqueScore += (methodCount - 2) * 2;
+
+    techniqueScore = Math.min(techniqueScore, 30);
+
+    // === DIMENSION 3: Process Intensity (0-30) ===
+    const mainSteps = recipe.steps || [];
+    let totalStepCount = mainSteps.length;
+    let prelimCount = 0;
+    if (recipe.preliminary_steps && recipe.preliminary_steps.length > 0) {
+        prelimCount = recipe.preliminary_steps.length;
+        recipe.preliminary_steps.forEach(ps => {
+            totalStepCount += (ps.steps || []).length;
+        });
+    }
+
+    // Detect compressed steps: count sentence-ending periods within steps
+    // "Form dough balls. Boil in water." is 2 tasks in 1 step
+    let extraSubTasks = 0;
+    mainSteps.forEach(step => {
+        const sentences = step.split(/\.\s+(?=[A-Z])/).length;
+        if (sentences > 1) extraSubTasks += (sentences - 1);
+    });
+    const effectiveSteps = totalStepCount + Math.floor(extraSubTasks * 0.6);
+
+    // Step-based text volume: longer steps = denser work
+    const totalStepChars = mainSteps.reduce((sum, s) => sum + s.length, 0);
+    const textDensityBonus = Math.min(Math.floor(totalStepChars / 250), 5);
+
+    let processScore = Math.min(effectiveSteps, 6);
+    if (effectiveSteps > 6) processScore += (Math.min(effectiveSteps, 12) - 6) * 0.7;
+    if (effectiveSteps > 12) processScore += (effectiveSteps - 12) * 0.4;
+    processScore += textDensityBonus;
+    processScore += prelimCount * 6;
+
+    // Time indicators
+    if (/overnight|24\s*hours?|next\s*day|day\s*before|days?\s*in|for\s*\d+\s*days/i.test(allStepsText)) processScore += 4;
+    else if (/(\d+)\s*hours?/i.test(allStepsText)) {
+        const match = allStepsText.match(/(\d+)\s*hours?/i);
+        if (match && parseInt(match[1]) >= 2) processScore += 3;
+        else processScore += 1.5;
+    }
+    // Minute-based time: 30+ mins of active waiting is non-trivial
+    const minMatch = allStepsText.match(/(\d+)\s*min/i);
+    if (minMatch && parseInt(minMatch[1]) >= 30) processScore += 1;
+
+    // Multiple temperature stages
+    const tempMatches = allStepsText.match(/\d+\s*°[fFcC]/g);
+    if (tempMatches && tempMatches.length > 1) processScore += (tempMatches.length - 1) * 1.5;
+    processScore = Math.min(processScore, 30);
+
+    // === DIMENSION 4: Skill Demand (0-15) ===
+    const skillTerms = [
+        'julienne', 'chiffonade', 'brunoise', 'debone', 'spatchcock', 'butterfly',
+        'fold gently', 'fold careful', 'knead', 'laminate', 'proof', 'ferment',
+        'temper', 'bloom', 'emulsif', 'ribbon stage', 'soft peak', 'stiff peak',
+        'ice bath', 'shock', 'flash', 'torch', 'flamb',
+        'paper.?thin', 'translucent', 'caramel stage', 'crack stage', 'thread stage',
+        'al dente', 'bain.?marie', 'double boiler', 'water bath',
+        'roll.?thin', 'stretch.?thin', 'pound.?flat', 'truss',
+        // Manual dough/shaping work
+        'form.*ball', 'shape.*ball', 'roll.*dough', 'flatten.*dough',
+        'pinch', 'pleat', 'crimp', 'seal.*edge', 'stuff.*fold',
+        'roll.*out', 'stretch.*dough', 'form.*patties', 'mold',
+        // Assembly work
+        'assemble', 'stack.*layer', 'wrap.*tight', 'tie.*string'
+    ];
+    const foundSkills = new Set();
+    skillTerms.forEach(term => {
+        try {
+            if (new RegExp(term, 'i').test(allStepsText)) foundSkills.add(term);
+        } catch(e) {}
+    });
+    // Dough-from-scratch bonus: flour in ingredients + shaping in steps
+    const hasDoughWork = /flour|dough|masa|batter/i.test(allIngText) &&
+        /form|shape|roll|knead|flatten|ball|patties|wrap/i.test(allStepsText);
+    if (hasDoughWork) foundSkills.add('_dough_from_scratch');
+
+    let skillScore = foundSkills.size * 2;
+    skillScore = Math.min(skillScore, 15);
+
+    // === COMPOSITE ===
+    const total = Math.round(ingredientScore + techniqueScore + processScore + skillScore);
+
+    let tier = window.COMPLEXITY_TIERS[window.COMPLEXITY_TIERS.length - 1];
+    for (const t of window.COMPLEXITY_TIERS) {
+        if (total >= t.minScore) { tier = t; break; }
+    }
+
+    return {
+        score: total,
+        tier: tier.id,
+        label: tier.label,
+        color: tier.color,
+        breakdown: {
+            ingredients: Math.round(ingredientScore),
+            technique: Math.round(techniqueScore),
+            process: Math.round(processScore),
+            skill: Math.round(skillScore)
+        }
+    };
+};
+
+window.buildComplexityMap = (db) => {
+    const cxMap = {};
+    const countriesWithRegions = new Set();
+
+    Object.entries(db).forEach(([key, entry]) => {
+        if (entry.regions) {
+            countriesWithRegions.add(key);
+            Object.entries(entry.regions).forEach(([regionName, regionRecipe]) => {
+                const analysis = window.analyzeComplexityForRecipe(regionRecipe);
+                if (analysis) cxMap[regionName] = analysis;
+            });
+        }
+        const analysis = window.analyzeComplexityForRecipe(entry);
+        if (analysis) cxMap[key] = analysis;
+    });
+
+    cxMap._countriesWithRegions = Array.from(countriesWithRegions);
+    return cxMap;
+};
+
+window.getComplexityTier = (tierId) => {
+    return window.COMPLEXITY_TIERS.find(t => t.id === tierId) || window.COMPLEXITY_TIERS[window.COMPLEXITY_TIERS.length - 1];
+};
+
+window.getComplexityColor = (tierId) => {
+    return window.getComplexityTier(tierId).color;
+};
+
+window.getComplexityIcon = (tierId) => {
+    return window.getComplexityTier(tierId).icon;
+};
+
+window.getComplexityStats = (cxMap) => {
+    const stats = {};
+    const countriesWithRegions = new Set(cxMap._countriesWithRegions || []);
+    Object.entries(cxMap).forEach(([key, value]) => {
+        if (key === '_countriesWithRegions') return;
+        if (typeof value !== 'object' || !value.label) return;
+        if (countriesWithRegions.has(key)) return;
+        stats[value.label] = (stats[value.label] || 0) + 1;
+    });
+    return stats;
+};
+
+// --- BASE SPIRIT / DRINK ANALYSIS ENGINE ---
+window.SPIRIT_CATEGORIES = {
+    'Rum': {
+        keywords: ['\\brum\\b', '\\blight rum\\b', '\\bdark rum\\b', '\\bwhite rum\\b', '\\bspiced rum\\b', '\\boverproof\\b', '\\brhum\\b', '\\bcacha[cç]a\\b', '\\baguardiente\\b'],
+        color: '#d97706', icon: '\u{1F943}'
+    },
+    'Whisky': {
+        keywords: ['\\bwhisky\\b', '\\bwhiskey\\b', '\\bbourbon\\b', '\\bscotch\\b', '\\brye whiskey\\b', '\\brye whisky\\b', '\\bmalt\\b'],
+        color: '#b45309', icon: '\u{1F951}'
+    },
+    'Vodka': {
+        keywords: ['\\bvodka\\b'],
+        color: '#94a3b8', icon: '\u{2744}\u{FE0F}'
+    },
+    'Tequila/Mezcal': {
+        keywords: ['\\btequila\\b', '\\bmezcal\\b', '\\bmescal\\b'],
+        color: '#65a30d', icon: '\u{1F335}'
+    },
+    'Gin': {
+        keywords: ['\\bgin\\b'],
+        color: '#7c3aed', icon: '\u{1FAB4}'
+    },
+    'Wine': {
+        keywords: ['\\bwine\\b', '\\bred wine\\b', '\\bwhite wine\\b', '\\bchampagne\\b', '\\bprosecco\\b', '\\bsherry\\b', '\\bport\\b', '\\bsangria\\b', '\\bsake\\b', '\\bsoju\\b', '\\bmead\\b', '\\bvermouth\\b', '\\briesling\\b', '\\bpinot\\b', '\\bburgundy\\b', '\\bchianti\\b', '\\bcava\\b'],
+        color: '#be123c', icon: '\u{1F377}'
+    },
+    'Beer/Cider': {
+        keywords: ['\\bbeer\\b', '\\blager\\b', '\\bale\\b', '\\bstout\\b', '\\bpilsner\\b', '\\bporter\\b', '\\bcider\\b', '\\bbrew\\b', '\\bguinness\\b', '\\bipa\\b'],
+        color: '#ca8a04', icon: '\u{1F37A}'
+    },
+    'Brandy/Other Spirit': {
+        keywords: ['\\bbrandy\\b', '\\bcognac\\b', '\\barmagnac\\b', '\\bgrappa\\b', '\\bpisco\\b', '\\beau de vie\\b', '\\brakija\\b', '\\brak[iı]\\b', '\\barak\\b', '\\bouzo\\b', '\\bslivovitz\\b', '\\bp[aá]linka\\b', '\\bmaotai\\b', '\\bbaijiu\\b', '\\bshochu\\b', '\\bsnaps\\b', '\\bakvavit\\b', '\\baquavit\\b', '\\bpastis\\b', '\\babsinthe\\b', '\\bsambuca\\b', '\\blimoncello\\b', '\\bamarula\\b', '\\bkahlua\\b', '\\bchartreuse\\b'],
+        color: '#c2410c', icon: '\u{1F376}'
+    },
+    'Tea': {
+        keywords: ['\\btea\\b', '\\bgreen tea\\b', '\\bblack tea\\b', '\\bchai\\b', '\\bmatcha\\b', '\\bherbal tea\\b', '\\bmate\\b', '\\byerba\\b', '\\brooibos\\b'],
+        color: '#059669', icon: '\u{1FAD6}'
+    },
+    'Coffee': {
+        keywords: ['\\bcoffee\\b', '\\bespresso\\b', '\\bcappuccino\\b', '\\bturk.*coffee\\b', '\\barabic.*coffee\\b', '\\bcafé\\b'],
+        color: '#92400e', icon: '\u{2615}'
+    },
+    'Non-Alcoholic': {
+        keywords: ['\\bjuice\\b', '\\blemonade\\b', '\\blimeade\\b', '\\bsmoothie\\b', '\\blassi\\b', '\\bbuttermilk\\b', '\\bayran\\b', '\\bdoogh\\b', '\\bsharbat\\b', '\\bhorchata\\b', '\\batole\\b', '\\bchocolate\\b', '\\bcocoa\\b', '\\bagua de\\b', '\\bagua fresca\\b', '\\bhibiscus\\b', '\\btamarind\\b', '\\bcoconut water\\b', '\\bcoconut milk\\b', '\\bmilk\\b', '\\bsyrup\\b', '\\bsherbet\\b', '\\bpomegranate\\b', '\\bmango\\b', '\\bpassion\\s*fruit\\b'],
+        color: '#0ea5e9', icon: '\u{1F9C3}'
+    },
+    'No Drink': {
+        keywords: [],
+        color: '#374151', icon: '\u{2796}'
+    }
+};
+
+window.analyzeSpiritForRecipe = (recipe) => {
+    if (!recipe || !recipe.drink) return { primary: 'No Drink' };
+    const drink = recipe.drink;
+    if (!drink.ingredients && !drink.dish) return { primary: 'No Drink' };
+
+    // Build searchable text from drink name, description, and ingredients
+    const parts = [];
+    if (drink.dish) parts.push(drink.dish.toLowerCase());
+    if (drink.description) parts.push(drink.description.toLowerCase());
+    if (drink.ingredients) parts.push(drink.ingredients.map(i => i.toLowerCase()).join(' | '));
+    const searchText = parts.join(' | ');
+
+    const scores = {};
+    Object.keys(window.SPIRIT_CATEGORIES).forEach(cat => {
+        if (cat !== 'No Drink') scores[cat] = 0;
+    });
+
+    Object.entries(window.SPIRIT_CATEGORIES).forEach(([category, data]) => {
+        if (category === 'No Drink') return;
+        data.keywords.forEach(pattern => {
+            try {
+                const regex = new RegExp(pattern, 'i');
+                if (regex.test(searchText)) {
+                    scores[category]++;
+                }
+            } catch (e) {}
+        });
+    });
+
+    let maxScore = 0;
+    let primary = 'Non-Alcoholic';
+    Object.entries(scores).forEach(([cat, score]) => {
+        if (score > maxScore) {
+            maxScore = score;
+            primary = cat;
+        }
+    });
+
+    // If nothing matched at all, classify based on name heuristics
+    if (maxScore === 0) {
+        const name = (drink.dish || '').toLowerCase();
+        if (/cocktail|spirit|liquor|shot|aperitif|apéritif|digestif|punch/i.test(name)) {
+            primary = 'Brandy/Other Spirit';
+        } else {
+            primary = 'Non-Alcoholic';
+        }
+    }
+
+    return { primary, drinkName: drink.dish || 'Unknown' };
+};
+
+window.buildSpiritMap = (db) => {
+    const spiritMap = {};
+    const countriesWithRegions = new Set();
+
+    Object.entries(db).forEach(([key, entry]) => {
+        if (entry.regions) {
+            countriesWithRegions.add(key);
+            Object.entries(entry.regions).forEach(([regionName, regionRecipe]) => {
+                const analysis = window.analyzeSpiritForRecipe(regionRecipe);
+                if (analysis) spiritMap[regionName] = analysis;
+            });
+        }
+        const analysis = window.analyzeSpiritForRecipe(entry);
+        if (analysis) spiritMap[key] = analysis;
+    });
+
+    spiritMap._countriesWithRegions = Array.from(countriesWithRegions);
+    return spiritMap;
+};
+
+window.getSpiritColor = (category) => {
+    const cat = window.SPIRIT_CATEGORIES[category];
+    return cat ? cat.color : '#374151';
+};
+
+window.getSpiritIcon = (category) => {
+    const cat = window.SPIRIT_CATEGORIES[category];
+    return cat ? cat.icon : '\u{2796}';
+};
+
+window.getSpiritStats = (spiritMap) => {
+    const stats = {};
+    const countriesWithRegions = new Set(spiritMap._countriesWithRegions || []);
+    Object.entries(spiritMap).forEach(([key, value]) => {
+        if (key === '_countriesWithRegions') return;
+        if (typeof value !== 'object' || !value.primary) return;
+        if (countriesWithRegions.has(key)) return;
+        stats[value.primary] = (stats[value.primary] || 0) + 1;
+    });
+    return stats;
+};
+
 // --- ARTISTIC FLAIRE CONFIGURATION ---
 window.COUNTRY_FLAIRS = window.COUNTRY_FLAIRS || {};
