@@ -364,6 +364,143 @@
 .brazil-croc-left { transform: scaleX(-1); }
 
 /* ═══════════════════════════════════════════════════════════════
+   AUSTRALIA OUTBACK THEME
+   ═══════════════════════════════════════════════════════════════ */
+.australia-outback {
+    background: #0d0600 !important;
+}
+.australia-outback .leaflet-tile-pane {
+    filter: sepia(70%) hue-rotate(-10deg) saturate(180%) contrast(120%) brightness(55%);
+    transition: filter 1.5s ease;
+}
+.australia-outback::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 110% 100% at 50% 45%,
+        transparent 0%,
+        transparent 35%,
+        rgba(13, 6, 0, 0.3) 60%,
+        rgba(13, 6, 0, 0.75) 100%
+    );
+    pointer-events: none;
+    z-index: 400;
+    mix-blend-mode: multiply;
+}
+.australia-outback::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 45%,
+        rgba(193, 68, 14, 0.06) 0%,
+        transparent 60%
+    );
+    pointer-events: none;
+    z-index: 399;
+    mix-blend-mode: screen;
+}
+.australia-outback .leaflet-interactive:hover {
+    filter: drop-shadow(0 0 8px rgba(218, 165, 32, 0.3));
+}
+
+/* Australia Hero Title */
+.australia-hero-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1;
+    font-size: 52px;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    color: #f5eed9;
+    font-family: "Cinzel Decorative", serif;
+    text-transform: uppercase;
+    text-shadow:
+        0 0 40px rgba(193, 68, 14, 0.4),
+        0 0 80px rgba(218, 165, 32, 0.2),
+        0 2px 4px rgba(0, 0, 0, 0.7);
+    animation: ausBreath 5s ease-in-out infinite;
+}
+@keyframes ausBreath {
+    0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 40px rgba(193, 68, 14, 0.4), 0 0 80px rgba(218, 165, 32, 0.2), 0 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    50% {
+        opacity: 0.92;
+        text-shadow: 0 0 50px rgba(193, 68, 14, 0.5), 0 0 100px rgba(218, 165, 32, 0.3), 0 2px 6px rgba(0, 0, 0, 0.7);
+    }
+}
+
+/* Australia Motto */
+.australia-motto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 15px;
+    letter-spacing: 0.25em;
+    color: rgba(245, 238, 217, 0.6);
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+}
+.australia-motto.flair-fade-in {
+    animation: fade-in 0.8s ease-out 0.5s forwards;
+    opacity: 0;
+}
+
+/* Australia Poem (Mackellar) */
+.australia-poem {
+    font-family: "Cormorant Garamond", serif !important;
+}
+
+/* Australia Landmark glow */
+.australia-landmark {
+    filter: drop-shadow(0 0 8px rgba(218, 165, 32, 0.3));
+    overflow: visible;
+}
+
+/* Australia Photo Overlays — scattered decorative images */
+.leaflet-marker-icon:has(.aus-photo-wrap) {
+    overflow: visible !important;
+}
+.aus-photo-wrap {
+    overflow: visible !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.aus-photo-overlay {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+    opacity: 0;
+    animation: ausPhotoFadeIn 1.2s ease-out forwards;
+    background-color: transparent;
+}
+.aus-photo-dog {
+    animation-delay: 0.6s;
+    filter: sepia(10%) brightness(0.8) saturate(1.15);
+    border-radius: 8px;
+}
+.aus-photo-reef {
+    animation-delay: 0.9s;
+    filter: sepia(5%) brightness(0.85) saturate(1.25);
+    border-radius: 7px;
+}
+.aus-photo-opera {
+    animation-delay: 1.2s;
+    filter: sepia(10%) brightness(0.8) saturate(1.15);
+    border-radius: 7px;
+}
+@keyframes ausPhotoFadeIn {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 0.72; transform: scale(1); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    MAP MODE PANEL — EU5-Inspired Metrics UI
    ═══════════════════════════════════════════════════════════════ */
 

@@ -279,6 +279,41 @@ window.getUniqueIngredients = (db) => {
                 }
             });
         }
+        // Scan dessert ingredients
+        if (recipe.dessert && recipe.dessert.ingredients) {
+            recipe.dessert.ingredients.forEach(ing => {
+                const parsed = window.parseIngredient(ing);
+                if (parsed && parsed.length > 2) {
+                    parsed.split(/\s+or\s+/i).forEach(p => {
+                        let normalized = p.trim().toLowerCase();
+                        normalized = normalized.replace(/^[\s\-*•·→⋅,;:.!?'"()\[\]{}]+/, '');
+                        normalized = normalized.replace(/[\s\-*•·→⋅,;:.!?'"()\[\]{}]+$/, '');
+                        normalized = normalized.trim();
+                        if (normalized.length > 2) ingredients.add(normalized);
+                    });
+                }
+            });
+        }
+        // Scan preliminary steps ingredients (dessert)
+        if (recipe.dessert && recipe.dessert.preliminary_steps) {
+            recipe.dessert.preliminary_steps.forEach(step => {
+                if (step.ingredients) {
+                    step.ingredients.forEach(ing => {
+                        const parsed = window.parseIngredient(ing);
+                        if (parsed && parsed.length > 2) {
+                            parsed.split(/\s+or\s+/i).forEach(p => {
+                                let normalized = p.trim().toLowerCase();
+                                normalized = normalized.replace(/^[\s\-*•·→⋅,;:.!?'"()\[\]{}%#@&]+/, '');
+                                normalized = normalized.replace(/[\s\-*•·→⋅,;:.!?'"()\[\]{}%#@&]+$/, '');
+                                normalized = normalized.replace(/^\d+%?/, '');
+                                normalized = normalized.trim();
+                                if (normalized.length > 2 && /[a-z]/.test(normalized)) ingredients.add(normalized);
+                            });
+                        }
+                    });
+                }
+            });
+        }
     };
 
     Object.values(db).forEach(recipe => {
@@ -319,8 +354,11 @@ window.getAllRecipeIngredients = (recipe) => {
     const drinkIngs = recipe.drink
         ? collect(recipe.drink.ingredients, recipe.drink.preliminary_steps)
         : [];
+    const dessertIngs = recipe.dessert
+        ? collect(recipe.dessert.ingredients, recipe.dessert.preliminary_steps)
+        : [];
 
-    return { foodIngs, drinkIngs };
+    return { foodIngs, drinkIngs, dessertIngs };
 };
 
 // --- SHOPPING LIST (tested in tests/shoppingList.test.js) ---
@@ -435,6 +473,14 @@ window.getRegionConfig = () => {
             geoJsonUrl: 'https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/russia.geojson',
             view: { center: [55.75, 37.62], zoom: 3.5 }
         },
+        'SWE': {
+            geoJsonUrl: 'https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/sweden-counties.geojson',
+            view: { center: [62.5, 16], zoom: 4.5 }
+        },
+        'SVK': {
+            geoJsonUrl: 'https://raw.githubusercontent.com/drakh/slovakia-gps-data/master/GeoJSON/epsg_4326/regions_epsg_4326.geojson',
+            view: { center: [48.7, 19.5], zoom: 7 }
+        },
         'MEX': {
             geoJsonUrl: 'https://raw.githubusercontent.com/strotgen/mexico-leaflet/master/states.geojson',
             view: { center: [23.6, -102.5], zoom: 4 }
@@ -442,6 +488,10 @@ window.getRegionConfig = () => {
         'SLV': {
             geoJsonUrl: 'https://raw.githubusercontent.com/eaguilarjz/elsalvador/master/dptoA_WGS_1984.json',
             view: { center: [13.7, -88.9], zoom: 7 }
+        },
+        'AUS': {
+            geoJsonUrl: 'https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/australia.geojson',
+            view: { center: [-28, 137], zoom: 5 }
         }
     };
 };
@@ -550,12 +600,20 @@ window.analyzeMeatForRecipe = (recipe) => {
         if (cat !== 'Vegetarian' && cat !== 'No Data') scores[cat] = 0;
     });
 
-    // Collect ALL ingredient lines: main + preliminary_steps
+    // Collect ALL ingredient lines: main + preliminary_steps + dessert
     const allIngLines = [...(recipe.ingredients || [])];
     if (recipe.preliminary_steps) {
         recipe.preliminary_steps.forEach(ps => {
             if (ps.ingredients) allIngLines.push(...ps.ingredients);
         });
+    }
+    if (recipe.dessert) {
+        if (recipe.dessert.ingredients) allIngLines.push(...recipe.dessert.ingredients);
+        if (recipe.dessert.preliminary_steps) {
+            recipe.dessert.preliminary_steps.forEach(ps => {
+                if (ps.ingredients) allIngLines.push(...ps.ingredients);
+            });
+        }
     }
 
     // Analyze each ingredient line individually for context

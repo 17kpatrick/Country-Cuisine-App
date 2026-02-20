@@ -63,6 +63,18 @@ const ITALIAN_REGIONS = [
     'Calabria', 'Sicilia', 'Sardegna'
 ];
 
+const SLOVAK_REGIONS = [
+    'Bratislavsky', 'Trnavsky', 'Trenciansky', 'Nitriansky',
+    'Zilinsky', 'Banskobystricky', 'Presovsky', 'Kosicky'
+];
+
+const SWEDISH_COUNTIES = [
+    'Stockholm', 'Uppsala', 'Södermanland', 'Östergötland', 'Jönköping',
+    'Kronoberg', 'Kalmar', 'Gotland', 'Blekinge', 'Skåne', 'Halland',
+    'Västra Götaland', 'Värmland', 'Örebro', 'Västmanland', 'Dalarna',
+    'Gävleborg', 'Västernorrland', 'Jämtland', 'Västerbotten', 'Norrbotten'
+];
+
 const RUSSIAN_REGIONS = [
     'Moscow', 'Saint Petersburg', 'Republic of Tatarstan', 'Republic of Dagestan',
     'Krasnodar Krai', 'Republic of Bashkortostan', 'Sakha (Yakutia) Republic',
@@ -124,6 +136,16 @@ const MEXICO_NAME_MAPPING = {
 
 const FRANCE_NAME_MAPPING = {
     "Ile-de-France": "Île-de-France"
+};
+
+const SLOVAKIA_NAME_MAPPING = {
+    "Bratislavsk\u00fd": "Bratislavsky",
+    "Trnavsk\u00fd": "Trnavsky",
+    "Tren\u010diansky": "Trenciansky",
+    "\u017dilinsk\u00fd": "Zilinsky",
+    "Banskobystrick\u00fd": "Banskobystricky",
+    "Pre\u0161ovsk\u00fd": "Presovsky",
+    "Ko\u0161ick\u00fd": "Kosicky"
 };
 
 const ITALY_NAME_MAPPING = {
@@ -510,14 +532,16 @@ const App = () => {
                 fetch(config.geoJsonUrl)
                     .then(res => res.json())
                     .then(data => {
+                        if (data.crs) delete data.crs;
                         // Pre-process names (same normalization as global highlights)
                         data.features.forEach(f => {
-                            let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name_latin || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.REGIONNAVN || '').trim();
+                            let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name_latin || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.NM4 || f.properties.REGIONNAVN || '').trim();
                             if (isoCode === 'CHN' && CHINA_NAME_MAPPING[name]) name = CHINA_NAME_MAPPING[name];
                             if (isoCode === 'SLV' && EL_SALVADOR_NAME_MAPPING[name]) name = EL_SALVADOR_NAME_MAPPING[name];
                             if (isoCode === 'MEX' && MEXICO_NAME_MAPPING[name]) name = MEXICO_NAME_MAPPING[name];
                             if (isoCode === 'FRA' && FRANCE_NAME_MAPPING[name]) name = FRANCE_NAME_MAPPING[name];
                             if (isoCode === 'ITA' && ITALY_NAME_MAPPING[name]) name = ITALY_NAME_MAPPING[name];
+                            if (isoCode === 'SVK' && SLOVAKIA_NAME_MAPPING[name]) name = SLOVAKIA_NAME_MAPPING[name];
                             if (isoCode === 'IND') {
                                 if (name === 'Orissa') name = 'Odisha';
                                 if (name === 'Uttaranchal') name = 'Uttarakhand';
@@ -590,7 +614,7 @@ const App = () => {
     const getNormalizedName = (feature) => {
         const p = feature.properties;
         const isoCode = getIso3(feature);
-        let name = (p.st_nm || p.ST_NM || p.NAME_1 || p.name_1 || p.NAME || p.ADMIN || p.name_latin || p.name || p.nom || p.navn || p.state_name || p.NOM_DPTO || p.DPTO || p.nombre || p.reg_name || p.REGIONNAVN || '').trim();
+        let name = (p.st_nm || p.ST_NM || p.NAME_1 || p.name_1 || p.NAME || p.ADMIN || p.name_latin || p.name || p.nom || p.navn || p.state_name || p.NOM_DPTO || p.DPTO || p.nombre || p.reg_name || p.NM4 || p.REGIONNAVN || '').trim();
         if (name === 'Orissa') name = 'Odisha';
         if (name === 'Uttaranchal') name = 'Uttarakhand';
         if (name === 'Pondicherry') name = 'Puducherry';
@@ -602,6 +626,7 @@ const App = () => {
         if (MEXICO_NAME_MAPPING[name]) name = MEXICO_NAME_MAPPING[name];
         if (FRANCE_NAME_MAPPING[name]) name = FRANCE_NAME_MAPPING[name];
         if (ITALY_NAME_MAPPING[name]) name = ITALY_NAME_MAPPING[name];
+        if (SLOVAKIA_NAME_MAPPING[name]) name = SLOVAKIA_NAME_MAPPING[name];
         if (name && !name.startsWith('Region ') && DENMARK_REGIONS.includes('Region ' + name)) name = 'Region ' + name;
         if (name === 'Distrito Federal') name = 'Ciudad de México';
         return name;
@@ -751,6 +776,8 @@ const App = () => {
                     count = item.count ?? 80; className = 'carnival-confetti';
                 } else if (item.name === 'carnival-embers') {
                     count = item.count ?? 25; className = 'carnival-ember';
+                } else if (item.name === 'outback-dust') {
+                    count = item.count ?? 35; className = 'outback-dust-mote';
                 }
 
                 for (let i = 0; i < count; i++) {
@@ -797,6 +824,16 @@ const App = () => {
                         el.style.height = `${size}px`;
                         el.style.animationDuration = `${10 + Math.random() * 10}s`;
                         el.style.animationDelay = `-${Math.random() * 10}s`;
+                    } else if (item.name === 'outback-dust') {
+                        el = document.createElement('div');
+                        el.className = 'outback-dust-mote';
+                        el.style.left = `${Math.random() * 100}%`;
+                        el.style.bottom = `${Math.random() * 60}%`;
+                        const size = 4 + Math.random() * 8;
+                        el.style.width = `${size}px`;
+                        el.style.height = `${size}px`;
+                        el.style.animationDuration = `${12 + Math.random() * 16}s`;
+                        el.style.animationDelay = `-${Math.random() * 15}s`;
                     } else if (item.name === 'carnival-confetti') {
                         el = document.createElement('div');
                         el.className = 'carnival-confetti';
@@ -865,7 +902,7 @@ const App = () => {
             if (item.type === 'svg') {
                 htmlContent = `<div style="width: ${item.width}px; height: ${item.height}px; ${item.style || ''}">${item.content}</div>`;
             } else if (item.type === 'text') {
-                htmlContent = `<div class="${item.className || ''}" style="${item.style}">${item.content}</div>`;
+                htmlContent = `<div class="${item.className || ''}" style="width: ${item.width}px; height: ${item.height}px; ${item.style || ''}">${item.content}</div>`;
             }
 
             if (!htmlContent) return;
@@ -963,9 +1000,10 @@ const App = () => {
                 fetch(config.geoJsonUrl)
                     .then(res => res.json())
                     .then(data => {
+                        if (data.crs) delete data.crs;
                         // Pre-process/Normalize Data for Cache
                         data.features.forEach(f => {
-                            let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name_latin || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.REGIONNAVN || '').trim();
+                            let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name_latin || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.NM4 || f.properties.REGIONNAVN || '').trim();
 
                             if (isoCode === 'CHN' && CHINA_NAME_MAPPING[name]) {
                                 name = CHINA_NAME_MAPPING[name];
@@ -981,6 +1019,9 @@ const App = () => {
                             }
                             if (isoCode === 'ITA' && ITALY_NAME_MAPPING[name]) {
                                 name = ITALY_NAME_MAPPING[name];
+                            }
+                            if (isoCode === 'SVK' && SLOVAKIA_NAME_MAPPING[name]) {
+                                name = SLOVAKIA_NAME_MAPPING[name];
                             }
                             if (isoCode === 'IND') {
                                 if (name === 'Orissa') name = 'Odisha';
@@ -1017,19 +1058,23 @@ const App = () => {
 
         const fetchData = regionCacheRef.current[isoCode]
             ? Promise.resolve(regionCacheRef.current[isoCode])
-            : fetch(regionConfig.geoJsonUrl).then(res => res.json());
+            : fetch(regionConfig.geoJsonUrl).then(res => res.json()).then(data => {
+                if (data.crs) delete data.crs;
+                return data;
+            });
 
         fetchData.then(subData => {
             if (activeRegionIsoRef.current !== isoCode) return;
 
             if (subData.features && !regionCacheRef.current[isoCode]) {
                 subData.features.forEach(f => {
-                    let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name_latin || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.REGIONNAVN || '').trim();
+                    let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name_latin || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.NM4 || f.properties.REGIONNAVN || '').trim();
                     if (isoCode === 'CHN' && CHINA_NAME_MAPPING[name]) name = CHINA_NAME_MAPPING[name];
                     if (isoCode === 'SLV' && EL_SALVADOR_NAME_MAPPING[name]) name = EL_SALVADOR_NAME_MAPPING[name];
                     if (isoCode === 'MEX' && MEXICO_NAME_MAPPING[name]) name = MEXICO_NAME_MAPPING[name];
                     if (isoCode === 'FRA' && FRANCE_NAME_MAPPING[name]) name = FRANCE_NAME_MAPPING[name];
                     if (isoCode === 'ITA' && ITALY_NAME_MAPPING[name]) name = ITALY_NAME_MAPPING[name];
+                    if (isoCode === 'SVK' && SLOVAKIA_NAME_MAPPING[name]) name = SLOVAKIA_NAME_MAPPING[name];
                     if (isoCode === 'IND') {
                         if (name === 'Orissa') name = 'Odisha';
                         if (name === 'Uttaranchal') name = 'Uttarakhand';
@@ -1463,6 +1508,23 @@ const App = () => {
         //  since isDrillDownMode just changed to false)
     };
 
+    // Exit drill-down when the user scrolls/zooms out past the world-view threshold
+    useEffect(() => {
+        const map = mapInstanceRef.current;
+        if (!map) return;
+
+        if (!isDrillDownMode) return;
+
+        const onZoomEnd = () => {
+            if (map.getZoom() < 4) {
+                handleBackToWorld();
+            }
+        };
+
+        map.on('zoomend', onZoomEnd);
+        return () => { map.off('zoomend', onZoomEnd); };
+    }, [isDrillDownMode]);
+
     const handleRecipeSelect = (key) => {
         let targetLayer = null;
         if (geoJsonLayerRef.current) {
@@ -1546,6 +1608,14 @@ const App = () => {
             if (RUSSIAN_REGIONS.includes(key)) {
                 targetCountryIso = 'RUS';
                 targetCountryCca2 = 'RU';
+            }
+            if (SWEDISH_COUNTIES.includes(key)) {
+                targetCountryIso = 'SWE';
+                targetCountryCca2 = 'SE';
+            }
+            if (SLOVAK_REGIONS.includes(key)) {
+                targetCountryIso = 'SVK';
+                targetCountryCca2 = 'SK';
             }
 
             if (!isDrillDownMode || activeRegionIsoRef.current !== targetCountryIso) {

@@ -518,6 +518,75 @@
     pointer-events: none;
 }
 
+/* --- AUSTRALIA: OUTBACK DUST MOTES --- */
+.outback-dust-mote {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        rgba(218, 165, 32, 0.7) 0%,
+        rgba(193, 68, 14, 0.3) 50%,
+        transparent 70%
+    );
+    pointer-events: none;
+    z-index: 800;
+    opacity: 0;
+    animation: dustDrift linear infinite;
+    will-change: transform, opacity;
+}
+
+@keyframes dustDrift {
+    0% {
+        transform: translateX(0) translateY(0) scale(0.4);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateX(30vw) translateY(-15vh) scale(1);
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateX(60vw) translateY(-30vh) scale(0.3);
+        opacity: 0;
+    }
+}
+
+/* Australia Southern Cross constellation line */
+.southern-cross-line,
+.southern-cross-line path {
+    stroke: rgba(255, 255, 255, 0.2) !important;
+    stroke-width: 1 !important;
+    stroke-dasharray: 4 8 !important;
+    stroke-linecap: round !important;
+    fill: none !important;
+    animation: southernCrossGlow 6s ease-in-out infinite;
+}
+@keyframes southernCrossGlow {
+    0%, 100% { stroke: rgba(255, 255, 255, 0.15) !important; }
+    50% { stroke: rgba(255, 255, 255, 0.35) !important; }
+}
+
+/* Southern Cross star pulse */
+.southern-cross-star circle:first-child {
+    animation: starTwinkle 3s ease-in-out infinite alternate;
+}
+@keyframes starTwinkle {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+/* Australia dot-art spin (very slow, ambient) */
+.australia-dot-spin {
+    animation: ausDotSpin 120s linear infinite;
+    transform-origin: center;
+    pointer-events: none;
+}
+@keyframes ausDotSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 /* China Imperial Theme */
 .china-imperial {
     background-color: #3a0000 !important; /* Burning red background */

@@ -12,7 +12,10 @@ const RecipeCard = ({ country, onClose, db, searchIngredients = [], onAddToShopp
 
     // Determine what to show based on tab
     const hasDrink = !!fullData.drink;
-    const displayData = activeTab === 'drink' && hasDrink ? fullData.drink : fullData;
+    const hasDessert = !!fullData.dessert;
+    const displayData = activeTab === 'drink' && hasDrink ? fullData.drink
+        : activeTab === 'dessert' && hasDessert ? fullData.dessert
+        : fullData;
 
     const imageUrl = getDishImage(displayData.dish);
     const theme = getCountryTheme(country.cca3);
@@ -180,7 +183,7 @@ const RecipeCard = ({ country, onClose, db, searchIngredients = [], onAddToShopp
                 </button>
             </div>
 
-            {hasDrink && (
+            {(hasDrink || hasDessert) && (
                 <div className="flex border-b border-white/[0.06] z-10">
                     <button 
                         onClick={() => setActiveTab('food')}
@@ -189,13 +192,24 @@ const RecipeCard = ({ country, onClose, db, searchIngredients = [], onAddToShopp
                     >
                         Food
                     </button>
-                    <button 
-                        onClick={() => setActiveTab('drink')}
-                        className={`flex-1 py-2.5 text-[11px] font-medium tracking-wide transition-colors ${activeTab === 'drink' ? 'text-white bg-white/[0.08] border-b-2' : 'text-gray-500 hover:text-gray-400'} border-transparent`}
-                        style={activeTab === 'drink' ? { borderColor: theme.primary } : {}}
-                    >
-                        Drink
-                    </button>
+                    {hasDrink && (
+                        <button 
+                            onClick={() => setActiveTab('drink')}
+                            className={`flex-1 py-2.5 text-[11px] font-medium tracking-wide transition-colors ${activeTab === 'drink' ? 'text-white bg-white/[0.08] border-b-2' : 'text-gray-500 hover:text-gray-400'} border-transparent`}
+                            style={activeTab === 'drink' ? { borderColor: theme.primary } : {}}
+                        >
+                            Drink
+                        </button>
+                    )}
+                    {hasDessert && (
+                        <button 
+                            onClick={() => setActiveTab('dessert')}
+                            className={`flex-1 py-2.5 text-[11px] font-medium tracking-wide transition-colors ${activeTab === 'dessert' ? 'text-white bg-white/[0.08] border-b-2' : 'text-gray-500 hover:text-gray-400'} border-transparent`}
+                            style={activeTab === 'dessert' ? { borderColor: theme.primary } : {}}
+                        >
+                            Dessert
+                        </button>
+                    )}
                 </div>
             )}
 
