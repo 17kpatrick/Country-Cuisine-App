@@ -8,7 +8,7 @@ const PreviewCard = ({ feature, db }) => {
     const isState = !!(p.st_nm || p.ST_NM || p.NAME_1 || p.name_1 || p.nom || p.state_name || p.NOM_DPTO || p.reg_name);
     
     const countryCode = isState ? null : ((p.ISO_A3 && p.ISO_A3 !== '-99' ? p.ISO_A3 : p.ADM0_A3) || feature.id);
-    let countryName = (p.st_nm || p.ST_NM || p.NAME_1 || p.name_1 || p.NAME || p.ADMIN || p.name || p.nom || p.state_name || p.NOM_DPTO || p.reg_name || '').trim();
+    let countryName = (p.st_nm || p.ST_NM || p.NAME_1 || p.name_1 || p.NAME || p.ADMIN || p.name_latin || p.name || p.nom || p.state_name || p.NOM_DPTO || p.reg_name || '').trim();
     
     // Fix common GeoJSON name mismatches
     if (countryName === 'Orissa') countryName = 'Odisha';

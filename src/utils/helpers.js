@@ -427,6 +427,14 @@ window.getRegionConfig = () => {
             geoJsonUrl: 'https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/greece-regions.geojson',
             view: { center: [38.5, 23.5], zoom: 6 }
         },
+        'ESP': {
+            geoJsonUrl: 'https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/spain-communities.geojson',
+            view: { center: [40, -3.7], zoom: 5.5 }
+        },
+        'RUS': {
+            geoJsonUrl: 'https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/russia.geojson',
+            view: { center: [55.75, 37.62], zoom: 3.5 }
+        },
         'MEX': {
             geoJsonUrl: 'https://raw.githubusercontent.com/strotgen/mexico-leaflet/master/states.geojson',
             view: { center: [23.6, -102.5], zoom: 4 }
@@ -475,7 +483,11 @@ window.MEAT_CATEGORIES = {
             // Preparations
             'ground pork', 'salt pork', 'fatback', 'bratwurst',
             'kielbasa', 'andouille', 'salami', 'pepperoni', 'mortadella',
-            'hot dog', 'frankfurter'
+            'hot dog', 'frankfurter',
+            'jamón', 'jamon', 'serrano', 'ibérico', 'iberico',
+            'speck', 'tocino', 'lacón', 'lacon', 'morcilla', 'butifarra',
+            'longaniza', 'nduja', 'coppa', 'sopressata', 'linguiça',
+            'linguica', 'cochinillo', 'suckling pig', 'compango'
         ],
         color: '#f472b6',
         icon: '\u{1F437}'
@@ -501,7 +513,8 @@ window.MEAT_CATEGORIES = {
             'pollock', 'mahi', 'barramundi', 'dogfish', 'shark', 'eel',
             'bream', 'kingfish', 'snail', 'escargot', 'saltfish', 'salt cod',
             'stockfish', 'bacalao', 'bacalhau', 'pike', 'carp', 'whiting',
-            'monkfish', 'sea bream', 'red snapper', 'wahoo', 'marlin'
+            'monkfish', 'sea bream', 'red snapper', 'wahoo', 'marlin',
+            'baccalà', 'baccala', 'bonito', 'chambo', 'sururu'
         ],
         color: '#06b6d4',
         icon: '\u{1F41F}'

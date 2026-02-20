@@ -63,6 +63,31 @@ const ITALIAN_REGIONS = [
     'Calabria', 'Sicilia', 'Sardegna'
 ];
 
+const RUSSIAN_REGIONS = [
+    'Moscow', 'Saint Petersburg', 'Republic of Tatarstan', 'Republic of Dagestan',
+    'Krasnodar Krai', 'Republic of Bashkortostan', 'Sakha (Yakutia) Republic',
+    'Murmansk Oblast', 'Kaliningrad Oblast', 'Republic of Buryatia',
+    'Kamchatka Krai', 'Chechen Republic', 'Republic of Karelia',
+    'Astrakhan Oblast', 'Altai Republic', 'Primorsky Krai',
+    'Sverdlovsk Oblast', 'Rostov Oblast', 'Sakhalin Oblast', 'Tuva Republic',
+    'Voronezh Oblast', 'Novosibirsk Oblast', 'Stavropol Krai', 'Altai Krai',
+    'Volgograd Oblast', 'Samara Oblast', 'Republic of Adygea', 'Republic of Kalmykia',
+    'Pskov Oblast', 'Leningrad Oblast', 'Republic of Mordovia', 'Tula Oblast',
+    'Perm Krai', 'Chuvash Republic', 'Republic of North Ossetia-Alania',
+    'Nizhny Novgorod Oblast', 'Krasnoyarsk Krai', 'Komi Republic',
+    'Kabardino-Balkar Republic', 'Irkutsk Oblast', 'Khabarovsk Krai',
+    'Republic of Khakassia', 'Yaroslavl Oblast', 'Udmurt Republic',
+    'Vologda Oblast', 'Republic of Ingushetia', 'Chelyabinsk Oblast',
+    'Arkhangelsk Oblast', 'Omsk Oblast', 'Chukotka Autonomous Okrug'
+];
+
+const SPANISH_REGIONS = [
+    'Andalucia', 'Aragon', 'Asturias', 'Baleares', 'Canarias', 'Cantabria',
+    'Castilla-La Mancha', 'Castilla-Leon', 'Cataluña', 'Ceuta', 'Extremadura',
+    'Galicia', 'La Rioja', 'Madrid', 'Melilla', 'Murcia', 'Navarra',
+    'Pais Vasco', 'Valencia'
+];
+
 const GREEK_REGIONS = [
     'East Macedonia and Thrace', 'Central Macedonia', 'West Macedonia', 'Thessaly',
     'Epirus', 'Ionian Islands', 'Western Greece', 'Central Greece', 'Peloponnese',
@@ -179,6 +204,7 @@ const App = () => {
     const subRegionLayerRef = useRef(null);
     const highlightedLayerRef = useRef(null);
     const activeRegionIsoRef = useRef(null);
+    const activeRegionIso2Ref = useRef(null);
     const flaireLayerRef = useRef(null);
     const activeMapThemeRef = useRef(null);
     const highlightedKeysRef = useRef(null);
@@ -456,12 +482,21 @@ const App = () => {
 
                                 mapInstanceRef.current.setView(config.view.center, config.view.zoom, { animate: true });
                                 activeRegionIsoRef.current = isoCode;
+                                // Resolve parent country's ISO2 from the world GeoJSON layer
+                                let parentIso2 = null;
+                                if (geoJsonLayerRef.current) {
+                                    geoJsonLayerRef.current.eachLayer(cl => {
+                                        if (getIso3(cl.feature) === isoCode) parentIso2 = getIso2(cl.feature);
+                                    });
+                                }
+                                activeRegionIso2Ref.current = parentIso2;
                                 setIsDrillDownMode(true);
                                 loadSubRegionLayer(isoCode, config);
 
                                 setSelectedCountry({
                                     name: { common: name },
-                                    cca3: name
+                                    cca3: name,
+                                    cca2: parentIso2
                                 });
                             }
                         });
@@ -477,7 +512,7 @@ const App = () => {
                     .then(data => {
                         // Pre-process names (same normalization as global highlights)
                         data.features.forEach(f => {
-                            let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.REGIONNAVN || '').trim();
+                            let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name_latin || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.REGIONNAVN || '').trim();
                             if (isoCode === 'CHN' && CHINA_NAME_MAPPING[name]) name = CHINA_NAME_MAPPING[name];
                             if (isoCode === 'SLV' && EL_SALVADOR_NAME_MAPPING[name]) name = EL_SALVADOR_NAME_MAPPING[name];
                             if (isoCode === 'MEX' && MEXICO_NAME_MAPPING[name]) name = MEXICO_NAME_MAPPING[name];
@@ -555,7 +590,7 @@ const App = () => {
     const getNormalizedName = (feature) => {
         const p = feature.properties;
         const isoCode = getIso3(feature);
-        let name = (p.st_nm || p.ST_NM || p.NAME_1 || p.name_1 || p.NAME || p.ADMIN || p.name || p.nom || p.navn || p.state_name || p.NOM_DPTO || p.DPTO || p.nombre || p.reg_name || p.REGIONNAVN || '').trim();
+        let name = (p.st_nm || p.ST_NM || p.NAME_1 || p.name_1 || p.NAME || p.ADMIN || p.name_latin || p.name || p.nom || p.navn || p.state_name || p.NOM_DPTO || p.DPTO || p.nombre || p.reg_name || p.REGIONNAVN || '').trim();
         if (name === 'Orissa') name = 'Odisha';
         if (name === 'Uttaranchal') name = 'Uttarakhand';
         if (name === 'Pondicherry') name = 'Puducherry';
@@ -901,12 +936,20 @@ const App = () => {
 
                                 mapInstanceRef.current.setView(config.view.center, config.view.zoom, { animate: true });
                                 activeRegionIsoRef.current = isoCode;
+                                let parentIso2 = null;
+                                if (geoJsonLayerRef.current) {
+                                    geoJsonLayerRef.current.eachLayer(cl => {
+                                        if (getIso3(cl.feature) === isoCode) parentIso2 = getIso2(cl.feature);
+                                    });
+                                }
+                                activeRegionIso2Ref.current = parentIso2;
                                 setIsDrillDownMode(true);
                                 loadSubRegionLayer(isoCode, config);
 
                                 setSelectedCountry({
                                     name: { common: name },
-                                    cca3: name
+                                    cca3: name,
+                                    cca2: parentIso2
                                 });
                             });
                         }
@@ -922,7 +965,7 @@ const App = () => {
                     .then(data => {
                         // Pre-process/Normalize Data for Cache
                         data.features.forEach(f => {
-                            let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.REGIONNAVN || '').trim();
+                            let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name_latin || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.REGIONNAVN || '').trim();
 
                             if (isoCode === 'CHN' && CHINA_NAME_MAPPING[name]) {
                                 name = CHINA_NAME_MAPPING[name];
@@ -981,7 +1024,7 @@ const App = () => {
 
             if (subData.features && !regionCacheRef.current[isoCode]) {
                 subData.features.forEach(f => {
-                    let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.REGIONNAVN || '').trim();
+                    let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name_latin || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.REGIONNAVN || '').trim();
                     if (isoCode === 'CHN' && CHINA_NAME_MAPPING[name]) name = CHINA_NAME_MAPPING[name];
                     if (isoCode === 'SLV' && EL_SALVADOR_NAME_MAPPING[name]) name = EL_SALVADOR_NAME_MAPPING[name];
                     if (isoCode === 'MEX' && MEXICO_NAME_MAPPING[name]) name = MEXICO_NAME_MAPPING[name];
@@ -1098,7 +1141,8 @@ const App = () => {
                             mapInstanceRef.current.fitBounds(e.target.getBounds());
                             setSelectedCountry({
                                 name: { common: subName },
-                                cca3: subName
+                                cca3: subName,
+                                cca2: activeRegionIso2Ref.current
                             });
                         }
                     });
@@ -1283,6 +1327,7 @@ const App = () => {
                     if (regionConfig) {
                         map.setView(regionConfig.view.center, regionConfig.view.zoom, { animate: true });
                         activeRegionIsoRef.current = isoCode;
+                        activeRegionIso2Ref.current = iso2Code;
                         setIsDrillDownMode(true);
                         geoJsonLayerRef.current.resetStyle(layer);
                         highlightedLayerRef.current = null;
@@ -1296,6 +1341,8 @@ const App = () => {
                             map.setView([-12, -38], 4, { animate: true });
                         } else if (isoCode === 'NLD') {
                             map.setView([52.2, 5.5], 7.5, { animate: true });
+                        } else if (isoCode === 'RUS') {
+                            map.setView([55.75, 37.62], 3.5, { animate: true });
                         } else {
                             map.fitBounds(layer.getBounds(), { padding: [50, 50], maxZoom: 6, animate: true });
                         }
@@ -1381,6 +1428,7 @@ const App = () => {
     const handleBackToWorld = () => {
         setIsDrillDownMode(false);
         activeRegionIsoRef.current = null;
+        activeRegionIso2Ref.current = null;
         setSelectedCountry(null);
 
         if (flaireLayerRef.current) {
@@ -1440,6 +1488,8 @@ const App = () => {
                     mapInstanceRef.current.setView([39.3999, -8.2245], 7, { animate: true });
                 } else if (isoCode === 'NLD') {
                     mapInstanceRef.current.setView([52.2, 5.5], 7.5, { animate: true });
+                } else if (isoCode === 'RUS') {
+                    mapInstanceRef.current.setView([55.75, 37.62], 3.5, { animate: true });
                 } else {
                     mapInstanceRef.current.fitBounds(targetLayer.getBounds(), { padding: [50, 50], maxZoom: 6, animate: true });
                 }
@@ -1488,6 +1538,14 @@ const App = () => {
             if (GREEK_REGIONS.includes(key)) {
                 targetCountryIso = 'GRC';
                 targetCountryCca2 = 'GR';
+            }
+            if (SPANISH_REGIONS.includes(key)) {
+                targetCountryIso = 'ESP';
+                targetCountryCca2 = 'ES';
+            }
+            if (RUSSIAN_REGIONS.includes(key)) {
+                targetCountryIso = 'RUS';
+                targetCountryCca2 = 'RU';
             }
 
             if (!isDrillDownMode || activeRegionIsoRef.current !== targetCountryIso) {
@@ -1626,7 +1684,7 @@ const App = () => {
 
             {/* Metric Tooltip (shown on hover in any metric mode) */}
             {metricTooltip && mapMode !== 'political' && (
-                <div className="meat-tooltip" style={{ bottom: 80, left: 16 }}>
+                <div className="meat-tooltip" style={{ bottom: 70, right: 16 }}>
                     <div className="meat-tooltip-header">
                         {metricTooltip.iso2 && (
                             <img
@@ -1823,7 +1881,7 @@ const App = () => {
             {mapMode === 'political' && <PreviewCard feature={hoveredFeature} db={culinaryDB} />}
 
             {highlightedKeys && (
-                <div className="absolute bottom-24 right-4 z-[1000] bg-gray-900/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-2xl text-xs text-gray-200 animate-in fade-in slide-in-from-right-4 duration-300 pointer-events-none select-none w-32">
+                <div className="fixed bottom-[70px] left-4 z-[1000] bg-gray-900/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-2xl text-xs text-gray-200 animate-in fade-in slide-in-from-left-4 duration-300 pointer-events-none select-none w-32">
                     <h4 className="font-bold mb-3 uppercase tracking-wider text-gray-400 border-b border-white/10 pb-2 text-[10px]">Match Type</h4>
                     <div className="flex flex-col gap-2.5">
                         <div className="flex items-center gap-3">
@@ -1853,18 +1911,6 @@ const App = () => {
                 >
                     <span>🌍</span> Back to World
                 </button>
-            )}
-
-            {!selectedCountry && !hoveredFeature && !isMapLoading && (
-                <div className="absolute bottom-8 w-full text-center pointer-events-none z-[400]" data-testid="map-hint">
-                    <span className="bg-black/70 text-gray-300 px-6 py-3 rounded-full text-sm font-medium backdrop-blur-md border border-gray-700">
-                        {mapMode === 'political' && 'Click a country to reveal its secret recipe 🍳'}
-                        {mapMode === 'primary_meat' && 'Hover over a region to see its primary protein 🍖'}
-                        {mapMode === 'spice_level' && 'Hover over a region to see its spice level 🌶️'}
-                        {mapMode === 'complexity' && 'Hover over a region to see recipe complexity 🧪'}
-                        {mapMode === 'base_spirit' && 'Hover over a region to see its signature drink 🍸'}
-                    </span>
-                </div>
             )}
 
             {toast && (
