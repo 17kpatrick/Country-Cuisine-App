@@ -44,7 +44,8 @@ const DENMARK_REGIONS = [
 const FRANCE_REGIONS = [
     'Auvergne-Rhône-Alpes', 'Bourgogne-Franche-Comté', 'Bretagne', 'Centre-Val de Loire', 'Corse',
     'Grand Est', 'Hauts-de-France', 'Île-de-France', 'Normandie', 'Nouvelle-Aquitaine',
-    'Occitanie', 'Pays de la Loire', 'Provence-Alpes-Côte d\'Azur'
+    'Occitanie', 'Pays de la Loire', 'Provence-Alpes-Côte d\'Azur',
+    'Guadeloupe', 'Martinique', 'Guyane', 'La Réunion', 'Mayotte'
 ];
 
 const MEXICO_STATES = [
@@ -1157,7 +1158,7 @@ const App = () => {
                         return;
                     }
 
-                    // Choropleth mode hover (any metric mode)
+                    // Choropleth mode hover
                     if (mapModeRef.current !== 'political') {
                         const countriesWithRegions = Object.keys(REGION_CONFIG);
                         if (countriesWithRegions.includes(isoCode)) return;
@@ -1341,7 +1342,10 @@ const App = () => {
             layerGroup.eachLayer(layer => {
                 const isoCode = getIso3(layer.feature);
                 const name = getNormalizedName(layer.feature);
-                const isSelected = selectedCountry && (selectedCountry.cca3 === isoCode || selectedCountry.name.common === name);
+                const isSelected = selectedCountry && (
+                    selectedCountry.cca3 === isoCode ||
+                    selectedCountry.name.common === name
+                );
 
                 if (highlightedKeys === null && !isSelected) {
                     layerGroup.resetStyle(layer);

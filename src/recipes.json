@@ -381,7 +381,8 @@
             "1 Whole Chicken (3-4 lbs)",
             "8 cups Chicken Broth",
             "Butter (lots of it)",
-            "Paprika"
+            "Paprika",
+            "Harissa paste (see Chef's Essentials below)"
         ],
         "steps":  [
             "Soak wheat berries overnight.",
@@ -432,7 +433,8 @@
             "1 bunch Spinach or Callaloo",
             "1 Eggplant, chopped",
             "1 Squash/Pumpkin, chopped",
-            "Tomato paste, Garlic, Thyme, Scotch Bonnet pepper"
+            "Tomato paste, Garlic, Thyme, Scotch Bonnet pepper",
+            "Cassareep (see Chef's Essentials below)"
         ],
         "steps":  [
             "Pepperpot: Boil salted meat until tender. Add vegetables and spices. Simmer until everything is soft and stew-like.",
@@ -1253,7 +1255,11 @@
         "dish":  "Salteñas",
         "description":  "The soup you can eat with your hands. These golden, braided pastries hold a sweet-and-spicy gelatinous stew that turns into rich broth upon baking. Legend says they were created by an exiled Argentine writer in Bolivia, hence 'Salteña'.",
         "ingredients":  [
-            "Filling: 1 lb Beef (cubed), 1/2 cup Gelatinous Beef Broth (essential for juice), 2 Potatoes (cubed), Peas, Parsley",
+            "1 lb beef, cubed",
+            "1/2 cup gelatinous beef broth",
+            "2 potatoes, cubed",
+            "Peas",
+            "Fresh parsley",
             "Flavor: Aji Amarillo (yellow chili paste), Cumin, Oregano, Sugar (for sweetness)",
             "Dough: 4 cups Flour, 1 cup Lard/Butter, Achiote (for color), Sugar, Warm water",
             "Extras: Hard-boiled egg slices, Olives"
@@ -2090,7 +2096,10 @@
                     "1 Onion, chopped",
                     "4 cloves Garlic, minced",
                     "Salt and black pepper",
-                    "To serve: white rice, sautéed collard greens, farofa, orange slices"
+                    "White rice for serving",
+                    "Sautéed collard greens",
+                    "Farofa",
+                    "Orange slices"
                 ],
                 "steps":  [
                     "Soak beans overnight.",
@@ -2568,7 +2577,8 @@
         "ingredients":  [
             "1 cup (130 g) sago starch (ambulong)",
             "3 1/2 cups (830 ml) water, divided",
-            "1/2 tsp salt"
+            "1/2 tsp salt",
+            "Cacah dipping sauce (see Chef's Essentials below)"
         ],
         "steps":  [
             "In a heatproof bowl, whisk sago starch with 1 cup (240 ml) water and salt until smooth.",
@@ -3416,7 +3426,9 @@
                 "dish":  "Xiao Long Bao",
                 "description":  "The famous soup dumpling. The magic lies in the 'aspic'—a solidified meat broth jelly that is wrapped inside the dumpling. When steamed, the jelly melts into a rich, savory soup encased in the delicate dough skin.",
                 "ingredients":  [
-                    "Filling: 1 lb Ground Pork, 1 tbsp Ginger, 1 tbsp Shaoxing Wine",
+                    "1 lb ground pork",
+                    "1 tbsp fresh ginger, minced",
+                    "1 tbsp Shaoxing wine",
                     "Aspic: 1 lb Pork Skin/Trotters, Water, Ginger, Scallions (boiled down and chilled into jelly)",
                     "Dough: 2 cups All-purpose flour, Hot water",
                     "Black Vinegar and Ginger slivers (for dipping)"
@@ -3488,7 +3500,9 @@
                 "ingredients":  [
                     "1 lb Fresh Rice Noodles (thick round type)",
                     "Brine/Gravy: Star anise, cinnamon, fennel, licorice, ginger, soy sauce, rock sugar (simmered for hours)",
-                    "Toppings: Fried Peanuts, Pickled Long Beans (Sour beans), Pickled Bamboo Shoots",
+                    "Fried peanuts",
+                    "Pickled long beans (sour beans)",
+                    "Pickled bamboo shoots",
                     "Meat: Crispy Pork Belly or Braised Beef slices",
                     "Chili Oil",
                     "Scallions/Cilantro"
@@ -3615,7 +3629,10 @@
                 "ingredients":  [
                     "1 lb Alkaline Noodles (yellow, chewy)",
                     "Sauce: 4 tbsp Chinese Sesame Paste, 1 tbsp Soy Sauce, 1 tbsp Dark Soy Sauce, 1 tsp Sugar",
-                    "Toppings: Pickled Radish (finely chopped), Pickled Long Beans, Scallions, Garlic water",
+                    "Pickled radish, finely chopped",
+                    "Pickled long beans",
+                    "Scallions",
+                    "Garlic water",
                     "Chili Oil"
                 ],
                 "steps":  [
@@ -4119,7 +4136,10 @@
                 "description":  "The most iconic dish of the Himalayas. These steamed dumplings are filled with yak meat (or beef/pork substitute) and onions, flavored simply with ginger and Sichuan pepper, served with a fiery chili sepem (sauce).",
                 "ingredients":  [
                     "Dough: Flour, Water",
-                    "Filling: 1 lb Ground Beef or Yak, 1 cup Onion (finely chopped), 1 tbsp Ginger, 1 tsp Sichuan Pepper (ground)",
+                    "1 lb ground beef or yak",
+                    "1 cup onion, finely chopped",
+                    "1 tbsp fresh ginger, minced",
+                    "1 tsp ground Sichuan pepper",
                     "Dip: Dried Red Chilies, Garlic, Tomato"
                 ],
                 "steps":  [
@@ -5380,7 +5400,9 @@
             "1 lb Yuca (Cassava), peeled and cubed",
             "2 Red Onions (pickled in lime juice)",
             "Broth: Tomatoes, Onion, Garlic, Cumin, Cilantro, Chili powder",
-            "Toppings: Chifles (Plantain chips), Toasted corn, Lime"
+            "Chifles (plantain chips)",
+            "Toasted corn (cancha)",
+            "Lime wedges"
         ],
         "steps":  [
             "Boil tuna in water with onion, tomato, and spices until cooked. Remove tuna and flake into chunks.",
@@ -5754,7 +5776,10 @@
             "4 garlic cloves, smashed",
             "1 bouquet garni (parsley stems + thyme + bay leaf, tied)",
             "1 tsp black peppercorns",
-            "To serve: Dijon mustard, cornichons, coarse/flake salt; optional toasted baguette"
+            "Dijon mustard",
+            "Cornichons",
+            "Coarse flake salt",
+            "Toasted baguette (optional)"
         ],
         "steps":  [
             "Put beef and bones in a large pot. Cover with cold water (about 12 cups).",
@@ -6170,6 +6195,41 @@
                         "Stir gently. Drink slowly in the Provençal sun."
                     ]
                 }
+            },
+            "Guadeloupe":  {
+                "dish":  "Porc Colombo",
+                "description":  "A delicious collision of French and Indian cultures. Created by indentured laborers from India in the 19th century, this curry uses 'Colombo powder'—a Caribbean evolution of curry powder with toasted rice and mustard seeds—to transform pork into a fragrant yellow stew.",
+                "ingredients":  ["2 lbs Pork shoulder, cubed", "3 tbsp Colombo Powder", "1 Eggplant, cubed", "1 Potato, cubed", "1 Zucchini, cubed", "Lime juice, Garlic, Scotch Bonnet"],
+                "steps":  ["Marinate pork with lime, garlic, and 1 tbsp Colombo powder for 1 hour.", "Brown pork in oil. Add onion and garlic.", "Add water to cover, remaining Colombo powder, and thyme. Simmer 30 mins.", "Add vegetables and whole scotch bonnet (for flavor, not heat).", "Simmer until sauce thickens and veggies are soft.", "Serve with rice."],
+                "drink":  { "dish":  "Ti' Punch", "description":  "French-Caribbean classic: rhum agricole, lime coin, and cane sugar.", "ingredients":  ["2 oz rhum agricole blanc", "1 lime coin", "1 tsp cane sugar"], "steps":  ["Add sugar and lime coin to a glass. Pour in rhum agricole, stir briefly."] }
+            },
+            "Martinique":  {
+                "dish":  "Court-Bouillon de Poisson",
+                "description":  "A vibrant red fish stew that captures the Creole spirit. A rich tomato sauce enriched with roucou (annatto) oil and fiery peppers, in which lime-marinated fish is gently poached.",
+                "ingredients":  ["2 lbs Red Snapper (whole or steaks)", "4 Limes", "3 Tomatoes, chopped", "1 Onion, chopped", "3 cloves Garlic", "Thyme, Parsley, Scallion", "1 Scotch Bonnet pepper"],
+                "steps":  ["Marinate fish in lime juice, garlic, and salt for 1 hour.", "Sauté onion, scallion, and tomatoes in oil (roucou oil traditionally).", "Add water and bring to a boil.", "Add fish and marinade liquid. Add whole pepper. Simmer 15-20 mins.", "Serve with boiled cassava or breadfruit."],
+                "drink":  { "dish":  "Ti' Punch", "description":  "Martinique's signature: rhum agricole, lime coin, and cane sugar.", "ingredients":  ["2 oz rhum agricole blanc", "1 lime coin", "1 tsp cane sugar"], "steps":  ["Add sugar and lime coin to a glass. Pour in rum, stir briefly."] }
+            },
+            "Guyane":  {
+                "dish":  "Bouillon d'Awara",
+                "description":  "A legendary Easter stew said to possess a charm: 'If you eat the Bouillon d'Awara, you will return to Guiana.' It takes days to prepare, centering on the bright orange pulp of the Awara palm fruit, smoked meats, and local seafood.",
+                "ingredients":  ["2 lbs Awara Pulp (or palm nut concentrate)", "1 lb Smoked Chicken", "1 lb Salted Fish (Bacalao)", "Crab legs (optional)", "Spinach or leafy greens", "Cucumber/Eggplant chunks"],
+                "steps":  ["Dilute Awara pulp in water to make a thick broth. Simmer for 2 hours.", "Add salted meat and fish (desalted beforehand). Simmer 1 hour.", "Add vegetables and smoked chicken. Simmer 1 hour.", "Add crab last. Done when oil rises to top and it is uniform orange.", "Serve with white rice."],
+                "drink":  { "dish":  "Rhum Arrangé", "description":  "Infused rum steeped with fruit and spice.", "ingredients":  ["2 cups white rum", "1/2 pineapple, cubed", "1 vanilla bean, split", "2 tbsp brown sugar"], "steps":  ["Combine rum, fruit, vanilla, sugar in a jar. Infuse 7-21 days, strain. Serve over ice."] }
+            },
+            "La Réunion":  {
+                "dish":  "Cari Poulet Réunionnais",
+                "description":  "Réunion's definitive dish: chicken braised in a fragrant cari (curry) of turmeric, ginger, garlic, thyme, and tomato. Cari is a Creole invention unique to Réunion, a fusion of Malagasy, Indian, Chinese, and French cooking.",
+                "ingredients":  ["2 lbs chicken pieces, bone-in", "2 tbsp vegetable oil", "1 large onion, chopped", "4 garlic cloves, minced", "2-inch piece fresh ginger, grated", "2 tsp ground turmeric", "3 ripe tomatoes, chopped", "3 sprigs fresh thyme", "Salt and black pepper"],
+                "steps":  ["Season chicken with salt, pepper, and half the turmeric. Brown in oil. Remove.", "Add onion, cook until golden. Add garlic, ginger, remaining turmeric, thyme. Cook 2 minutes.", "Add tomatoes and cook 5 minutes until they break down.", "Return chicken. Add 1 cup water. Cover and simmer 35-40 minutes.", "Serve over white rice with rougail tomate on the side."],
+                "drink":  { "dish":  "Rhum Arrangé Réunionnais", "description":  "Réunion's famous infused rum with vanilla and lychee.", "ingredients":  ["1 bottle white rhum agricole", "2 vanilla pods, split", "6 lychees, peeled", "3 tbsp raw cane sugar"], "steps":  ["Place vanilla, lychees, sugar in jar. Pour rum. Seal. Infuse 3+ weeks. Serve neat or on ice."] }
+            },
+            "Mayotte":  {
+                "dish":  "Mataba",
+                "description":  "Mayotte's signature dish: young cassava leaves pounded smooth and slow-cooked in coconut milk with fish, garlic, and cardamom. Creamy, green, and deeply aromatic.",
+                "ingredients":  ["1 lb young cassava or taro leaves, finely pounded", "1 lb firm white fish, cut into chunks", "1 can coconut milk", "1 onion, finely chopped", "3 garlic cloves, minced", "1-inch ginger, grated", "3 cardamom pods, cracked", "1 tbsp vegetable oil", "Salt"],
+                "steps":  ["If using fresh leaves: wash, boil 20 minutes, drain, pound until smooth.", "Heat oil. Sauté onion, garlic, ginger, cardamom until fragrant.", "Add pounded leaves and coconut milk. Simmer 30 minutes, stirring often.", "Add fish chunks. Cook 10 minutes until done and sauce is thick.", "Serve over steamed rice."],
+                "drink":  { "dish":  "Trembo (Palm Wine)", "description":  "Fresh palm wine tapped from coconut palms—mildly sweet, slightly fizzy.", "ingredients":  ["Fresh coconut palm sap"], "steps":  ["Tapped at dawn. Drink fresh within hours."] }
             }
         }
     },
@@ -6462,7 +6522,8 @@
                     "1 lb handmade or store-bought filo dough (450 g)",
                     "For the cream: 4 cups whole milk (960 ml), 3/4 cup fine semolina (120 g), 3/4 cup sugar (150 g), 3 large eggs, 1 tsp vanilla extract, 2 tbsp unsalted butter, pinch of salt",
                     "1/2 cup melted unsalted butter for brushing filo (115 g)",
-                    "Powdered sugar and ground cinnamon for serving"
+                    "Powdered sugar and ground cinnamon for serving",
+                    "Krema semolina custard (see Chef's Essentials below)"
                 ],
                 "steps":  [
                     "Make the cream: Heat the milk in a heavy saucepan until steaming. In a bowl, whisk the eggs with the sugar until pale, then whisk in the semolina. Slowly pour the hot milk into the egg mixture, whisking constantly to temper.",
@@ -6572,7 +6633,8 @@
                 "ingredients":  [
                     "For the filling: 2 lbs boneless lamb shoulder, cut into small dice (900 g), 1 large onion (diced), 2 garlic cloves, 1/2 cup tomato puree (120 ml), 1/4 cup short-grain rice, 1/4 cup olive oil (60 ml), 1/2 tsp cinnamon, 2 tbsp fresh mint (chopped), salt, pepper",
                     "For the filo: 1 lb store-bought or handmade filo (450 g), 1/2 cup melted butter mixed with 1/4 cup olive oil for brushing",
-                    "1 egg yolk + 1 tbsp milk for egg wash"
+                    "1 egg yolk + 1 tbsp milk for egg wash",
+                    "Gemisi spiced lamb filling (see Chef's Essentials below)"
                 ],
                 "steps":  [
                     "Make the filling: Heat olive oil in a heavy pot. Brown the diced lamb in batches until deeply colored. Add onion and garlic, cook until softened.",
@@ -6770,7 +6832,9 @@
                     "2 ripe tomatoes, diced",
                     "1 red onion, thinly sliced",
                     "French fries (thick-cut, fried crispy)",
-                    "Sweet paprika for dusting"
+                    "Sweet paprika for dusting",
+                    "Lemon-oregano marinade (see Chef's Essentials below)",
+                    "Tzatziki (see Chef's Essentials below)"
                 ],
                 "steps":  [
                     "Combine all marinade ingredients. Add the pork cubes and toss. Marinate 2 hours minimum, overnight is better.",
@@ -7054,6 +7118,126 @@
                 "Infuse 7–21 days, tasting as you go, then strain.",
                 "Serve 1–2 oz (30–60 ml) over ice or neat."
             ]
+        }
+    },
+    "REU":  {
+        "dish":  "Cari Poulet Réunionnais",
+        "description":  "Réunion's definitive dish: chicken braised in a fragrant cari (curry) of turmeric, ginger, garlic, thyme, and tomato, served over white rice with rougail (a fiery fresh chili condiment) and brèdes (sautéed greens). Cari is not Indian curry—it's a Creole invention unique to Réunion, a fusion of Malagasy, Indian, Chinese, and French cooking on a volcanic island in the Indian Ocean. The turmeric must be fresh when possible, and the thyme is always fresh local thyme.",
+        "ingredients":  [
+            "2 lbs chicken pieces, bone-in (900 g)",
+            "2 tbsp vegetable oil",
+            "1 large onion, chopped",
+            "4 garlic cloves, minced",
+            "2-inch piece fresh ginger, grated",
+            "2 tsp ground turmeric (or 1 tbsp fresh turmeric, grated)",
+            "3 ripe tomatoes, chopped",
+            "3 sprigs fresh thyme",
+            "Salt and black pepper",
+            "White rice for serving",
+            "Rougail Tomate (see Chef's Essentials below)"
+        ],
+        "preliminary_steps":  [
+            {
+                "item":  "Rougail Tomate (Fresh Chili-Tomato Condiment)",
+                "ingredients":  ["2 ripe tomatoes, finely diced", "1 small onion, very finely minced", "1 fresh bird's-eye chili (piment), minced", "1 tbsp fresh ginger, finely grated", "Juice of 1 lime", "Salt"],
+                "steps":  ["Combine all ingredients in a bowl. Mix well and let sit at least 15 minutes for flavors to meld.", "Serve at room temperature alongside the cari. The rougail is non-negotiable—it IS the soul of the meal."]
+            }
+        ],
+        "steps":  [
+            "Season chicken with salt, pepper, and half the turmeric. Heat oil in a heavy pot. Brown the chicken on all sides. Remove.",
+            "Add onion, cook until golden. Add garlic, ginger, remaining turmeric, and thyme. Cook 2 minutes.",
+            "Add tomatoes and cook 5 minutes until they break down.",
+            "Return chicken. Add 1 cup water. Cover and simmer 35–40 minutes until the chicken is tender and the sauce is thick.",
+            "Serve over white rice with rougail tomate on the side and sautéed brèdes (chouchou greens or watercress) if available."
+        ],
+        "drink":  {
+            "dish":  "Rhum Arrangé Réunionnais",
+            "description":  "Réunion's famous infused rum: white rhum agricole steeped for weeks (or months) with tropical fruits, vanilla, and spices. Every Réunionnais household has bottles of rhum arrangé aging on the shelf—the longer it steeps, the better it gets. Vanilla and lychee is the classic combination.",
+            "ingredients":  ["1 bottle (750 ml) white rhum agricole", "2 Réunion vanilla pods, split and scraped", "6 fresh lychees, peeled and pitted", "3 tbsp raw cane sugar"],
+            "steps":  ["Place vanilla, lychees, and sugar in a large glass jar. Pour over the rum. Seal.", "Store in a cool, dark place for at least 3 weeks (3 months is better), shaking occasionally.", "Serve neat, over ice, or as a Ti Punch base."]
+        }
+    },
+    "MYT":  {
+        "dish":  "Mataba",
+        "description":  "Mayotte's signature dish: young cassava leaves (or taro leaves) pounded smooth and slow-cooked in coconut milk with fish, garlic, and a touch of cardamom. Mataba is the food that connects Mayotte to both the Comorian archipelago and the Malagasy coast—creamy, green, and deeply aromatic. Served over rice, it's the Sunday dish of every Mahorais family.",
+        "ingredients":  [
+            "1 lb young cassava leaves or taro leaves, finely pounded (450 g)",
+            "1 lb firm white fish, cut into chunks (450 g)",
+            "1 can (14 oz) coconut milk",
+            "1 medium onion, finely chopped",
+            "3 garlic cloves, minced",
+            "1-inch piece ginger, grated",
+            "3 cardamom pods, cracked",
+            "1 tbsp vegetable oil",
+            "Salt",
+            "White rice for serving"
+        ],
+        "steps":  [
+            "If using fresh cassava leaves: wash thoroughly, boil 20 minutes, drain, and pound in a mortar until smooth.",
+            "Heat oil. Sauté onion, garlic, ginger, and cardamom until fragrant.",
+            "Add the pounded leaves and coconut milk. Stir well. Simmer 30 minutes on low heat, stirring often.",
+            "Add the fish chunks. Cook gently 10 minutes until the fish is done and the sauce is thick and creamy. Season.",
+            "Serve over steamed rice."
+        ],
+        "drink":  {
+            "dish":  "Trembo (Palm Wine)",
+            "description":  "Fresh palm wine tapped from coconut palms on Mayotte—mildly sweet, slightly fizzy, and consumed the same day it's tapped. An evening ritual on Grande-Terre.",
+            "ingredients":  ["Fresh coconut palm sap"],
+            "steps":  ["Tapped at dawn. Drink fresh within hours before it ferments further."]
+        }
+    },
+    "NCL":  {
+        "dish":  "Bougna",
+        "description":  "New Caledonia's sacred Kanak dish: taro, yam, sweet potato, and banana are layered with chicken (or lobster) and coconut milk in a parcel of banana leaves, then buried in an earth oven (four) and slow-cooked for hours over hot stones. Bougna is not just food—it is ceremony, community, and connection to the Melanesian land. The banana-leaf parcel steams everything in its own juice, producing a creamy, smoky, impossibly tender feast.",
+        "ingredients":  [
+            "2 lbs chicken pieces or lobster tails (900 g)",
+            "1 lb taro root, peeled and cut into chunks (450 g)",
+            "1 lb yam, peeled and cut into chunks (450 g)",
+            "2 sweet potatoes, peeled and chunked",
+            "2 ripe bananas, halved",
+            "1 can (14 oz) coconut milk",
+            "1 onion, sliced",
+            "Salt",
+            "Large banana leaves (or aluminum foil)"
+        ],
+        "steps":  [
+            "Soften banana leaves over a flame or in boiling water until pliable. Lay 2–3 leaves overlapping on a flat surface.",
+            "Layer the root vegetables (taro, yam, sweet potato) on the leaves. Place the chicken or lobster on top. Add onion, banana, and season with salt.",
+            "Pour the coconut milk over everything. Fold the banana leaves tightly into a sealed parcel, tying with kitchen twine or strips of banana leaf.",
+            "Traditional method: bury the parcel in a pit lined with hot stones, cover with more stones and earth. Cook 2–3 hours.",
+            "Oven method: Place the parcel on a baking tray. Bake at 350°F (175°C) for 2 hours until the root vegetables are tender and the coconut milk has been absorbed.",
+            "Unwrap at the table. The fragrance of banana leaf and coconut should fill the room. Serve communally."
+        ],
+        "drink":  {
+            "dish":  "Kava",
+            "description":  "New Caledonia's ceremonial drink: the root of the kava plant is ground, mixed with water, and strained to produce a muddy, earthy, mildly sedative drink. Kava is drunk in Melanesian custom circles as a ritual of welcome and respect. The numbness on the tongue is the point.",
+            "ingredients":  ["2 tbsp kava root powder", "1 cup cold water"],
+            "steps":  ["Mix kava powder with cold water in a bowl. Knead and squeeze for 5 minutes to extract the active compounds.", "Strain through cheesecloth into a coconut shell or cup.", "Drink in one gulp. The tongue will tingle."]
+        }
+    },
+    "PYF":  {
+        "dish":  "Poisson Cru à la Tahitienne",
+        "description":  "Tahiti's iconic raw fish salad: the freshest tuna is diced, cured in lime juice, then bathed in coconut milk with cucumber, tomato, carrot, and onion. The lime 'cooks' the fish; the coconut milk softens the acidity into something silky and tropical. Poisson cru is to French Polynesia what ceviche is to Peru—a daily staple, a point of pride, and the dish every visitor remembers. It must be made with the freshest fish and served immediately.",
+        "ingredients":  [
+            "1 lb sushi-grade fresh tuna, diced into 1/2-inch cubes (450 g)",
+            "Juice of 6 limes",
+            "1 cup coconut milk (240 ml)",
+            "1 cucumber, peeled, seeded, and diced",
+            "2 ripe tomatoes, diced",
+            "1 carrot, finely grated",
+            "1 small onion, very thinly sliced",
+            "Salt to taste"
+        ],
+        "steps":  [
+            "Place the diced tuna in a bowl. Pour the lime juice over and toss gently. Refrigerate 15–30 minutes—the fish will turn opaque on the outside but stay raw and silky in the center. Do not over-cure or the texture becomes rubbery.",
+            "Drain off most of the lime juice (leaving a few tablespoons). Add the coconut milk, cucumber, tomato, carrot, and onion. Toss gently.",
+            "Season with salt. Serve immediately in coconut shell bowls if you have them—chilled, fresh, and with a view of the lagoon."
+        ],
+        "drink":  {
+            "dish":  "Hinano Lager with Lime",
+            "description":  "Tahiti's iconic beer: a cold Hinano (brewed in Papeete since 1955) with a wedge of lime, drunk on a white-sand beach. Some things don't need to be complicated.",
+            "ingredients":  ["1 bottle Hinano beer, ice-cold", "1 lime wedge"],
+            "steps":  ["Open the Hinano. Squeeze the lime into the bottle.", "Drink cold with your feet in the sand."]
         }
     },
     "GUY":  {
@@ -7547,7 +7731,10 @@
                 "description":  "Baked wheat balls stuffed with spiced roasted gram flour (Sattu), dipped in ghee, and served with mashed vegetables (Chokha).",
                 "ingredients":  [
                     "Dough: 3 cups Wheat Flour, Ghee",
-                    "Filling: 2 cups Sattu, Onion, Pickle Masala, Mustard Oil",
+                    "2 cups sattu (roasted gram flour)",
+                    "1 onion, finely chopped",
+                    "1 tbsp pickle masala",
+                    "1 tbsp mustard oil",
                     "Chokha: Roasted Eggplant, Tomato, Potato mash"
                 ],
                 "steps":  [
@@ -8760,7 +8947,10 @@
             "1 tsp ground cumin",
             "1/2 tsp black pepper",
             "1 tbsp lemon juice",
-            "To serve: sliced red onion, lemon wedges, flatbread"
+            "Sliced red onion",
+            "Lemon wedges",
+            "Flatbread",
+            "Amba sauce (see Chef's Essentials below)"
         ],
         "steps":  [
             "Pat fish dry. Rub all over with olive oil, salt, turmeric, cumin, pepper, and lemon juice. Rest 20 minutes.",
@@ -9211,7 +9401,10 @@
                 "ingredients":  [
                     "For the brodo: 1 whole capon or stewing hen (about 4 lbs / 1.8 kg), 1 lb beef shank (450 g), 1 carrot, 1 celery rib, 1 onion (halved, unpeeled), salt",
                     "For the filling: 4 oz pork loin (110 g), 3 oz prosciutto crudo di Parma (85 g), 3 oz mortadella di Bologna (85 g), 1 cup finely grated Parmigiano-Reggiano (100 g), 1 large egg, pinch of nutmeg, salt",
-                    "For the pasta: 3 1/2 cups '00' flour (400 g), 4 large eggs"
+                    "For the pasta: 3 1/2 cups '00' flour (400 g), 4 large eggs",
+                    "Brodo capon broth (see Chef's Essentials below)",
+                    "Ripieno filling (see Chef's Essentials below)",
+                    "Sfoglia egg pasta dough (see Chef's Essentials below)"
                 ],
                 "steps":  [
                     "Make the brodo: Place the capon, beef shank, carrot, celery, onion, and 1 tbsp salt in a large stockpot. Cover with 4 quarts cold water. Bring to a very gentle simmer, skimming foam. Cook uncovered 3 hours at a bare simmer. Strain through cheesecloth. You should have a clear, golden, intensely flavored broth.",
@@ -9406,7 +9599,9 @@
                 "ingredients":  [
                     "For cavatelli: 3 cups fine semolina flour (durum wheat, 360 g), 3/4 cup warm water (180 ml), pinch of salt",
                     "For ragù: 1.5 lbs bone-in lamb shoulder or neck, cut into chunks (680 g), 1/4 cup olive oil, 1 onion (chopped), 2 garlic cloves, 1/2 cup dry white wine (120 ml), 1 can (14 oz) crushed San Marzano tomatoes, 1 sprig rosemary, 1 dried peperoncino (crumbled), salt",
-                    "Grated Pecorino for serving"
+                    "Grated Pecorino for serving",
+                    "Cavatelli pasta (see Chef's Essentials below)",
+                    "Ragù di agnello (see Chef's Essentials below)"
                 ],
                 "steps":  [
                     "Make cavatelli: Mound semolina on a board, make a well, add warm salted water. Mix and knead 10 minutes until smooth and firm. Rest 30 minutes under a towel.",
@@ -9631,7 +9826,10 @@
                     "For dough: 3 cups fine semolina flour (360 g), 3/4 cup warm water (180 ml), 1 tbsp olive oil, pinch of salt",
                     "For filling: 1.5 lbs potatoes, boiled and riced (680 g), 1 cup grated aged Pecorino Sardo (100 g), 2 garlic cloves minced, 12 fresh mint leaves (finely chopped), 2 tbsp olive oil, salt",
                     "For sauce: 1 can (14 oz) San Marzano tomatoes, 2 tbsp olive oil, 1 garlic clove, basil, salt",
-                    "Grated Pecorino Sardo for serving"
+                    "Grated Pecorino Sardo for serving",
+                    "Potato-mint filling (see Chef's Essentials below)",
+                    "Semolina pasta dough (see Chef's Essentials below)",
+                    "Tomato sauce (see Chef's Essentials below)"
                 ],
                 "steps":  [
                     "Make the filling: Boil potatoes until tender, peel and rice while hot. Mix with Pecorino, garlic, chopped mint, and olive oil. Season with salt. The filling should be smooth and fragrant. Cool.",
@@ -9769,8 +9967,10 @@
             "2 tsp kosher salt, plus more to taste",
             "3 cups (600 g) long-grain rice, rinsed and soaked 20 minutes, drained",
             "3 tbsp (45 g) ghee or unsalted butter",
-            "To serve: shrak or markook bread (or very thin lavash), chopped parsley",
-            "Garnish: 1/2 cup (70 g) slivered almonds or pine nuts, toasted"
+            "Shrak or markook bread (or very thin lavash)",
+            "Chopped parsley",
+            "Garnish: 1/2 cup (70 g) slivered almonds or pine nuts, toasted",
+            "Jameed sauce (see Chef's Essentials below)"
         ],
         "steps":  [
             "Simmer lamb with onion, water, bay, cardamom, peppercorns, and salt until very tender, 1 1/2–2 hours. Skim as needed.",
@@ -9935,7 +10135,8 @@
             "2 tbsp Vegetable Oil",
             "Salt (lots of it)",
             "Warm water with salt (for basting)",
-            "Sides: Kachumbari (Tomato/Onion salad), Ugali (Cornmeal cake)"
+            "Kachumbari (tomato-onion salad)",
+            "Ugali (cornmeal cake)"
         ],
         "steps":  [
             "Prepare a charcoal grill. The heat should be medium.",
@@ -9972,7 +10173,8 @@
             "1 tbsp kosher salt, plus more to taste",
             "1 tsp black peppercorns",
             "2 bay leaves",
-            "3 onions, thinly sliced"
+            "3 onions, thinly sliced",
+            "Fresh noodles (see Chef's Essentials below)"
         ],
         "preliminary_steps":  [
             {
@@ -10027,7 +10229,8 @@
             "1 tsp palm sugar or brown sugar",
             "6 kaffir lime leaves, finely sliced (or zest of 1 lime as substitute)",
             "1 cup (30 g) packed spinach or mustard greens (optional lining)",
-            "Banana leaves or parchment for cups (optional)"
+            "Banana leaves or parchment for cups (optional)",
+            "Kroeung paste (see Chef's Essentials below)"
         ],
         "steps":  [
             "Make kroeung paste (see preliminary steps).",
@@ -10276,7 +10479,11 @@
         "description":  "The national dish of Lebanon. A croquette of spiced ground meat and bulgur wheat, stuffed with more meat and pine nuts.",
         "ingredients":  [
             "Shell: 1 lb Lean Ground Beef/Lamb, 2 cups Fine Bulgur (soaked), 1 Onion (grated), Spices (Cumin, Allspice)",
-            "Filling: 1/2 lb Ground Beef/Lamb, 1 Onion (chopped), 1/2 cup Pine Nuts, 1 tsp Sumac, Salt/Pepper",
+            "1/2 lb ground beef or lamb",
+            "1 onion, chopped",
+            "1/2 cup pine nuts",
+            "1 tsp sumac",
+            "Salt and pepper",
             "Oil for frying"
         ],
         "steps":  [
@@ -10451,7 +10658,16 @@
     "LTU":  {
         "dish":  "Cepelinai",
         "description":  "Named after the Zeppelin airships they resemble. These massive potato dumplings are a labor of love, made from a unique mix of raw and cooked potato dough, stuffed with meat, and drenched in a bacon-sour cream sauce.",
-        "ingredients":  [],
+        "ingredients":  [
+            "4 lb russet potatoes, peeled (1.8 kg)",
+            "1 tbsp potato starch (optional, helps bind)",
+            "1 lb ground pork (450 g)",
+            "6 oz bacon, diced (170 g)",
+            "2 small onions (1 finely grated, 1 chopped)",
+            "1 clove garlic (optional)",
+            "Kosher salt and black pepper",
+            "Sour cream and chopped dill"
+        ],
         "preliminary_steps":  [
             {
                 "item":  "Meat Filling",
@@ -10691,7 +10907,9 @@
         "dish":  "Barbagiuan",
         "description":  "Meaning 'Uncle John' in the local dialect. These savory fritters are stuffed with Swiss chard and ricotta and are traditionally eaten on Monaco's National Day. They are the taste of the Riviera.",
         "ingredients":  [
-            "Neutral oil for frying"
+            "Neutral oil for frying",
+            "Pastry dough (see Chef's Essentials below)",
+            "Chard-ricotta filling (see Chef's Essentials below)"
         ],
         "preliminary_steps":  [
             {
@@ -11982,7 +12200,11 @@
             "2 tbsp fish sauce, plus more to taste",
             "2 tbsp toasted rice powder (see preliminary steps) or 3 tbsp chickpea flour",
             "1 lb (450 g) rice vermicelli noodles, cooked",
-            "To serve: hard-boiled eggs, chopped cilantro, lime wedges, fried onions, chili oil"
+            "Hard-boiled eggs",
+            "Chopped cilantro",
+            "Lime wedges",
+            "Fried onions",
+            "Chili oil"
         ],
         "steps":  [
             "Simmer fish with water and lemongrass 12–15 minutes until cooked. Remove fish; strain broth and discard lemongrass.",
@@ -12062,7 +12284,17 @@
     "MNG":  {
         "dish":  "Buuz (Бууз) — Mongolian Steamed Dumplings",
         "description":  "Mongolia’s celebratory dumplings: juicy meat filling sealed in pleated dough and steamed, especially for Tsagaan Sar (Lunar New Year).",
-        "ingredients":  [],
+        "ingredients":  [
+            "3 cups all-purpose flour (360 g)",
+            "1 lb ground lamb or beef (450 g)",
+            "1 medium onion, finely chopped",
+            "2 cloves garlic, minced",
+            "1/2 cup finely chopped cabbage (optional but common)",
+            "2 tsp kosher salt",
+            "1/2 tsp black pepper",
+            "1 1/4 cups warm water (300 ml)",
+            "2 tbsp water (30 ml)"
+        ],
         "preliminary_steps":  [
             {
                 "item":  "Dough",
@@ -12428,7 +12660,11 @@
         "dish":  "Dal Bhat Tarkari (दाल भात तरकारी)",
         "description":  "Nepal’s everyday national meal: lentil soup (dal) with rice (bhat) and a simple vegetable curry (tarkari). It’s practical, balanced, and endlessly variable from home to home.",
         "ingredients":  [
-            "To finish: chopped cilantro, lime wedges"
+            "Chopped cilantro",
+            "Lime wedges",
+            "Dal lentil soup (see Chef's Essentials below)",
+            "Bhat steamed rice (see Chef's Essentials below)",
+            "Tarkari vegetable curry (see Chef's Essentials below)"
         ],
         "preliminary_steps":  [
             {
@@ -13406,7 +13642,18 @@
         "dish":  "Pelmeni",
         "description":  "The heart of Siberia wrapped in dough. These dumplings were originally preserved by freezing them outdoors in the Siberian winter. The thin dough holds a juicy meat filling, traditionally served with sour cream and dill.",
         "ingredients":  [
-            "To serve: butter, sour cream, dill; optional vinegar or black pepper"
+            "3 cups all-purpose flour (390 g), plus more for dusting",
+            "1 large egg",
+            "3/4 cup warm water (180 ml), plus as needed",
+            "1/2 lb ground beef (225 g)",
+            "1/2 lb ground pork (225 g)",
+            "1 small onion, very finely grated",
+            "2 tbsp cold water (30 ml)",
+            "2 1/2 tsp kosher salt",
+            "1/2 tsp black pepper",
+            "Butter for serving",
+            "Sour cream",
+            "Fresh dill (optional: vinegar or black pepper)"
         ],
         "preliminary_steps":  [
             {
@@ -14128,7 +14375,8 @@
             "4 tbsp kajmak (or thick cream cheese + a little butter) (60 g)",
             "4 thin slices smoked ham (optional but common)",
             "Oil for frying (or shallow pan-fry), plus optional butter for finishing",
-            "To serve: lemon wedges; optional tartar sauce"
+            "To serve: lemon wedges; optional tartar sauce",
+            "Breading (flour, egg, breadcrumbs - see Chef's Essentials below)"
         ],
         "preliminary_steps":  [
             {
@@ -14247,7 +14495,9 @@
         "dish":  "Štruklji",
         "description":  "Slovenia's rolled dumplings. A thin dough is spread with a filling (savory cottage cheese or sweet walnut), rolled up, and boiled or baked. It is a versatile dish served as a side or dessert.",
         "ingredients":  [
-            "To finish: 3 tbsp butter (42 g) + toasted breadcrumbs (optional)"
+            "To finish: 3 tbsp butter (42 g) + toasted breadcrumbs (optional)",
+            "Strudel dough (see Chef's Essentials below)",
+            "Cheese filling (see Chef's Essentials below)"
         ],
         "preliminary_steps":  [
             {
@@ -14350,7 +14600,9 @@
         "dish":  "Kibbeh Bil Sanieh (كبة بالصينية) — Syrian Baked Kibbeh",
         "description":  "A Levantine classic strongly associated with Syria: spiced ground meat and bulgur pressed into a tray with a savory filling and baked until crisp at the edges.",
         "ingredients":  [
-            "3 tbsp (45 ml) olive oil or melted butter"
+            "3 tbsp (45 ml) olive oil or melted butter",
+            "Kibbeh shell (see Chef's Essentials below)",
+            "Meat filling (see Chef's Essentials below)"
         ],
         "preliminary_steps":  [
             {
@@ -14804,7 +15056,8 @@
             "2 bay leaves",
             "1 tsp Sichuan peppercorns (optional)",
             "1 lb (450 g) fresh or dried wheat noodles",
-            "To serve: blanched bok choy, chili oil",
+            "Blanched bok choy",
+            "Chili oil",
             "Pickled mustard greens (see preliminary steps)"
         ],
         "steps":  [
@@ -15093,7 +15346,9 @@
             "4 slices American or Cheddar Cheese",
             "Salt and Pepper",
             "Lettuce, Tomato, Onion, Pickles",
-            "Condiments: Ketchup, Mustard, Mayonnaise"
+            "Ketchup",
+            "Yellow mustard",
+            "Mayonnaise"
         ],
         "steps":  [
             "Divide beef into 4 loose balls. Do not overwork the meat.",
@@ -15185,7 +15440,9 @@
                     "Filling: 1 lb Shredded Beef (Machaca) or Chicken",
                     "Refried Beans, Cheese",
                     "Oil for deep frying",
-                    "Toppings: Guacamole, Sour Cream, Salsa"
+                    "Guacamole",
+                    "Sour cream",
+                    "Salsa"
                 ],
                 "steps":  [
                     "Warm tortillas. Place meat, beans, and cheese in the center.",
@@ -16573,7 +16830,9 @@
                     "1 can Tomato Paste",
                     "Spices: Cinnamon, Cloves, Allspice, Cumin, Chili Powder, Cocoa Powder",
                     "Spaghetti",
-                    "Toppings: Kidney Beans, Diced Onions, Shredded Cheddar (mountain of it)"
+                    "Kidney beans",
+                    "Diced onions",
+                    "Shredded cheddar cheese (mountain of it)"
                 ],
                 "steps":  [
                     "Crumble raw beef into water. Boil until cooked (fine texture).",
@@ -17674,7 +17933,8 @@
             "2 cups long-grain rice",
             "1 cup dried black-eyed beans, soaked overnight",
             "3–4 dried millet stalks or sorghum leaves (or 1 tsp baking soda for color)",
-            "Salt to taste"
+            "Salt to taste",
+            "Shito (see Chef's Essentials below)"
         ],
         "preliminary_steps":  [
             {
@@ -17717,7 +17977,8 @@
             "1 dried fish (guedj) or fermented locust beans (nététou) for umami",
             "3 tbsp tomato paste",
             "1/4 cup peanut oil (60 ml)",
-            "Salt, black pepper, 1 bay leaf"
+            "Salt, black pepper, 1 bay leaf",
+            "Rof herb stuffing paste (see Chef's Essentials below)"
         ],
         "preliminary_steps":  [
             {
@@ -17810,7 +18071,11 @@
             "4 garlic cloves, minced",
             "1-inch piece ginger, grated",
             "1/4 cup vegetable oil (60 ml)",
-            "Whole spices: 1 cinnamon stick, 6 cardamom pods, 6 whole cloves, 1 tsp cumin seeds, 1 tsp black peppercorns",
+            "1 cinnamon stick",
+            "6 cardamom pods",
+            "6 whole cloves",
+            "1 tsp cumin seeds",
+            "1 tsp black peppercorns",
             "1 tsp ground cumin",
             "1/2 tsp ground turmeric",
             "2 cups beef broth (480 ml)",
@@ -17909,7 +18174,7 @@
     "NER":  {
         "dish":  "Kilishi",
         "description":  "Niger's legendary spiced dried meat: thin sheets of beef are sun-dried, then coated in a fiery paste of groundnut powder, ginger, onion, cayenne, and Maggi seasoning, then dried again until they become crispy, intensely flavored jerky. Kilishi is the original Sahelian protein bar, carried by Tuareg and Hausa traders across the Sahara for centuries. Each butcher guards a secret spice ratio.",
-        "ingredients":  ["2 lbs lean beef (top round), sliced paper-thin against the grain (900 g)"],
+        "ingredients":  ["2 lbs lean beef (top round), sliced paper-thin against the grain (900 g)", "Labu spice paste (see Chef's Essentials below)"],
         "preliminary_steps":  [
             {
                 "item":  "Labu (Spice Paste)",
@@ -17933,7 +18198,7 @@
     "MWI":  {
         "dish":  "Chambo with Nsima",
         "description":  "Malawi's national meal: chambo (a tilapia endemic to Lake Malawi) grilled whole over charcoal, served with nsima (stiff white maize porridge) and braised greens. Chambo is to Malawi what salmon is to Alaska—a cultural symbol and daily staple. The fish is scored, rubbed with salt and lemon, and grilled until the skin is smoky and crisp.",
-        "ingredients":  ["2 whole chambo or tilapia (about 1 lb each), cleaned and scored", "Juice of 2 lemons", "2 tsp salt"],
+        "ingredients":  ["2 whole chambo or tilapia (about 1 lb each), cleaned and scored", "Juice of 2 lemons", "2 tsp salt", "Nsima maize porridge (see Chef's Essentials below)", "Masamba braised greens (see Chef's Essentials below)"],
         "preliminary_steps":  [
             {
                 "item":  "Nsima (Maize Porridge)",
@@ -17961,7 +18226,7 @@
     "ZMB":  {
         "dish":  "Ifisashi",
         "description":  "Zambia's nourishing vegetable-peanut stew: dark leafy greens braised in a thick, creamy groundnut sauce with tomato and onion, served over nshima. Ifisashi is everyday Zambian comfort—rich, earthy, and satisfying enough to anchor the whole meal.",
-        "ingredients":  ["1 large bunch leafy greens (pumpkin leaves, kale, or collard greens), chopped", "1/2 cup natural peanut butter (125 g)", "2 ripe tomatoes, chopped", "1 onion, chopped", "1 tbsp vegetable oil", "Salt"],
+        "ingredients":  ["1 large bunch leafy greens (pumpkin leaves, kale, or collard greens), chopped", "1/2 cup natural peanut butter (125 g)", "2 ripe tomatoes, chopped", "1 onion, chopped", "1 tbsp vegetable oil", "Salt", "Nshima maize porridge (see Chef's Essentials below)"],
         "preliminary_steps":  [
             {
                 "item":  "Nshima (Zambian Maize Porridge)",
@@ -17985,7 +18250,15 @@
     "ZWE":  {
         "dish":  "Sadza ne Nyama",
         "description":  "Zimbabwe's soul: sadza (stiff maize porridge, the country's staple) served with nyama (slow-stewed beef in a rich tomato-onion gravy). Every Zimbabwean grows up eating sadza ne nyama. The sadza must be thick enough to form into balls and firm enough to hold a scoop of stew.",
-        "ingredients":  [],
+        "ingredients":  [
+            "3 cups white maize meal",
+            "2 lbs beef stew meat (900 g)",
+            "2 onions, sliced",
+            "3 tomatoes, chopped",
+            "2 tbsp vegetable oil",
+            "1 tsp curry powder",
+            "Salt and pepper"
+        ],
         "preliminary_steps":  [
             {
                 "item":  "Sadza (Maize Porridge)",
@@ -18056,7 +18329,19 @@
     "TGO":  {
         "dish":  "Fufu with Gboma Dessi",
         "description":  "Togo's daily staple: pounded yam fufu—silky, elastic, and impossibly smooth—served with gboma dessi, a rich sauce of jute leaves, palm oil, smoked fish, crab, tomato, and onion. The fufu must be pounded until it stretches without breaking; the gboma dessi must be thick, oily, and bursting with umami.",
-        "ingredients":  [],
+        "ingredients":  [
+            "4 cups yam chunks (or instant pounded yam flour)",
+            "1 lb jute leaves or spinach (450 g)",
+            "1/4 cup palm oil (60 ml)",
+            "1 smoked fish fillet, flaked",
+            "1 onion, chopped",
+            "3 tomatoes, chopped",
+            "2 garlic cloves",
+            "1 crab, cleaned (optional)",
+            "Salt",
+            "Hot pepper",
+            "Gboma Dessi jute leaf sauce (see Chef's Essentials below)"
+        ],
         "preliminary_steps":  [
             {
                 "item":  "Fufu (Pounded Yam)",
@@ -18209,7 +18494,7 @@
     "MUS":  {
         "dish":  "Dholl Puri with Butter Bean Curry",
         "description":  "Mauritius' most iconic street food: thin, soft flatbreads made with ground yellow split peas folded around a fragrant butter bean curry, rougaille, and pickled vegetables. Dholl puri reflects the island's Indo-Creole heritage—Indian technique, Creole seasoning, African simplicity. Eaten from roadside vendors island-wide.",
-        "ingredients":  ["Coriander chutney and hot pepper sauce for serving"],
+        "ingredients":  ["Coriander chutney and hot pepper sauce for serving", "Dholl puri flatbread (see Chef's Essentials below)", "Butter bean curry (see Chef's Essentials below)"],
         "preliminary_steps":  [
             {
                 "item":  "Dholl Puri (Split Pea Flatbread)",
@@ -18321,7 +18606,16 @@
     "LSO":  {
         "dish":  "Papa le Moroho",
         "description":  "Lesotho's staple from the 'Kingdom in the Sky': stiff maize porridge (papa) served with braised wild greens (moroho)—spinach, mustard greens, or wild nettles cooked with onion, tomato, and oil. Every meal in Lesotho starts and ends with papa.",
-        "ingredients":  [],
+        "ingredients":  [
+            "3 cups maize meal",
+            "1 large bunch greens (spinach or mustard greens)",
+            "1 onion, chopped",
+            "2 tomatoes, chopped",
+            "2 tbsp oil",
+            "Salt",
+            "Papa maize porridge (see Chef's Essentials below)",
+            "Moroho braised greens (see Chef's Essentials below)"
+        ],
         "preliminary_steps":  [
             {
                 "item":  "Papa (Maize Porridge)",
@@ -18348,7 +18642,7 @@
         "dish":  "Karoo Stew with Sishwala",
         "description":  "A hearty Eswatini beef stew slow-cooked with tomatoes, onions, and peppers, served alongside sishwala—a traditional fermented maize porridge with a tangy edge from soured milk. This is homestead food: slow, communal, and deeply rooted in the Swazi hills.",
         "ingredients":  [
-            "2 lbs beef stew meat (900 g)", "3 tomatoes, chopped", "2 onions, chopped", "2 tbsp vegetable oil", "1 tsp curry powder", "Salt and pepper"
+            "2 lbs beef stew meat (900 g)", "3 tomatoes, chopped", "2 onions, chopped", "2 tbsp vegetable oil", "1 tsp curry powder", "Salt and pepper", "Sishwala fermented porridge (see Chef's Essentials below)"
         ],
         "preliminary_steps":  [
             {
@@ -18372,7 +18666,7 @@
     "NAM":  {
         "dish":  "Kapana",
         "description":  "Namibia's beloved open-air grilled meat: chunks of beef are grilled on massive charcoal drums in the townships and markets, then chopped on a wooden board and served with a fiery chili-tomato relish and braai salt. Kapana is the ultimate Namibian street food—smoke, fire, community, and meat. You point, they chop, you eat.",
-        "ingredients":  ["2 lbs beef (rump or sirloin), cut into thick pieces (900 g)", "Salt and pepper"],
+        "ingredients":  ["2 lbs beef (rump or sirloin), cut into thick pieces (900 g)", "Salt and pepper", "Kapana relish (see Chef's Essentials below)"],
         "preliminary_steps":  [
             {
                 "item":  "Kapana Relish",
@@ -18396,7 +18690,20 @@
     "SDN":  {
         "dish":  "Kisra with Mulah Bamia",
         "description":  "Sudan's daily meal: kisra—a thin, tangy, sourdough flatbread made from fermented sorghum batter—served with mulah bamia, a rich lamb and okra stew. The 24-hour fermentation of the kisra batter gives it a distinctive sour tang that pairs perfectly with the hearty stew. This is Nile Valley cooking at its most ancient and satisfying.",
-        "ingredients":  [],
+        "ingredients":  [
+            "2 cups sorghum flour",
+            "Pinch of yeast",
+            "1.5 lbs lamb stew meat (680 g)",
+            "2 cups okra (fresh or dried powder)",
+            "1 onion, chopped",
+            "3 garlic cloves",
+            "2 tbsp vegetable oil",
+            "1 tbsp dried lime powder (optional)",
+            "Salt",
+            "Hot pepper",
+            "Kisra flatbread (see Chef's Essentials below)",
+            "Mulah Bamia stew (see Chef's Essentials below)"
+        ],
         "preliminary_steps":  [
             {
                 "item":  "Kisra (Fermented Sorghum Flatbread)",
@@ -18422,7 +18729,18 @@
     "SSD":  {
         "dish":  "Kisra with Nyama",
         "description":  "South Sudan's staple meal: sorghum kisra (fermented flatbread) with slow-braised goat in a sauce of onion, tomato, and ground peanuts. The youngest nation in Africa, South Sudanese cuisine reflects the cattle-herding traditions of the Nilotic peoples and the agricultural richness of the White Nile valley.",
-        "ingredients":  [],
+        "ingredients":  [
+            "2 cups sorghum flour",
+            "Pinch of yeast",
+            "2 lbs goat meat, bone-in (900 g)",
+            "2 onions, chopped",
+            "3 tomatoes, chopped",
+            "3 tbsp ground peanuts",
+            "2 tbsp oil",
+            "Salt",
+            "Hot pepper",
+            "Kisra flatbread (see Chef's Essentials below)"
+        ],
         "preliminary_steps":  [
             {
                 "item":  "Kisra (Fermented Sorghum Flatbread)",
@@ -18448,7 +18766,7 @@
     "LBY":  {
         "dish":  "Bazeen",
         "description":  "Libya's unique communal dish: a smooth, dense dome of barley flour dough cooked in a spiced lamb-and-tomato stew, served on a communal platter with hard-boiled eggs. Diners sit around and pull off pieces of the dough, dipping them in the lamb broth. Bazeen is ancient—pre-Arab, Berber in origin—and utterly distinctive. There is no other dish like it in all of North Africa.",
-        "ingredients":  ["Hard-boiled eggs for serving"],
+        "ingredients":  ["Hard-boiled eggs for serving", "Lamb stew (see Chef's Essentials below)", "Bazeen barley dough (see Chef's Essentials below)"],
         "preliminary_steps":  [
             {
                 "item":  "Lamb Stew",

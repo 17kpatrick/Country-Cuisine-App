@@ -416,7 +416,7 @@ window.getRegionConfig = () => {
             view: { center: [56.2, 10.5], zoom: 6 }
         },
         'FRA': {
-            geoJsonUrl: 'https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/regions.geojson',
+            geoJsonUrl: 'https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/regions-avec-outre-mer.geojson',
             view: { center: [46.6, 1.9], zoom: 5.5 }
         },
         'ITA': {
@@ -441,32 +441,78 @@ window.getRegionConfig = () => {
 // --- PRIMARY MEAT / PROTEIN ANALYSIS ENGINE ---
 window.MEAT_CATEGORIES = {
     'Chicken': {
-        keywords: ['chicken', 'poultry', 'hen', 'fowl', 'turkey'],
+        keywords: [
+            'chicken', 'poultry', 'hen', 'fowl', 'turkey',
+            'chicken breast', 'chicken thigh', 'chicken wing', 'chicken leg',
+            'chicken drumstick', 'whole chicken'
+        ],
         color: '#f59e0b',
         icon: '\u{1F414}'
     },
     'Beef': {
-        keywords: ['beef', 'cattle', 'veal', 'steer', 'ox', 'oxtail', 'brisket'],
+        keywords: [
+            'beef', 'cattle', 'veal', 'steer', 'ox', 'oxtail', 'brisket',
+            // Cuts
+            'steak', 'ribeye', 'rib eye', 'sirloin', 'chuck', 'flank',
+            'tenderloin', 'filet mignon', 'fillet', 'rump', 'round',
+            't-bone', 'porterhouse', 'strip steak', 'skirt steak',
+            'hanger steak', 'tri-tip', 'short rib',
+            // Preparations
+            'ground beef', 'beef roast', 'corned beef', 'beef shank',
+            'beef cheek', 'beef tongue', 'suet'
+        ],
         color: '#dc2626',
         icon: '\u{1F42E}'
     },
     'Pork': {
-        keywords: ['pork', 'ham', 'bacon', 'lard', 'prosciutto', 'pancetta', 'chorizo', 'sausage', 'lardon', 'lardons', 'guanciale', 'pig'],
+        keywords: [
+            'pork', 'ham', 'bacon', 'lard', 'prosciutto', 'pancetta',
+            'chorizo', 'sausage', 'lardon', 'lardons', 'guanciale', 'pig',
+            // Cuts
+            'pork belly', 'pork shoulder', 'pork chop', 'pork loin',
+            'pork tenderloin', 'pork butt', 'pork knuckle', 'pork rib',
+            'spare rib', 'baby back',
+            // Preparations
+            'ground pork', 'salt pork', 'fatback', 'bratwurst',
+            'kielbasa', 'andouille', 'salami', 'pepperoni', 'mortadella',
+            'hot dog', 'frankfurter'
+        ],
         color: '#f472b6',
         icon: '\u{1F437}'
     },
     'Lamb/Goat': {
-        keywords: ['lamb', 'mutton', 'goat', 'sheep', 'kid meat'],
+        keywords: [
+            'lamb', 'mutton', 'goat', 'sheep', 'kid meat',
+            'lamb shank', 'lamb shoulder', 'lamb chop', 'rack of lamb',
+            'lamb leg', 'ground lamb', 'lamb loin',
+            'ground goat', 'goat leg', 'goat shoulder'
+        ],
         color: '#a855f7',
         icon: '\u{1F411}'
     },
     'Fish/Seafood': {
-        keywords: ['fish', 'salmon', 'tuna', 'cod', 'shrimp', 'prawn', 'crab', 'lobster', 'clam', 'mussel', 'oyster', 'squid', 'octopus', 'anchovy', 'anchovies', 'sardine', 'mackerel', 'tilapia', 'snapper', 'bass', 'trout', 'halibut', 'swordfish', 'crawfish', 'crayfish', 'scallop', 'calamari', 'seafood', 'conch', 'grouper', 'catfish', 'perch', 'herring', 'haddock', 'pollock', 'mahi', 'barramundi', 'dogfish', 'cazón', 'shark', 'eel', 'bream', 'kingfish', 'snail', 'escargot'],
+        keywords: [
+            'fish', 'salmon', 'tuna', 'cod', 'shrimp', 'prawn',
+            'crab', 'lobster', 'clam', 'mussel', 'oyster', 'squid',
+            'octopus', 'anchovy', 'anchovies', 'sardine', 'mackerel',
+            'tilapia', 'snapper', 'bass', 'trout', 'halibut', 'swordfish',
+            'crawfish', 'crayfish', 'scallop', 'calamari', 'seafood',
+            'conch', 'grouper', 'catfish', 'perch', 'herring', 'haddock',
+            'pollock', 'mahi', 'barramundi', 'dogfish', 'shark', 'eel',
+            'bream', 'kingfish', 'snail', 'escargot', 'saltfish', 'salt cod',
+            'stockfish', 'bacalao', 'bacalhau', 'pike', 'carp', 'whiting',
+            'monkfish', 'sea bream', 'red snapper', 'wahoo', 'marlin'
+        ],
         color: '#06b6d4',
         icon: '\u{1F41F}'
     },
     'Duck/Game': {
-        keywords: ['duck', 'goose', 'venison', 'rabbit', 'quail', 'pheasant', 'bison', 'elk', 'boar', 'game', 'pigeon', 'guinea fowl'],
+        keywords: [
+            'duck', 'goose', 'venison', 'rabbit', 'quail', 'pheasant',
+            'bison', 'elk', 'boar', 'game', 'pigeon', 'guinea fowl',
+            'duck leg', 'duck breast', 'duck fat', 'foie gras',
+            'kangaroo', 'ostrich', 'wild boar', 'hare'
+        ],
         color: '#84cc16',
         icon: '\u{1F986}'
     },
@@ -483,15 +529,24 @@ window.MEAT_CATEGORIES = {
 };
 
 window.analyzeMeatForRecipe = (recipe) => {
-    if (!recipe || !recipe.ingredients) return null;
+    if (!recipe) return null;
+    if (!recipe.ingredients && !recipe.preliminary_steps) return null;
 
     const scores = {};
     Object.keys(window.MEAT_CATEGORIES).forEach(cat => {
         if (cat !== 'Vegetarian' && cat !== 'No Data') scores[cat] = 0;
     });
 
+    // Collect ALL ingredient lines: main + preliminary_steps
+    const allIngLines = [...(recipe.ingredients || [])];
+    if (recipe.preliminary_steps) {
+        recipe.preliminary_steps.forEach(ps => {
+            if (ps.ingredients) allIngLines.push(...ps.ingredients);
+        });
+    }
+
     // Analyze each ingredient line individually for context
-    recipe.ingredients.forEach(rawIng => {
+    allIngLines.forEach(rawIng => {
         const ing = rawIng.toLowerCase();
 
         // Handle "X or Y" alternatives: only score the first (preferred) option
@@ -503,22 +558,50 @@ window.analyzeMeatForRecipe = (recipe) => {
         const isCookingFat = /\b(lard|duck fat|bacon fat|schmaltz|dripping)\b/i.test(textToScore)
             && /\b(for frying|for cooking|tablespoon|tbsp|tsp|teaspoon)\b/i.test(ing);
 
+        // Ambiguous cuts: "steak", "tenderloin", "fillet", "roast", "chop", "rib"
+        // can belong to multiple animals. Check if a more specific animal word
+        // is on the same line to avoid mis-attribution.
+        const ambiguousBeefCuts = ['steak', 'tenderloin', 'fillet', 'roast', 'short rib'];
+        const lineHasFish = /\b(fish|salmon|tuna|cod|swordfish|halibut|mahi|snapper|grouper|bass)\b/i.test(textToScore);
+        const lineHasPork = /\bpork\b/i.test(textToScore);
+        const lineHasLamb = /\b(lamb|mutton|goat)\b/i.test(textToScore);
+
         Object.entries(window.MEAT_CATEGORIES).forEach(([category, data]) => {
             if (category === 'Vegetarian' || category === 'No Data') return;
             data.keywords.forEach(keyword => {
                 const regex = new RegExp('\\b' + keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i');
                 if (regex.test(textToScore)) {
-                    // Context-aware sausage: "chicken sausage" → chicken, "turkey sausage" → chicken
+                    // Context-aware sausage
                     if (keyword === 'sausage') {
                         if (/chicken|turkey|poultry/i.test(ing)) return;
                         if (/lamb|mutton/i.test(ing)) return;
                         if (/beef/i.test(ing)) return;
+                    }
+                    // Don't credit Beef for ambiguous cuts when another animal is specified
+                    if (category === 'Beef' && ambiguousBeefCuts.includes(keyword)) {
+                        if (lineHasFish || lineHasPork || lineHasLamb) return;
                     }
                     scores[category] += isCookingFat ? 0.25 : 1;
                 }
             });
         });
     });
+
+    // If no meat found in ingredients, scan description as a fallback
+    // (catches "meat filling", "chicken stew", "lamb braise" etc in descriptions)
+    const totalFromIngs = Object.values(scores).reduce((a, b) => a + b, 0);
+    if (totalFromIngs === 0 && recipe.description) {
+        const desc = recipe.description.toLowerCase();
+        Object.entries(window.MEAT_CATEGORIES).forEach(([category, data]) => {
+            if (category === 'Vegetarian' || category === 'No Data') return;
+            data.keywords.forEach(keyword => {
+                const regex = new RegExp('\\b' + keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i');
+                if (regex.test(desc)) {
+                    scores[category] += 0.5;
+                }
+            });
+        });
+    }
 
     let maxScore = 0;
     let primary = 'Vegetarian';
@@ -666,9 +749,16 @@ window._PAPRIKA_PATTERN = /\bpaprika\b/i;
 window._PAPRIKA_NEGATE = /\b(sweet|smoked|dulce)\b/i;
 
 window.analyzeSpiceForRecipe = (recipe) => {
-    if (!recipe || !recipe.ingredients) return null;
+    if (!recipe) return null;
+    if (!recipe.ingredients && !recipe.preliminary_steps) return null;
 
-    const ings = recipe.ingredients;
+    // Collect ALL ingredient lines: main + preliminary_steps
+    const ings = [...(recipe.ingredients || [])];
+    if (recipe.preliminary_steps) {
+        recipe.preliminary_steps.forEach(ps => {
+            if (ps.ingredients) ings.push(...ps.ingredients);
+        });
+    }
     const totalIngredients = ings.length;
     if (totalIngredients === 0) return null;
 
@@ -724,7 +814,12 @@ window.analyzeSpiceForRecipe = (recipe) => {
 
     // === STEP TEXT SCAN (secondary signal, 40% weight) ===
     // Catches heat ingredients mentioned in steps but not the ingredient list
-    const stepsText = (recipe.steps || []).join(' ').toLowerCase();
+    let stepsText = (recipe.steps || []).join(' ').toLowerCase();
+    if (recipe.preliminary_steps) {
+        recipe.preliminary_steps.forEach(ps => {
+            if (ps.steps) stepsText += ' ' + ps.steps.join(' ').toLowerCase();
+        });
+    }
     let stepBonus = 0;
     const stepPatterns = [
         { p: /\b(cayenne|serrano|habanero|scotch bonnet|ghost pepper|chipotle|gochugaru|gochujang|sambal|harissa|berbere)\b/i, w: 2 },
@@ -857,7 +952,9 @@ window.TECHNIQUE_LEXICON = {
 };
 
 window.analyzeComplexityForRecipe = (recipe) => {
-    if (!recipe || !recipe.ingredients || !recipe.steps) return null;
+    if (!recipe) return null;
+    if (!recipe.ingredients && !recipe.preliminary_steps) return null;
+    if (!recipe.steps && !recipe.preliminary_steps) return null;
 
     // === DIMENSION 1: Ingredient Breadth (0-25) ===
     // Expand compound ingredient lines ("Dough: flour, cornmeal, ghee" -> 3 items)
@@ -1124,11 +1221,16 @@ window.analyzeSpiritForRecipe = (recipe) => {
     const drink = recipe.drink;
     if (!drink.ingredients && !drink.dish) return { primary: 'No Drink' };
 
-    // Build searchable text from drink name, description, and ingredients
+    // Build searchable text from drink name, description, ingredients, AND preliminary_steps
     const parts = [];
     if (drink.dish) parts.push(drink.dish.toLowerCase());
     if (drink.description) parts.push(drink.description.toLowerCase());
     if (drink.ingredients) parts.push(drink.ingredients.map(i => i.toLowerCase()).join(' | '));
+    if (drink.preliminary_steps) {
+        drink.preliminary_steps.forEach(ps => {
+            if (ps.ingredients) parts.push(ps.ingredients.map(i => i.toLowerCase()).join(' | '));
+        });
+    }
     const searchText = parts.join(' | ');
 
     const scores = {};
