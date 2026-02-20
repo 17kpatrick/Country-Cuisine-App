@@ -1,5 +1,10 @@
-const RecipeCard = ({ country, onClose, db, searchIngredients = [], onAddToShoppingList, onShowToast }) => {
-    const [activeTab, setActiveTab] = React.useState('food');
+const RecipeCard = ({ country, onClose, db, searchIngredients = [], initialTab = 'food', onTabChange, onAddToShoppingList, onShowToast }) => {
+    const [activeTab, setActiveTab] = React.useState(initialTab);
+
+    const switchTab = (tab) => {
+        setActiveTab(tab);
+        if (onTabChange) onTabChange(tab);
+    };
 
     if (!country) return null;
 
@@ -13,8 +18,13 @@ const RecipeCard = ({ country, onClose, db, searchIngredients = [], onAddToShopp
     // Determine what to show based on tab
     const hasDrink = !!fullData.drink;
     const hasDessert = !!fullData.dessert;
-    const displayData = activeTab === 'drink' && hasDrink ? fullData.drink
-        : activeTab === 'dessert' && hasDessert ? fullData.dessert
+
+    // Guard: if hinted tab doesn't exist for this country, fall back to food
+    const safeTab = (activeTab === 'drink' && !hasDrink) || (activeTab === 'dessert' && !hasDessert)
+        ? 'food' : activeTab;
+
+    const displayData = safeTab === 'drink' && hasDrink ? fullData.drink
+        : safeTab === 'dessert' && hasDessert ? fullData.dessert
         : fullData;
 
     const imageUrl = getDishImage(displayData.dish);
@@ -186,26 +196,26 @@ const RecipeCard = ({ country, onClose, db, searchIngredients = [], onAddToShopp
             {(hasDrink || hasDessert) && (
                 <div className="flex border-b border-white/[0.06] z-10">
                     <button 
-                        onClick={() => setActiveTab('food')}
-                        className={`flex-1 py-2.5 text-[11px] font-medium tracking-wide transition-colors ${activeTab === 'food' ? 'text-white bg-white/[0.08] border-b-2' : 'text-gray-500 hover:text-gray-400'} border-transparent`}
-                        style={activeTab === 'food' ? { borderColor: theme.primary } : {}}
+                        onClick={() => switchTab('food')}
+                        className={`flex-1 py-2.5 text-[11px] font-medium tracking-wide transition-colors ${safeTab === 'food' ? 'text-white bg-white/[0.08] border-b-2' : 'text-gray-500 hover:text-gray-400'} border-transparent`}
+                        style={safeTab === 'food' ? { borderColor: theme.primary } : {}}
                     >
                         Food
                     </button>
                     {hasDrink && (
                         <button 
-                            onClick={() => setActiveTab('drink')}
-                            className={`flex-1 py-2.5 text-[11px] font-medium tracking-wide transition-colors ${activeTab === 'drink' ? 'text-white bg-white/[0.08] border-b-2' : 'text-gray-500 hover:text-gray-400'} border-transparent`}
-                            style={activeTab === 'drink' ? { borderColor: theme.primary } : {}}
+                            onClick={() => switchTab('drink')}
+                            className={`flex-1 py-2.5 text-[11px] font-medium tracking-wide transition-colors ${safeTab === 'drink' ? 'text-white bg-white/[0.08] border-b-2' : 'text-gray-500 hover:text-gray-400'} border-transparent`}
+                            style={safeTab === 'drink' ? { borderColor: theme.primary } : {}}
                         >
                             Drink
                         </button>
                     )}
                     {hasDessert && (
                         <button 
-                            onClick={() => setActiveTab('dessert')}
-                            className={`flex-1 py-2.5 text-[11px] font-medium tracking-wide transition-colors ${activeTab === 'dessert' ? 'text-white bg-white/[0.08] border-b-2' : 'text-gray-500 hover:text-gray-400'} border-transparent`}
-                            style={activeTab === 'dessert' ? { borderColor: theme.primary } : {}}
+                            onClick={() => switchTab('dessert')}
+                            className={`flex-1 py-2.5 text-[11px] font-medium tracking-wide transition-colors ${safeTab === 'dessert' ? 'text-white bg-white/[0.08] border-b-2' : 'text-gray-500 hover:text-gray-400'} border-transparent`}
+                            style={safeTab === 'dessert' ? { borderColor: theme.primary } : {}}
                         >
                             Dessert
                         </button>

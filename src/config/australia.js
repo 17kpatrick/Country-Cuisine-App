@@ -48,7 +48,7 @@ window.COUNTRY_FLAIRS['AUS'] = [
     // --- CATTLE DOG (Outback, Western Australia area — large, atmospheric) ---
     {
         type: 'text',
-        lat: -23, lon: 115,
+        lat: -23, lon: 113,
         content: '<img src="assets/australia/cattle_dog_aus.png" class="aus-photo-overlay aus-photo-dog"/>',
         className: 'aus-photo-wrap flair-fade-in',
         style: 'background: transparent; overflow: visible;',

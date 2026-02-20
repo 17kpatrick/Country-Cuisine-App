@@ -216,6 +216,20 @@ const TILE_STYLES = {
     }
 };
 
+// Maps recipe match types to map highlight colors
+const getMatchColor = (type) => {
+    switch (type) {
+        case 'drink':        return "#06b6d4"; // cyan
+        case 'both':         return "#a855f7"; // purple  (food + drink)
+        case 'dessert':      return "#ec4899"; // pink
+        case 'food+dessert': return "#f97316"; // orange
+        case 'drink+dessert':return "#6366f1"; // indigo
+        case 'all':          return "#10b981"; // emerald (all three)
+        case 'ready':        return "#10b981"; // emerald (stockpile ready)
+        default:             return "#eab308"; // yellow  (food / default)
+    }
+};
+
 const App = () => {
     const mapContainerRef = useRef(null);
     const mapInstanceRef = useRef(null);
@@ -248,6 +262,7 @@ const App = () => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [toast, setToast] = useState(null);
     const [activeSearchMode, setActiveSearchMode] = useState(null); // 'recipe' | 'stockpile' | null
+    const [selectedTabHint, setSelectedTabHint] = useState('food');
     const [mapMode, setMapMode] = useState('political'); // 'political' | 'primary_meat' | 'spice_level' | 'complexity'
     const [meatMapData, setMeatMapData] = useState({});
     const [meatStats, setMeatStats] = useState({});
@@ -961,9 +976,7 @@ const App = () => {
                         style: (feature) => {
                             const name = feature.properties.st_nm || feature.properties.name;
                             const type = highlightedKeys[name];
-                            let color = "#eab308"; // default yellow (food)
-                            if (type === 'drink') color = "#06b6d4"; // cyan
-                            if (type === 'both') color = "#a855f7"; // purple
+                            const color = getMatchColor(type);
                             return { fillColor: color, fillOpacity: 0.9, weight: 1, color: "#ffffff" };
                         },
                         onEachFeature: (feature, layer) => {
@@ -1113,10 +1126,7 @@ const App = () => {
                     if (searchKeys) {
                         const matchType = searchKeys[iso] || searchKeys[name];
                         if (matchType) {
-                            let color = "#eab308"; // food
-                            if (matchType === 'drink') color = "#06b6d4";
-                            if (matchType === 'both') color = "#a855f7";
-                            if (matchType === 'ready') color = "#10b981"; 
+                            const color = getMatchColor(matchType);
                             style = { fillColor: color, fillOpacity: 0.6, color: "#ffffff", weight: 1 };
                         } else {
                             style = { fillColor: '#1f2937', fillOpacity: 0.1, color: '#374151', weight: 1 };
@@ -1271,15 +1281,11 @@ const App = () => {
                     if (isSearchActive) {
                         const matchType = searchKeys[isoCode] || searchKeys[name];
                         if (matchType) {
-                            let color = "#eab308";
-                            if (matchType === 'drink') color = "#06b6d4";
-                            if (matchType === 'both') color = "#a855f7";
-                            if (matchType === 'ready') color = "#10b981";
                             styleToApply = {
                                 weight: 2,
                                 color: '#ffffff',
                                 fillOpacity: 0.9,
-                                fillColor: color
+                                fillColor: getMatchColor(matchType)
                             };
                         }
                     }
@@ -1447,11 +1453,7 @@ const App = () => {
                 const matchType = highlightedKeys && (highlightedKeys[isoCode] || highlightedKeys[name]);
 
                 if (matchType) {
-                    let color = "#eab308";
-                    if (matchType === 'drink') color = "#06b6d4";
-                    if (matchType === 'both') color = "#a855f7";
-                    if (matchType === 'ready') color = "#10b981";
-                    layer.setStyle({ fillColor: color, fillOpacity: 0.6, color: '#ffffff', weight: 1 });
+                    layer.setStyle({ fillColor: getMatchColor(matchType), fillOpacity: 0.6, color: '#ffffff', weight: 1 });
                 } else if (highlightedKeys !== null) {
                     layer.setStyle({ fillColor: '#1f2937', fillOpacity: 0.1, color: '#374151', weight: 1 });
                 } else {
@@ -1525,7 +1527,8 @@ const App = () => {
         return () => { map.off('zoomend', onZoomEnd); };
     }, [isDrillDownMode]);
 
-    const handleRecipeSelect = (key) => {
+    const handleRecipeSelect = (key, tabHint = 'food') => {
+        setSelectedTabHint(tabHint);
         let targetLayer = null;
         if (geoJsonLayerRef.current) {
             geoJsonLayerRef.current.eachLayer(l => {
@@ -1927,9 +1930,12 @@ const App = () => {
             )}
 
             <RecipeCard
+                key={selectedCountry?.cca3 || selectedCountry?.name?.common}
                 country={selectedCountry}
                 db={culinaryDB}
                 searchIngredients={searchIngredients}
+                initialTab={selectedTabHint}
+                onTabChange={(tab) => setSelectedTabHint(tab)}
                 onAddToShoppingList={addToShoppingList}
                 onShowToast={showToast}
                 onClose={() => {
@@ -1950,29 +1956,34 @@ const App = () => {
 
             {mapMode === 'political' && <PreviewCard feature={hoveredFeature} db={culinaryDB} />}
 
-            {highlightedKeys && (
-                <div className="fixed bottom-[70px] left-4 z-[1000] bg-gray-900/80 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-2xl text-xs text-gray-200 animate-in fade-in slide-in-from-left-4 duration-300 pointer-events-none select-none w-32">
-                    <h4 className="font-bold mb-3 uppercase tracking-wider text-gray-400 border-b border-white/10 pb-2 text-[10px]">Match Type</h4>
-                    <div className="flex flex-col gap-2.5">
-                        <div className="flex items-center gap-3">
-                            <span className="w-3 h-3 rounded-full bg-[#10b981] shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
-                            <span className="font-medium">Ready</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <span className="w-3 h-3 rounded-full bg-[#eab308] shadow-[0_0_8px_rgba(234,179,8,0.6)]"></span>
-                            <span className="font-medium">Food</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <span className="w-3 h-3 rounded-full bg-[#06b6d4] shadow-[0_0_8px_rgba(6,182,212,0.6)]"></span>
-                            <span className="font-medium">Drink</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <span className="w-3 h-3 rounded-full bg-[#a855f7] shadow-[0_0_8px_rgba(168,85,247,0.6)]"></span>
-                            <span className="font-medium">Both</span>
-                        </div>
+            {highlightedKeys && (() => {
+                const usedTypes = new Set(Object.values(highlightedKeys));
+                const legendItems = [
+                    { type: 'ready',        color: '#10b981', label: 'Ready',         shadow: 'rgba(16,185,129,0.6)' },
+                    { type: 'food',         color: '#eab308', label: 'Dish',          shadow: 'rgba(234,179,8,0.6)' },
+                    { type: 'drink',        color: '#06b6d4', label: 'Drink',         shadow: 'rgba(6,182,212,0.6)' },
+                    { type: 'dessert',      color: '#ec4899', label: 'Dessert',       shadow: 'rgba(236,72,153,0.6)' },
+                    { type: 'both',         color: '#a855f7', label: 'Dish+Drink',    shadow: 'rgba(168,85,247,0.6)' },
+                    { type: 'food+dessert', color: '#f97316', label: 'Dish+Dessert',  shadow: 'rgba(249,115,22,0.6)' },
+                    { type: 'drink+dessert',color: '#6366f1', label: 'Drink+Dessert', shadow: 'rgba(99,102,241,0.6)' },
+                    { type: 'all',          color: '#10b981', label: 'All Three',     shadow: 'rgba(16,185,129,0.6)' },
+                ].filter(item => usedTypes.has(item.type));
+
+                return (
+                    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[1000] bg-gray-900/85 backdrop-blur-md border border-white/10 px-4 py-2.5 rounded-full shadow-2xl text-xs text-gray-200 animate-in fade-in slide-in-from-bottom-2 duration-300 pointer-events-none select-none flex items-center gap-1">
+                        <span className="text-[9px] uppercase tracking-widest text-gray-500 font-bold mr-2">Match</span>
+                        {legendItems.map(({ type, color, label, shadow }, i) => (
+                            <React.Fragment key={type}>
+                                {i > 0 && <span className="text-gray-700 mx-1">·</span>}
+                                <div className="flex items-center gap-1.5 whitespace-nowrap">
+                                    <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: color, boxShadow: `0 0 6px ${shadow}` }}></span>
+                                    <span className="font-medium text-[11px]">{label}</span>
+                                </div>
+                            </React.Fragment>
+                        ))}
                     </div>
-                </div>
-            )}
+                );
+            })()}
 
             {isDrillDownMode && !selectedCountry && (
                 <button
