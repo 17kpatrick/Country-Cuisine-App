@@ -16,7 +16,7 @@ window.COUNTRY_FLAIRS['JPN'] = [
     // Main Title "Nippon" (Top Right)
     { 
         type: 'text', 
-        lat: 41, lon: 148,
+        lat: 41, lon: 153,
         content: '日本', 
         className: 'yuji-syuku-regular flair-fade-in',
         style: 'font-size: 90px; color: #b71c1c; text-shadow: 2px 2px 0px rgba(255,255,255,0.4); writing-mode: vertical-rl;',
@@ -26,7 +26,7 @@ window.COUNTRY_FLAIRS['JPN'] = [
     // Subtitle (Top Right)
     {
         type: 'text',
-        lat: 41.5, lon: 146,
+        lat: 41.5, lon: 148,
         content: 'Land of the Rising Sun',
         className: 'cinzel-decorative-regular flair-fade-in',
         style: 'font-size: 22px; color: #212121; text-shadow: 1px 1px 0px rgba(255,255,255,0.6); writing-mode: vertical-rl;',

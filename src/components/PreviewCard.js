@@ -1,4 +1,4 @@
-const PreviewCard = ({ feature, db }) => {
+const PreviewCard = ({ feature, db, parentIso3 }) => {
     if (!feature) return null;
 
     const p = feature.properties;
@@ -22,7 +22,7 @@ const PreviewCard = ({ feature, db }) => {
     if (countryName.includes('/Vall')) countryName = "Valle d'Aosta";
     if (countryName.includes('/Südtirol')) countryName = 'Trentino-Alto Adige';
 
-    let culinaryData = window.getRecipeFromDB(db, countryCode) || window.getRecipeFromDB(db, countryName);
+    let culinaryData = window.getRecipeFromDB(db, countryCode, parentIso3) || window.getRecipeFromDB(db, countryName, parentIso3);
     if (!culinaryData) culinaryData = getGenericRecipe(countryName);
 
     const theme = getCountryTheme(countryCode);
@@ -61,14 +61,14 @@ const PreviewCard = ({ feature, db }) => {
                     <div key={key} className="flex flex-col">
                         {/* Thumbnail */}
                         <div className="relative" style={{ aspectRatio: '4/3' }}>
-                            <img
-                                src={getDishImage(data.dish)}
+                            <FoodImage
+                                src={
+                                    key === 'drink'   ? getDrinkImage(data.dish, countryName) :
+                                    key === 'dessert' ? getDessertImage(data.dish, countryName) :
+                                    getDishImage(data.dish, countryName)
+                                }
                                 alt={data.dish}
                                 className="w-full h-full object-cover"
-                                onError={(e) => {
-                                    e.target.onerror = null;
-                                    e.target.src = "https://placehold.co/200x150/1f2937/94a3b8?text=?";
-                                }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent" />
                             {/* Category badge */}

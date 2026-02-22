@@ -37,6 +37,21 @@ const BRAZIL_STATES = [
     'São Paulo', 'Sergipe', 'Tocantins'
 ];
 
+const JAPAN_PREFECTURES = [
+    'Hokkaido', 'Aomori', 'Iwate', 'Miyagi', 'Akita', 'Yamagata', 'Fukushima',
+    'Ibaraki', 'Tochigi', 'Gunma', 'Saitama', 'Chiba', 'Tokyo', 'Kanagawa',
+    'Niigata', 'Toyama', 'Ishikawa', 'Fukui', 'Yamanashi', 'Nagano', 'Gifu',
+    'Shizuoka', 'Aichi', 'Mie', 'Shiga', 'Kyoto', 'Osaka', 'Hyogo', 'Nara',
+    'Wakayama', 'Tottori', 'Shimane', 'Okayama', 'Hiroshima', 'Yamaguchi',
+    'Tokushima', 'Kagawa', 'Ehime', 'Kochi', 'Fukuoka', 'Saga', 'Nagasaki',
+    'Kumamoto', 'Oita', 'Miyazaki', 'Kagoshima', 'Okinawa'
+];
+
+const PAKISTAN_PROVINCES = [
+    'Punjab', 'Sindh', 'Khyber Pakhtunkhwa', 'Balochistan',
+    'Gilgit-Baltistan', 'Islamabad', 'Azad Jammu and Kashmir'
+];
+
 const DENMARK_REGIONS = [
     'Region Hovedstaden', 'Region Midtjylland', 'Region Nordjylland', 'Region Sjælland', 'Region Syddanmark'
 ];
@@ -216,6 +231,70 @@ const TILE_STYLES = {
     }
 };
 
+// Maps every sub-region key to its parent country's ISO2 code for flag display in country search
+const REGION_PARENT_ISO2 = {};
+INDIAN_STATES.forEach(k => { REGION_PARENT_ISO2[k] = 'in'; });
+CHINESE_PROVINCES.forEach(k => { REGION_PARENT_ISO2[k] = 'cn'; });
+BRAZIL_STATES.forEach(k => { REGION_PARENT_ISO2[k] = 'br'; });
+JAPAN_PREFECTURES.forEach(k => { REGION_PARENT_ISO2[k] = 'jp'; });
+DENMARK_REGIONS.forEach(k => { REGION_PARENT_ISO2[k] = 'dk'; });
+FRANCE_REGIONS.forEach(k => { REGION_PARENT_ISO2[k] = 'fr'; });
+MEXICO_STATES.forEach(k => { REGION_PARENT_ISO2[k] = 'mx'; });
+ITALIAN_REGIONS.forEach(k => { REGION_PARENT_ISO2[k] = 'it'; });
+SLOVAK_REGIONS.forEach(k => { REGION_PARENT_ISO2[k] = 'sk'; });
+SWEDISH_COUNTIES.forEach(k => { REGION_PARENT_ISO2[k] = 'se'; });
+RUSSIAN_REGIONS.forEach(k => { REGION_PARENT_ISO2[k] = 'ru'; });
+SPANISH_REGIONS.forEach(k => { REGION_PARENT_ISO2[k] = 'es'; });
+GREEK_REGIONS.forEach(k => { REGION_PARENT_ISO2[k] = 'gr'; });
+EL_SALVADOR_DEPARTMENTS.forEach(k => { REGION_PARENT_ISO2[k] = 'sv'; });
+
+// ISO 3166-2 subdivision codes for regions that have flags in flagcdn.com.
+// Any region NOT listed here falls back to the parent-country flag via onError —
+// so this is safe to leave incomplete; it just means fewer specific flags.
+const REGION_SUBDIVISION_CODES = {
+    // USA — all 50 states
+    'Alabama':'us-al','Alaska':'us-ak','Arizona':'us-az','Arkansas':'us-ar',
+    'California':'us-ca','Colorado':'us-co','Connecticut':'us-ct','Delaware':'us-de',
+    'Florida':'us-fl','Georgia':'us-ga','Hawaii':'us-hi','Idaho':'us-id',
+    'Illinois':'us-il','Indiana':'us-in','Iowa':'us-ia','Kansas':'us-ks',
+    'Kentucky':'us-ky','Louisiana':'us-la','Maine':'us-me','Maryland':'us-md',
+    'Massachusetts':'us-ma','Michigan':'us-mi','Minnesota':'us-mn','Mississippi':'us-ms',
+    'Missouri':'us-mo','Montana':'us-mt','Nebraska':'us-ne','Nevada':'us-nv',
+    'New Hampshire':'us-nh','New Jersey':'us-nj','New Mexico':'us-nm','New York':'us-ny',
+    'North Carolina':'us-nc','North Dakota':'us-nd','Ohio':'us-oh','Oklahoma':'us-ok',
+    'Oregon':'us-or','Pennsylvania':'us-pa','Rhode Island':'us-ri','South Carolina':'us-sc',
+    'South Dakota':'us-sd','Tennessee':'us-tn','Texas':'us-tx','Utah':'us-ut',
+    'Vermont':'us-vt','Virginia':'us-va','Washington':'us-wa','West Virginia':'us-wv',
+    'Wisconsin':'us-wi','Wyoming':'us-wy',
+    // Australia — all 8 states/territories
+    'New South Wales':'au-nsw','Victoria':'au-vic','Queensland':'au-qld',
+    'South Australia':'au-sa','Western Australia':'au-wa','Tasmania':'au-tas',
+    'Australian Capital Territory':'au-act','Northern Territory':'au-nt',
+    // Spain — 19 autonomous communities
+    'Andalucia':'es-an','Aragon':'es-ar','Asturias':'es-as','Baleares':'es-ib',
+    'Canarias':'es-cn','Cantabria':'es-cb','Castilla-La Mancha':'es-cm',
+    'Castilla y León':'es-cl','Cataluña':'es-ct','Ceuta':'es-ce',
+    'Extremadura':'es-ex','Galicia':'es-ga','La Rioja':'es-lo','Madrid':'es-md',
+    'Melilla':'es-ml','Murcia':'es-mc','Navarra':'es-nc','País Vasco':'es-pv',
+    'Valencia':'es-vc',
+    // France — 13 metropolitan regions
+    'Auvergne-Rhône-Alpes':'fr-ara','Bourgogne-Franche-Comté':'fr-bfc',
+    'Bretagne':'fr-bre','Centre-Val de Loire':'fr-cvl','Corse':'fr-cor',
+    'Grand Est':'fr-ges','Hauts-de-France':'fr-hdf','Île-de-France':'fr-idf',
+    'Normandie':'fr-nor','Nouvelle-Aquitaine':'fr-naq','Occitanie':'fr-occ',
+    'Pays de la Loire':'fr-pdl',"Provence-Alpes-Côte d'Azur":'fr-pac',
+    // Brazil — all 27 states + DF
+    'Acre':'br-ac','Alagoas':'br-al','Amapá':'br-ap','Amazonas':'br-am',
+    'Bahia':'br-ba','Ceará':'br-ce','Distrito Federal':'br-df',
+    'Espírito Santo':'br-es','Goiás':'br-go','Maranhão':'br-ma',
+    'Mato Grosso':'br-mt','Mato Grosso do Sul':'br-ms','Minas Gerais':'br-mg',
+    'Pará':'br-pa','Paraíba':'br-pb','Paraná':'br-pr','Pernambuco':'br-pe',
+    'Piauí':'br-pi','Rio de Janeiro':'br-rj','Rio Grande do Norte':'br-rn',
+    'Rio Grande do Sul':'br-rs','Rondônia':'br-ro','Roraima':'br-rr',
+    'Santa Catarina':'br-sc','São Paulo':'br-sp','Sergipe':'br-se','Tocantins':'br-to',
+};
+
+
 // Maps recipe match types to map highlight colors
 const getMatchColor = (type) => {
     switch (type) {
@@ -263,6 +342,29 @@ const App = () => {
     const [toast, setToast] = useState(null);
     const [activeSearchMode, setActiveSearchMode] = useState(null); // 'recipe' | 'stockpile' | null
     const [selectedTabHint, setSelectedTabHint] = useState('food');
+    const [countryIndex, setCountryIndex] = useState([]);
+
+    // Auto-build region→parentISO2 map from culinaryDB + countryIndex so every
+    // country's sub-regions (US states, Australian states, etc.) get flags for free
+    const regionParentIso2 = React.useMemo(() => {
+        const map = { ...REGION_PARENT_ISO2 };
+        const iso3ToIso2 = {};
+        countryIndex.forEach(({ key, iso2 }) => { iso3ToIso2[key] = iso2; });
+        // Auto-fill parent country code for any region not already in the static map
+        Object.entries(culinaryDB).forEach(([iso3, recipe]) => {
+            if (!recipe || !recipe.regions) return;
+            const iso2 = iso3ToIso2[iso3];
+            if (!iso2) return;
+            Object.keys(recipe.regions).forEach(regionKey => {
+                if (!map[regionKey]) map[regionKey] = iso2;
+            });
+        });
+        // Upgrade regions that have known ISO 3166-2 subdivision codes to their
+        // specific flag; all others remain on the parent-country code as fallback
+        Object.entries(REGION_SUBDIVISION_CODES).forEach(([k, v]) => { map[k] = v; });
+        return map;
+    }, [countryIndex, culinaryDB]);
+
     const [mapMode, setMapMode] = useState('political'); // 'political' | 'primary_meat' | 'spice_level' | 'complexity'
     const [meatMapData, setMeatMapData] = useState({});
     const [meatStats, setMeatStats] = useState({});
@@ -544,8 +646,10 @@ const App = () => {
             if (regionCacheRef.current[isoCode]) {
                 renderChoroplethRegions(regionCacheRef.current[isoCode]);
             } else {
-                fetch(config.geoJsonUrl)
-                    .then(res => res.json())
+                const choroplethPromise = config.geoJsonUrl === '__JAPAN_INLINE__' && window.JAPAN_PREFECTURES_GEOJSON
+                    ? Promise.resolve(window.JAPAN_PREFECTURES_GEOJSON)
+                    : fetch(config.geoJsonUrl).then(res => res.json());
+                choroplethPromise
                     .then(data => {
                         if (data.crs) delete data.crs;
                         // Pre-process names (same normalization as global highlights)
@@ -1010,8 +1114,10 @@ const App = () => {
             if (regionCacheRef.current[isoCode]) {
                 renderHighlights(regionCacheRef.current[isoCode]);
             } else {
-                fetch(config.geoJsonUrl)
-                    .then(res => res.json())
+                const highlightPromise = config.geoJsonUrl === '__JAPAN_INLINE__' && window.JAPAN_PREFECTURES_GEOJSON
+                    ? Promise.resolve(window.JAPAN_PREFECTURES_GEOJSON)
+                    : fetch(config.geoJsonUrl).then(res => res.json());
+                highlightPromise
                     .then(data => {
                         if (data.crs) delete data.crs;
                         // Pre-process/Normalize Data for Cache
@@ -1071,6 +1177,8 @@ const App = () => {
 
         const fetchData = regionCacheRef.current[isoCode]
             ? Promise.resolve(regionCacheRef.current[isoCode])
+            : regionConfig.geoJsonUrl === '__JAPAN_INLINE__' && window.JAPAN_PREFECTURES_GEOJSON
+            ? Promise.resolve(window.JAPAN_PREFECTURES_GEOJSON)
             : fetch(regionConfig.geoJsonUrl).then(res => res.json()).then(data => {
                 if (data.crs) delete data.crs;
                 return data;
@@ -1081,13 +1189,23 @@ const App = () => {
 
             if (subData.features && !regionCacheRef.current[isoCode]) {
                 subData.features.forEach(f => {
-                    let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name_latin || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.NM4 || f.properties.REGIONNAVN || '').trim();
+                    let name = (f.properties.st_nm || f.properties.ST_NM || f.properties.NAME_1 || f.properties.name_1 || f.properties.NAME || f.properties.ADMIN || f.properties.name_latin || f.properties.shapeName || f.properties.name || f.properties.nom || f.properties.navn || f.properties.state_name || f.properties.NOM_DPTO || f.properties.DPTO || f.properties.nombre || f.properties.reg_name || f.properties.NM4 || f.properties.REGIONNAVN || '').trim();
                     if (isoCode === 'CHN' && CHINA_NAME_MAPPING[name]) name = CHINA_NAME_MAPPING[name];
+                    if (isoCode === 'JPN') name = f.properties.name_english || (JAPAN_NAME_MAPPING && JAPAN_NAME_MAPPING[name]) || name;
                     if (isoCode === 'SLV' && EL_SALVADOR_NAME_MAPPING[name]) name = EL_SALVADOR_NAME_MAPPING[name];
                     if (isoCode === 'MEX' && MEXICO_NAME_MAPPING[name]) name = MEXICO_NAME_MAPPING[name];
                     if (isoCode === 'FRA' && FRANCE_NAME_MAPPING[name]) name = FRANCE_NAME_MAPPING[name];
                     if (isoCode === 'ITA' && ITALY_NAME_MAPPING[name]) name = ITALY_NAME_MAPPING[name];
                     if (isoCode === 'SVK' && SLOVAKIA_NAME_MAPPING[name]) name = SLOVAKIA_NAME_MAPPING[name];
+                    if (isoCode === 'PAK') {
+                        // GADM 4.1 uses camelCase: "AzadKashmir", "Khyber-Pakhtunkhwa"
+                        if (name === 'AzadKashmir' || name === 'Azad Kashmir' || name === 'Azad Jammu & Kashmir') name = 'Azad Jammu and Kashmir';
+                        if (name === 'Khyber-Pakhtunkhwa' || name === 'KhyberPakhtunkhwa' || name === 'North-West Frontier Province') name = 'Khyber Pakhtunkhwa';
+                        // FATA was merged into KPK in 2018
+                        if (name.startsWith('FederallyAdministered') || name === 'FATA') name = 'Khyber Pakhtunkhwa';
+                        if (name === 'Islamabad Capital Territory') name = 'Islamabad';
+                        if (name === 'Gilgit Baltistan') name = 'Gilgit-Baltistan';
+                    }
                     if (isoCode === 'IND') {
                         if (name === 'Orissa') name = 'Odisha';
                         if (name === 'Uttaranchal') name = 'Uttarakhand';
@@ -1149,6 +1267,13 @@ const App = () => {
                             feature.properties.st_nm = feature.properties.name;
                         }
                     }
+                    if (isoCode === 'JPN') {
+                        const englishName = feature.properties.name_english;
+                        if (englishName) {
+                            feature.properties.name = englishName;
+                            feature.properties.st_nm = englishName;
+                        }
+                    }
 
                     layer.on({
                         mouseover: (e) => {
@@ -1197,7 +1322,8 @@ const App = () => {
                             setSelectedCountry({
                                 name: { common: subName },
                                 cca3: subName,
-                                cca2: activeRegionIso2Ref.current
+                                cca2: activeRegionIso2Ref.current,
+                                parentIso3: activeRegionIsoRef.current
                             });
                         }
                     });
@@ -1420,6 +1546,18 @@ const App = () => {
                         layer.on({ mouseover: highlightFeature, mouseout: resetHighlight, click: zoomToFeature });
                     }
                 }).addTo(map);
+
+                // Build flat country index for the country search tab
+                const idx = [];
+                geoJsonLayerRef.current.eachLayer(layer => {
+                    const p = layer.feature.properties;
+                    const iso3 = (p.ISO_A3 && p.ISO_A3 !== '-99') ? p.ISO_A3 : p.ADM0_A3;
+                    const iso2Raw = (p.ISO_A2 && p.ISO_A2 !== '-99') ? p.ISO_A2
+                        : (p.ISO_A2_EH && p.ISO_A2_EH !== '-99') ? p.ISO_A2_EH : null;
+                    const name = p.NAME || p.ADMIN || p.name || '';
+                    if (iso3 && name) idx.push({ key: iso3, name, iso2: iso2Raw ? iso2Raw.toLowerCase() : null });
+                });
+                setCountryIndex(idx);
             });
 
         return () => map.remove();
@@ -1518,7 +1656,8 @@ const App = () => {
         if (!isDrillDownMode) return;
 
         const onZoomEnd = () => {
-            if (map.getZoom() < 4) {
+            // Guard against firing during a programmatic navigation (activeRegionIsoRef cleared synchronously)
+            if (map.getZoom() < 4 && activeRegionIsoRef.current) {
                 handleBackToWorld();
             }
         };
@@ -1549,6 +1688,15 @@ const App = () => {
                 activeRegionIsoRef.current = isoCode;
                 setIsDrillDownMode(true);
             } else {
+                // Clear drill-down synchronously so the zoomend guard doesn't fire handleBackToWorld
+                // during the animated flyTo that passes through intermediate low zoom levels
+                activeRegionIsoRef.current = null;
+                if (subRegionLayerRef.current && mapInstanceRef.current?.hasLayer(subRegionLayerRef.current)) {
+                    mapInstanceRef.current.removeLayer(subRegionLayerRef.current);
+                    subRegionLayerRef.current = null;
+                }
+                setIsDrillDownMode(false);
+
                 if (isoCode === 'PRT') {
                     mapInstanceRef.current.setView([39.3999, -8.2245], 7, { animate: true });
                 } else if (isoCode === 'NLD') {
@@ -1620,6 +1768,14 @@ const App = () => {
                 targetCountryIso = 'SVK';
                 targetCountryCca2 = 'SK';
             }
+            if (JAPAN_PREFECTURES.includes(key)) {
+                targetCountryIso = 'JPN';
+                targetCountryCca2 = 'JP';
+            }
+            if (PAKISTAN_PROVINCES.includes(key)) {
+                targetCountryIso = 'PAK';
+                targetCountryCca2 = 'PK';
+            }
 
             if (!isDrillDownMode || activeRegionIsoRef.current !== targetCountryIso) {
                 const regionConfig = REGION_CONFIG[targetCountryIso];
@@ -1661,6 +1817,8 @@ const App = () => {
             else if (GREEK_REGIONS.includes(displayName)) iso2 = 'gr';
             else if (DENMARK_REGIONS.includes(displayName)) iso2 = 'dk';
             else if (EL_SALVADOR_DEPARTMENTS.includes(displayName)) iso2 = 'sv';
+            else if (JAPAN_PREFECTURES.includes(displayName)) iso2 = 'jp';
+            else if (PAKISTAN_PROVINCES.includes(displayName)) iso2 = 'pk';
             else {
                 const usEntry = culinaryDB['USA'];
                 if (usEntry && usEntry.regions && usEntry.regions[displayName]) iso2 = 'us';
@@ -1879,6 +2037,8 @@ const App = () => {
                 onSearchIngredientsChange={setSearchIngredients}
                 activeSearchMode={activeSearchMode}
                 onActivateMode={() => setActiveSearchMode('recipe')}
+                countryIndex={countryIndex}
+                regionParentIso2={regionParentIso2}
             />
 
             <StockpileManager
@@ -1954,7 +2114,7 @@ const App = () => {
                 </button>
             )}
 
-            {mapMode === 'political' && <PreviewCard feature={hoveredFeature} db={culinaryDB} />}
+            {mapMode === 'political' && <PreviewCard feature={hoveredFeature} db={culinaryDB} parentIso3={isDrillDownMode ? activeRegionIsoRef.current : null} />}
 
             {highlightedKeys && (() => {
                 const usedTypes = new Set(Object.values(highlightedKeys));

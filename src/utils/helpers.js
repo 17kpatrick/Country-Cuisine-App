@@ -50,16 +50,71 @@ window.getGenericRecipe = (countryName) => {
     };
 };
 
-// Image Proxy Engine
-window.getDishImage = (dishName) => {
-    if (!dishName || dishName === "Traditional Cuisine") return "https://tse2.mm.bing.net/th?q=delicious+food+meal&w=500&h=300&c=7&rs=1&p=0";
-    return `https://tse2.mm.bing.net/th?q=${encodeURIComponent(dishName)}+food+dish+recipe&w=600&h=400&c=7&rs=1&p=0`;
+// ── Image URL builders ────────────────────────────────────────────────────────
+// Key: avoid "recipe" — it biases Bing toward YouTube video thumbnails.
+// Use photography-specific terms instead so we get plated food shots.
+
+// All three functions accept an optional `context` string (e.g. country or region name).
+// Including the country grounds Bing in the right cultural/culinary space and avoids
+// generic cocktail stock photos, YouTube thumbnails, and blog screenshots.
+
+window.getDishImage = (dishName, context = '') => {
+    if (!dishName || dishName === "Traditional Cuisine")
+        return "https://tse2.mm.bing.net/th?q=traditional+dish+plated&w=500&h=300&c=7&rs=1&p=0";
+    const ctx = context ? `+${encodeURIComponent(context)}` : '';
+    return `https://tse2.mm.bing.net/th?q=${encodeURIComponent(dishName)}${ctx}+traditional+dish&w=600&h=400&c=7&rs=1&p=0`;
 };
 
-// Image Proxy Engine for Ingredients
-window.getIngredientImage = (ingredientName) => {
-    return `https://tse2.mm.bing.net/th?q=${encodeURIComponent(ingredientName)}+food+ingredient&w=100&h=100&c=7&rs=1&p=0`;
+window.getDrinkImage = (drinkName, context = '') => {
+    if (!drinkName)
+        return "https://tse2.mm.bing.net/th?q=traditional+drink+served&w=500&h=300&c=7&rs=1&p=0";
+    const ctx = context ? `+${encodeURIComponent(context)}` : '';
+    return `https://tse2.mm.bing.net/th?q=${encodeURIComponent(drinkName)}${ctx}+traditional+drink&w=600&h=400&c=7&rs=1&p=0`;
 };
+
+window.getDessertImage = (dessertName, context = '') => {
+    if (!dessertName)
+        return "https://tse2.mm.bing.net/th?q=traditional+dessert+plated&w=500&h=300&c=7&rs=1&p=0";
+    const ctx = context ? `+${encodeURIComponent(context)}` : '';
+    return `https://tse2.mm.bing.net/th?q=${encodeURIComponent(dessertName)}${ctx}+traditional+dessert&w=600&h=400&c=7&rs=1&p=0`;
+};
+
+window.getIngredientImage = (ingredientName) => {
+    return `https://tse2.mm.bing.net/th?q=${encodeURIComponent(ingredientName)}+ingredient&w=100&h=100&c=7&rs=1&p=0`;
+};
+
+// ── FoodImage component ───────────────────────────────────────────────────────
+// Silently retries Bing results p=0 → p=1 → p=2 before showing a placeholder.
+// Prevents broken images AND YouTube/screenshot thumbnails from being the only option.
+const FOOD_IMG_PLACEHOLDER = "https://placehold.co/600x400/1a1f2e/374151?text=";
+
+const bumpP = (url, n) => {
+    if (url.includes('&p=')) return url.replace(/&p=\d+/, `&p=${n}`);
+    return `${url}&p=${n}`;
+};
+
+const FoodImage = ({ src, alt, className, style }) => {
+    const [attempt, setAttempt] = React.useState(0);
+
+    // Reset when the image source itself changes (new dish/tab/etc.)
+    React.useEffect(() => { setAttempt(0); }, [src]);
+
+    const resolvedSrc = attempt === 0 ? src
+        : attempt <= 2            ? bumpP(src, attempt)
+        : FOOD_IMG_PLACEHOLDER;
+
+    return (
+        <img
+            src={resolvedSrc}
+            alt={alt}
+            className={className}
+            style={style}
+            onError={() => setAttempt(a => Math.min(a + 1, 3))}
+        />
+    );
+};
+
+window.FoodImage = FoodImage;
 
 // Clean up raw ingredient strings to get the core item (e.g. "1 kg Beef" -> "Beef")
 window.parseIngredient = (rawIngredient) => {
@@ -188,12 +243,17 @@ window.parseIngredient = (rawIngredient) => {
     return cleaned;
 };
 
-window.getRecipeFromDB = (db, key) => {
+window.getRecipeFromDB = (db, key, preferCountry) => {
     if (!db || !key) return null;
-    // 1. Try direct access
+    // 1. Try direct access (ISO3 country code)
     if (db[key]) return db[key];
 
-    // 2. Try searching in regions of known countries
+    // 2. If a parent country is known (e.g. sub-region click), check it first
+    if (preferCountry && db[preferCountry] && db[preferCountry].regions && db[preferCountry].regions[key]) {
+        return db[preferCountry].regions[key];
+    }
+
+    // 3. Fall back to scanning all countries' regions
     for (const countryKey in db) {
         const country = db[countryKey];
         if (country.regions && country.regions[key]) {
@@ -492,6 +552,14 @@ window.getRegionConfig = () => {
         'AUS': {
             geoJsonUrl: 'https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/australia.geojson',
             view: { center: [-28, 137], zoom: 5 }
+        },
+        'JPN': {
+            geoJsonUrl: '__JAPAN_INLINE__',
+            view: { center: [37.0, 137.0], zoom: 5 }
+        },
+        'PAK': {
+            geoJsonUrl: './data/pakistan_provinces.json',
+            view: { center: [30.5, 69.5], zoom: 5 }
         }
     };
 };

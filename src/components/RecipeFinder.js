@@ -1,8 +1,35 @@
-const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChange, activeSearchMode, onActivateMode }) => {
+// Universal flag component for both countries and regions.
+// For regions, `code` may be an ISO 3166-2 subdivision code like "us-pa".
+// onError cascade: subdivision → parent country → nothing (no broken image).
+const FlagImg = ({ code, className }) => {
+    const [cur, setCur] = React.useState(code);
+    React.useEffect(() => { setCur(code); }, [code]);
+    if (!cur) return (
+        <div className={`${className} bg-gray-800 rounded border border-gray-700 flex items-center justify-center text-sm shrink-0`}>🌐</div>
+    );
+    const handleError = () => {
+        // If we tried a subdivision code (e.g. "us-pa"), fall back to country ("us")
+        if (cur && cur.includes('-')) {
+            setCur(cur.split('-')[0]);
+        } else {
+            setCur(null); // show globe
+        }
+    };
+    return (
+        <img
+            src={`https://flagcdn.com/w40/${cur}.png`}
+            alt=""
+            className={`${className} object-cover rounded shadow shrink-0 border border-gray-700`}
+            onError={handleError}
+        />
+    );
+};
+
+const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChange, activeSearchMode, onActivateMode, countryIndex = [], regionParentIso2 = {} }) => {
     // Start collapsed
     const [isOpen, setIsOpen] = React.useState(false);
 
-    // 'ingredients' | 'name'
+    // 'ingredients' | 'name' | 'country'
     const [searchMode, setSearchMode] = React.useState('ingredients');
 
     // Ingredient search
@@ -21,6 +48,10 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
     // Name search
     const [nameQuery, setNameQuery] = React.useState('');
     const [nameResults, setNameResults] = React.useState([]);
+
+    // Country search
+    const [countryQuery, setCountryQuery] = React.useState('');
+    const [countryResults, setCountryResults] = React.useState([]);
 
     // Load ingredients on mount
     React.useEffect(() => {
@@ -60,6 +91,8 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
             setResults([]);
             setNameQuery('');
             setNameResults([]);
+            setCountryQuery('');
+            setCountryResults([]);
         }
     }, [activeSearchMode]);
 
@@ -102,6 +135,58 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
             onHighlight(Object.keys(matchedMap).length > 0 ? matchedMap : null);
         }
     }, [nameQuery, searchMode, categoryFilters, db, activeSearchMode]);
+
+    // Country search — filters countryIndex (ISO3 countries) + sub-region keys from db
+    React.useEffect(() => {
+        if (searchMode !== 'country' || !countryQuery.trim() || !db) {
+            setCountryResults([]);
+            return;
+        }
+
+        // Build searchable list: GeoJSON countries that have a recipe + all sub-region keys
+        const countryKeySet = new Set(countryIndex.map(c => c.key));
+        const list = [];
+        countryIndex.forEach(({ key, name, iso2 }) => {
+            const recipe = db[key];
+            if (recipe) list.push({ key, name, iso2, dish: recipe.dish, type: 'country' });
+        });
+        // Top-level non-ISO3 keys (e.g. Indian union territories stored at root level)
+        Object.keys(db).forEach(key => {
+            if (!countryKeySet.has(key)) {
+                const parentIso2 = regionParentIso2[key] || null;
+                list.push({ key, name: key, iso2: parentIso2, dish: db[key]?.dish, type: 'region' });
+            }
+        });
+        // Nested sub-regions (db['JPN'].regions.Kyoto, db['ESP'].regions.Cataluña, etc.)
+        Object.entries(db).forEach(([, recipe]) => {
+            if (!recipe || !recipe.regions) return;
+            Object.entries(recipe.regions).forEach(([regionKey, regionRecipe]) => {
+                const parentIso2 = regionParentIso2[regionKey] || null;
+                list.push({
+                    key: regionKey,
+                    name: regionKey,
+                    iso2: parentIso2,
+                    dish: regionRecipe?.dish,
+                    type: 'region'
+                });
+            });
+        });
+
+        const lq = countryQuery.toLowerCase().trim();
+        const filtered = list
+            .filter(c => c.name.toLowerCase().includes(lq))
+            .sort((a, b) => {
+                const al = a.name.toLowerCase(), bl = b.name.toLowerCase();
+                if (al === lq) return -1;
+                if (bl === lq) return 1;
+                if (al.startsWith(lq) && !bl.startsWith(lq)) return -1;
+                if (!al.startsWith(lq) && bl.startsWith(lq)) return 1;
+                return a.name.localeCompare(b.name);
+            })
+            .slice(0, 30);
+
+        setCountryResults(filtered);
+    }, [countryQuery, searchMode, db, countryIndex, regionParentIso2]);
 
     // Ingredient filtering & map highlighting
     React.useEffect(() => {
@@ -190,6 +275,8 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
         setSuggestions([]);
         setNameQuery('');
         setNameResults([]);
+        setCountryQuery('');
+        setCountryResults([]);
     };
 
     const toggleCategory = (key) => {
@@ -216,12 +303,15 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
         return 'food';
     };
 
-    const activeResults = searchMode === 'name' ? nameResults : results;
+    const activeResults = searchMode === 'country' ? countryResults
+        : searchMode === 'name' ? nameResults : results;
     const hasActiveSearch = searchMode === 'ingredients'
         ? selectedIngredients.length > 0
-        : nameQuery.trim().length > 0;
+        : searchMode === 'country'
+            ? countryQuery.trim().length > 0
+            : nameQuery.trim().length > 0;
 
-    const activeCount = selectedIngredients.length + (nameQuery.trim() ? 1 : 0);
+    const activeCount = selectedIngredients.length + (nameQuery.trim() ? 1 : 0) + (countryQuery.trim() ? 1 : 0);
 
     // ── Collapsed state: compact pill bar ──────────────────────────────────────
     if (!isOpen) {
@@ -284,7 +374,7 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
                             : 'text-gray-500 hover:text-gray-300 hover:bg-gray-800/20'
                     }`}
                 >
-                    🧪 By Ingredient
+                    🧪 Ingredient
                 </button>
                 <button
                     onClick={() => setSearchMode('name')}
@@ -294,12 +384,22 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
                             : 'text-gray-500 hover:text-gray-300 hover:bg-gray-800/20'
                     }`}
                 >
-                    🍽 By Name
+                    🍽 Dish
+                </button>
+                <button
+                    onClick={() => setSearchMode('country')}
+                    className={`flex-1 py-2.5 text-[11px] font-bold uppercase tracking-wider transition-colors ${
+                        searchMode === 'country'
+                            ? 'text-blue-400 border-b-2 border-blue-500 bg-gray-800/40'
+                            : 'text-gray-500 hover:text-gray-300 hover:bg-gray-800/20'
+                    }`}
+                >
+                    🌍 Country
                 </button>
             </div>
 
-            {/* ── Category Filters ── */}
-            <div className="px-4 py-3 border-b border-gray-700 bg-gray-800/20 shrink-0">
+            {/* ── Category Filters (hidden in country mode) ── */}
+            {searchMode !== 'country' && <div className="px-4 py-3 border-b border-gray-700 bg-gray-800/20 shrink-0">
                 <div className="flex items-center justify-between mb-2">
                     <span className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Include</span>
                     <span className="text-[10px] text-gray-600 italic">
@@ -327,7 +427,30 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
                         <span>🍰</span><span>Dessert</span>
                     </label>
                 </div>
-            </div>
+            </div>}
+
+            {/* ── Country Search ── */}
+            {searchMode === 'country' && (
+                <div className="p-4 border-b border-gray-700 shrink-0">
+                    <div className="relative">
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">🌍</span>
+                        <input
+                            type="text"
+                            value={countryQuery}
+                            onChange={(e) => { setCountryQuery(e.target.value); onActivateMode(); }}
+                            placeholder="e.g. Fiji, Cataluña, Brittany..."
+                            className="w-full bg-gray-800 border border-gray-600 rounded-lg pl-9 pr-9 py-2 text-sm focus:outline-none focus:border-blue-500 placeholder-gray-500 transition-colors"
+                            autoFocus
+                        />
+                        {countryQuery && (
+                            <button
+                                onClick={() => { setCountryQuery(''); setCountryResults([]); }}
+                                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-200 text-lg leading-none transition-colors"
+                            >&times;</button>
+                        )}
+                    </div>
+                </div>
+            )}
 
             {/* ── Ingredient Search ── */}
             {searchMode === 'ingredients' && (
@@ -449,24 +572,17 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
             {/* ── Results ── */}
             <div className="overflow-y-auto custom-scroll flex-grow">
                 {/* Results header bar */}
-                {hasActiveSearch && (
+                {hasActiveSearch && searchMode !== 'country' && (
                     <div className="px-3 pt-3 pb-1 flex items-center justify-between shrink-0">
                         <span className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">
-                            {activeResults.length > 0 ? `${activeResults.length} countr${activeResults.length === 1 ? 'y' : 'ies'} matched` : 'No matches'}
+                            {activeResults.length > 0 ? `${activeResults.length} match${activeResults.length === 1 ? '' : 'es'}` : 'No matches'}
                         </span>
-                        {hasActiveSearch && (
-                            <button
-                                onClick={clearAll}
-                                className="text-[10px] text-gray-600 hover:text-red-400 font-bold uppercase tracking-wide transition-colors"
-                            >
-                                Clear
-                            </button>
-                        )}
+                        <button onClick={clearAll} className="text-[10px] text-gray-600 hover:text-red-400 font-bold uppercase tracking-wide transition-colors">Clear</button>
                     </div>
                 )}
 
-                {/* No results hint */}
-                {activeResults.length === 0 && hasActiveSearch && (
+                {/* No results hint (ingredient / name modes) */}
+                {activeResults.length === 0 && hasActiveSearch && searchMode !== 'country' && (
                     <div className="text-center py-6 px-4" data-testid="recipe-finder-no-results">
                         <p className="text-gray-400 text-sm mb-1">No recipes found.</p>
                         {searchMode === 'ingredients' && matchMode === 'all' && selectedIngredients.length > 1 && (
@@ -475,17 +591,15 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
                             </p>
                         )}
                         {searchMode === 'ingredients' && (
-                            <p className="text-gray-600 text-xs italic mt-1">
-                                Check that at least one category is enabled above.
-                            </p>
+                            <p className="text-gray-600 text-xs italic mt-1">Check that at least one category is enabled above.</p>
                         )}
                     </div>
                 )}
 
-                {/* Empty state */}
-                {!hasActiveSearch && (
+                {/* Empty state (ingredient / name modes) */}
+                {!hasActiveSearch && searchMode !== 'country' && (
                     <div className="text-center py-8 px-5">
-                        <p className="text-2xl mb-2">{searchMode === 'ingredients' ? '🧂' : '🌍'}</p>
+                        <p className="text-2xl mb-2">{searchMode === 'ingredients' ? '🧂' : '🍽'}</p>
                         <p className="text-gray-500 text-xs leading-relaxed">
                             {searchMode === 'ingredients'
                                 ? 'Type an ingredient and select it to highlight matching countries on the map.'
@@ -494,8 +608,55 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
                     </div>
                 )}
 
-                {/* Result rows */}
-                <div className="p-2">
+                {/* ── Country Results ── */}
+                {searchMode === 'country' && (
+                    <div className="p-2">
+                        {!countryQuery.trim() && (
+                            <div className="text-center py-8 px-5">
+                                <p className="text-2xl mb-2">🌍</p>
+                                <p className="text-gray-500 text-xs leading-relaxed">
+                                    Type a country or region name to fly the map there.
+                                </p>
+                            </div>
+                        )}
+                        {countryQuery.trim() && countryResults.length === 0 && (
+                            <div className="text-center py-6 px-4">
+                                <p className="text-gray-400 text-sm">No places found for "{countryQuery}"</p>
+                            </div>
+                        )}
+                        {countryResults.map(item => (
+                            <div
+                                key={item.key}
+                                onClick={() => onRecipeSelect(item.key)}
+                                className="flex items-center gap-3 p-2 hover:bg-gray-800/70 rounded-lg cursor-pointer transition-colors group"
+                            >
+                                <FlagImg
+                                    code={item.iso2}
+                                    className="w-10 h-7"
+                                />
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-1.5">
+                                        <p className="font-semibold text-sm text-gray-200 group-hover:text-blue-400 transition-colors truncate">
+                                            {item.name}
+                                        </p>
+                                        {item.type === 'region' && (
+                                            <span className="text-[9px] px-1 py-0.5 rounded bg-gray-700 text-gray-400 font-bold uppercase tracking-wide shrink-0">Region</span>
+                                        )}
+                                    </div>
+                                    {item.dish && (
+                                        <p className="text-[11px] text-gray-500 truncate">{item.dish}</p>
+                                    )}
+                                </div>
+                                <svg className="w-3.5 h-3.5 text-gray-600 group-hover:text-blue-400 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {/* Result rows (ingredient / name modes only) */}
+                {searchMode !== 'country' && <div className="p-2">
                     {activeResults.map(recipe => {
                         const matchType = recipe.matchType
                             || (recipe.nameMatches && resolveMatchType(
@@ -505,24 +666,36 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
                             ));
                         const { label, cls } = getMatchBadge(matchType);
 
-                        // Show the name(s) of what actually matched, not always the food dish
+                        // Show the name of what actually matched, with the correct image category.
+                        // Pass recipe.key as geographic context so Bing narrows to the right cuisine.
+                        const ctx = recipe.key || '';
                         const getIngredientDisplayInfo = (recipe, matchType) => {
-                            const foodName = recipe.dish;
-                            const drinkName = recipe.drink?.dish;
+                            const foodName    = recipe.dish;
+                            const drinkName   = recipe.drink?.dish;
                             const dessertName = recipe.dessert?.dish;
                             switch (matchType) {
-                                case 'drink':        return { name: drinkName || foodName,  image: drinkName || foodName };
-                                case 'dessert':      return { name: dessertName || foodName, image: dessertName || foodName };
-                                case 'both':         return { name: `${foodName} / ${drinkName}`,   image: foodName };
-                                case 'food+dessert': return { name: `${foodName} / ${dessertName}`, image: foodName };
-                                case 'drink+dessert':return { name: `${drinkName} / ${dessertName}`,image: drinkName || foodName };
-                                case 'all':          return { name: foodName, image: foodName };
-                                default:             return { name: foodName, image: foodName };
+                                case 'drink':        return { name: drinkName || foodName,           imgSrc: getDrinkImage(drinkName || foodName, ctx) };
+                                case 'dessert':      return { name: dessertName || foodName,         imgSrc: getDessertImage(dessertName || foodName, ctx) };
+                                case 'both':         return { name: `${foodName} / ${drinkName}`,    imgSrc: getDishImage(foodName, ctx) };
+                                case 'food+dessert': return { name: `${foodName} / ${dessertName}`,  imgSrc: getDishImage(foodName, ctx) };
+                                case 'drink+dessert':return { name: `${drinkName} / ${dessertName}`, imgSrc: getDrinkImage(drinkName || foodName, ctx) };
+                                case 'all':          return { name: foodName,                        imgSrc: getDishImage(foodName, ctx) };
+                                default:             return { name: foodName,                        imgSrc: getDishImage(foodName, ctx) };
                             }
                         };
 
-                        const { name: displayName, image: imageTarget } = (searchMode === 'name' && recipe.nameMatches)
-                            ? { name: recipe.nameMatches.map(m => m.name).join(' / '), image: recipe.nameMatches[0].name }
+                        const getNameMatchInfo = () => {
+                            if (!recipe.nameMatches) return { name: recipe.dish, imgSrc: getDishImage(recipe.dish, ctx) };
+                            const names = recipe.nameMatches.map(m => m.name).join(' / ');
+                            const first = recipe.nameMatches[0];
+                            const imgSrc = first.type === 'drink'   ? getDrinkImage(first.name, ctx)
+                                         : first.type === 'dessert' ? getDessertImage(first.name, ctx)
+                                         : getDishImage(first.name, ctx);
+                            return { name: names, imgSrc };
+                        };
+
+                        const { name: displayName, imgSrc } = (searchMode === 'name' && recipe.nameMatches)
+                            ? getNameMatchInfo()
                             : getIngredientDisplayInfo(recipe, matchType);
 
                         return (
@@ -532,8 +705,8 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
                             className="flex items-center gap-3 p-2 hover:bg-gray-800/70 rounded-lg cursor-pointer transition-colors group"
                             data-testid="recipe-result"
                         >
-                                <img
-                                    src={getDishImage(imageTarget)}
+                                <FoodImage
+                                    src={imgSrc}
                                     alt={displayName}
                                     className="w-11 h-11 rounded-lg object-cover bg-gray-700 border border-gray-700 group-hover:border-yellow-600 transition-colors shrink-0"
                                 />
@@ -554,7 +727,7 @@ const RecipeFinder = ({ db, onRecipeSelect, onHighlight, onSearchIngredientsChan
                             </div>
                         );
                     })}
-                </div>
+                </div>}
             </div>
         </div>
     );

@@ -9,7 +9,8 @@ const RecipeCard = ({ country, onClose, db, searchIngredients = [], initialTab =
     if (!country) return null;
 
     // Get data or fallback
-    let fullData = window.getRecipeFromDB(db, country.cca3) || window.getRecipeFromDB(db, country.name.common);
+    const parentHint = country.parentIso3 || null;
+    let fullData = window.getRecipeFromDB(db, country.cca3, parentHint) || window.getRecipeFromDB(db, country.name.common, parentHint);
     
     if (!fullData) {
         fullData = getGenericRecipe(country.name.common);
@@ -27,7 +28,10 @@ const RecipeCard = ({ country, onClose, db, searchIngredients = [], initialTab =
         : safeTab === 'dessert' && hasDessert ? fullData.dessert
         : fullData;
 
-    const imageUrl = getDishImage(displayData.dish);
+    const countryCtx = country.name?.common || '';
+    const imageUrl = safeTab === 'drink'   ? getDrinkImage(displayData.dish, countryCtx)
+                   : safeTab === 'dessert' ? getDessertImage(displayData.dish, countryCtx)
+                   : getDishImage(displayData.dish, countryCtx);
     const theme = getCountryTheme(country.cca3);
     
     // Flag URL - use CDN if cca2 exists, otherwise fallback to search
@@ -146,14 +150,10 @@ const RecipeCard = ({ country, onClose, db, searchIngredients = [], initialTab =
         >
             {/* Header */}
             <div className="relative h-44 shrink-0 bg-neutral-900">
-                 <img 
-                    src={imageUrl} 
-                    alt={displayData.dish} 
+                <FoodImage
+                    src={imageUrl}
+                    alt={displayData.dish}
                     className="w-full h-full object-cover"
-                    onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = "https://placehold.co/600x400/1f2937/94a3b8?text=No+Image";
-                    }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0f1419] via-transparent to-transparent" />
                 
